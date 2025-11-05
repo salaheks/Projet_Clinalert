@@ -1,0 +1,242 @@
+% ClinAlert — Rapport de Projet (LaTeX, design raffiné)
+\documentclass[11pt,a4paper]{report}
+
+% Encodage et langue
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% Mise en page et polices
+\usepackage{geometry}
+\geometry{margin=2.2cm}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Couleurs / liens / graphiques
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=primaryBlue!80!black,urlcolor=primaryBlue!80!black,citecolor=primaryBlue!80!black}
+
+% Titres
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\bfseries\LARGE\color{darkGrey}}{\filright\Large\color{primaryBlue}\thechapter}{1ex}{\titlerule[1pt]\vspace{1ex}\filright}
+\titleformat{\section}{\large\bfseries\color{darkGrey}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{darkGrey}}{\thesubsection}{0.5em}{}
+
+% Thème ClinAlert
+\definecolor{primaryBlue}{RGB}{25,118,210}
+\definecolor{primaryGreen}{RGB}{67,160,71}
+\definecolor{darkGrey}{RGB}{62,62,62}
+\definecolor{liteGrey}{RGB}{240,240,240}
+
+% Blocs stylés
+\newenvironment{callout}[1][primaryBlue]{\par\vspace{6pt}\noindent\color{#1}\fboxsep=8pt\fboxrule=0pt\begingroup\setlength{\fboxsep}{10pt}\begin{minipage}{\dimexpr\linewidth-0pt\relax}}{\end{minipage}\endgroup\par\vspace{10pt}}
+
+% Commandes utilitaires
+\newcommand{\appname}{ClinAlert}
+\newcommand{\placeholder}[1]{\fcolorbox{primaryBlue!30}{liteGrey}{\rule{0pt}{0.0ex}\hspace{0.5em}\textit{#1}\hspace{0.5em}}}
+
+\begin{document}
+
+% Page de titre
+\begin{titlepage}
+  \centering
+  {\sffamily\bfseries\Huge\color{primaryBlue} \appname\\[0.4cm]}
+  {\Large Système de surveillance clinique et alertes intelligentes}\vfill
+  \includegraphics[width=0.22\textwidth]{images/logo.png}\\[1.2cm]
+  \begin{tabular}{ll}
+    \textbf{Date} & \today \\
+    \textbf{Plateforme} & Flutter (Front) \\
+    \textbf{Langage} & Dart \\
+  \end{tabular}
+  \vfill
+  {\small Ce document présente la problématique, les objectifs, l'architecture, le design d'interface, un plan backend Spring Boot et les évolutions futures.}
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+\begin{callout}
+\appname{} est une application Flutter multi-rôles (médecin, infirmier, patient) pour suivre les constantes vitales, centraliser les alertes et fluidifier la collaboration via messagerie. La navigation repose sur GoRouter avec gardes d'authentification, et le design applique un thème moderne bleu/vert, clair/sombre.
+\end{callout}
+
+\chapter{Problématique}
+Les établissements de santé doivent surveiller efficacement des flux vitaux variés, prioriser les alertes et coordonner les équipes, tout en garantissant sécurité et simplicité d'usage. Les défis majeurs incluent:
+\begin{itemize}[nosep]
+  \item \textbf{Consolidation} des données patients et constantes en temps quasi réel.
+  \item \textbf{Détection} et \textbf{priorisation} d'alertes critiques.
+  \item \textbf{Communication} transverse entre rôles (médecin/infirmier/patient).
+  \item \textbf{Sécurité} et contrôle d'accès par rôles.
+\end{itemize}
+
+\chapter{Objectifs}
+\begin{itemize}[nosep]
+  \item Authentification, gestion d'état et routage sécurisé par rôles.
+  \item Tableaux de bord dédiés avec cartes de stats et graphiques de tendances.
+  \item Visualisation des constantes (grilles, courbes) et historique patient.
+  \item Gestion d'alertes et notifications, intégration messagerie.
+  \item Base solide pour un backend Spring Boot (REST, JWT, WebSocket).
+\end{itemize}
+
+\chapter{Architecture du projet}
+\section{Structure Flutter}
+\begin{tabularx}{\textwidth}{lX}
+  \toprule
+  \texttt{lib/main.dart} & Providers (AuthService, AuthProvider, ThemeProvider, MessageService), MaterialApp.router, GoRouter, AuthGuard. \\
+  \texttt{lib/screens/} & Écrans: Login, Create Profile, Dashboards, Alerts, Chat, etc. \\
+  \texttt{lib/models/} & Modèles: User, Patient, VitalSign, Alert, Message. \\
+  \texttt{lib/services/} & Auth, messages, notifications, export. \\
+  \texttt{lib/providers/} & AuthProvider, ThemeProvider. \\
+  \texttt{lib/widgets/} & UI réutilisable: CustomAppBar, StatCard, ChartWidget, etc. \\
+  \texttt{lib/themes/app\_theme.dart} & Thèmes clair/sombre, palette (primaryBlue, primaryGreen, darkGrey). \\
+  \bottomrule
+\end{tabularx}
+
+\section{Navigation et sécurité}
+GoRouter applique des redirections automatiques:\\[-0.6em]
+\begin{itemize}[nosep]
+  \item vers \texttt{/login} si non authentifié;
+  \item vers le tableau de bord du rôle après connexion;
+  \item AuthGuard protège les routes et renvoie vers \texttt{/unauthorized} si nécessaire.
+\end{itemize}
+
+\section{Tableaux de bord par rôle}
+\begin{itemize}[nosep]
+  \item \textbf{Médecin}: patients assignés, alertes actives, stats, graphes, accès Alerts et Chat.
+  \item \textbf{Infirmier}: structure analogue (écran présent, extensible selon besoins).
+  \item \textbf{Patient}: accueil santé, insights, grille des constantes (FC, TA, Temp, SpO2), historique.
+\end{itemize}
+
+\chapter{Design et expérience utilisateur}
+\textbf{Principes}: hiérarchie visuelle nette, animations subtiles, composants cohérents, contraste suffisant et mode sombre. Palette bleu/vert inspirée du code (primaryBlue/primaryGreen), typographie lisible et cartes informatives.
+
+\chapter{Écrans de l'application}
+Insérez vos captures dans \texttt{docs/images/}. Les figures ci-dessous pointent vers des noms par défaut (modifiez au besoin).
+
+\section{Bienvenue}
+\begin{figure}[H]\centering
+\includegraphics[width=0.62\textwidth]{images/welcome.png}
+\caption{Welcome Screen — introduction et APRES accès à l’authentification}
+\end{figure}
+
+\section{Connexion (Login)}
+\begin{figure}[H]\centering
+\includegraphics[width=0.62\textwidth]{images/login.png}
+\caption{Login — email/mot de passe, animations, accès \og Create Profile \fg{}}
+\end{figure}
+
+\section{Création de profil}
+\begin{figure}[H]\centering
+\includegraphics[width=0.62\textwidth]{images/create_profile.png}
+\caption{Create Profile — avatar, rôle, informations de base}
+\end{figure}
+
+\section{Tableau de bord Médecin}
+\begin{figure}[H]\centering
+\includegraphics[width=0.62\textwidth]{images/doctor_dashboard.png}
+\caption{Doctor Dashboard — patients, alertes, stats et graphiques}
+\end{figure}
+
+\section{Tableau de bord Patient}
+\begin{figure}[H]\centering
+\includegraphics[width=0.62\textwidth]{images/patient_dashboard.png}
+\caption{Patient Dashboard — insights, courbes hebdomadaires, constantes}
+\end{figure}
+
+\section{Historique, Alertes, Messagerie}
+\begin{figure}[H]\centering
+\includegraphics[width=0.45\textwidth]{images/patient_history.png}\hfill
+\includegraphics[width=0.45\textwidth]{images/alerts.png}
+\caption{Historique patient et liste d'alertes}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[width=0.45\textwidth]{images/chat_list.png}\hfill
+\includegraphics[width=0.45\textwidth]{images/chat.png}
+\caption{Chat List et Chat — communication entre rôles}
+\end{figure}
+
+\chapter{Modèles de données (synthèse)}
+\begin{itemize}[nosep]
+  \item \textbf{User}: id, prénom, nom, email, téléphone, rôle, createdAt.
+  \item \textbf{Patient}: id, patientId, user, date de naissance, groupe sanguin, statut, createdAt.
+  \item \textbf{VitalSign}: id, patientId, type (heartRate, bloodPressure, temperature, oxygenSaturation), valeur, unité, timestamp.
+  \item \textbf{Alert}: id, patientId, type, sévérité, message, timestamp.
+  \item \textbf{Message}: id, senderId, receiverId/threadId, contenu, horodatage.
+\end{itemize}
+
+\chapter{Flux principaux}
+\section{Authentification et rôles}
+Email/mot de passe, redirection automatique vers le tableau de bord lié au rôle. AuthGuard applique le contrôle d'accès.
+
+\section{Surveillance et alertes}
+Constantes visualisées en cartes, grilles et courbes. Alertes mises en évidence avec actions rapides.
+
+\section{Communication}
+Liste des conversations et chat dédiés pour la coordination des soins.
+
+\chapter{Backend Spring Boot — Plan d'intégration}
+\section{Architecture cible}
+\begin{itemize}[nosep]
+  \item \textbf{REST API}: services Auth, Users, Patients, Vitals, Alerts, Messages.
+  \item \textbf{Sécurité}: Spring Security + JWT (rôles médecin/infirmier/patient).
+  \item \textbf{BD}: PostgreSQL (schéma: users, patients, vitals, alerts, messages).
+  \item \textbf{Temps réel}: WebSocket/STOMP pour alertes et chat.
+  \item \textbf{Notifications}: Push (FCM), export (CSV/PDF).
+\end{itemize}
+
+\section{Endpoints (exemples)}
+\begin{tabularx}{\textwidth}{lX}
+  \toprule
+  POST /auth/login & Authentification, renvoie JWT. \\
+  POST /auth/signup & Création compte + profil (rôle). \\
+  GET /patients & Liste paginée, filtres. \\
+  GET /patients/{id}/vitals & Constantes du patient, périodes. \\
+  GET /alerts?status=active & Alertes actives. \\
+  POST /messages & Envoi message; WebSocket pour réception. \\
+  \bottomrule
+\end{tabularx}
+
+\section{Feuille de route}
+\begin{enumerate}[nosep]
+  \item Initialiser projet (Spring Boot), modules core/api/security.
+  \item Entités JPA et migrations (Flyway/Liquibase).
+  \item Auth JWT (login, refresh, rôles) et filtres.
+  \item Endpoints REST (DTO, validation, gestion erreurs).
+  \item WebSocket pour alertes/messages.
+  \item Intégration Flutter: client HTTP, stockage JWT, guards.
+  \item Observabilité: logs structurés, métriques.
+\end{enumerate}
+
+\chapter{Évolutions futures}
+\begin{itemize}[nosep]
+  \item Détection d'anomalies par IA (seuils adaptatifs, tendances).
+  \item Intégration IoT (Bluetooth/WiFi) pour flux vitaux en continu.
+  \item Dossiers médicaux partagés, export avancé (PDF signés, rapports).
+  \item Règles d'escalade d'alertes (priorisation, acquittement, routage équipe).
+  \item Internationalisation et accessibilité renforcée.
+\end{itemize}
+
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+\appname{} fournit une base robuste et moderne. Le backend Spring Boot apportera persistance, sécurité avancée et temps réel à l'échelle.
+
+\appendix
+\chapter{Guide de compilation}
+\begin{itemize}[nosep]
+  \item Placez les captures dans \texttt{docs/images/} (ex.: login.png, doctor\_dashboard.png).
+  \item Compiler depuis \texttt{docs/}: \texttt{pdflatex report.tex} (deux fois pour la TOC).
+\end{itemize}
+
+\end{document}
+
+
