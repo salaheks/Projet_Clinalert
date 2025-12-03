@@ -89,7 +89,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
             child: CircleAvatar(
-              backgroundColor: AppThemes.primaryBlue.withOpacity(0.1),
+              backgroundColor: AppThemes.primaryBlue.withAlpha(26),
               child: Text(
                 authProvider.getUserInitials(),
                 style: const TextStyle(color: AppThemes.primaryBlue, fontWeight: FontWeight.bold),

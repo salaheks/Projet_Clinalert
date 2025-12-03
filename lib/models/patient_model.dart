@@ -49,6 +49,8 @@ class Patient {
   }
 
   String get fullName => user.fullName;
+  String get firstName => user.firstName;
+  String get lastName => user.lastName;
   String get email => user.email;
   String get phone => user.phone;
   String? get profileImage => user.profileImage;

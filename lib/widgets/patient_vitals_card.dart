@@ -20,7 +20,7 @@ class PatientVitalsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
           color: alertLevel != AlertLevel.none
-              ? alertLevel.color.withOpacity(0.7)
+              ? alertLevel.color.withAlpha(179)
               : Colors.transparent,
           width: 1.5,
         ),

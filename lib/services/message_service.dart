@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/message_model.dart';
+import 'package:uuid/uuid.dart';
 import '../models/user_model.dart';
 
 class MessageService extends ChangeNotifier {
@@ -45,7 +46,7 @@ class MessageService extends ChangeNotifier {
     required String text,
   }) async {
     final message = Message(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: const Uuid().v4(),
       conversationId: conversationId,
       senderId: senderId,
       senderName: senderName,

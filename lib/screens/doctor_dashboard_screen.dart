@@ -9,12 +9,13 @@ import '../providers/auth_provider.dart';
 import 'alerts_screen.dart';
 import 'chat_list_screen.dart';
 import '../widgets/adaptive_scaffold.dart';
-import '../widgets/stat_card.dart';
-import '../widgets/alert_card.dart';
+import '../widgets/health_stat_card.dart';
+import '../widgets/modern_card.dart';
 import '../widgets/chart_widget.dart';
 import '../widgets/chat_icon_button.dart';
 import 'package:go_router/go_router.dart';
 import 'patients_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DoctorDashboardScreen extends StatelessWidget {
   const DoctorDashboardScreen({super.key});
@@ -78,75 +79,117 @@ class DoctorDashboardScreen extends StatelessWidget {
     ];
 
     final appBar = CustomAppBar(
-        title: 'Doctor Dashboard',
-        user: authProvider.currentUser,
-        onLogout: () => authProvider.logout(),
-        actions: [
-          ChatIconButton(
-            onPressed: () => context.go('/chat-list'),
+      title: 'Doctor Dashboard',
+      user: authProvider.currentUser,
+      onLogout: () => authProvider.logout(),
+      actions: [
+        ChatIconButton(
+          onPressed: () => context.go('/chat-list'),
+        ),
+        IconButton(
+          icon: const Icon(Icons.notifications_active_outlined),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const AlertsScreen()),
           ),
-          IconButton(
-            icon: const Icon(Icons.notifications_active),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const AlertsScreen()),
-            ),
-          ),
-        ],
-      );
+        ),
+      ],
+    );
 
     final body = CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: _DoctorHeader(),
-            ),
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+            child: _DoctorHeader(),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: _QuickActions(
-                onAlerts: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AlertsScreen())),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          sliver: SliverGrid.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            childAspectRatio: 1.1,
+            children: [
+              HealthStatCard(
+                title: 'Assigned Patients',
+                value: patients.length.toString(),
+                unit: 'Active',
+                icon: Icons.people,
+                iconColor: Colors.blue,
+                onTap: () {},
+              ),
+              HealthStatCard(
+                title: 'Critical Alerts',
+                value: '3',
+                unit: 'New',
+                icon: Icons.warning_amber_rounded,
+                iconColor: Colors.red,
+                trend: '+1',
+                isPositiveTrend: false,
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AlertsScreen())),
+              ),
+            ],
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+            child: ModernCard(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Patient Analytics',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  const SizedBox(
+                    height: 200,
+                    child: ChartWidget(
+                      data: [70, 82, 76, 88, 90, 79, 85],
+                      color: Color(0xFF0066FF),
+                      title: '',
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: LayoutBuilder(builder: (context, c) {
-                final isWide = MediaQuery.of(context).size.width >= 900;
-                return Row(
-                  children: [
-                    Expanded(child: StatCard(icon: Icons.people, label: 'Assigned Patients', value: patients.length.toString(), color: const Color(0xFF00BCD4))),
-                    const SizedBox(width: 12),
-                    Expanded(child: StatCard(icon: Icons.warning_amber_rounded, label: 'Active Alerts', value: '3', color: const Color(0xFFE53935))),
-                    if (isWide) ...[
-                      const SizedBox(width: 12),
-                      Expanded(child: StatCard(icon: Icons.analytics, label: 'Avg HR', value: '79 bpm', color: const Color(0xFF4CAF50))),
-                    ],
-                  ],
-                );
-              }),
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Recent Patients',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PatientsScreen())),
+                  child: const Text('View All'),
+                ),
+              ],
             ),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ChartWidget(
-                data: const [70, 82, 76, 88, 90, 79, 85],
-                color: const Color(0xFF00BCD4),
-                title: 'Patient Analytics (HR trend)',
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
-            sliver: SliverList.builder(
-              itemCount: patients.length,
-              itemBuilder: (context, index) {
-                final patient = patients[index];
-                return PatientCard(
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 80),
+          sliver: SliverList.builder(
+            itemCount: patients.length,
+            itemBuilder: (context, index) {
+              final patient = patients[index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: PatientCard(
                   patient: patient,
                   onTap: () {
                     Navigator.push(
@@ -156,12 +199,13 @@ class DoctorDashboardScreen extends StatelessWidget {
                       ),
                     );
                   },
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
-        ],
-      );
+        ),
+      ],
+    );
 
     return AdaptiveScaffold(
       appBar: appBar,
@@ -182,15 +226,7 @@ class DoctorDashboardScreen extends StatelessWidget {
           return;
         }
       },
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const AlertsScreen()),
-        ),
-        backgroundColor: Colors.redAccent,
-        icon: const Icon(Icons.warning_amber_rounded, color: Colors.white),
-        label: const Text('Alerts', style: TextStyle(color: Colors.white)),
-      ),
+      floatingActionButton: null,
     );
   }
 }
@@ -198,112 +234,58 @@ class DoctorDashboardScreen extends StatelessWidget {
 class _DoctorHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.blue.shade600, Colors.blue.shade400],
+        gradient: const LinearGradient(
+          colors: [Color(0xFF0066FF), Color(0xFF00C4B4)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0066FF).withOpacity(0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(24),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.local_hospital, color: Colors.white),
+            child: const Icon(Icons.medical_services, color: Colors.white, size: 28),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Today Overview', style: theme.textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                Text(
+                  'Good Morning, Dr.',
+                  style: GoogleFonts.inter(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 16,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text('Monitor patients and review alerts', style: theme.textTheme.bodySmall?.copyWith(color: Colors.white70)),
+                Text(
+                  'Overview',
+                  style: GoogleFonts.inter(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
-          _StatChip(label: 'Patients', value: '12'),
-          const SizedBox(width: 8),
-          _StatChip(label: 'Alerts', value: '3'),
         ],
-      ),
-    );
-  }
-}
-
-class _StatChip extends StatelessWidget {
-  final String label;
-  final String value;
-  const _StatChip({required this.label, required this.value});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
-        ],
-      ),
-    );
-  }
-}
-
-class _QuickActions extends StatelessWidget {
-  final VoidCallback onAlerts;
-  const _QuickActions({required this.onAlerts});
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: [
-        _ActionChip(icon: Icons.warning_amber_rounded, label: 'Alerts', color: Colors.redAccent, onTap: onAlerts),
-        _ActionChip(icon: Icons.search, label: 'Search', color: Colors.blueGrey, onTap: () {}),
-        _ActionChip(icon: Icons.calendar_today, label: 'Schedule', color: Colors.indigo, onTap: () {}),
-      ],
-    );
-  }
-}
-
-class _ActionChip extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-  const _ActionChip({required this.icon, required this.label, required this.color, required this.onTap});
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withOpacity(0.2)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, color: color),
-            const SizedBox(width: 8),
-            Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w600)),
-          ],
-        ),
       ),
     );
   }

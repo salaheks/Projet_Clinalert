@@ -1,0 +1,8 @@
+{
+    "maven.includedProjects": [
+        "backend/doctortracker-backend/pom.xml"
+    ],
+    "java.import.maven.enabled": true,
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic"
+}

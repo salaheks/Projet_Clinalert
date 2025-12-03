@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import '../models/user_model.dart';
 
 class AuthService extends ChangeNotifier {
@@ -90,7 +91,7 @@ class AuthService extends ChangeNotifier {
       
       // Mock signup - in real app, this would create user in backend
       _currentUser = User(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: const Uuid().v4(),
         firstName: firstName,
         lastName: lastName,
         email: email,

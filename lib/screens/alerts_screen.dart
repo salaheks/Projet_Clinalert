@@ -4,6 +4,9 @@ import '../models/alert_model.dart';
 import '../models/vital_sign_model.dart';
 import '../themes/app_theme.dart';
 import '../providers/auth_provider.dart';
+import '../widgets/modern_card.dart';
+import '../widgets/modern_badge.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AlertsScreen extends StatelessWidget {
   const AlertsScreen({super.key});
@@ -48,41 +51,93 @@ class AlertsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Alerts'),
-        backgroundColor: AppThemes.primaryBlue,
-        foregroundColor: Colors.white,
+        title: Text(
+          'Alerts',
+          style: GoogleFonts.inter(fontWeight: FontWeight.w600),
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
       ),
       body: ListView.separated(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         itemCount: mockAlerts.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
+        separatorBuilder: (_, __) => const SizedBox(height: 16),
         itemBuilder: (context, index) {
           final alert = mockAlerts[index];
-          return Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: _levelColor(alert.level).withOpacity(0.15),
-                child: Icon(_levelIcon(alert.level), color: _levelColor(alert.level)),
-              ),
-              title: Text(alert.title, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 4),
-                  Text(alert.description),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Patient: ${alert.patientId} • ${alert.levelDisplayName}',
-                    style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+          return ModernCard(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: _levelColor(alert.level).withOpacity(0.1),
+                    shape: BoxShape.circle,
                   ),
-                ],
-              ),
-              trailing: Text(
-                _formatSince(alert.timeSinceCreated),
-                style: theme.textTheme.bodySmall,
-              ),
-              onTap: () {},
+                  child: Icon(_levelIcon(alert.level), color: _levelColor(alert.level)),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              alert.title,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            _formatSince(alert.timeSinceCreated),
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: Colors.grey[500],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        alert.description,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          ModernBadge(
+                            text: alert.levelDisplayName.toUpperCase(),
+                            color: _levelColor(alert.level),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              'ID: ${alert.patientId}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           );
         },
@@ -91,7 +146,7 @@ class AlertsScreen extends StatelessWidget {
   }
 
   String _formatSince(Duration d) {
-    if (d.inMinutes < 1) return 'now';
+    if (d.inMinutes < 1) return 'Just now';
     if (d.inMinutes < 60) return '${d.inMinutes}m ago';
     final hours = d.inHours;
     return '${hours}h ago';
@@ -100,15 +155,15 @@ class AlertsScreen extends StatelessWidget {
   IconData _levelIcon(AlertLevel level) {
     switch (level) {
       case AlertLevel.low:
-        return Icons.check_circle;
+        return Icons.check_circle_outline;
       case AlertLevel.medium:
-        return Icons.error_outline;
+        return Icons.info_outline;
       case AlertLevel.high:
         return Icons.warning_amber_rounded;
       case AlertLevel.critical:
-        return Icons.dangerous;
+        return Icons.dangerous_outlined;
       case AlertLevel.none:
-        return Icons.circle;
+        return Icons.circle_notifications_outlined;
     }
   }
 
@@ -121,7 +176,7 @@ class AlertsScreen extends StatelessWidget {
       case AlertLevel.high:
         return Colors.deepOrange;
       case AlertLevel.critical:
-        return AppThemes.alertRed;
+        return AppThemes.errorRed;
       case AlertLevel.none:
         return Colors.grey;
     }

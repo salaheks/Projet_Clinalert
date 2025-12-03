@@ -1,0 +1,6 @@
+com\clinalert\doctortracker\model\Patient.class
+com\clinalert\doctortracker\repository\DoctorRepository.class
+com\clinalert\doctortracker\repository\PatientRepository.class
+com\clinalert\doctortracker\model\Doctor.class
+com\clinalert\doctortracker\model\Measurement.class
+com\clinalert\doctortracker\service\DoctorService.class

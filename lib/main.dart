@@ -1,9 +1,16 @@
+import 'package:clinalert/screens/ble_scan_screen.dart';
+import 'package:clinalert/services/ble_service.dart';
+import 'package:clinalert/services/storage_service.dart';
+import 'package:clinalert/services/api_service.dart';
+import 'package:clinalert/screens/send_to_doctor_screen.dart';
+import 'package:clinalert/screens/measurement_screen.dart';
 import 'package:clinalert/screens/doctor_dashboard_screen.dart';
 import 'package:clinalert/screens/nurse_dashboard_screen.dart';
 import 'package:clinalert/screens/patient_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'services/auth_service.dart';
 import 'providers/auth_provider.dart';
 import 'themes/app_theme.dart';
@@ -18,17 +25,26 @@ import 'screens/chat_screen.dart';
 import 'screens/chat_list_screen.dart';
 import 'services/message_service.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final storageService = StorageService();
+  await storageService.init();
+  
+  runApp(MyApp(storageService: storageService));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final StorageService storageService;
+  
+  const MyApp({super.key, required this.storageService});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<StorageService>.value(value: storageService),
+        Provider<BleService>(create: (_) => BleService()),
+        Provider<ApiService>(create: (_) => ApiService()),
         ChangeNotifierProvider<AuthService>(create: (_) => AuthService()),
         ChangeNotifierProvider(
           create: (context) => AuthProvider(context.read<AuthService>()),
@@ -182,6 +198,24 @@ final GoRouter _router = GoRouter(
       ),
     ),
     
+    // BLE Routes
+    GoRoute(
+      path: '/ble-scan',
+      builder: (context, state) => const BleScanScreen(),
+    ),
+    GoRoute(
+      path: '/send-to-doctor',
+      builder: (context, state) => const SendToDoctorScreen(),
+    ),
+    GoRoute(
+      path: '/measurement',
+      builder: (context, state) {
+        final device = state.extra as DiscoveredDevice;
+        // In a real app, get patientId from AuthProvider
+        return MeasurementScreen(device: device, patientId: 'current_patient_id');
+      },
+    ),
+
     // Unauthorized Page
     GoRoute(
       path: '/unauthorized',
