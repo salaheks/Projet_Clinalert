@@ -6,11 +6,15 @@
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 
-% Mise en page et polices
+% Mise en page et polices (Standards PAQP)
 \usepackage{geometry}
-\geometry{margin=2.2cm}
+\geometry{margin=2.54cm} % Marge standard PAQP
 \usepackage{lmodern}
+\usepackage{helvet} % Police Sans-Serif (proche Tahoma)
+\renewcommand{\familydefault}{\sfdefault} % Texte par défaut en sans-serif
 \usepackage{microtype}
+\usepackage{setspace}
+\singlespacing % Interligne simple standard PAQP
 
 % Couleurs / liens / graphiques
 \usepackage{xcolor}
@@ -48,9 +52,13 @@
   \centering
   {\sffamily\bfseries\Huge\color{primaryBlue} \appname\\[0.4cm]}
   {\Large Système de surveillance clinique et alertes intelligentes}\vfill
-  \includegraphics[width=0.22\textwidth]{images/logo.png}\\[1.2cm]
+  
+  \IfFileExists{images/logo.png}{\includegraphics[width=0.22\textwidth]{images/logo.png}\\[1.2cm]}{}
+  
   \begin{tabular}{ll}
     \textbf{Date} & \today \\
+    \textbf{Version} & 1.0 \\
+    \textbf{Statut} & Validé \\
     \textbf{Plateforme} & Flutter (Front) \\
     \textbf{Langage} & Dart \\
   \end{tabular}
@@ -60,6 +68,19 @@
 
 \pagenumbering{roman}
 \tableofcontents
+
+% Historique des modifications (Standard PAQP)
+\clearpage
+\chapter*{Historique des modifications}
+\addcontentsline{toc}{chapter}{Historique des modifications}
+\begin{tabularx}{\textwidth}{|l|l|X|l|}
+\hline
+\textbf{Date} & \textbf{Version} & \textbf{Description} & \textbf{Auteur} \\
+\hline
+\today & 1.0 & Création initiale du rapport & Équipe Projet \\
+\hline
+\end{tabularx}
+
 \clearpage
 \pagenumbering{arabic}
 
@@ -124,44 +145,44 @@ Insérez vos captures dans \texttt{docs/images/}. Les figures ci-dessous pointen
 
 \section{Bienvenue}
 \begin{figure}[H]\centering
-\includegraphics[width=0.62\textwidth]{images/welcome.png}
+\IfFileExists{images/welcome.png}{\includegraphics[width=0.62\textwidth]{images/welcome.png}}{\placeholder{Capture Welcome}}
 \caption{Welcome Screen — introduction et APRES accès à l’authentification}
 \end{figure}
 
 \section{Connexion (Login)}
 \begin{figure}[H]\centering
-\includegraphics[width=0.62\textwidth]{images/login.png}
+\IfFileExists{images/login.png}{\includegraphics[width=0.62\textwidth]{images/login.png}}{\placeholder{Capture Login}}
 \caption{Login — email/mot de passe, animations, accès \og Create Profile \fg{}}
 \end{figure}
 
 \section{Création de profil}
 \begin{figure}[H]\centering
-\includegraphics[width=0.62\textwidth]{images/create_profile.png}
+\IfFileExists{images/create_profile.png}{\includegraphics[width=0.62\textwidth]{images/create_profile.png}}{\placeholder{Capture Create Profile}}
 \caption{Create Profile — avatar, rôle, informations de base}
 \end{figure}
 
 \section{Tableau de bord Médecin}
 \begin{figure}[H]\centering
-\includegraphics[width=0.62\textwidth]{images/doctor_dashboard.png}
+\IfFileExists{images/doctor_dashboard.png}{\includegraphics[width=0.62\textwidth]{images/doctor_dashboard.png}}{\placeholder{Capture Doctor Dashboard}}
 \caption{Doctor Dashboard — patients, alertes, stats et graphiques}
 \end{figure}
 
 \section{Tableau de bord Patient}
 \begin{figure}[H]\centering
-\includegraphics[width=0.62\textwidth]{images/patient_dashboard.png}
+\IfFileExists{images/patient_dashboard.png}{\includegraphics[width=0.62\textwidth]{images/patient_dashboard.png}}{\placeholder{Capture Patient Dashboard}}
 \caption{Patient Dashboard — insights, courbes hebdomadaires, constantes}
 \end{figure}
 
 \section{Historique, Alertes, Messagerie}
 \begin{figure}[H]\centering
-\includegraphics[width=0.45\textwidth]{images/patient_history.png}\hfill
-\includegraphics[width=0.45\textwidth]{images/alerts.png}
+\IfFileExists{images/patient_history.png}{\includegraphics[width=0.45\textwidth]{images/patient_history.png}}{\placeholder{Capture History}}\hfill
+\IfFileExists{images/alerts.png}{\includegraphics[width=0.45\textwidth]{images/alerts.png}}{\placeholder{Capture Alerts}}
 \caption{Historique patient et liste d'alertes}
 \end{figure}
 
 \begin{figure}[H]\centering
-\includegraphics[width=0.45\textwidth]{images/chat_list.png}\hfill
-\includegraphics[width=0.45\textwidth]{images/chat.png}
+\IfFileExists{images/chat_list.png}{\includegraphics[width=0.45\textwidth]{images/chat_list.png}}{\placeholder{Capture Chat List}}\hfill
+\IfFileExists{images/chat.png}{\includegraphics[width=0.45\textwidth]{images/chat.png}}{\placeholder{Capture Chat}}
 \caption{Chat List et Chat — communication entre rôles}
 \end{figure}
 

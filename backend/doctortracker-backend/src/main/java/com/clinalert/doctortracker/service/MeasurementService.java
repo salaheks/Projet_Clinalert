@@ -17,6 +17,9 @@ public class MeasurementService {
     @Autowired
     private AlertService alertService;
 
+    @Autowired
+    private AnomalyDetectionService anomalyDetectionService;
+
     @SuppressWarnings("null")
     public List<Measurement> saveMeasurements(List<Measurement> measurements) {
         List<Measurement> saved = measurementRepository.saveAll(measurements);
@@ -34,6 +37,11 @@ public class MeasurementService {
     }
 
     private void checkAndCreateAlert(Measurement m) {
+        // AI Anomaly Detection
+        if (anomalyDetectionService.isAnomaly(m)) {
+            createAlert(m, "Abnormal trend detected for " + m.getType(), "WARNING");
+        }
+
         if ("Heart Rate".equalsIgnoreCase(m.getType())) {
             if (m.getValue() > 100) {
                 createAlert(m, "High Heart Rate detected: " + m.getValue(), "HIGH");

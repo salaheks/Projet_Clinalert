@@ -1,0 +1,14 @@
+{
+  "appTitle": "ClinAlert",
+  "dashboard": "Dashboard",
+  "patients": "Patients",
+  "alerts": "Alerts",
+  "chat": "Chat",
+  "settings": "Settings",
+  "exportReport": "Export Report",
+  "anomalyDetected": "Anomaly Detected",
+  "connectDevice": "Connect Device",
+  "scanning": "Scanning...",
+  "connected": "Connected",
+  "disconnected": "Disconnected"
+}

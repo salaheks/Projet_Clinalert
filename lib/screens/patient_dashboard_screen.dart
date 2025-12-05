@@ -197,6 +197,19 @@ class PatientDashboardScreen extends StatelessWidget {
                     subtitle: 'Check past records',
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PatientHistoryScreen())),
                   ),
+                  const Divider(height: 1),
+                  _ActionTile(
+                    icon: Icons.picture_as_pdf,
+                    color: Colors.red,
+                    title: 'Export Report',
+                    subtitle: 'Download medical report',
+                    onTap: () {
+                      // Trigger PDF download logic here
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Downloading Report...')),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

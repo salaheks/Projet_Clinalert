@@ -5,6 +5,7 @@ C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\c
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\SecurityConfig.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\PatientService.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\MeasurementRepository.java
+C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AnomalyDetectionService.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\HmacUtil.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\DoctorService.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\AlertRepository.java
@@ -16,5 +17,7 @@ C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\c
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Measurement.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Alert.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Doctor.java
+C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\ReportService.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Patient.java
+C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\EscalationService.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\DataSeeder.java

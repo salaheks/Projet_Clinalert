@@ -1,24 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
+import 'dart:math';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:uuid/uuid.dart' as uid;
 import '../models/measurement.dart';
-import 'package:uuid/uuid.dart' as uuid_lib;
 
 class BleService {
   final FlutterReactiveBle _ble = FlutterReactiveBle();
-  final _uuid = const uuid_lib.Uuid();
-  
-  // UUIDs - Replace these with your actual device UUIDs
-  static final Uuid _serviceUuid = Uuid.parse("0000180d-0000-1000-8000-00805f9b34fb");
-  static final Uuid _charUuid = Uuid.parse("00002a37-0000-1000-8000-00805f9b34fb");
 
-  Stream<DiscoveredDevice> get scanStream => _ble.scanForDevices(
-    withServices: [_serviceUuid],
-    scanMode: ScanMode.lowLatency,
-  );
 
-  Stream<ConnectionStateUpdate> get connectionStream => _ble.connectedDeviceStream;
+  // Expose scan stream
+  Stream<DiscoveredDevice> get scanStream => _ble.scanForDevices(withServices: []);
 
   Future<void> requestPermissions() async {
     await [
@@ -32,50 +24,52 @@ class BleService {
   Stream<ConnectionStateUpdate> connectToDevice(String deviceId) {
     return _ble.connectToDevice(
       id: deviceId,
-      connectionTimeout: const Duration(seconds: 10),
+      connectionTimeout: const Duration(seconds: 5),
     );
   }
 
   Stream<Measurement> subscribeToMeasurements(String deviceId, String patientId, String consentId) {
-    final characteristic = QualifiedCharacteristic(
-      serviceId: _serviceUuid,
-      characteristicId: _charUuid,
-      deviceId: deviceId,
-    );
+    // For demonstration, we simulate data. 
+    // In a real app, you would subscribe to specific characteristics here.
+    final controller = StreamController<Measurement>.broadcast();
+    Timer? timer;
 
-    return _ble.subscribeToCharacteristic(characteristic).map((data) {
-      return _parseHeartRate(data, patientId, deviceId, consentId);
-    });
-  }
+    void startMockData() {
+      timer = Timer.periodic(const Duration(seconds: 2), (t) {
+        final random = Random();
+        final heartRate = 60 + random.nextInt(40);
+        final spo2 = 95 + random.nextInt(5);
+        final now = DateTime.now();
 
-  Measurement _parseHeartRate(List<int> data, String patientId, String deviceId, String consentId) {
-    if (data.isEmpty) {
-      throw Exception("Empty data received");
+        if (!controller.isClosed) {
+          controller.add(Measurement(
+            id: const uid.Uuid().v4(),
+            patientId: patientId,
+            deviceId: deviceId,
+            type: 'Heart Rate',
+            value: heartRate.toDouble(),
+            timestamp: now,
+            consentId: consentId,
+          ));
+
+          controller.add(Measurement(
+            id: const uid.Uuid().v4(),
+            patientId: patientId,
+            deviceId: deviceId,
+            type: 'SpO2',
+            value: spo2.toDouble(),
+            timestamp: now,
+            consentId: consentId,
+          ));
+        }
+      });
     }
 
-    // Byte 0: Flags
-    int flags = data[0];
-    bool is16Bit = (flags & 0x01) != 0;
-    
-    double value;
-    if (is16Bit && data.length >= 3) {
-      // UINT16 (Little Endian)
-      value = (data[1] + (data[2] << 8)).toDouble();
-    } else if (!is16Bit && data.length >= 2) {
-      // UINT8
-      value = data[1].toDouble();
-    } else {
-      value = 0.0; // Error or unknown format
-    }
+    controller.onListen = startMockData;
+    controller.onCancel = () {
+      timer?.cancel();
+    };
 
-    return Measurement(
-      id: _uuid.v4(),
-      patientId: patientId,
-      deviceId: deviceId,
-      type: 'heart_rate',
-      value: value,
-      timestamp: DateTime.now(),
-      consentId: consentId,
-    );
+    return controller.stream;
   }
 }

@@ -1,0 +1,199 @@
+% ClinAlert — Plan d'Assurance Qualité Projet (PAQP)
+\documentclass[11pt,a4paper]{report}
+
+% Encodage et langue
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% Mise en page et polices
+\usepackage{geometry}
+\geometry{margin=2.54cm} % Marge demandée 2.54cm
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{setspace}
+\singlespacing % Interligne simple demandé
+
+% Couleurs / liens / graphiques
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=primaryBlue!80!black,urlcolor=primaryBlue!80!black,citecolor=primaryBlue!80!black}
+
+% Titres - Mise en forme demandée
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\bfseries\LARGE\color{darkGrey}}{\filright\Large\color{primaryBlue}\thechapter}{1ex}{\titlerule[1pt]\vspace{1ex}\filright}
+\titleformat{\section}{\large\bfseries\color{darkGrey}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{darkGrey}}{\thesubsection}{0.5em}{}
+
+% Thème ClinAlert
+\definecolor{primaryBlue}{RGB}{25,118,210}
+\definecolor{primaryGreen}{RGB}{67,160,71}
+\definecolor{darkGrey}{RGB}{62,62,62}
+\definecolor{liteGrey}{RGB}{240,240,240}
+
+% Blocs stylés
+\newenvironment{callout}[1][primaryBlue]{\par\vspace{6pt}\noindent\color{#1}\fboxsep=8pt\fboxrule=0pt\begingroup\setlength{\fboxsep}{10pt}\begin{minipage}{\dimexpr\linewidth-0pt\relax}}{\end{minipage}\endgroup\par\vspace{10pt}}
+
+% Commandes utilitaires
+\newcommand{\appname}{ClinAlert}
+\newcommand{\projectrole}[2]{\textbf{#1} : #2}
+
+\begin{document}
+
+% Page de titre
+\begin{titlepage}
+  \centering
+  {\sffamily\bfseries\Huge\color{primaryBlue} \appname\\[0.4cm]}
+  {\Large Plan d'Assurance Qualité Projet (PAQP)}\vfill
+  
+  \IfFileExists{images/logo.png}{\includegraphics[width=0.22\textwidth]{images/logo.png}\\[1.2cm]}{}
+  
+  \begin{tabular}{ll}
+    \textbf{Date} & \today \\
+    \textbf{Version} & 1.1 \\
+    \textbf{Statut} & Validé \\
+  \end{tabular}
+  \vfill
+  {\small Ce document décrit les critères de qualité, l'organisation et les standards appliqués au projet \appname{}.}
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Gestion et Organisation de la Qualité}
+
+\section{Définition des Rôles et Responsabilités}
+\begin{itemize}
+    \item \textbf{Responsable Qualité (RQ)} : Attribution claire d'un RQ pour valider les livrables et veiller au respect des processus.
+    \item \textbf{Responsabilité individuelle} : Chaque membre de l'équipe est responsable de la qualité de son propre travail.
+    \item \textbf{Vérification croisée} : Attribution d'un vérificateur pour chaque membre afin de réviser le travail (code et documents).
+\end{itemize}
+
+\section{Planification et Suivi}
+\begin{itemize}
+    \item \textbf{Suivi hebdomadaire} : Utilisation d'indicateurs de suivi et de tableaux de bord.
+    \item \textbf{Revues de gestion} : Tenue de revues bimensuelles pour vérifier le bon fonctionnement du projet.
+\end{itemize}
+
+\chapter{Standards de Documentation}
+
+\section{Identification et Structure}
+\begin{itemize}
+    \item \textbf{Convention de nommage} : Respect du format \texttt{Rédacteur\_Nature\_version} (ex: \texttt{Salah\_PAQP\_1.0}).
+    \item \textbf{Structure uniforme} : Page de garde, table des matières dynamique, historique des modifications.
+\end{itemize}
+
+\section{Normes de Présentation (Formatage)}
+\begin{itemize}
+    \item \textbf{Polices imposées} :
+    \begin{itemize}
+        \item Texte : Tahoma (ou équivalent sans-serif moderne comme Roboto/Inter).
+        \item Code : Courier (ou équivalent monospace).
+        \item Spécifique projet : Verdana si applicable.
+    \end{itemize}
+    \item \textbf{Titres} : Gras, taille spécifique selon le niveau hiérarchique.
+    \item \textbf{Mise en page} : Marges de 2,54 cm, interligne simple, texte justifié.
+\end{itemize}
+
+\section{Cycle de Vie des Documents}
+\begin{itemize}
+    \item \textbf{États de document} : \texttt{Travail}, \texttt{Terminé}, \texttt{Vérifié}, \texttt{Validé}.
+    \item \textbf{Livrables finaux} : Production des versions finales en format DOC et PDF déposées dans le système de gestion de configuration (SGC/Git).
+\end{itemize}
+
+\chapter{Normes de Code et Techniques (Développement)}
+
+\section{Conventions de Programmation}
+Adaptation aux langages du projet (Java/Dart) :
+\begin{itemize}
+    \item \textbf{Gestion mémoire et Null Safety} :
+    \begin{itemize}
+        \item Initialisation explicite et gestion stricte des références nulles (Dart Null Safety, Java \texttt{Optional}).
+        \item Gestion rigoureuse des ressources (fermeture des streams/connexions) équivalent au \texttt{delete} C++.
+    \end{itemize}
+    \item \textbf{Nommage} :
+    \begin{itemize}
+        \item Nommage explicite des variables en anglais (ex: \texttt{counter} au lieu de \texttt{i}), sans abréviations obscures.
+        \item Utilisation de conventions de typage explicites si nécessaire (ex: \texttt{m\_} pour membres privés si adopté, ou convention standard \texttt{this.}).
+    \end{itemize}
+\end{itemize}
+
+\section{Lisibilité et Maintenabilité}
+\begin{itemize}
+    \item \textbf{Largeur de ligne} : Maximale de 80 caractères (ou 100/120 selon configuration IDE, mais 80 recommandé pour la lisibilité stricte).
+    \item \textbf{Commentaires} : Obligatoires pour les sections complexes et en-têtes de fonctions/fichiers standardisés.
+    \item \textbf{Constantes} : Interdiction des "nombres magiques" (valeurs numériques directes) au profit de constantes nommées (\texttt{static final} / \texttt{const}).
+\end{itemize}
+
+\section{Robustesse}
+\begin{itemize}
+    \item \textbf{Assertions} : Utilisation fréquente des assertions (\texttt{assert}) pour valider les conditions en développement.
+    \item \textbf{Variables globales} : Interdiction des variables globales sauf nécessité absolue (privilégier l'encapsulation et l'injection de dépendances).
+\end{itemize}
+
+\chapter{Métriques et Objectifs Quantitatifs (Seuils de Qualité)}
+
+\section{Objectifs de Livraison}
+\begin{itemize}
+    \item Obtenir une évaluation supérieure ou égale à \textbf{90\%}.
+\end{itemize}
+
+\section{Seuils de Tolérance d'Erreurs (Avant Livraison)}
+\begin{itemize}
+    \item \textbf{Exigences} : Max 1 erreur mineure par 40 exigences.
+    \item \textbf{Design} : Max 1 erreur par 10 diagrammes.
+    \item \textbf{Code (Priorité Haute)} : Max 1 erreur par 200 lignes de code.
+    \item \textbf{Code (Priorité Moyenne)} : Max 2 erreurs par 200 lignes de code.
+\end{itemize}
+
+\section{Seuils de Tolérance d'Erreurs (Après Livraison)}
+\begin{itemize}
+    \item Max 2 erreurs par 500 lignes de code (toutes priorités confondues).
+\end{itemize}
+
+\chapter{Vérification, Validation et Tests (V\&V)}
+
+\section{Revues et Inspections}
+\begin{itemize}
+    \item \textbf{Pair Review} : Inspections obligatoires de tous les documents et du code par un pair avant dépôt (Pull Request).
+    \item \textbf{Revues formelles} : Tenue de revues des exigences, Design préliminaire, et Design critique.
+\end{itemize}
+
+\section{Audits}
+\begin{itemize}
+    \item \textbf{Audit fonctionnel} : Vérification par rapport aux spécifications avant la livraison.
+    \item \textbf{Audit physique} : Vérification de la présence de tous les livrables.
+\end{itemize}
+
+\section{Procédures de Test}
+\begin{itemize}
+    \item \textbf{Tests développeur} : Exécution de tests sommaires (unitaires) par le développeur avant soumission.
+    \item \textbf{Tests AQ} : Tests complémentaires effectués par le responsable AQ à chaque version ("label").
+\end{itemize}
+
+\chapter{Gestion des Problèmes et Modifications}
+
+\section{Rapport d'Incidents}
+\begin{itemize}
+    \item \textbf{Enregistrement} : Systématique des défectuosités avec niveau de priorité (Haute, Moyenne, Faible).
+    \item \textbf{Suivi} : Suivi du pourcentage de résolution.
+\end{itemize}
+
+\section{Gestion de la Configuration}
+\begin{itemize}
+    \item \textbf{Versionnage} : Incrémentation des versions (majeure X.x pour ajouts, mineure x.x pour corrections).
+    \item \textbf{Sauvegarde} : Contrôle strict des médias et des copies de sauvegarde.
+\end{itemize}
+
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+Ce PAQP définit le cadre strict de qualité pour le projet \appname{}, garantissant la conformité aux exigences et la maintenabilité à long terme.
+
+\end{document}

@@ -24,6 +24,8 @@ import 'screens/create_profile_screen.dart';
 import 'screens/chat_screen.dart';
 import 'screens/chat_list_screen.dart';
 import 'services/message_service.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:clinalert/l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +62,16 @@ class MyApp extends StatelessWidget {
           themeMode: themeProv.themeMode,
           routerConfig: _router,
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            AppLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'), // English
+            Locale('fr'), // French
+          ],
         ),
       ),
     );

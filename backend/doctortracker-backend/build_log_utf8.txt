@@ -1,0 +1,330 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.clinalert:doctortracker-backend >-----------------
+[INFO] Building doctortracker-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ doctortracker-backend ---
+[INFO] Deleting C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ doctortracker-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ doctortracker-backend ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 23 source files with javac [debug release 17] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[27,15] cannot find symbol
+  symbol:   method setPatientId(java.lang.String)
+  location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[28,15] cannot find symbol
+  symbol:   method setDeviceId(java.lang.String)
+  location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[29,15] cannot find symbol
+  symbol:   method setType(java.lang.String)
+  location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[30,15] cannot find symbol
+  symbol:   method setValue(double)
+  location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[31,15] cannot find symbol
+  symbol:   method setTimestamp(java.time.LocalDateTime)
+  location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[32,15] cannot find symbol
+  symbol:   method setReceivedAt(java.time.LocalDateTime)
+  location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[35,15] cannot find symbol
+  symbol:   method setPatientId(java.lang.String)
+  location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[36,15] cannot find symbol
+  symbol:   method setDeviceId(java.lang.String)
+  location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[37,15] cannot find symbol
+  symbol:   method setType(java.lang.String)
+  location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[38,15] cannot find symbol
+  symbol:   method setValue(double)
+  location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[39,15] cannot find symbol
+  symbol:   method setTimestamp(java.time.LocalDateTime)
+  location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[40,15] cannot find symbol
+  symbol:   method setReceivedAt(java.time.LocalDateTime)
+  location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[43,15] cannot find symbol
+  symbol:   method setPatientId(java.lang.String)
+  location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[44,15] cannot find symbol
+  symbol:   method setDeviceId(java.lang.String)
+  location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[45,15] cannot find symbol
+  symbol:   method setType(java.lang.String)
+  location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[46,15] cannot find symbol
+  symbol:   method setValue(double)
+  location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[47,15] cannot find symbol
+  symbol:   method setTimestamp(java.time.LocalDateTime)
+  location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[48,15] cannot find symbol
+  symbol:   method setReceivedAt(java.time.LocalDateTime)
+  location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AlertService.java:[39,14] cannot find symbol
+  symbol:   method setRead(boolean)
+  location: variable a of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[33,18] cannot find symbol
+  symbol:   method setSeverity(java.lang.String)
+  location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[34,52] cannot find symbol
+  symbol:   method getMessage()
+  location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[38,58] cannot find symbol
+  symbol:   method getId()
+  location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[38,92] cannot find symbol
+  symbol:   method getPatientId()
+  location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[21,31] cannot find symbol
+  symbol:   method getPatientId()
+  location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[21,62] cannot find symbol
+  symbol:   method getType()
+  location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[30,29] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[38,43] cannot find symbol
+  symbol:   method getValue()
+  location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[41,49] cannot find symbol
+  symbol:   method getValue()
+  location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[42,62] cannot find symbol
+  symbol:   method getType()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[45,44] cannot find symbol
+  symbol:   method getType()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[46,18] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[47,64] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[48,25] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[49,63] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[51,45] cannot find symbol
+  symbol:   method getType()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[52,18] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[53,57] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[60,29] cannot find symbol
+  symbol:   method getPatientId()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[61,33] cannot find symbol
+  symbol:   method getId()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[62,14] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[63,14] cannot find symbol
+  symbol:   method setSeverity(java.lang.String)
+  location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[48,61] cannot find symbol
+  symbol:   method getName()
+  location: variable patient of type com.clinalert.doctortracker.model.Patient
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[49,57] cannot find symbol
+  symbol:   method getAge()
+  location: variable patient of type com.clinalert.doctortracker.model.Patient
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[62,37] cannot find symbol
+  symbol:   method getType()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[63,52] cannot find symbol
+  symbol:   method getValue()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[65,37] cannot find symbol
+  symbol:   method getTimestamp()
+  location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[79,37] cannot find symbol
+  symbol:   method getSeverity()
+  location: variable a of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[80,37] cannot find symbol
+  symbol:   method getMessage()
+  location: variable a of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[81,37] cannot find symbol
+  symbol:   method getTimestamp()
+  location: variable a of type com.clinalert.doctortracker.model.Alert
+[INFO] 49 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.429 s
+[INFO] Finished at: 2025-12-03T23:15:54+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project doctortracker-backend: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[27,15] cannot find symbol
+[ERROR]   symbol:   method setPatientId(java.lang.String)
+[ERROR]   location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[28,15] cannot find symbol
+[ERROR]   symbol:   method setDeviceId(java.lang.String)
+[ERROR]   location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[29,15] cannot find symbol
+[ERROR]   symbol:   method setType(java.lang.String)
+[ERROR]   location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[30,15] cannot find symbol
+[ERROR]   symbol:   method setValue(double)
+[ERROR]   location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[31,15] cannot find symbol
+[ERROR]   symbol:   method setTimestamp(java.time.LocalDateTime)
+[ERROR]   location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[32,15] cannot find symbol
+[ERROR]   symbol:   method setReceivedAt(java.time.LocalDateTime)
+[ERROR]   location: variable m1 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[35,15] cannot find symbol
+[ERROR]   symbol:   method setPatientId(java.lang.String)
+[ERROR]   location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[36,15] cannot find symbol
+[ERROR]   symbol:   method setDeviceId(java.lang.String)
+[ERROR]   location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[37,15] cannot find symbol
+[ERROR]   symbol:   method setType(java.lang.String)
+[ERROR]   location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[38,15] cannot find symbol
+[ERROR]   symbol:   method setValue(double)
+[ERROR]   location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[39,15] cannot find symbol
+[ERROR]   symbol:   method setTimestamp(java.time.LocalDateTime)
+[ERROR]   location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[40,15] cannot find symbol
+[ERROR]   symbol:   method setReceivedAt(java.time.LocalDateTime)
+[ERROR]   location: variable m2 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[43,15] cannot find symbol
+[ERROR]   symbol:   method setPatientId(java.lang.String)
+[ERROR]   location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[44,15] cannot find symbol
+[ERROR]   symbol:   method setDeviceId(java.lang.String)
+[ERROR]   location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[45,15] cannot find symbol
+[ERROR]   symbol:   method setType(java.lang.String)
+[ERROR]   location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[46,15] cannot find symbol
+[ERROR]   symbol:   method setValue(double)
+[ERROR]   location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[47,15] cannot find symbol
+[ERROR]   symbol:   method setTimestamp(java.time.LocalDateTime)
+[ERROR]   location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/util/DataSeeder.java:[48,15] cannot find symbol
+[ERROR]   symbol:   method setReceivedAt(java.time.LocalDateTime)
+[ERROR]   location: variable m3 of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AlertService.java:[39,14] cannot find symbol
+[ERROR]   symbol:   method setRead(boolean)
+[ERROR]   location: variable a of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[33,18] cannot find symbol
+[ERROR]   symbol:   method setSeverity(java.lang.String)
+[ERROR]   location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[34,52] cannot find symbol
+[ERROR]   symbol:   method getMessage()
+[ERROR]   location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[38,58] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/EscalationService.java:[38,92] cannot find symbol
+[ERROR]   symbol:   method getPatientId()
+[ERROR]   location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[21,31] cannot find symbol
+[ERROR]   symbol:   method getPatientId()
+[ERROR]   location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[21,62] cannot find symbol
+[ERROR]   symbol:   method getType()
+[ERROR]   location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[30,29] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[38,43] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java:[41,49] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable newMeasurement of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[42,62] cannot find symbol
+[ERROR]   symbol:   method getType()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[45,44] cannot find symbol
+[ERROR]   symbol:   method getType()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[46,18] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[47,64] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[48,25] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[49,63] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[51,45] cannot find symbol
+[ERROR]   symbol:   method getType()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[52,18] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[53,57] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[60,29] cannot find symbol
+[ERROR]   symbol:   method getPatientId()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[61,33] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[62,14] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/MeasurementService.java:[63,14] cannot find symbol
+[ERROR]   symbol:   method setSeverity(java.lang.String)
+[ERROR]   location: variable alert of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[48,61] cannot find symbol
+[ERROR]   symbol:   method getName()
+[ERROR]   location: variable patient of type com.clinalert.doctortracker.model.Patient
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[49,57] cannot find symbol
+[ERROR]   symbol:   method getAge()
+[ERROR]   location: variable patient of type com.clinalert.doctortracker.model.Patient
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[62,37] cannot find symbol
+[ERROR]   symbol:   method getType()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[63,52] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[65,37] cannot find symbol
+[ERROR]   symbol:   method getTimestamp()
+[ERROR]   location: variable m of type com.clinalert.doctortracker.model.Measurement
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[79,37] cannot find symbol
+[ERROR]   symbol:   method getSeverity()
+[ERROR]   location: variable a of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[80,37] cannot find symbol
+[ERROR]   symbol:   method getMessage()
+[ERROR]   location: variable a of type com.clinalert.doctortracker.model.Alert
+[ERROR] /C:/Users/SalahPc/Desktop/clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java:[81,37] cannot find symbol
+[ERROR]   symbol:   method getTimestamp()
+[ERROR]   location: variable a of type com.clinalert.doctortracker.model.Alert
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
