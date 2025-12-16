@@ -4,6 +4,11 @@ This project consists of two main components:
 1.  **Clinalert (Flutter)**: A mobile application for patients to connect to a SmartWatch via BLE, view health data, and send it to their doctor.
 2.  **DoctorTracker Backend (Spring Boot)**: A backend server to receive, store, and manage patient health data.
 
+## Documentation
+
+- **[FAQ (Foire Aux Questions - in French)](FAQ.md)**: Comprehensive guide with common questions and answers about installation, usage, troubleshooting, and development.
+- **[PAQP (Plan d'Assurance Qualité Projet)](docs/PAQP.tex)**: Quality assurance plan (in French).
+
 ## Prerequisites
 
 -   **Flutter SDK**: 3.x+
