@@ -58,7 +58,7 @@ L'application mobile Clinalert supporte :
 ```bash
 # Cloner le dépôt
 git clone [URL_DU_DEPOT]
-cd Projet_Clinalert
+cd [REPERTOIRE_DU_PROJET]
 
 # Installer les dépendances
 flutter pub get
