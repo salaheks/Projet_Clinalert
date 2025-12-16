@@ -43,4 +43,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get disconnected => 'Disconnected';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get welcomeBack => 'Welcome back';
+
+  @override
+  String get myHealth => 'My Health';
+
+  @override
+  String get heartRate => 'Heart Rate';
+
+  @override
+  String get steps => 'Steps';
+
+  @override
+  String get temperature => 'Temperature';
+
+  @override
+  String get bloodPressure => 'Blood Pressure';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get noData => 'No data';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get selectLanguage => 'Select Language';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get french => 'French';
+
+  @override
+  String get english => 'English';
 }

@@ -50,7 +50,7 @@ class PatientCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Age: \${patient.age}',
+                      'Age: ${patient.age}',
                       style: theme.textTheme.bodyMedium,
                     ),
                   ],

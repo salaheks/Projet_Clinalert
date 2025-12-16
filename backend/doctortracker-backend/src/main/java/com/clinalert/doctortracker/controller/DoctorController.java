@@ -32,6 +32,16 @@ public class DoctorController {
         return doctorService.createDoctor(doctor);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Doctor> updateDoctor(@PathVariable String id, @RequestBody Doctor doctor) {
+        try {
+            Doctor updatedDoctor = doctorService.updateDoctor(id, doctor);
+            return ResponseEntity.ok(updatedDoctor);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable String id) {
         doctorService.deleteDoctor(id);

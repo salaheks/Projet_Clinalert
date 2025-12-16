@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "measurements")
 public class Measurement {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String patientId;

@@ -379,17 +379,9 @@ class _LoginScreenState extends State<LoginScreen>
                                 ],
                               ),
                               const SizedBox(height: 12),
-                              _buildDemoCredential('Doctor', 'doctor@clinalert.com'),
-                              _buildDemoCredential('Nurse', 'nurse@clinalert.com'),
-                              _buildDemoCredential('Patient', 'patient@clinalert.com'),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Password: password123',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: AppThemes.darkGrey.withOpacity(0.7),
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
+                              _buildDemoCredential('Admin', 'admin@clinalert.com', 'admin123'),
+                              _buildDemoCredential('Doctor', 'house@clinalert.com', 'doctor123'),
+                              _buildDemoCredential('Patient', 'john.doe@clinalert.com', 'patient123'),
                             ],
                           ),
                         ),
@@ -405,26 +397,43 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  Widget _buildDemoCredential(String role, String email) {
+  Widget _buildDemoCredential(String role, String email, String password) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: AppThemes.primaryGreen,
-              shape: BoxShape.circle,
-            ),
+          Row(
+            children: [
+              Container(
+                width: 6,
+                height: 6,
+                decoration: const BoxDecoration(
+                  color: AppThemes.primaryGreen,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  '$role: $email',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppThemes.darkGrey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          Expanded(
+          Padding(
+            padding: const EdgeInsets.only(left: 14),
             child: Text(
-              '$role: $email',
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppThemes.darkGrey,
+              'Password: $password',
+              style: TextStyle(
+                fontSize: 11,
+                color: AppThemes.darkGrey.withOpacity(0.7),
+                fontStyle: FontStyle.italic,
               ),
             ),
           ),

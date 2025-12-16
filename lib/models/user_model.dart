@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-enum UserRole { doctor, nurse, patient }
+enum UserRole { admin, doctor, nurse, patient }
 
 enum UserStatus { active, inactive, suspended }
 
@@ -33,6 +33,8 @@ class User {
   
   String get roleDisplayName {
     switch (role) {
+      case UserRole.admin:
+        return 'Admin';
       case UserRole.doctor:
         return 'Doctor';
       case UserRole.nurse:

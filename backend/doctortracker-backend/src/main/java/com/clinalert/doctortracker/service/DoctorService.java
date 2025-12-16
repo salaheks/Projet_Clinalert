@@ -29,6 +29,19 @@ public class DoctorService {
     }
 
     @SuppressWarnings("null")
+    public Doctor updateDoctor(String id, Doctor doctorDetails) {
+        return doctorRepository.findById(id)
+                .map(doctor -> {
+                    doctor.setName(doctorDetails.getName());
+                    doctor.setSpecialty(doctorDetails.getSpecialty());
+                    doctor.setEmail(doctorDetails.getEmail());
+                    doctor.setPhoneNumber(doctorDetails.getPhoneNumber());
+                    return doctorRepository.save(doctor);
+                })
+                .orElseThrow(() -> new RuntimeException("Doctor not found with id: " + id));
+    }
+
+    @SuppressWarnings("null")
     public void deleteDoctor(String id) {
         doctorRepository.deleteById(id);
     }

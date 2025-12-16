@@ -110,6 +110,31 @@ class MessageService extends ChangeNotifier {
     _messages.clear();
 
     switch (role) {
+      case UserRole.admin:
+        // Admin sees all conversations (similar to doctor for now)
+        _conversations.addAll([
+          Conversation(
+            id: 'conv1',
+            participantId: 'p1',
+            participantName: 'Patient: John Doe',
+            participantRole: UserRole.patient,
+            lastMessage: 'Je me sens mieux aujourd\'hui',
+            lastMessageTime: DateTime.now().subtract(const Duration(minutes: 30)),
+            unreadCount: 2,
+            createdAt: DateTime.now().subtract(const Duration(days: 5)),
+          ),
+          Conversation(
+            id: 'conv2',
+            participantId: 'n1',
+            participantName: 'Infirmière: Marie Chen',
+            participantRole: UserRole.nurse,
+            lastMessage: 'Alertes traitées pour patient P-001',
+            lastMessageTime: DateTime.now().subtract(const Duration(hours: 2)),
+            unreadCount: 0,
+            createdAt: DateTime.now().subtract(const Duration(days: 3)),
+          ),
+        ]);
+        break;
       case UserRole.doctor:
         _conversations.addAll([
           Conversation(

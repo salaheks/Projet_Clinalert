@@ -1,45 +1,294 @@
 import 'package:clinalert/models/patient_model.dart';
 import 'package:clinalert/models/vital_sign_model.dart';
 import 'package:clinalert/models/alert_model.dart';
+import 'package:clinalert/models/health_data_model.dart';
+import 'package:clinalert/models/smartwatch_device_model.dart';
 import 'package:clinalert/widgets/custom_app_bar.dart';
 import 'package:clinalert/widgets/health_stat_card.dart';
 import 'package:clinalert/widgets/modern_card.dart';
 import 'package:clinalert/widgets/modern_badge.dart';
 import 'package:clinalert/widgets/chart_widget.dart';
+import 'package:clinalert/services/api_service.dart';
+import 'package:clinalert/screens/add_edit_patient_screen.dart';
+import 'package:clinalert/screens/smartwatch_connection_screen.dart';
+import 'package:clinalert/screens/health_data_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PatientDetailScreen extends StatelessWidget {
+class PatientDetailScreen extends StatefulWidget {
   final Patient patient;
+  final VoidCallback? onStatusChanged;
 
-  const PatientDetailScreen({super.key, required this.patient});
+  const PatientDetailScreen({
+    super.key, 
+    required this.patient,
+    this.onStatusChanged,
+  });
+
+  @override
+  State<PatientDetailScreen> createState() => _PatientDetailScreenState();
+}
+
+class _PatientDetailScreenState extends State<PatientDetailScreen> {
+  final ApiService _apiService = ApiService();
+  late PatientStatus _currentStatus;
+  bool _isUpdatingStatus = false;
+  bool _isDeleting = false;
+  
+  // Smartwatch data
+  List<SmartWatchDevice> _connectedDevices = [];
+  List<HealthData> _recentHealthData = [];
+  bool _isLoadingHealthData = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentStatus = widget.patient.status;
+    _loadSmartWatchData();
+  }
+
+  Future<void> _loadSmartWatchData() async {
+    try {
+      final devicesData = await _apiService.getPatientDevices(widget.patient.id);
+      final healthData = await _apiService.getPatientHealthData(widget.patient.id);
+      
+      if (mounted) {
+        setState(() {
+          _connectedDevices = devicesData.map((d) => SmartWatchDevice.fromJson(d)).toList();
+          _recentHealthData = healthData.map((d) => HealthData.fromJson(d)).take(10).toList();
+          _isLoadingHealthData = false;
+        });
+      }
+    } catch (e) {
+      print('Error loading smartwatch data: $e');
+      if (mounted) {
+        setState(() => _isLoadingHealthData = false);
+      }
+    }
+  }
+
+  void _navigateToSmartWatchConnection() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SmartWatchConnectionScreen(
+          patientId: widget.patient.id,
+          patientName: widget.patient.fullName,
+        ),
+      ),
+    ).then((_) => _loadSmartWatchData());
+  }
+
+  void _navigateToHealthData() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HealthDataScreen(
+          patientId: widget.patient.id,
+          patientName: widget.patient.fullName,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _deletePatient() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirmer la suppression'),
+        content: Text('Êtes-vous sûr de vouloir supprimer ${widget.patient.fullName} ?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Annuler'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Supprimer'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    setState(() => _isDeleting = true);
+
+    try {
+      await _apiService.deletePatient(widget.patient.id);
+      
+      if (mounted) {
+        widget.onStatusChanged?.call(); // Refresh the list
+        Navigator.pop(context); // Go back to dashboard
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Patient supprimé avec succès'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() => _isDeleting = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _editPatient() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddEditPatientScreen(patient: widget.patient),
+      ),
+    );
+
+    if (result == true && mounted) {
+      widget.onStatusChanged?.call(); // Refresh the list
+      Navigator.pop(context); // Go back to dashboard
+    }
+  }
+
+  Future<void> _updatePatientStatus(PatientStatus newStatus) async {
+    setState(() => _isUpdatingStatus = true);
+    
+    try {
+      // Convert PatientStatus enum to string
+      final statusString = newStatus.name;
+      await _apiService.updatePatientStatus(widget.patient.id, statusString);
+      
+      setState(() {
+        _currentStatus = newStatus;
+        _isUpdatingStatus = false;
+      });
+      
+      // Notify parent widget to refresh the list
+      widget.onStatusChanged?.call();
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Statut du patient mis à jour avec succès'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() => _isUpdatingStatus = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  void _showStatusDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Modifier le statut'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: PatientStatus.values.map((status) {
+            return RadioListTile<PatientStatus>(
+              title: Text(_getStatusLabel(status)),
+              value: status,
+              groupValue: _currentStatus,
+              onChanged: (value) {
+                if (value != null) {
+                  Navigator.pop(context);
+                  _updatePatientStatus(value);
+                }
+              },
+            );
+          }).toList(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Annuler'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getStatusLabel(PatientStatus status) {
+    switch (status) {
+      case PatientStatus.active:
+        return 'Actif';
+      case PatientStatus.discharged:
+        return 'Sorti';
+      case PatientStatus.transferred:
+        return 'Transféré';
+    }
+  }
+
+  Color _getStatusColor(PatientStatus status) {
+    switch (status) {
+      case PatientStatus.active:
+        return Colors.green;
+      case PatientStatus.discharged:
+        return Colors.grey;
+      case PatientStatus.transferred:
+        return Colors.orange;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     // Mock data for vital signs
     final vitalSigns = [
-      VitalSign(id: '1', patientId: patient.id, type: VitalType.heartRate, value: 78, unit: 'bpm', timestamp: DateTime.now()),
-      VitalSign(id: '2', patientId: patient.id, type: VitalType.bloodPressure, value: 120, unit: 'mmHg', timestamp: DateTime.now()),
-      VitalSign(id: '3', patientId: patient.id, type: VitalType.temperature, value: 36.8, unit: '°C', timestamp: DateTime.now()),
-      VitalSign(id: '4', patientId: patient.id, type: VitalType.oxygenSaturation, value: 98, unit: '%', timestamp: DateTime.now()),
+      VitalSign(id: '1', patientId: widget.patient.id, type: VitalType.heartRate, value: 78, unit: 'bpm', timestamp: DateTime.now()),
+      VitalSign(id: '2', patientId: widget.patient.id, type: VitalType.bloodPressure, value: 120, unit: 'mmHg', timestamp: DateTime.now()),
+      VitalSign(id: '3', patientId: widget.patient.id, type: VitalType.temperature, value: 36.8, unit: '°C', timestamp: DateTime.now()),
+      VitalSign(id: '4', patientId: widget.patient.id, type: VitalType.oxygenSaturation, value: 98, unit: '%', timestamp: DateTime.now()),
     ];
     // Mock alerts for patient
     final alerts = [
-      Alert(id: 'a1', patientId: patient.patientId, title: 'Blood Pressure High', description: 'Systolic over threshold.', level: AlertLevel.high, createdAt: DateTime.now().subtract(const Duration(minutes: 20))),
-      Alert(id: 'a2', patientId: patient.patientId, title: 'Temperature Elevated', description: 'Slight fever detected.', level: AlertLevel.medium, createdAt: DateTime.now().subtract(const Duration(hours: 1))),
+      Alert(id: 'a1', patientId: widget.patient.patientId, title: 'Blood Pressure High', description: 'Systolic over threshold.', level: AlertLevel.high, createdAt: DateTime.now().subtract(const Duration(minutes: 20))),
+      Alert(id: 'a2', patientId: widget.patient.patientId, title: 'Temperature Elevated', description: 'Slight fever detected.', level: AlertLevel.medium, createdAt: DateTime.now().subtract(const Duration(hours: 1))),
     ];
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Patient Profile',
+      appBar: AppBar(
+        title: const Text('Patient Profile'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: _isDeleting ? null : _editPatient,
+            tooltip: 'Modifier',
+          ),
+          IconButton(
+            icon: _isDeleting 
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.delete),
+            onPressed: _isDeleting ? null : _deletePatient,
+            tooltip: 'Supprimer',
+          ),
+        ],
       ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-              child: _HeaderSection(patient: patient),
+              child: _HeaderSection(patient: widget.patient),
             ),
           ),
           SliverToBoxAdapter(
@@ -50,7 +299,7 @@ class PatientDetailScreen extends StatelessWidget {
                   Expanded(
                     child: _InfoCard(
                       label: 'Age',
-                      value: '${patient.age} yrs',
+                      value: '${widget.patient.age} yrs',
                       icon: Icons.cake,
                       color: Colors.indigo,
                     ),
@@ -59,18 +308,21 @@ class PatientDetailScreen extends StatelessWidget {
                   Expanded(
                     child: _InfoCard(
                       label: 'Blood Type',
-                      value: patient.bloodType,
+                      value: widget.patient.bloodType,
                       icon: Icons.bloodtype,
                       color: Colors.red,
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: _InfoCard(
-                      label: 'Status',
-                      value: 'Stable',
-                      icon: Icons.health_and_safety,
-                      color: Colors.green,
+                    child: GestureDetector(
+                      onTap: _isUpdatingStatus ? null : _showStatusDialog,
+                      child: _InfoCard(
+                        label: 'Status',
+                        value: _isUpdatingStatus ? '...' : _getStatusLabel(_currentStatus),
+                        icon: Icons.health_and_safety,
+                        color: _getStatusColor(_currentStatus),
+                      ),
                     ),
                   ),
                 ],
@@ -120,6 +372,13 @@ class PatientDetailScreen extends StatelessWidget {
                   isPositiveTrend: true,
                 ),
               ],
+            ),
+          ),
+          // SmartWatch Section
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+              child: _buildSmartWatchSection(),
             ),
           ),
           SliverToBoxAdapter(
@@ -221,11 +480,197 @@ class PatientDetailScreen extends StatelessWidget {
       ),
     );
   }
+
+  String _getInitials(Patient patient) {
+    final first = patient.firstName.isNotEmpty ? patient.firstName[0].toUpperCase() : '';
+    final last = patient.lastName.isNotEmpty ? patient.lastName[0].toUpperCase() : '';
+    return first + last;
+  }
+
+  Widget _buildSmartWatchSection() {
+    return ModernCard(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4A90E2).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.watch, color: Color(0xFF4A90E2), size: 24),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'SmartWatch Data',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      _connectedDevices.isEmpty 
+                          ? 'No device connected' 
+                          : '${_connectedDevices.length} device(s) connected',
+                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              if (_connectedDevices.isNotEmpty)
+                IconButton(
+                  icon: const Icon(Icons.analytics_outlined),
+                  onPressed: _navigateToHealthData,
+                  tooltip: 'View Health Data',
+                ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          
+          if (_isLoadingHealthData)
+            const Center(child: CircularProgressIndicator())
+          else if (_recentHealthData.isEmpty)
+            _buildNoDataState()
+          else
+            _buildRecentHealthDataPreview(),
+          
+          const SizedBox(height: 16),
+          
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: _navigateToSmartWatchConnection,
+                  icon: const Icon(Icons.bluetooth),
+                  label: Text(_connectedDevices.isEmpty ? 'Connect Device' : 'Manage Devices'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                ),
+              ),
+              if (_recentHealthData.isNotEmpty) ...[
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: _navigateToHealthData,
+                    icon: const Icon(Icons.bar_chart),
+                    label: const Text('View All Data'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNoDataState() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      child: Column(
+        children: [
+          Icon(Icons.watch_off, size: 48, color: Colors.grey[300]),
+          const SizedBox(height: 12),
+          Text(
+            'No health data yet',
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Connect a smartwatch to start tracking',
+            style: TextStyle(color: Colors.grey[400], fontSize: 12),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRecentHealthDataPreview() {
+    final latestData = _recentHealthData.first;
+    
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _buildDataPreviewItem(
+          icon: Icons.favorite,
+          color: Colors.red,
+          value: latestData.heartRateDisplay,
+          label: 'Heart Rate',
+        ),
+        _buildDataPreviewItem(
+          icon: Icons.air,
+          color: Colors.blue,
+          value: latestData.spO2Display,
+          label: 'SpO2',
+        ),
+        _buildDataPreviewItem(
+          icon: Icons.directions_walk,
+          color: Colors.green,
+          value: latestData.stepsDisplay,
+          label: 'Steps',
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDataPreviewItem({
+    required IconData icon,
+    required Color color,
+    required String value,
+    required String label,
+  }) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, color: color, size: 20),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(color: Colors.grey[500], fontSize: 10),
+        ),
+      ],
+    );
+  }
 }
+
 
 class _HeaderSection extends StatelessWidget {
   final Patient patient;
   const _HeaderSection({required this.patient});
+
+  String _getInitials() {
+    final first = patient.firstName.isNotEmpty ? patient.firstName[0].toUpperCase() : '';
+    final last = patient.lastName.isNotEmpty ? patient.lastName[0].toUpperCase() : '';
+    return first + last;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +684,7 @@ class _HeaderSection extends StatelessWidget {
                 radius: 32,
                 backgroundColor: const Color(0xFF0066FF).withOpacity(0.1),
                 child: Text(
-                  patient.firstName[0] + patient.lastName[0],
+                  _getInitials(),
                   style: GoogleFonts.inter(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,

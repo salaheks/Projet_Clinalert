@@ -43,4 +43,73 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get disconnected => 'Déconnecté';
+
+  @override
+  String get logout => 'Déconnexion';
+
+  @override
+  String get login => 'Connexion';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Mot de passe';
+
+  @override
+  String get welcomeBack => 'Bienvenue';
+
+  @override
+  String get myHealth => 'Ma Santé';
+
+  @override
+  String get heartRate => 'Fréquence cardiaque';
+
+  @override
+  String get steps => 'Pas';
+
+  @override
+  String get temperature => 'Température';
+
+  @override
+  String get bloodPressure => 'Pression artérielle';
+
+  @override
+  String get history => 'Historique';
+
+  @override
+  String get profile => 'Profil';
+
+  @override
+  String get save => 'Enregistrer';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get retry => 'Réessayer';
+
+  @override
+  String get error => 'Erreur';
+
+  @override
+  String get loading => 'Chargement...';
+
+  @override
+  String get noData => 'Aucune donnée';
+
+  @override
+  String get language => 'Langue';
+
+  @override
+  String get selectLanguage => 'Sélectionner la langue';
+
+  @override
+  String get arabic => 'Arabe';
+
+  @override
+  String get french => 'Français';
+
+  @override
+  String get english => 'Anglais';
 }

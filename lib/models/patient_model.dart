@@ -15,6 +15,7 @@ class Patient {
   final List<String>? allergies;
   final List<String>? medications;
   final String? primaryDoctorId;
+  final String? clinicId;
   final List<String>? assignedNurseIds;
   final PatientStatus status;
   final DateTime createdAt;
@@ -32,6 +33,7 @@ class Patient {
     this.allergies,
     this.medications,
     this.primaryDoctorId,
+    this.clinicId,
     this.assignedNurseIds,
     this.status = PatientStatus.active,
     required this.createdAt,

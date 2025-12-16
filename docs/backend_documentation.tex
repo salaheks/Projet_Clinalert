@@ -1,0 +1,1049 @@
+%!TEX encoding = UTF-8 Unicode
+\documentclass[12pt,a4paper]{report}
+
+% =============================================================================
+% PACKAGES
+% =============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{pifont}
+
+\usetikzlibrary{shapes,arrows,positioning,calc,fit,backgrounds}
+
+% =============================================================================
+% COULEURS
+% =============================================================================
+\definecolor{primaryblue}{RGB}{41, 98, 255}
+\definecolor{secondaryblue}{RGB}{68, 138, 255}
+\definecolor{accentgreen}{RGB}{0, 200, 83}
+\definecolor{warningorange}{RGB}{255, 145, 0}
+\definecolor{errorred}{RGB}{255, 82, 82}
+\definecolor{darkgray}{RGB}{45, 52, 54}
+\definecolor{lightgray}{RGB}{241, 243, 245}
+\definecolor{codebg}{RGB}{248, 249, 250}
+
+% =============================================================================
+% CONFIGURATION
+% =============================================================================
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    urlcolor=secondaryblue,
+    pdftitle={ClinAlert - Documentation Backend},
+    pdfauthor={Équipe ClinAlert}
+}
+
+\titleformat{\chapter}[display]
+    {\normalfont\huge\bfseries\color{primaryblue}}
+    {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{primaryblue}{\textbf{ClinAlert}}}
+\fancyhead[R]{\textcolor{darkgray}{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+% Style code
+\lstdefinestyle{java}{
+    language=Java,
+    basicstyle=\small\ttfamily,
+    keywordstyle=\color{primaryblue}\bfseries,
+    stringstyle=\color{accentgreen},
+    commentstyle=\color{gray}\itshape,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
+
+% Boîtes colorées
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}{colback=primaryblue!5, colframe=primaryblue, title=Information, breakable}
+\newtcolorbox{warningbox}{colback=warningorange!10, colframe=warningorange, title=Attention, breakable}
+
+% =============================================================================
+% DOCUMENT
+% =============================================================================
+\begin{document}
+
+% PAGE DE TITRE
+\begin{titlepage}
+    \centering
+    
+    % Logo/Icon at top
+    \vspace*{1cm}
+    \begin{tikzpicture}
+        \draw[primaryblue, line width=3pt] (0,0) circle (2cm);
+        \fill[primaryblue!20] (0,0) circle (1.8cm);
+        \node at (0,0) {\Huge\textcolor{primaryblue}{$\heartsuit$}};
+        \node at (0,-0.5) {\small\textcolor{primaryblue}{\textbf{+}}};
+    \end{tikzpicture}
+    
+    \vspace{1cm}
+    
+    % Title
+    {\fontsize{48}{52}\selectfont\bfseries\textcolor{primaryblue}{ClinAlert}}\\[0.3cm]
+    \textcolor{primaryblue}{\rule{8cm}{2pt}}\\[0.5cm]
+    {\Large\textcolor{secondaryblue}{Système de Suivi Médical Intelligent}}\\[0.3cm]
+    {\large\textcolor{darkgray}{Healthcare Monitoring Platform}}
+    
+    \vspace{2cm}
+    
+    % Document type
+    \begin{tcolorbox}[
+        colback=primaryblue!5,
+        colframe=primaryblue,
+        width=12cm,
+        arc=5pt,
+        boxrule=1pt
+    ]
+        \centering
+        {\LARGE\bfseries Documentation Technique}\\[0.3cm]
+        {\Large Backend Spring Boot}
+    \end{tcolorbox}
+    
+    \vspace{2cm}
+    
+    % Info table
+    \begin{tabular}{r@{\hspace{1cm}}l}
+        \textcolor{darkgray}{\textbf{Version}} & 1.0.0 \\[0.3cm]
+        \textcolor{darkgray}{\textbf{Date}} & \today \\[0.3cm]
+        \textcolor{darkgray}{\textbf{Framework}} & Spring Boot 3.2.0 \\[0.3cm]
+        \textcolor{darkgray}{\textbf{Base de données}} & PostgreSQL 15 \\[0.3cm]
+        \textcolor{darkgray}{\textbf{Langage}} & Java 17 LTS \\[0.3cm]
+        \textcolor{darkgray}{\textbf{Sécurité}} & JWT + Spring Security \\
+    \end{tabular}
+    
+    \vfill
+    
+    % Footer
+    \textcolor{primaryblue}{\rule{12cm}{1pt}}\\[0.5cm]
+    {\large\textcolor{darkgray}{Projet de Suivi de Patients en Temps Réel}}\\[0.2cm]
+    {\small\textcolor{gray}{Application Mobile Flutter + Backend REST API}}
+    
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% =============================================================================
+% CHAPITRE 1 : INTRODUCTION
+% =============================================================================
+\chapter{Introduction}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente le projet ClinAlert, ses objectifs et les technologies utilisées pour le développement du backend.
+
+\section{Présentation du Projet}
+\textbf{ClinAlert} est une plateforme de santé numérique pour le suivi en temps réel des patients. Elle permet aux professionnels de santé de:
+\begin{itemize}
+    \item Surveiller les signes vitaux (fréquence cardiaque, SpO2, sommeil)
+    \item Recevoir des alertes automatiques en cas d'anomalies
+    \item Gérer les patients à travers plusieurs cliniques
+    \item Générer des rapports de santé détaillés
+\end{itemize}
+
+\section{Technologies Backend}
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Catégorie} & \textbf{Technologie} & \textbf{Version} \\
+\midrule
+Framework & Spring Boot & 3.2.0 \\
+Langage & Java & 17 (LTS) \\
+Base de données & PostgreSQL & 15+ \\
+Sécurité & Spring Security + JWT & 0.11.5 \\
+ORM & Hibernate (JPA) & 6.x \\
+Build & Apache Maven & 3.x \\
+Génération PDF & iText7 & 7.2.5 \\
+\bottomrule
+\end{tabular}
+\caption{Stack technologique}
+\end{table}
+
+\section{Fonctionnalités Backend}
+\begin{enumerate}
+    \item \textbf{Authentification JWT} : Gestion sécurisée des sessions
+    \item \textbf{CRUD complet} : Patients, Médecins, Cliniques
+    \item \textbf{Données SmartWatch} : Réception et traitement temps réel
+    \item \textbf{Alertes automatiques} : Détection d'anomalies
+    \item \textbf{Rapports PDF} : Génération de bilans de santé
+\end{enumerate}
+
+\section*{Conclusion du chapitre}
+ClinAlert utilise un stack moderne et robuste basé sur Spring Boot et PostgreSQL pour offrir une solution de suivi médical fiable et sécurisée.
+
+% =============================================================================
+% CHAPITRE 2 : ARCHITECTURE
+% =============================================================================
+\chapter{Architecture du Système}
+
+\section*{Introduction du chapitre}
+Ce chapitre détaille l'architecture logicielle adoptée pour le backend ClinAlert, incluant les patterns de conception et la structure des packages.
+
+\section{Architecture MVC-REST}
+Le backend suit une architecture \textbf{MVC (Model-View-Controller)} adaptée pour une API REST :
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    layer/.style={rectangle, draw=primaryblue, thick, fill=primaryblue!10, 
+                  minimum width=10cm, minimum height=1.2cm, text=darkgray},
+    arrow/.style={->, thick, color=secondaryblue}
+]
+    \node[layer] (client) at (0,6) {\textbf{Client} (Flutter App / API Consumer)};
+    \node[layer] (controller) at (0,4.5) {\textbf{Controller Layer} (REST Endpoints)};
+    \node[layer] (service) at (0,3) {\textbf{Service Layer} (Business Logic)};
+    \node[layer] (repository) at (0,1.5) {\textbf{Repository Layer} (Data Access)};
+    \node[layer] (database) at (0,0) {\textbf{Database} (PostgreSQL)};
+    
+    \draw[arrow] (client) -- (controller);
+    \draw[arrow] (controller) -- (service);
+    \draw[arrow] (service) -- (repository);
+    \draw[arrow] (repository) -- (database);
+\end{tikzpicture}
+\caption{Architecture en couches MVC-REST}
+\end{figure}
+
+\section{Pattern REST API}
+L'API respecte les contraintes REST :
+\begin{itemize}
+    \item \textbf{Stateless} : Chaque requête contient toutes les informations (JWT)
+    \item \textbf{Uniform Interface} : Endpoints standardisés (GET, POST, PUT, DELETE)
+    \item \textbf{Resource-Based} : URLs basées sur les ressources (/patients, /doctors)
+    \item \textbf{JSON} : Format d'échange de données
+\end{itemize}
+
+\section{Structure des Packages}
+\begin{table}[H]
+\centering
+\begin{tabular}{llc}
+\toprule
+\textbf{Package} & \textbf{Responsabilité} & \textbf{Classes} \\
+\midrule
+\texttt{model/} & Entités JPA & 9 \\
+\texttt{repository/} & Accès données (Spring Data) & 9 \\
+\texttt{service/} & Logique métier & 11 \\
+\texttt{controller/} & Endpoints REST & 8 \\
+\texttt{security/} & JWT \& Spring Security & 5 \\
+\texttt{dto/} & Data Transfer Objects & 3 \\
+\texttt{config/} & Configuration Spring & 1 \\
+\texttt{util/} & Classes utilitaires & 3 \\
+\bottomrule
+\end{tabular}
+\caption{Organisation des packages}
+\end{table}
+
+\section*{Conclusion du chapitre}
+L'architecture MVC-REST assure une séparation claire des responsabilités, facilitant la maintenance et l'évolution du système.
+
+% =============================================================================
+% CHAPITRE 3 : DIAGRAMME DE CAS D'UTILISATION
+% =============================================================================
+\chapter{Diagramme de Cas d'Utilisation}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente les cas d'utilisation du système ClinAlert pour chaque type d'acteur. Le diagramme UML illustre les interactions possibles entre les utilisateurs et le système.
+
+\section{Identification des Acteurs}
+
+Le système ClinAlert identifie quatre types d'acteurs principaux, chacun avec des responsabilités distinctes :
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Acteur} & \textbf{Rôle} & \textbf{Responsabilités} \\
+\midrule
+\textcolor{errorred}{\textbf{Administrateur}} & ADMIN & Gestion des utilisateurs, configuration système, supervision globale \\
+\textcolor{primaryblue}{\textbf{Médecin}} & DOCTOR & Suivi des patients, consultation des données, gestion des alertes \\
+\textcolor{accentgreen}{\textbf{Infirmier}} & NURSE & Saisie des mesures, assistance au suivi quotidien \\
+\textcolor{warningorange}{\textbf{Patient}} & PATIENT & Consultation de ses propres données de santé \\
+\bottomrule
+\end{tabularx}
+\caption{Description des acteurs du système}
+\end{table}
+
+\section{Diagramme de Cas d'Utilisation UML}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+    actor/.style={circle, draw=darkgray, thick, minimum size=0.8cm, fill=white},
+    actorline/.style={thick, darkgray},
+    usecase/.style={ellipse, draw=primaryblue, thick, minimum width=3.5cm, minimum height=1.2cm, align=center, font=\small},
+    usecaseadmin/.style={ellipse, draw=errorred, thick, fill=errorred!10, minimum width=3.5cm, minimum height=1.2cm, align=center, font=\small},
+    usecasedoctor/.style={ellipse, draw=primaryblue, thick, fill=primaryblue!10, minimum width=3.5cm, minimum height=1.2cm, align=center, font=\small},
+    usecasepatient/.style={ellipse, draw=warningorange, thick, fill=warningorange!10, minimum width=3.5cm, minimum height=1.2cm, align=center, font=\small},
+    usecasecommon/.style={ellipse, draw=accentgreen, thick, fill=accentgreen!10, minimum width=3.5cm, minimum height=1.2cm, align=center, font=\small},
+    systembox/.style={rectangle, draw=primaryblue, thick, rounded corners=5pt}
+]
+
+% System boundary
+\draw[systembox, fill=lightgray!20] (-1,-6) rectangle (12,8);
+\node[font=\large\bfseries, color=primaryblue] at (5.5,7.5) {Système ClinAlert Backend};
+
+% === ACTORS (stick figures) ===
+% Admin
+\node[actor, fill=errorred!20] (adminhead) at (-3,6) {};
+\draw[actorline] (-3,5.6) -- (-3,4.8);
+\draw[actorline] (-3.4,5.3) -- (-2.6,5.3);
+\draw[actorline] (-3,4.8) -- (-3.3,4);
+\draw[actorline] (-3,4.8) -- (-2.7,4);
+\node[font=\small\bfseries, color=errorred] at (-3,3.6) {Admin};
+
+% Doctor
+\node[actor, fill=primaryblue!20] (dochead) at (-3,2) {};
+\draw[actorline] (-3,1.6) -- (-3,0.8);
+\draw[actorline] (-3.4,1.3) -- (-2.6,1.3);
+\draw[actorline] (-3,0.8) -- (-3.3,0);
+\draw[actorline] (-3,0.8) -- (-2.7,0);
+\node[font=\small\bfseries, color=primaryblue] at (-3,-0.4) {Médecin};
+
+% Patient
+\node[actor, fill=warningorange!20] (pathead) at (-3,-2.5) {};
+\draw[actorline] (-3,-2.9) -- (-3,-3.7);
+\draw[actorline] (-3.4,-3.2) -- (-2.6,-3.2);
+\draw[actorline] (-3,-3.7) -- (-3.3,-4.5);
+\draw[actorline] (-3,-3.7) -- (-2.7,-4.5);
+\node[font=\small\bfseries, color=warningorange] at (-3,-4.9) {Patient};
+
+% === USE CASES ===
+% Admin use cases
+\node[usecaseadmin] (uc1) at (3,6.5) {Gérer les\\utilisateurs};
+\node[usecaseadmin] (uc2) at (8,6.5) {Gérer les\\cliniques};
+\node[usecaseadmin] (uc3) at (3,4.5) {Configurer\\le système};
+
+% Doctor use cases
+\node[usecasedoctor] (uc4) at (3,2.5) {Gérer les\\patients};
+\node[usecasedoctor] (uc5) at (8,2.5) {Consulter données\\de santé};
+\node[usecasedoctor] (uc6) at (8,0.5) {Gérer les\\alertes};
+\node[usecasedoctor] (uc7) at (3,0.5) {Générer\\rapports PDF};
+
+% Patient use cases
+\node[usecasepatient] (uc8) at (3,-1.5) {Consulter son\\historique};
+\node[usecasepatient] (uc9) at (8,-1.5) {Connecter\\SmartWatch};
+\node[usecasepatient] (uc10) at (5.5,-3.5) {Voir ses\\alertes};
+
+% Common use cases
+\node[usecasecommon] (uc11) at (5.5,-5) {S'authentifier\\(JWT)};
+
+% === RELATIONSHIPS ===
+% Admin relations
+\draw[->, thick, errorred] (-2.5,6) -- (uc1.west);
+\draw[->, thick, errorred] (-2.5,5.8) -- (uc2.west);
+\draw[->, thick, errorred] (-2.5,5.5) -- (uc3.west);
+
+% Doctor relations
+\draw[->, thick, primaryblue] (-2.5,2) -- (uc4.west);
+\draw[->, thick, primaryblue] (-2.5,1.8) -- (uc5.west);
+\draw[->, thick, primaryblue] (-2.5,1.5) -- (uc6.west);
+\draw[->, thick, primaryblue] (-2.5,1.3) -- (uc7.west);
+
+% Patient relations
+\draw[->, thick, warningorange] (-2.5,-2.5) -- (uc8.west);
+\draw[->, thick, warningorange] (-2.5,-2.8) -- (uc9.west);
+\draw[->, thick, warningorange] (-2.5,-3.2) -- (uc10.west);
+
+% All actors to authentication
+\draw[->, thick, accentgreen] (-2.5,5) -- (uc11.north west);
+\draw[->, thick, accentgreen] (-2.5,0) -- (uc11.west);
+\draw[->, thick, accentgreen] (-2.5,-4) -- (uc11.south west);
+
+% Include/Extend relationships
+\draw[->, dashed, gray] (uc5) -- node[above, font=\scriptsize] {<<include>>} (uc11);
+\draw[->, dashed, gray] (uc9) -- node[right, font=\scriptsize] {<<extend>>} (uc5);
+
+\end{tikzpicture}
+}
+\caption{Diagramme de cas d'utilisation UML - Système ClinAlert}
+\end{figure}
+
+\section{Description Détaillée des Cas d'Utilisation}
+
+\subsection{Cas d'Utilisation Administrateur}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Use Case} & \textbf{Description détaillée} \\
+\midrule
+Gérer utilisateurs & Créer, modifier, activer/désactiver et supprimer les comptes utilisateurs. Attribuer les rôles (ADMIN, DOCTOR, NURSE, PATIENT). \\
+Gérer cliniques & CRUD complet des établissements médicaux. Associer les médecins aux cliniques. \\
+Configurer système & Paramétrage des seuils d'alerte, durée des tokens JWT, options de sécurité. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Cas d'Utilisation Médecin}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Use Case} & \textbf{Description détaillée} \\
+\midrule
+Gérer patients & Ajouter, modifier, transférer des patients. Assigner à une clinique. Changer le statut (actif, sorti, transféré). \\
+Consulter données & Visualiser l'historique complet : fréquence cardiaque, SpO2, pas, sommeil. Graphiques et statistiques. \\
+Gérer alertes & Consulter les alertes générées, les marquer comme lues, prendre des actions. \\
+Générer rapports & Créer des rapports PDF détaillés pour un patient sur une période donnée. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Cas d'Utilisation Patient}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Use Case} & \textbf{Description détaillée} \\
+\midrule
+Consulter historique & Voir ses propres données de santé uniquement. Graphiques et tendances. \\
+Connecter SmartWatch & Appairer un appareil connecté via Bluetooth. Envoyer les données au serveur. \\
+Voir alertes & Consulter les alertes le concernant. Notifications en temps réel. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Scénarios d'Utilisation}
+
+\subsection{Scénario : Authentification d'un Médecin}
+\begin{enumerate}
+    \item Le médecin accède à la page de connexion
+    \item Il saisit son email et mot de passe
+    \item Le système vérifie les identifiants dans la base PostgreSQL
+    \item Si valides, un token JWT est généré (validité : 24h)
+    \item Le médecin accède à son tableau de bord avec ses patients
+\end{enumerate}
+
+\subsection{Scénario : Réception d'une Alerte Critique}
+\begin{enumerate}
+    \item Le SmartWatch d'un patient détecte une fréquence cardiaque anormale (>120 bpm)
+    \item Les données sont envoyées au backend via l'API REST
+    \item Le service \texttt{SmartWatchHealthService} analyse les données
+    \item Une alerte de sévérité CRITICAL est créée automatiquement
+    \item Le médecin reçoit une notification et peut consulter les détails
+\end{enumerate}
+
+\section*{Conclusion du chapitre}
+Le diagramme de cas d'utilisation montre clairement la séparation des responsabilités entre les quatre types d'acteurs. L'authentification JWT est centrale à toutes les interactions, garantissant la sécurité des données médicales sensibles.
+
+% =============================================================================
+% CHAPITRE 4 : DIAGRAMME DE CLASSES
+% =============================================================================
+\chapter{Diagramme de Classes}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente le modèle de données complet du système ClinAlert à travers le diagramme de classes UML. Le modèle comprend 9 entités JPA interconnectées qui représentent les différents aspects du suivi médical.
+
+\section{Vue d'Ensemble du Modèle}
+
+Le système ClinAlert utilise les entités suivantes :
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llp{7cm}}
+\toprule
+\textbf{Entité} & \textbf{Table} & \textbf{Description} \\
+\midrule
+User & users & Comptes utilisateurs avec authentification \\
+Patient & patients & Informations des patients suivis \\
+Doctor & doctors & Médecins et professionnels de santé \\
+Clinic & clinics & Établissements médicaux \\
+HealthData & health\_data & Données de santé collectées \\
+Alert & alerts & Alertes médicales générées \\
+SmartWatchDevice & smartwatch\_devices & Appareils connectés \\
+DailyHealthSummary & daily\_summaries & Résumés quotidiens \\
+Measurement & measurements & Mesures historiques \\
+\bottomrule
+\end{tabular}
+\caption{Liste des entités du système}
+\end{table}
+
+\section{Diagramme de Classes UML}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+    umlclass/.style={
+        rectangle, draw=primaryblue, thick, fill=white,
+        minimum width=4.5cm, text=darkgray, font=\small,
+        inner sep=0pt
+    },
+    classname/.style={
+        rectangle, fill=primaryblue!20, minimum width=4.5cm,
+        minimum height=0.7cm, font=\small\bfseries
+    },
+    attributes/.style={
+        rectangle, fill=white, minimum width=4.5cm,
+        font=\small\ttfamily, align=left, inner sep=5pt
+    },
+    methods/.style={
+        rectangle, fill=lightgray!30, minimum width=4.5cm,
+        font=\small\ttfamily, align=left, inner sep=5pt
+    },
+    relation/.style={->, thick, >=latex},
+    composition/.style={-*, thick, >=latex},
+    aggregation/.style={-o, thick, >=latex}
+]
+
+% === USER ===
+\node[umlclass] (user) at (0,8) {
+    \begin{tabular}{c}
+    \cellcolor{primaryblue!20} \textbf{User} \\
+    \hline
+    - id: String (UUID) \\
+    - email: String \\
+    - password: String \\
+    - role: UserRole \\
+    - firstName: String \\
+    - lastName: String \\
+    - phone: String \\
+    - enabled: Boolean \\
+    - createdAt: DateTime \\
+    \hline
+    + getAuthorities() \\
+    + isEnabled() \\
+    \end{tabular}
+};
+
+% === PATIENT ===
+\node[umlclass] (patient) at (-6,2) {
+    \begin{tabular}{c}
+    \cellcolor{accentgreen!20} \textbf{Patient} \\
+    \hline
+    - id: String (UUID) \\
+    - name: String \\
+    - age: Integer \\
+    - gender: String \\
+    - doctorId: String \\
+    - clinicId: String \\
+    - status: String \\
+    \hline
+    + getFullInfo() \\
+    \end{tabular}
+};
+
+% === DOCTOR ===
+\node[umlclass] (doctor) at (0,2) {
+    \begin{tabular}{c}
+    \cellcolor{secondaryblue!20} \textbf{Doctor} \\
+    \hline
+    - id: String (UUID) \\
+    - name: String \\
+    - speciality: String \\
+    - phone: String \\
+    - email: String \\
+    \hline
+    + getPatients() \\
+    \end{tabular}
+};
+
+% === CLINIC ===
+\node[umlclass] (clinic) at (6,2) {
+    \begin{tabular}{c}
+    \cellcolor{warningorange!20} \textbf{Clinic} \\
+    \hline
+    - id: String (UUID) \\
+    - name: String \\
+    - address: String \\
+    - phone: String \\
+    - doctorId: String \\
+    \hline
+    + getPatientCount() \\
+    \end{tabular}
+};
+
+% === HEALTHDATA ===
+\node[umlclass] (healthdata) at (-6,-4) {
+    \begin{tabular}{c}
+    \cellcolor{errorred!15} \textbf{HealthData} \\
+    \hline
+    - id: String (UUID) \\
+    - patientId: String \\
+    - deviceId: String \\
+    - heartRate: Integer \\
+    - spO2: Double \\
+    - steps: Integer \\
+    - sleepMinutes: Integer \\
+    - calories: Double \\
+    - timestamp: DateTime \\
+    \hline
+    + isNormal() \\
+    + getHeartRateStatus() \\
+    \end{tabular}
+};
+
+% === ALERT ===
+\node[umlclass] (alert) at (0,-4) {
+    \begin{tabular}{c}
+    \cellcolor{errorred!30} \textbf{Alert} \\
+    \hline
+    - id: String (UUID) \\
+    - patientId: String \\
+    - type: String \\
+    - severity: AlertLevel \\
+    - message: String \\
+    - read: Boolean \\
+    - timestamp: DateTime \\
+    \hline
+    + markAsRead() \\
+    \end{tabular}
+};
+
+% === SMARTWATCH ===
+\node[umlclass] (smartwatch) at (6,-4) {
+    \begin{tabular}{c}
+    \cellcolor{primaryblue!15} \textbf{SmartWatchDevice} \\
+    \hline
+    - id: String (UUID) \\
+    - patientId: String \\
+    - deviceAddress: String \\
+    - deviceName: String \\
+    - isActive: Boolean \\
+    - lastConnected: DateTime \\
+    \hline
+    + ping() \\
+    + deactivate() \\
+    \end{tabular}
+};
+
+% === RELATIONS ===
+% Doctor -> Patient (1:N)
+\draw[relation] (doctor.south) -- ++(0,-0.3) -| node[pos=0.25, above] {1} node[pos=0.75, above] {*} (patient.north);
+
+% Clinic -> Patient (1:N)
+\draw[relation] (clinic.south) -- ++(0,-0.5) -| node[pos=0.25, above] {1} node[pos=0.75, above] {*} (patient.east);
+
+% Patient -> HealthData (1:N)
+\draw[relation, color=errorred] (patient.south) -- node[left] {1} node[right, pos=0.9] {*} (healthdata.north);
+
+% Patient -> Alert (1:N)
+\draw[relation, color=warningorange] (patient.south) -- ++(0,-1) -| node[pos=0.25, left] {1} node[pos=0.8, right] {0..*} (alert.north);
+
+% Patient -> SmartWatch (1:N)
+\draw[relation, color=primaryblue] (patient.east) -- ++(1,0) |- node[pos=0.8, above] {0..*} (smartwatch.west);
+
+% SmartWatch -> HealthData
+\draw[relation, dashed, color=gray] (smartwatch.south) -- ++(0,-0.5) -| node[pos=0.7, below, font=\scriptsize] {génère} (healthdata.east);
+
+\end{tikzpicture}
+}
+\caption{Diagramme de classes UML complet}
+\end{figure}
+
+\section{Énumération UserRole}
+
+L'entité User utilise une énumération pour définir les rôles :
+
+\begin{lstlisting}[style=java]
+public enum UserRole {
+    ADMIN,    // Administrateur systeme
+    DOCTOR,   // Medecin
+    NURSE,    // Infirmier
+    PATIENT   // Patient
+}
+\end{lstlisting}
+
+\section{Description Détaillée des Entités}
+
+\subsection{Entité User}
+L'entité centrale pour l'authentification, implémente \texttt{UserDetails} de Spring Security.
+
+\begin{lstlisting}[style=java]
+@Entity
+@Table(name = "users")
+public class User implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    
+    @Column(unique = true, nullable = false)
+    private String email;
+    
+    @Column(nullable = false)
+    private String password;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
+    
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private Boolean enabled = true;
+    
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+    
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+    
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+    
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(
+            new SimpleGrantedAuthority("ROLE_" + role.name())
+        );
+    }
+}
+\end{lstlisting}
+
+\subsection{Entité Patient}
+Représente un patient suivi dans le système.
+
+\begin{lstlisting}[style=java]
+@Entity
+@Table(name = "patients")
+public class Patient {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    
+    private String name;
+    private Integer age;
+    private String gender;  // M, F, Other
+    
+    @Column(name = "doctor_id")
+    private String doctorId;
+    
+    @Column(name = "clinic_id")
+    private String clinicId;
+    
+    private String status;  // active, discharged, transferred
+}
+\end{lstlisting}
+
+\subsection{Entité HealthData}
+Stocke les données de santé collectées par les appareils connectés.
+
+\begin{lstlisting}[style=java]
+@Entity
+@Table(name = "health_data")
+public class HealthData {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    
+    @Column(name = "patient_id", nullable = false)
+    private String patientId;
+    
+    @Column(name = "device_id")
+    private String deviceId;
+    
+    private Integer heartRate;      // 40-200 bpm
+    private Double spO2;            // 0-100 %
+    private Integer steps;          // pas quotidiens
+    private Integer sleepMinutes;   // minutes de sommeil
+    private Double calories;        // calories brulees
+    private Double distance;        // km parcourus
+    
+    private LocalDateTime timestamp;
+    private String source;          // smartwatch, manual
+    
+    // Methode pour verifier si les valeurs sont normales
+    public boolean isHeartRateNormal() {
+        return heartRate != null && 
+               heartRate >= 60 && heartRate <= 100;
+    }
+}
+\end{lstlisting}
+
+\subsection{Entité Alert}
+Gère les alertes médicales générées automatiquement.
+
+\begin{lstlisting}[style=java]
+@Entity
+@Table(name = "alerts")
+public class Alert {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    
+    @Column(name = "patient_id")
+    private String patientId;
+    
+    private String type;       // heart_rate, spo2, anomaly
+    private String severity;   // LOW, MEDIUM, HIGH, CRITICAL
+    private String message;
+    private Boolean read = false;
+    private LocalDateTime timestamp;
+}
+\end{lstlisting}
+
+\section{Relations Entre Entités}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Source} & \textbf{Cible} & \textbf{Type} & \textbf{Cardinalité} \\
+\midrule
+Doctor & Patient & Association & 1 : N \\
+Clinic & Patient & Association & 1 : N \\
+Patient & HealthData & Composition & 1 : N \\
+Patient & Alert & Agrégation & 1 : 0..N \\
+Patient & SmartWatchDevice & Association & 1 : 0..N \\
+SmartWatchDevice & HealthData & Génération & 1 : N \\
+\bottomrule
+\end{tabular}
+\caption{Relations entre les entités}
+\end{table}
+
+\section*{Conclusion du chapitre}
+Le modèle de données est organisé autour de l'entité Patient, avec des relations vers les données de santé, les alertes et les appareils connectés. L'utilisation de UUID garantit l'unicité des identifiants et facilite la distribution du système.
+
+% =============================================================================
+% CHAPITRE 5 : DIAGRAMME DE SÉQUENCE
+% =============================================================================
+\chapter{Diagrammes de Séquence}
+
+\section*{Introduction du chapitre}
+Les diagrammes de séquence illustrent les interactions entre les composants lors des opérations principales.
+
+\section{Séquence : Authentification}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % Acteurs et objets
+    \node[draw, rectangle] (client) at (0,0) {Client};
+    \node[draw, rectangle] (auth) at (4,0) {AuthController};
+    \node[draw, rectangle] (service) at (8,0) {AuthService};
+    \node[draw, rectangle] (jwt) at (12,0) {JwtProvider};
+    
+    % Lignes de vie
+    \draw[dashed] (client) -- (0,-8);
+    \draw[dashed] (auth) -- (4,-8);
+    \draw[dashed] (service) -- (8,-8);
+    \draw[dashed] (jwt) -- (12,-8);
+    
+    % Messages
+    \draw[->, thick] (0,-1) -- node[above, font=\small] {POST /login} (4,-1);
+    \draw[->, thick] (4,-2) -- node[above, font=\small] {authenticate()} (8,-2);
+    \draw[->, thick] (8,-3) -- node[above, font=\small] {validateUser()} (8,-3.5);
+    \draw[->, thick] (8,-4) -- node[above, font=\small] {generateToken()} (12,-4);
+    \draw[<--, thick] (8,-5) -- node[above, font=\small] {JWT Token} (12,-5);
+    \draw[<--, thick] (4,-6) -- node[above, font=\small] {AuthResponse} (8,-6);
+    \draw[<--, thick] (0,-7) -- node[above, font=\small] {\{token, user\}} (4,-7);
+\end{tikzpicture}
+\caption{Séquence d'authentification JWT}
+\end{figure}
+
+\section{Séquence : Soumission Données SmartWatch}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % Acteurs
+    \node[draw, rectangle] (watch) at (0,0) {SmartWatch};
+    \node[draw, rectangle] (ctrl) at (4,0) {Controller};
+    \node[draw, rectangle] (svc) at (8,0) {HealthService};
+    \node[draw, rectangle] (alert) at (12,0) {AlertService};
+    
+    % Lignes
+    \draw[dashed] (watch) -- (0,-9);
+    \draw[dashed] (ctrl) -- (4,-9);
+    \draw[dashed] (svc) -- (8,-9);
+    \draw[dashed] (alert) -- (12,-9);
+    
+    % Messages
+    \draw[->, thick] (0,-1) -- node[above, font=\small] {POST /health-data} (4,-1);
+    \draw[->, thick] (4,-2) -- node[above, font=\small] {processData()} (8,-2);
+    \draw[->, thick] (8,-3) -- node[above, font=\small] {saveToDatabase()} (8,-3.5);
+    \draw[->, thick] (8,-4) -- node[above, font=\small] {checkAnomalies()} (8,-4.5);
+    
+    \node[draw, rectangle, fill=warningorange!20] at (8,-5.5) {\small Anomalie détectée?};
+    
+    \draw[->, thick, color=errorred] (8,-6.5) -- node[above, font=\small] {createAlert()} (12,-6.5);
+    \draw[<--, thick] (4,-7.5) -- node[above, font=\small] {success} (8,-7.5);
+    \draw[<--, thick] (0,-8.5) -- node[above, font=\small] {200 OK} (4,-8.5);
+\end{tikzpicture}
+\caption{Séquence de traitement des données santé}
+\end{figure}
+
+\section*{Conclusion du chapitre}
+Les diagrammes de séquence montrent le flux des données à travers les différentes couches de l'application.
+
+% =============================================================================
+% CHAPITRE 6 : SÉCURITÉ
+% =============================================================================
+\chapter{Sécurité}
+
+\section*{Introduction du chapitre}
+La sécurité est un aspect critique pour une application médicale. Ce chapitre détaille l'implémentation JWT.
+
+\section{Architecture JWT}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    box/.style={rectangle, draw=primaryblue, thick, fill=lightgray, 
+                minimum height=1cm, minimum width=3.5cm}
+]
+    \node[box] (req) at (0,4) {Requête HTTP};
+    \node[box] (filter) at (0,2.5) {JwtAuthFilter};
+    \node[box] (provider) at (0,1) {JwtTokenProvider};
+    \node[box] (ctrl) at (0,-0.5) {Controller};
+    
+    \draw[->, thick, primaryblue] (req) -- (filter);
+    \draw[->, thick, primaryblue] (filter) -- node[right] {Valide token} (provider);
+    \draw[->, thick, primaryblue] (provider) -- (ctrl);
+\end{tikzpicture}
+\caption{Flux d'authentification JWT}
+\end{figure}
+
+\section{Configuration Spring Security}
+\begin{lstlisting}[style=java]
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) {
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtFilter, 
+                UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+}
+\end{lstlisting}
+
+\section{Matrice des Permissions}
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Endpoint} & \textbf{ADMIN} & \textbf{DOCTOR} & \textbf{PATIENT} \\
+\midrule
+/api/auth/* & \ding{51} & \ding{51} & \ding{51} \\
+/api/users/* & \ding{51} & \ding{55} & \ding{55} \\
+/api/patients/* & \ding{51} & \ding{51} & \ding{55} \\
+/api/health-data/* & \ding{51} & \ding{51} & \ding{51}* \\
+\bottomrule
+\end{tabular}
+\caption{Matrice d'accès (* = ses propres données uniquement)}
+\end{table}
+
+\section*{Conclusion du chapitre}
+L'authentification JWT garantit une sécurité robuste pour toutes les communications API.
+
+% =============================================================================
+% CHAPITRE 7 : API REST
+% =============================================================================
+\chapter{API REST - Endpoints}
+
+\section*{Introduction du chapitre}
+Ce chapitre documente tous les endpoints REST disponibles dans l'API ClinAlert.
+
+\section{Endpoints d'Authentification}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+\midrule
+POST & /api/auth/login & Authentification utilisateur \\
+POST & /api/auth/register & Inscription nouvel utilisateur \\
+GET & /api/auth/me & Profil utilisateur connecté \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Endpoints Patients}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+\midrule
+GET & /api/patients & Liste tous les patients \\
+GET & /api/patients/\{id\} & Détails d'un patient \\
+POST & /api/patients & Créer un patient \\
+PUT & /api/patients/\{id\} & Modifier un patient \\
+DELETE & /api/patients/\{id\} & Supprimer un patient \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Endpoints SmartWatch}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+\midrule
+POST & /api/smartwatch/health-data & Soumettre données santé \\
+GET & /api/smartwatch/health-data/\{id\} & Historique patient \\
+GET & /api/smartwatch/health-data/\{id\}/heart-rate & Historique cardiaque \\
+GET & /api/smartwatch/health-data/\{id\}/spo2 & Historique SpO2 \\
+POST & /api/smartwatch/devices & Enregistrer appareil \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section*{Conclusion du chapitre}
+L'API REST offre une interface complète et standardisée pour toutes les opérations du système.
+
+% =============================================================================
+% CHAPITRE 8 : CONCLUSION GÉNÉRALE
+% =============================================================================
+\chapter{Conclusion Générale}
+
+\section{Récapitulatif}
+Le backend ClinAlert offre une architecture robuste et sécurisée :
+
+\begin{itemize}
+    \item \ding{51} \textbf{Architecture MVC-REST} : Séparation claire des responsabilités
+    \item \ding{51} \textbf{9 entités JPA} : Modèle de données complet
+    \item \ding{51} \textbf{8 contrôleurs REST} : API complète et documentée
+    \item \ding{51} \textbf{11 services} : Logique métier encapsulée
+    \item \ding{51} \textbf{Sécurité JWT} : Authentication stateless robuste
+    \item \ding{51} \textbf{PostgreSQL} : Base de données relationnelle fiable
+\end{itemize}
+
+\section{Améliorations Futures}
+\begin{enumerate}
+    \item Ajout de tests unitaires et d'intégration
+    \item Implémentation de rate limiting
+    \item Support WebSocket pour temps réel
+    \item Cache Redis pour performances
+    \item Microservices pour scalabilité
+\end{enumerate}
+
+\vspace{2cm}
+\begin{center}
+\textcolor{primaryblue}{\rule{10cm}{1pt}}\\[1cm]
+{\Large\bfseries\textcolor{primaryblue}{ClinAlert}}\\[0.3cm]
+{\textcolor{darkgray}{Healthcare Monitoring System}}
+\end{center}
+
+\end{document}

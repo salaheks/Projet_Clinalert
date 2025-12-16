@@ -7,12 +7,16 @@ import 'package:clinalert/screens/measurement_screen.dart';
 import 'package:clinalert/screens/doctor_dashboard_screen.dart';
 import 'package:clinalert/screens/nurse_dashboard_screen.dart';
 import 'package:clinalert/screens/patient_dashboard_screen.dart';
+import 'package:clinalert/screens/smartwatch_connection_screen.dart';
+import 'package:clinalert/screens/health_data_screen.dart';
+import 'package:clinalert/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'services/auth_service.dart';
 import 'providers/auth_provider.dart';
+import 'providers/locale_provider.dart';
 import 'themes/app_theme.dart';
 import 'providers/theme_provider.dart';
 import 'screens/welcome_screen.dart';
@@ -32,13 +36,18 @@ void main() async {
   final storageService = StorageService();
   await storageService.init();
   
-  runApp(MyApp(storageService: storageService));
+  // Initialize locale provider
+  final localeProvider = LocaleProvider();
+  await localeProvider.init();
+  
+  runApp(MyApp(storageService: storageService, localeProvider: localeProvider));
 }
 
 class MyApp extends StatelessWidget {
   final StorageService storageService;
+  final LocaleProvider localeProvider;
   
-  const MyApp({super.key, required this.storageService});
+  const MyApp({super.key, required this.storageService, required this.localeProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +62,17 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => MessageService()),
+        ChangeNotifierProvider<LocaleProvider>.value(value: localeProvider),
       ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProv, _) => MaterialApp.router(
+      child: Consumer2<ThemeProvider, LocaleProvider>(
+        builder: (context, themeProv, localeProv, _) => MaterialApp.router(
           title: 'ClinAlert',
           theme: AppThemes.lightTheme,
           darkTheme: AppThemes.darkTheme,
           themeMode: themeProv.themeMode,
           routerConfig: _router,
           debugShowCheckedModeBanner: false,
+          locale: localeProv.locale,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -71,6 +82,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: const [
             Locale('en'), // English
             Locale('fr'), // French
+            Locale('ar'), // Arabic
           ],
         ),
       ),
@@ -187,7 +199,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/doctor-dashboard',
       builder: (context, state) => AuthGuard(
-        requiredRoles: const [UserRole.doctor],
+        requiredRoles: const [UserRole.admin, UserRole.doctor],
         child: const DoctorDashboardScreen(),
       ),
     ),
@@ -223,9 +235,47 @@ final GoRouter _router = GoRouter(
       path: '/measurement',
       builder: (context, state) {
         final device = state.extra as DiscoveredDevice;
-        // In a real app, get patientId from AuthProvider
-        return MeasurementScreen(device: device, patientId: 'current_patient_id');
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        return MeasurementScreen(device: device, patientId: authProvider.currentUser?.id ?? 'unknown');
       },
+    ),
+    
+    // Smartwatch Connection Route
+    GoRoute(
+      path: '/smartwatch',
+      builder: (context, state) {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final name = authProvider.currentUser?.firstName;
+        return AuthGuard(
+          child: SmartWatchConnectionScreen(
+            patientId: authProvider.currentUser?.id ?? '',
+            patientName: name?.isNotEmpty == true ? name : null,
+          ),
+        );
+      },
+    ),
+    
+    // Health Data Route
+    GoRoute(
+      path: '/health-data',
+      builder: (context, state) {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final name = authProvider.currentUser?.firstName;
+        return AuthGuard(
+          child: HealthDataScreen(
+            patientId: authProvider.currentUser?.id ?? '',
+            patientName: name?.isNotEmpty == true ? name : null,
+          ),
+        );
+      },
+    ),
+    
+    // Settings Route
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => AuthGuard(
+        child: const SettingsScreen(),
+      ),
     ),
 
     // Unauthorized Page

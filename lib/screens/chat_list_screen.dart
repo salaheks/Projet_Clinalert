@@ -126,6 +126,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   IconData _getRoleIcon(UserRole role) {
     switch (role) {
+      case UserRole.admin:
+        return Icons.admin_panel_settings;
       case UserRole.doctor:
         return Icons.local_hospital;
       case UserRole.nurse:

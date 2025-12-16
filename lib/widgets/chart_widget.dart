@@ -37,10 +37,10 @@ class ChartWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 140,
+          if (title.isNotEmpty)
+            Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+          if (title.isNotEmpty) const SizedBox(height: 8),
+          Expanded(
             child: BarChart(
               BarChartData(
                 alignment: BarChartAlignment.spaceAround,

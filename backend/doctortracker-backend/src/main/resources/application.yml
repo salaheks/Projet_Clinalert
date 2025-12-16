@@ -1,28 +1,26 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
 
 spring:
   application:
     name: doctortracker-backend
   datasource:
-    url: jdbc:h2:mem:doctortracker;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    username: sa
-    password: password
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5433/doctortracker}
+    driverClassName: org.postgresql.Driver
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:password}
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: ${SHOW_SQL:true}
     properties:
       hibernate:
         format_sql: true
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
 
 app:
-  jwtSecret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-  jwtExpirationMs: 86400000
-  hmacSecret: mySuperSecretHmacKeyForIntegrityCheck123!
+  # SECURITY: Use environment variables in production!
+  # Default values are for development only
+  jwtSecret: ${JWT_SECRET:dev-only-jwt-secret-change-in-production-404E635266556A586E3272357538782F}
+  jwtExpirationMs: ${JWT_EXPIRATION_MS:86400000}
+  hmacSecret: ${HMAC_SECRET:dev-only-hmac-secret-change-in-production}

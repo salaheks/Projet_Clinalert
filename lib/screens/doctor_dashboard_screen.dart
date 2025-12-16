@@ -1,11 +1,15 @@
 import 'package:clinalert/models/patient_model.dart';
+import 'package:clinalert/models/patient_api_model.dart';
 import 'package:clinalert/models/user_model.dart';
 import 'package:clinalert/screens/patient_detail_screen.dart';
+import 'package:clinalert/screens/add_edit_patient_screen.dart';
+import 'package:clinalert/screens/clinics_screen.dart';
 import 'package:clinalert/widgets/custom_app_bar.dart';
 import 'package:clinalert/widgets/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
+import '../services/api_service.dart';
 import 'alerts_screen.dart';
 import 'chat_list_screen.dart';
 import '../widgets/adaptive_scaffold.dart';
@@ -16,67 +20,55 @@ import '../widgets/chat_icon_button.dart';
 import 'package:go_router/go_router.dart';
 import 'patients_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'settings_screen.dart';
 
-class DoctorDashboardScreen extends StatelessWidget {
+class DoctorDashboardScreen extends StatefulWidget {
   const DoctorDashboardScreen({super.key});
+
+  @override
+  State<DoctorDashboardScreen> createState() => _DoctorDashboardScreenState();
+}
+
+class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
+  final ApiService _apiService = ApiService();
+  List<Patient> _patients = [];
+  bool _isLoading = true;
+  String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPatients();
+  }
+
+  Future<void> _loadPatients() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final patientsData = await _apiService.getAllPatients();
+      final patientApiModels = patientsData
+          .map((json) => PatientApiModel.fromJson(json))
+          .toList();
+      
+      setState(() {
+        _patients = patientApiModels.map((api) => api.toPatient()).toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Erreur de chargement des patients: $e';
+        _isLoading = false;
+      });
+      print('Error loading patients: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = context.read<AuthProvider>();
-    // Mock data for patients
-    final patients = [
-      Patient(
-        id: '1',
-        patientId: 'P-001',
-        user: User(
-          id: 'u1',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          phone: '+1-555-0101',
-          role: UserRole.patient,
-          createdAt: DateTime(2024, 1, 1),
-        ),
-        dateOfBirth: DateTime(1985, 5, 20),
-        bloodType: 'O+',
-        status: PatientStatus.active,
-        createdAt: DateTime.now(),
-      ),
-      Patient(
-        id: '2',
-        patientId: 'P-002',
-        user: User(
-          id: 'u2',
-          firstName: 'Jane',
-          lastName: 'Smith',
-          email: 'jane.smith@example.com',
-          phone: '+1-555-0102',
-          role: UserRole.patient,
-          createdAt: DateTime(2024, 1, 2),
-        ),
-        dateOfBirth: DateTime(1992, 8, 15),
-        bloodType: 'A-',
-        status: PatientStatus.transferred,
-        createdAt: DateTime.now(),
-      ),
-      Patient(
-        id: '3',
-        patientId: 'P-003',
-        user: User(
-          id: 'u3',
-          firstName: 'Peter',
-          lastName: 'Jones',
-          email: 'peter.jones@example.com',
-          phone: '+1-555-0103',
-          role: UserRole.patient,
-          createdAt: DateTime(2024, 1, 3),
-        ),
-        dateOfBirth: DateTime(1978, 12, 1),
-        bloodType: 'B+',
-        status: PatientStatus.discharged,
-        createdAt: DateTime.now(),
-      ),
-    ];
 
     final appBar = CustomAppBar(
       title: 'Doctor Dashboard',
@@ -93,6 +85,14 @@ class DoctorDashboardScreen extends StatelessWidget {
             MaterialPageRoute(builder: (_) => const AlertsScreen()),
           ),
         ),
+        IconButton(
+          icon: const Icon(Icons.settings_outlined),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SettingsScreen()),
+          ),
+          tooltip: 'Paramètres',
+        ),
       ],
     );
 
@@ -104,6 +104,7 @@ class DoctorDashboardScreen extends StatelessWidget {
             child: _DoctorHeader(),
           ),
         ),
+
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           sliver: SliverGrid.count(
@@ -114,7 +115,7 @@ class DoctorDashboardScreen extends StatelessWidget {
             children: [
               HealthStatCard(
                 title: 'Assigned Patients',
-                value: patients.length.toString(),
+                value: _isLoading ? '...' : _patients.length.toString(),
                 unit: 'Active',
                 icon: Icons.people,
                 iconColor: Colors.blue,
@@ -181,29 +182,78 @@ class DoctorDashboardScreen extends StatelessWidget {
             ),
           ),
         ),
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 80),
-          sliver: SliverList.builder(
-            itemCount: patients.length,
-            itemBuilder: (context, index) {
-              final patient = patients[index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: PatientCard(
-                  patient: patient,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PatientDetailScreen(patient: patient),
-                      ),
-                    );
-                  },
+        // Loading, error, or patient list
+        if (_isLoading)
+          const SliverToBoxAdapter(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(40),
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          )
+        else if (_errorMessage != null)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ModernCard(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                    const SizedBox(height: 16),
+                    Text(
+                      _errorMessage!,
+                      style: const TextStyle(color: Colors.red),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton.icon(
+                      onPressed: _loadPatients,
+                      icon: const Icon(Icons.refresh),
+                      label: const Text('Réessayer'),
+                    ),
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
+          )
+        else if (_patients.isEmpty)
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Center(
+                child: Text('Aucun patient trouvé'),
+              ),
+            ),
+          )
+        else
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 80),
+            sliver: SliverList.builder(
+              itemCount: _patients.length,
+              itemBuilder: (context, index) {
+                final patient = _patients[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: PatientCard(
+                    patient: patient,
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PatientDetailScreen(
+                            patient: patient,
+                            onStatusChanged: _loadPatients,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
           ),
-        ),
       ],
     );
 
@@ -213,6 +263,7 @@ class DoctorDashboardScreen extends StatelessWidget {
       destinations: const [
         NavigationDestination(icon: Icon(Icons.dashboard_outlined), selectedIcon: Icon(Icons.dashboard), label: 'Dashboard'),
         NavigationDestination(icon: Icon(Icons.people_outline), selectedIcon: Icon(Icons.people), label: 'Patients'),
+        NavigationDestination(icon: Icon(Icons.local_hospital_outlined), selectedIcon: Icon(Icons.local_hospital), label: 'Cliniques'),
         NavigationDestination(icon: Icon(Icons.notifications_outlined), selectedIcon: Icon(Icons.notifications), label: 'Alerts'),
       ],
       currentIndex: 0,
@@ -222,11 +273,30 @@ class DoctorDashboardScreen extends StatelessWidget {
           return;
         }
         if (i == 2) {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const ClinicsScreen()));
+          return;
+        }
+        if (i == 3) {
           Navigator.push(context, MaterialPageRoute(builder: (_) => const AlertsScreen()));
           return;
         }
       },
-      floatingActionButton: null,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddEditPatientScreen(),
+            ),
+          );
+          if (result == true) {
+            _loadPatients(); // Refresh list after adding
+          }
+        },
+        icon: const Icon(Icons.add),
+        label: const Text('Ajouter patient'),
+        backgroundColor: const Color(0xFF0066FF),
+      ),
     );
   }
 }

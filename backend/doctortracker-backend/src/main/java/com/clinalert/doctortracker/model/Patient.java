@@ -16,6 +16,11 @@ public class Patient {
     @Column(name = "doctor_id")
     private String doctorId;
 
+    @Column(name = "clinic_id")
+    private String clinicId;
+
+    private String status; // active, discharged, transferred
+
     public String getId() {
         return id;
     }
@@ -54,5 +59,21 @@ public class Patient {
 
     public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public String getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(String clinicId) {
+        this.clinicId = clinicId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

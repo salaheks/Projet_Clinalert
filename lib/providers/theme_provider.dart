@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Simple ThemeProvider to toggle between light and dark modes.
 class ThemeProvider with ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.light; // Default to white/light theme
 
   ThemeMode get themeMode => _themeMode;
 
