@@ -8,6 +8,10 @@ import '../models/measurement.dart';
 class BleService {
   final FlutterReactiveBle _ble = FlutterReactiveBle();
 
+  // Standard BLE Service and Characteristic UUIDs
+  final Uuid _heartRateServiceUuid = Uuid.parse("0000180d-0000-1000-8000-00805f9b34fb");
+  final Uuid _heartRateCharacteristicUuid = Uuid.parse("00002a37-0000-1000-8000-00805f9b34fb");
+
   /// Stream that monitors Bluetooth adapter state changes
   Stream<BleStatus> get bluetoothStatusStream => _ble.statusStream;
 
@@ -72,19 +76,31 @@ class BleService {
   }
 
   Stream<Measurement> subscribeToMeasurements(String deviceId, String patientId, String consentId) {
-    // For demonstration, we simulate data. 
-    // In a real app, you would subscribe to specific characteristics here.
     final controller = StreamController<Measurement>.broadcast();
-    Timer? timer;
+    Timer? mockDataTimer;
+    StreamSubscription? realDataSubscription;
+    bool usingRealData = false;
 
+    // --- Mock Data Logic (Fallback) ---
     void startMockData() {
-      timer = Timer.periodic(const Duration(seconds: 2), (t) {
+      // Only start simulating if we haven't found real data
+      if (usingRealData) return;
+      
+      print('Using simulated data (Fallback)');
+      mockDataTimer?.cancel();
+      mockDataTimer = Timer.periodic(const Duration(seconds: 2), (t) {
+        if (usingRealData) {
+          t.cancel();
+          return;
+        }
+
         final random = Random();
         final heartRate = 60 + random.nextInt(40);
         final spo2 = 95 + random.nextInt(5);
         final now = DateTime.now();
 
         if (!controller.isClosed) {
+          // Heart Rate (Simulated)
           controller.add(Measurement(
             id: const uid.Uuid().v4(),
             patientId: patientId,
@@ -95,6 +111,7 @@ class BleService {
             consentId: consentId,
           ));
 
+          // SpO2 (Simulated)
           controller.add(Measurement(
             id: const uid.Uuid().v4(),
             patientId: patientId,
@@ -108,9 +125,98 @@ class BleService {
       });
     }
 
-    controller.onListen = startMockData;
+    // --- Real BLE Logic ---
+    void startRealDataConnection() {
+      // Delay slightly to ensure connection is fully established
+      Future.delayed(const Duration(seconds: 1), () async {
+        try {
+          // Discover services
+          print('Discovering services for $deviceId...');
+          final services = await _ble.discoverServices(deviceId);
+          
+          // Check for Heart Rate Service (0x180D)
+          final hrService = services.firstWhere(
+            (s) => s.serviceId == _heartRateServiceUuid,
+            orElse: () => DiscoveredService(
+              serviceId: Uuid.parse("00000000-0000-0000-0000-000000000000"),
+              serviceInstanceId: uid.Uuid().v4(), // Fix: Add required parameter
+              characteristicIds: [], 
+              characteristics: [],
+              includedServices: []
+            ),
+          );
+
+          if (hrService.serviceId == _heartRateServiceUuid) {
+            print('Heart Rate Service found! Subscribing...');
+            
+            final characteristic = QualifiedCharacteristic(
+              serviceId: _heartRateServiceUuid,
+              characteristicId: _heartRateCharacteristicUuid,
+              deviceId: deviceId,
+            );
+
+            realDataSubscription = _ble.subscribeToCharacteristic(characteristic).listen((data) {
+              if (data.isNotEmpty) {
+                // Parse Heart Rate Measurement (Standard 0x2A37)
+                // Flag: Byte 0
+                // Format Bit (0): 0 => UINT8, 1 => UINT16
+                final flags = data[0];
+                final isFormatUint16 = (flags & 0x01) == 1;
+                int heartRate;
+                
+                if (isFormatUint16 && data.length >= 3) {
+                  heartRate = data[1] + (data[2] << 8);
+                } else if (data.length >= 2) {
+                  heartRate = data[1];
+                } else {
+                  return; // Invalid data
+                }
+
+                if (!usingRealData) {
+                   print('Real Heart Rate data received! Stopping simulation.');
+                   usingRealData = true;
+                   mockDataTimer?.cancel();
+                }
+
+                if (!controller.isClosed) {
+                  controller.add(Measurement(
+                    id: const uid.Uuid().v4(),
+                    patientId: patientId,
+                    deviceId: deviceId,
+                    type: 'Heart Rate',
+                    value: heartRate.toDouble(),
+                    timestamp: DateTime.now(),
+                    consentId: consentId,
+                  ));
+                }
+              }
+            }, onError: (e) {
+               print('Real data subscription error: $e. Reverting to simulation.');
+               usingRealData = false;
+               startMockData();
+            });
+          } else {
+            print('Heart Rate Service NOT found. Continuing with simulation.');
+            startMockData();
+          }
+        } catch (e) {
+           print('Error discovering services/subscribing: $e');
+           startMockData();
+        }
+      });
+    }
+
+    controller.onListen = () {
+      // 1. Start simulation immediately so text doesn't stay empty
+      startMockData();
+      
+      // 2. Try to upgrade to real data
+      startRealDataConnection();
+    };
+
     controller.onCancel = () {
-      timer?.cancel();
+      mockDataTimer?.cancel();
+      realDataSubscription?.cancel();
     };
 
     return controller.stream;

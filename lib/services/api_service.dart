@@ -666,4 +666,23 @@ class ApiService {
       rethrow;
     }
   }
+
+  // ==================== Report Operations ====================
+
+  /// Download patient report PDF
+  Future<void> downloadPatientReport(String patientId, String savePath) async {
+    try {
+      await _dio.download(
+        '/reports/patient/$patientId',
+        savePath,
+        options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+        ),
+      );
+    } catch (e) {
+      print('Error downloading report: $e');
+      rethrow;
+    }
+  }
 }

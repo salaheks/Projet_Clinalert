@@ -1,0 +1,966 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\usepackage{pifont}
+\usepackage{setspace}
+
+\usetikzlibrary{shapes,arrows,positioning,calc,fit,backgrounds}
+
+% Configuration
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
+\definecolor{flutterblue}{RGB}{2, 119, 189}
+\definecolor{dartblue}{RGB}{0, 180, 216}
+\definecolor{clinalertgreen}{RGB}{0, 200, 83}
+\definecolor{clinorange}{RGB}{255, 145, 0}
+\definecolor{clinred}{RGB}{255, 82, 82}
+\definecolor{clingray}{RGB}{108, 117, 125}
+\definecolor{lightgray}{RGB}{248, 249, 250}
+\definecolor{darkblue}{RGB}{25, 55, 109}
+\definecolor{codebg}{RGB}{248, 249, 250}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=flutterblue,
+    urlcolor=dartblue,
+    pdftitle={ClinAlert - Documentation Frontend},
+    pdfauthor={Équipe ClinAlert},
+}
+
+% En-têtes et pieds de page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\leftmark}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small ClinAlert - Documentation Frontend Flutter}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Format des chapitres
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{flutterblue}}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+% Style code Dart
+\lstdefinestyle{dart}{
+    language=Java,
+    basicstyle=\small\ttfamily,
+    keywordstyle=\color{flutterblue}\bfseries,
+    stringstyle=\color{clinalertgreen},
+    commentstyle=\color{clingray}\itshape,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny\color{clingray},
+    morekeywords={final,var,const,async,await,Widget,BuildContext,State,StatefulWidget,StatelessWidget,void,String,int,double,bool,List,Map,Future,dynamic,required,override}
+}
+
+% Boîtes colorées
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1][]{colback=blue!5,colframe=flutterblue,fonttitle=\bfseries,title=#1,breakable}
+\newtcolorbox{warningbox}[1][]{colback=orange!5,colframe=clinorange,fonttitle=\bfseries,title=#1,breakable}
+\newtcolorbox{successbox}[1][]{colback=green!5,colframe=clinalertgreen,fonttitle=\bfseries,title=#1,breakable}
+
+\begin{document}
+
+%=============================================================================
+% PAGE DE GARDE
+%=============================================================================
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Logo Flutter
+        \node[anchor=north west] at ([xshift=2cm, yshift=-2cm]current page.north west) {
+            \begin{tikzpicture}
+                \fill[flutterblue!80] (0,0) -- (1.5,0.75) -- (0,1.5) -- cycle;
+                \fill[dartblue!80] (0,0) -- (1.5,0.75) -- (1.5,-0.5) -- (0.5,-0.5) -- cycle;
+            \end{tikzpicture}
+        };
+        
+        \node[anchor=north east, align=right] at ([xshift=-2cm, yshift=-2cm]current page.north east) {
+            {\color{flutterblue}\fontfamily{phv}\selectfont\bfseries\large Documentation Technique}\\[3pt]
+            {\color{clingray}\fontfamily{phv}\selectfont Frontend Flutter Mobile}
+        };
+        
+        \draw[flutterblue, line width=1.5pt] ([xshift=2cm, yshift=-5cm]current page.north west) -- ([xshift=-2cm, yshift=-5cm]current page.north east);
+        
+        \node[align=center] at ([yshift=3cm]current page.center) {
+            {\color{flutterblue}\fontsize{50}{55}\selectfont\bfseries ClinAlert}\\[0.8cm]
+            {\color{clingray}\Large Application Mobile de Suivi Médical}
+        };
+        
+        \node at ([yshift=0.5cm]current page.center) {\textcolor{dartblue}{\rule{10cm}{2.5pt}}};
+        
+        \node[align=center] at ([yshift=-2cm]current page.center) {
+            {\color{darkblue}\fontsize{20}{24}\selectfont\bfseries Rapport Technique Frontend}\\[0.5cm]
+            {\color{clingray}\fontsize{14}{18}\selectfont Flutter, Dart \& Architecture Provider}
+        };
+        
+        \node at ([yshift=-5cm]current page.center) {\textcolor{dartblue}{\rule{10cm}{2.5pt}}};
+        
+        \node[anchor=south, align=center] at ([yshift=6cm]current page.south) {
+            \begin{tabular}{rl}
+                {\color{flutterblue}\textbf{Framework}} & Flutter 3.x \\[0.2cm]
+                {\color{flutterblue}\textbf{Langage}} & Dart 3.x \\[0.2cm]
+                {\color{flutterblue}\textbf{State Management}} & Provider \\[0.2cm]
+                {\color{flutterblue}\textbf{Navigation}} & Named Routes \\[0.2cm]
+                {\color{flutterblue}\textbf{Localisation}} & FR, EN, AR \\
+            \end{tabular}
+        };
+        
+        \draw[flutterblue, line width=1.5pt] ([xshift=2cm, yshift=3.5cm]current page.south west) -- ([xshift=-2cm, yshift=3.5cm]current page.south east);
+        
+        \node[anchor=south] at ([yshift=2cm]current page.south) {
+            {\color{clingray}\fontfamily{phv}\selectfont\large\bfseries \today}
+        };
+    \end{tikzpicture}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%=============================================================================
+% CHAPITRE 1: INTRODUCTION
+%=============================================================================
+\chapter{Introduction Générale}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente le frontend de l'application ClinAlert développé avec Flutter, un framework cross-platform permettant de créer des applications mobiles performantes.
+
+\section{Présentation de l'Application}
+
+\textbf{ClinAlert Mobile} est une application Flutter conçue pour le suivi médical en temps réel. Elle permet aux utilisateurs (patients, médecins, infirmiers, administrateurs) d'interagir avec le système de santé de manière intuitive.
+
+\begin{infobox}[Fonctionnalités principales]
+\begin{itemize}
+    \item \textbf{Authentification sécurisée} : Login/Register avec JWT
+    \item \textbf{Tableau de bord adaptatif} : Interface différente selon le rôle
+    \item \textbf{Connexion SmartWatch} : Bluetooth BLE pour collecte de données
+    \item \textbf{Visualisation des données} : Graphiques interactifs de santé
+    \item \textbf{Système d'alertes} : Notifications en temps réel
+    \item \textbf{Multilingue} : Support Français, Anglais, Arabe (RTL)
+\end{itemize}
+\end{infobox}
+
+\section{Stack Technologique}
+
+\begin{table}[H]
+\centering
+\caption{Technologies utilisées dans le frontend}
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{Catégorie} & \textbf{Technologie} & \textbf{Description} \\
+\midrule
+Framework & Flutter 3.x & Framework UI cross-platform de Google \\
+Langage & Dart 3.x & Langage orienté objet et typé \\
+State Management & Provider & Gestion d'état réactive et simple \\
+HTTP Client & http & Appels REST API vers le backend \\
+Stockage local & SharedPreferences & Persistance du token JWT \\
+Bluetooth & flutter\_blue\_plus & Communication avec SmartWatch \\
+Graphiques & fl\_chart & Visualisation des données de santé \\
+Localisation & flutter\_localizations & Support multilingue (FR/EN/AR) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Structure du Projet}
+
+\begin{successbox}[Organisation des dossiers lib/]
+\begin{itemize}
+    \item \texttt{screens/} : 27 écrans de l'application
+    \item \texttt{models/} : 15 modèles de données
+    \item \texttt{services/} : 7 services (API, Auth, BLE, etc.)
+    \item \texttt{widgets/} : 18 composants réutilisables
+    \item \texttt{providers/} : 3 providers de gestion d'état
+    \item \texttt{l10n/} : Fichiers de traduction (FR, EN, AR)
+    \item \texttt{themes/} : Configuration du thème visuel
+    \item \texttt{utils/} : Utilitaires et helpers
+\end{itemize}
+\end{successbox}
+
+\section*{Conclusion du chapitre}
+L'application Flutter ClinAlert offre une expérience utilisateur moderne et réactive, avec une architecture modulaire facilitant la maintenance et l'évolution.
+
+%=============================================================================
+% CHAPITRE 2: ARCHITECTURE
+%=============================================================================
+\chapter{Architecture de l'Application}
+
+\section*{Introduction du chapitre}
+Ce chapitre détaille l'architecture logicielle adoptée pour le frontend, basée sur le pattern Provider pour la gestion d'état.
+
+\section{Architecture Provider}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    layer/.style={rectangle, draw=flutterblue, line width=2pt, fill=flutterblue!10, 
+                  minimum width=12cm, minimum height=1.2cm, rounded corners=5pt, font=\bfseries},
+    arrow/.style={->, line width=3pt, color=dartblue}
+]
+    \node[layer] (ui) at (0,6) {UI Layer - 27 Screens (Widgets)};
+    \node[layer] (provider) at (0,4.5) {State Layer - 3 Providers (AuthProvider, etc.)};
+    \node[layer] (service) at (0,3) {Service Layer - 7 Services (ApiService, etc.)};
+    \node[layer] (model) at (0,1.5) {Model Layer - 15 Models (Patient, HealthData, etc.)};
+    \node[layer, fill=clinalertgreen!10, draw=clinalertgreen] (api) at (0,0) {Backend API - Spring Boot REST};
+    
+    \draw[arrow] (ui) -- (provider);
+    \draw[arrow] (provider) -- (service);
+    \draw[arrow] (service) -- (model);
+    \draw[arrow] (service) -- (api);
+\end{tikzpicture}
+\caption{Architecture en couches de l'application Flutter}
+\end{figure}
+
+\section{Flux de Données}
+
+\begin{enumerate}
+    \item L'utilisateur interagit avec un \textbf{Widget} (écran)
+    \item Le Widget appelle une méthode du \textbf{Provider}
+    \item Le Provider utilise un \textbf{Service} pour les opérations
+    \item Le Service effectue des appels HTTP vers l'\textbf{API REST}
+    \item Les données sont mappées vers les \textbf{Models}
+    \item Le Provider notifie les listeners avec \texttt{notifyListeners()}
+    \item L'UI se reconstruit automatiquement
+\end{enumerate}
+
+\section{Gestion de l'État avec Provider}
+
+\begin{lstlisting}[style=dart, caption=Exemple AuthProvider]
+class AuthProvider extends ChangeNotifier {
+  User? _currentUser;
+  String? _token;
+  bool _isLoading = false;
+  
+  User? get currentUser => _currentUser;
+  bool get isAuthenticated => _token != null;
+  
+  Future<bool> login(String email, String password) async {
+    _isLoading = true;
+    notifyListeners();
+    
+    try {
+      final response = await _authService.login(email, password);
+      _token = response['token'];
+      _currentUser = User.fromJson(response);
+      
+      await _storageService.saveToken(_token!);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+}
+\end{lstlisting}
+
+\section{Navigation par Rôle}
+
+L'application redirige vers différents dashboards selon le rôle de l'utilisateur :
+
+\begin{table}[H]
+\centering
+\caption{Écrans de dashboard par rôle}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Rôle} & \textbf{Écran} & \textbf{Fonctionnalités} \\
+\hline
+ADMIN & SettingsScreen & Gestion utilisateurs, cliniques \\
+\hline
+DOCTOR & DoctorDashboardScreen & Liste patients, alertes, stats \\
+\hline
+NURSE & NurseDashboardScreen & Saisie mesures, suivi patients \\
+\hline
+PATIENT & PatientDashboardScreen & Données perso, SmartWatch \\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Conclusion du chapitre}
+L'architecture Provider permet une gestion d'état simple et efficace, avec une séparation claire entre l'UI, la logique métier et les données.
+
+%=============================================================================
+% CHAPITRE 3: ÉCRANS DE L'APPLICATION
+%=============================================================================
+\chapter{Écrans de l'Application}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente les 27 écrans de l'application ClinAlert, organisés par fonctionnalité.
+
+\section{Écrans d'Authentification}
+
+\begin{table}[H]
+\centering
+\caption{Écrans d'authentification}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+WelcomeScreen & Page d'accueil avec options Login/Register \\
+\hline
+LoginScreen & Formulaire de connexion avec email/password \\
+\hline
+SignupScreen & Inscription avec sélection du rôle \\
+\hline
+ForgotPasswordScreen & Réinitialisation du mot de passe \\
+\hline
+CreateProfileScreen & Création du profil après inscription \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Tableaux de Bord}
+
+\begin{table}[H]
+\centering
+\caption{Dashboards par rôle utilisateur}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+DoctorDashboardScreen & Vue médecin avec liste patients, alertes récentes, statistiques globales \\
+\hline
+NurseDashboardScreen & Vue infirmier avec patients assignés, formulaires de saisie \\
+\hline
+PatientDashboardScreen & Vue patient avec données personnelles, connexion SmartWatch, graphiques \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Gestion des Patients}
+
+\begin{table}[H]
+\centering
+\caption{Écrans de gestion des patients}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+PatientsScreen & Liste des patients avec recherche et filtres \\
+\hline
+PatientDetailScreen & Détails complets d'un patient avec onglets \\
+\hline
+PatientHistoryScreen & Historique des mesures et consultations \\
+\hline
+AddEditPatientScreen & Formulaire d'ajout/modification patient \\
+\hline
+HealthDataScreen & Graphiques interactifs des données de santé \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{SmartWatch et Données}
+
+\begin{table}[H]
+\centering
+\caption{Écrans SmartWatch}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+SmartWatchConnectionScreen & Appairage Bluetooth avec détection \\
+\hline
+BleScanScreen & Scan des appareils BLE disponibles \\
+\hline
+MeasurementScreen & Affichage des mesures en temps réel \\
+\hline
+RecordVitalScreen & Saisie manuelle des signes vitaux \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Administration}
+
+\begin{table}[H]
+\centering
+\caption{Écrans d'administration}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+SettingsScreen & Paramètres utilisateur, thème, langue \\
+\hline
+UsersManagementScreen & CRUD des comptes utilisateurs (Admin) \\
+\hline
+ClinicsScreen & Gestion des cliniques et établissements \\
+\hline
+DoctorsScreen & Gestion des médecins \\
+\hline
+AlertsScreen & Liste et gestion des alertes \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section*{Conclusion du chapitre}
+Les 27 écrans couvrent l'ensemble des fonctionnalités métier, offrant une expérience utilisateur complète et intuitive.
+
+%=============================================================================
+% CHAPITRE 4: MODÈLES DE DONNÉES
+%=============================================================================
+\chapter{Modèles de Données}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente les 15 modèles Dart utilisés pour représenter les données échangées avec l'API backend.
+
+\section{Vue d'Ensemble des Modèles}
+
+\begin{table}[H]
+\centering
+\caption{Liste complète des modèles Flutter}
+\begin{tabular}{llc}
+\toprule
+\textbf{Modèle} & \textbf{Description} & \textbf{Taille} \\
+\midrule
+User & Compte utilisateur authentifié & 2.7 KB \\
+Patient & Patient suivi dans le système & 3.4 KB \\
+Doctor & Médecin avec spécialité & 2.2 KB \\
+Clinic & Établissement médical & 1.6 KB \\
+HealthData & Données de santé (12 métriques) & 3.9 KB \\
+DailyHealthSummary & Résumé quotidien calculé & 5.9 KB \\
+Alert & Alerte médicale générée & 3.3 KB \\
+SmartWatchDevice & Appareil connecté & 2.7 KB \\
+VitalSign & Signe vital individuel & 3.7 KB \\
+Measurement & Mesure ponctuelle & 1.0 KB \\
+Message & Message chat & 3.6 KB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Modèle HealthData}
+
+\begin{lstlisting}[style=dart, caption=Modèle HealthData complet]
+class HealthData {
+  final String? id;
+  final String patientId;
+  final String? deviceId;
+  final int? heartRate;
+  final double? spO2;
+  final int? steps;
+  final int? sleepMinutes;
+  final int? bloodPressureSystolic;
+  final int? bloodPressureDiastolic;
+  final double? temperature;
+  final int? caloriesBurned;
+  final double? distanceMeters;
+  final DateTime timestamp;
+  final String? source;
+  
+  factory HealthData.fromJson(Map<String, dynamic> json) {
+    return HealthData(
+      id: json['id'],
+      patientId: json['patientId'],
+      heartRate: json['heartRate'],
+      spO2: json['spO2']?.toDouble(),
+      steps: json['steps'],
+      sleepMinutes: json['sleepMinutes'],
+      timestamp: DateTime.parse(json['timestamp']),
+      source: json['source'],
+    );
+  }
+  
+  Map<String, dynamic> toJson() => {
+    'patientId': patientId,
+    'heartRate': heartRate,
+    'spO2': spO2,
+    'steps': steps,
+    'sleepMinutes': sleepMinutes,
+    'timestamp': timestamp.toIso8601String(),
+    'source': source,
+  };
+}
+\end{lstlisting}
+
+\section{Modèle User avec Rôles}
+
+\begin{lstlisting}[style=dart, caption=Modèle User avec énumération des rôles]
+enum UserRole { ADMIN, DOCTOR, NURSE, PATIENT }
+
+class User {
+  final String id;
+  final String email;
+  final UserRole role;
+  final String? firstName;
+  final String? lastName;
+  final String? phone;
+  final bool enabled;
+  
+  bool get isAdmin => role == UserRole.ADMIN;
+  bool get isDoctor => role == UserRole.DOCTOR;
+  bool get isPatient => role == UserRole.PATIENT;
+  
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      email: json['email'],
+      role: UserRole.values.firstWhere(
+        (r) => r.name == json['role'],
+        orElse: () => UserRole.PATIENT,
+      ),
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      enabled: json['enabled'] ?? true,
+    );
+  }
+}
+\end{lstlisting}
+
+\section*{Conclusion du chapitre}
+Les modèles Dart reflètent fidèlement les entités du backend, avec sérialisation JSON complète pour les échanges API.
+
+%=============================================================================
+% CHAPITRE 5: SERVICES
+%=============================================================================
+\chapter{Services et Communication API}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente les 7 services responsables de la communication avec le backend et des fonctionnalités locales.
+
+\section{Vue d'Ensemble des Services}
+
+\begin{table}[H]
+\centering
+\caption{Services de l'application}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Service} & \textbf{Responsabilité} & \textbf{Taille} \\
+\hline
+ApiService & Appels REST vers le backend (50+ endpoints) & 20.7 KB \\
+\hline
+AuthService & Authentification, login, register, logout & 7.3 KB \\
+\hline
+BleService & Communication Bluetooth avec SmartWatch & 3.7 KB \\
+\hline
+StorageService & Persistance locale (token, préférences) & 1.7 KB \\
+\hline
+MessageService & Gestion des messages et chat & 12.7 KB \\
+\hline
+NotificationService & Notifications push locales & 0.6 KB \\
+\hline
+ExportService & Export de données (PDF, CSV) & 0.7 KB \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{ApiService - Communication REST}
+
+\begin{lstlisting}[style=dart, caption=Extrait ApiService avec authentification]
+class ApiService {
+  static const String baseUrl = 'http://10.0.2.2:8080/api';
+  
+  Future<Map<String, String>> _getHeaders() async {
+    final token = await StorageService.getToken();
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': token != null ? 'Bearer $token' : '',
+    };
+  }
+  
+  // === PATIENTS ===
+  Future<List<Patient>> getPatients() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/patients'),
+      headers: await _getHeaders(),
+    );
+    
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((e) => Patient.fromJson(e)).toList();
+    }
+    throw Exception('Failed to load patients');
+  }
+  
+  // === HEALTH DATA ===
+  Future<List<HealthData>> getPatientHealthData(String patientId) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/smartwatch/health-data/$patientId'),
+      headers: await _getHeaders(),
+    );
+    
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((e) => HealthData.fromJson(e)).toList();
+    }
+    return [];
+  }
+  
+  Future<void> submitHealthData(List<HealthData> dataList) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/smartwatch/health-data'),
+      headers: await _getHeaders(),
+      body: json.encode(dataList.map((e) => e.toJson()).toList()),
+    );
+    
+    if (response.statusCode != 201) {
+      throw Exception('Failed to submit health data');
+    }
+  }
+}
+\end{lstlisting}
+
+\section{BleService - Connexion SmartWatch}
+
+\begin{lstlisting}[style=dart, caption=Service Bluetooth BLE]
+class BleService {
+  final FlutterBluePlus _flutterBlue = FlutterBluePlus();
+  
+  Stream<List<ScanResult>> scanForDevices() {
+    FlutterBluePlus.startScan(timeout: Duration(seconds: 10));
+    return FlutterBluePlus.scanResults;
+  }
+  
+  Future<void> connectToDevice(BluetoothDevice device) async {
+    await device.connect(autoConnect: false);
+    List<BluetoothService> services = await device.discoverServices();
+    // Recherche du service de donnees de sante
+    for (var service in services) {
+      for (var char in service.characteristics) {
+        if (char.properties.notify) {
+          await char.setNotifyValue(true);
+          char.value.listen((data) {
+            _processHealthData(data);
+          });
+        }
+      }
+    }
+  }
+  
+  void _processHealthData(List<int> rawData) {
+    // Parsing des donnees du SmartWatch
+    final heartRate = rawData[0];
+    final steps = (rawData[1] << 8) | rawData[2];
+    // Envoyer au backend via ApiService
+  }
+}
+\end{lstlisting}
+
+\section*{Conclusion du chapitre}
+Les services encapsulent toute la logique de communication, offrant une couche d'abstraction propre pour les providers et les widgets.
+
+%=============================================================================
+% CHAPITRE 6: INTERFACE UTILISATEUR
+%=============================================================================
+\chapter{Interface Utilisateur}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente les aspects visuels de l'application : widgets réutilisables, thème et localisation.
+
+\section{Widgets Réutilisables}
+
+L'application utilise 18 widgets personnalisés pour garantir une cohérence visuelle :
+
+\begin{table}[H]
+\centering
+\caption{Widgets personnalisés}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Widget} & \textbf{Usage} \\
+\hline
+PatientCard & Carte affichant les infos patient avec avatar \\
+\hline
+HealthMetricCard & Carte métrique avec icône et valeur \\
+\hline
+AlertBadge & Badge coloré selon sévérité de l'alerte \\
+\hline
+VitalSignChart & Graphique fl\_chart pour données vitales \\
+\hline
+LoadingIndicator & Indicateur de chargement personnalisé \\
+\hline
+CustomTextField & Champ de saisie avec validation \\
+\hline
+GradientButton & Bouton avec dégradé de couleurs \\
+\hline
+StatCard & Carte statistique avec tendance \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Thème et Couleurs}
+
+\begin{lstlisting}[style=dart, caption=Configuration du thème]
+class AppTheme {
+  static ThemeData lightTheme = ThemeData(
+    primaryColor: Color(0xFF2962FF),
+    colorScheme: ColorScheme.light(
+      primary: Color(0xFF2962FF),
+      secondary: Color(0xFF00C853),
+      error: Color(0xFFFF5252),
+    ),
+    scaffoldBackgroundColor: Color(0xFFF8F9FA),
+    cardTheme: CardTheme(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    ),
+    appBarTheme: AppBarTheme(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Color(0xFF2D3436),
+    ),
+  );
+  
+  static ThemeData darkTheme = ThemeData.dark().copyWith(
+    primaryColor: Color(0xFF448AFF),
+    // ...
+  );
+}
+\end{lstlisting}
+
+\section{Localisation Multilingue}
+
+L'application supporte 3 langues avec support RTL pour l'arabe :
+
+\begin{table}[H]
+\centering
+\caption{Langues supportées}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Langue} & \textbf{Code} & \textbf{Direction} \\
+\hline
+Français & fr & LTR \\
+\hline
+Anglais & en & LTR \\
+\hline
+Arabe & ar & RTL \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{lstlisting}[style=dart, caption=Utilisation des traductions]
+// Dans un widget
+Text(AppLocalizations.of(context)!.welcomeMessage)
+Text(AppLocalizations.of(context)!.patientList)
+Text(AppLocalizations.of(context)!.alerts)
+\end{lstlisting}
+
+\section*{Conclusion du chapitre}
+L'interface utilisateur respecte les principes Material Design tout en offrant une identité visuelle cohérente et une expérience multilingue.
+
+%=============================================================================
+% CHAPITRE 7: DIAGRAMMES UML
+%=============================================================================
+\chapter{Diagrammes UML}
+
+\section*{Introduction du chapitre}
+Ce chapitre présente les diagrammes UML illustrant l'architecture et les flux de l'application Flutter.
+
+\section{Diagramme de Classes - Couche Modèle}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+    classbox/.style={rectangle, draw=#1, line width=2pt, fill=white, minimum width=4.5cm, inner sep=0pt, rounded corners=3pt},
+    assoc/.style={->, line width=2pt, >=stealth, #1}
+]
+
+% User
+\node[classbox=flutterblue] (user) at (0,8) {
+    \begin{tabular}{c}
+    \cellcolor{flutterblue!25} \textbf{User} \\
+    \hline
+    \texttt{+ id: String} \\
+    \texttt{+ email: String} \\
+    \texttt{+ role: UserRole} \\
+    \texttt{+ firstName: String?} \\
+    \hline
+    \texttt{+ fromJson()} \\
+    \texttt{+ toJson()} \\
+    \end{tabular}
+};
+
+% Patient
+\node[classbox=clinalertgreen] (patient) at (-5,4) {
+    \begin{tabular}{c}
+    \cellcolor{clinalertgreen!25} \textbf{Patient} \\
+    \hline
+    \texttt{+ id: String} \\
+    \texttt{+ name: String} \\
+    \texttt{+ age: int} \\
+    \texttt{+ doctorId: String} \\
+    \hline
+    \texttt{+ fromJson()} \\
+    \end{tabular}
+};
+
+% HealthData
+\node[classbox=clinred] (health) at (0,4) {
+    \begin{tabular}{c}
+    \cellcolor{clinred!20} \textbf{HealthData} \\
+    \hline
+    \texttt{+ heartRate: int?} \\
+    \texttt{+ spO2: double?} \\
+    \texttt{+ steps: int?} \\
+    \texttt{+ timestamp: DateTime} \\
+    \hline
+    \texttt{+ fromJson()} \\
+    \texttt{+ toJson()} \\
+    \end{tabular}
+};
+
+% Alert
+\node[classbox=clinorange] (alert) at (5,4) {
+    \begin{tabular}{c}
+    \cellcolor{clinorange!20} \textbf{Alert} \\
+    \hline
+    \texttt{+ id: String} \\
+    \texttt{+ type: String} \\
+    \texttt{+ severity: String} \\
+    \texttt{+ message: String} \\
+    \hline
+    \texttt{+ fromJson()} \\
+    \end{tabular}
+};
+
+% SmartWatch
+\node[classbox=dartblue] (watch) at (0,0) {
+    \begin{tabular}{c}
+    \cellcolor{dartblue!20} \textbf{SmartWatchDevice} \\
+    \hline
+    \texttt{+ deviceAddress: String} \\
+    \texttt{+ deviceName: String} \\
+    \texttt{+ isActive: bool} \\
+    \hline
+    \texttt{+ fromJson()} \\
+    \end{tabular}
+};
+
+% Relations
+\draw[assoc=clinalertgreen] (patient.north) -- node[left] {*} (user.south west);
+\draw[assoc=clinred] (patient.east) -- node[above] {1..*} (health.west);
+\draw[assoc=clinorange] (patient.south east) -- node[above] {0..*} (alert.south west);
+\draw[assoc=dartblue] (patient.south) -- node[right] {0..*} (watch.north);
+
+\end{tikzpicture}
+}
+\caption{Diagramme de Classes - Modèles Flutter}
+\end{figure}
+
+\section{Diagramme de Séquence - Login}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.9]
+    % Objects
+    \node[draw, rectangle, fill=flutterblue!20, minimum width=2cm] (ui) at (0,0) {LoginScreen};
+    \node[draw, rectangle, fill=dartblue!20, minimum width=2cm] (prov) at (4,0) {AuthProvider};
+    \node[draw, rectangle, fill=clinalertgreen!20, minimum width=2cm] (api) at (8,0) {ApiService};
+    \node[draw, rectangle, fill=clinorange!20, minimum width=2cm] (backend) at (12,0) {Backend};
+    
+    % Lifelines
+    \draw[dashed] (ui) -- (0,-9);
+    \draw[dashed] (prov) -- (4,-9);
+    \draw[dashed] (api) -- (8,-9);
+    \draw[dashed] (backend) -- (12,-9);
+    
+    % Messages
+    \draw[->, thick, flutterblue] (0,-1) -- node[above, font=\small] {login(email, pwd)} (4,-1);
+    \draw[->, thick, dartblue] (4,-2) -- node[above, font=\small] {authService.login()} (8,-2);
+    \draw[->, thick, clinalertgreen] (8,-3) -- node[above, font=\small] {POST /api/auth/login} (12,-3);
+    \draw[<--, thick, clinalertgreen] (8,-4) -- node[above, font=\small] {\{token, user\}} (12,-4);
+    \draw[->, thick, clingray] (4,-5) -- node[above, font=\scriptsize] {storage.saveToken()} (4,-5.5);
+    \draw[->, thick, clingray] (4,-6) -- node[above, font=\scriptsize] {notifyListeners()} (4,-6.5);
+    \draw[<--, thick, dartblue] (0,-7) -- node[above, font=\small] {success} (4,-7);
+    \draw[->, thick, flutterblue] (0,-8) -- node[above, font=\scriptsize] {Navigator.push(Dashboard)} (0,-8.5);
+\end{tikzpicture}
+\caption{Diagramme de Séquence - Processus de connexion}
+\end{figure}
+
+\section{Diagramme de Séquence - Sync SmartWatch}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.85]
+    % Objects
+    \node[draw, rectangle, fill=flutterblue!20, minimum width=1.8cm] (screen) at (0,0) {Screen};
+    \node[draw, rectangle, fill=dartblue!20, minimum width=1.8cm] (ble) at (3.5,0) {BleService};
+    \node[draw, rectangle, fill=clinorange!20, minimum width=1.8cm] (watch) at (7,0) {SmartWatch};
+    \node[draw, rectangle, fill=clinalertgreen!20, minimum width=1.8cm] (api) at (10.5,0) {ApiService};
+    \node[draw, rectangle, fill=clingray!30, minimum width=1.8cm] (back) at (14,0) {Backend};
+    
+    % Lifelines
+    \draw[dashed] (screen) -- (0,-10);
+    \draw[dashed] (ble) -- (3.5,-10);
+    \draw[dashed] (watch) -- (7,-10);
+    \draw[dashed] (api) -- (10.5,-10);
+    \draw[dashed] (back) -- (14,-10);
+    
+    % Messages
+    \draw[->, thick, flutterblue] (0,-1) -- node[above, font=\scriptsize] {connect()} (3.5,-1);
+    \draw[->, thick, dartblue] (3.5,-2) -- node[above, font=\scriptsize] {BLE connect} (7,-2);
+    \draw[<--, thick, dartblue] (3.5,-3) -- node[above, font=\scriptsize] {connected} (7,-3);
+    \draw[->, thick, dartblue] (3.5,-4) -- node[above, font=\scriptsize] {subscribe notifications} (7,-4);
+    \draw[<--, thick, clinorange] (3.5,-5) -- node[above, font=\scriptsize] {health data stream} (7,-5);
+    \draw[->, thick, clinalertgreen] (3.5,-6) -- node[above, font=\scriptsize] {submitHealthData()} (10.5,-6);
+    \draw[->, thick, clinalertgreen] (10.5,-7) -- node[above, font=\scriptsize] {POST /health-data} (14,-7);
+    \draw[<--, thick, clinalertgreen] (10.5,-8) -- node[above, font=\scriptsize] {201 Created} (14,-8);
+    \draw[<--, thick, flutterblue] (0,-9) -- node[above, font=\scriptsize] {sync complete} (3.5,-9);
+\end{tikzpicture}
+\caption{Diagramme de Séquence - Synchronisation SmartWatch}
+\end{figure}
+
+\section*{Conclusion du chapitre}
+Les diagrammes UML illustrent clairement l'architecture et les flux de données de l'application Flutter.
+
+%=============================================================================
+% CONCLUSION GÉNÉRALE
+%=============================================================================
+\chapter*{Conclusion Générale}
+\addcontentsline{toc}{chapter}{Conclusion Générale}
+
+\section*{Récapitulatif}
+
+Le frontend Flutter ClinAlert offre une application mobile complète et moderne :
+
+\begin{itemize}
+    \item \ding{51} \textbf{27 écrans} : Couverture complète des fonctionnalités
+    \item \ding{51} \textbf{15 modèles} : Représentation fidèle des données backend
+    \item \ding{51} \textbf{7 services} : Architecture modulaire et testable
+    \item \ding{51} \textbf{18 widgets} : Composants réutilisables et cohérents
+    \item \ding{51} \textbf{Provider} : Gestion d'état simple et efficace
+    \item \ding{51} \textbf{3 langues} : Support FR, EN, AR avec RTL
+    \item \ding{51} \textbf{SmartWatch} : Intégration Bluetooth BLE complète
+\end{itemize}
+
+\section*{Améliorations Futures}
+
+\begin{successbox}[Évolutions prévues]
+\begin{enumerate}
+    \item \textbf{Tests} : Tests unitaires et widgets (couverture > 80\%)
+    \item \textbf{Notifications push} : Firebase Cloud Messaging
+    \item \textbf{Mode hors-ligne} : Cache local avec synchronisation
+    \item \textbf{Biométrie} : Authentification par empreinte/Face ID
+    \item \textbf{Dark mode} : Thème sombre complet
+    \item \textbf{Animations} : Transitions et micro-interactions
+\end{enumerate}
+\end{successbox}
+
+\vspace{1cm}
+\begin{center}
+{\color{flutterblue}\rule{12cm}{2pt}}\\[0.8cm]
+{\fontsize{30}{35}\selectfont\bfseries\textcolor{flutterblue}{ClinAlert Mobile}}\\[0.5cm]
+{\Large\textcolor{clingray}{Application Flutter de Suivi Médical}}\\[0.3cm]
+{\textcolor{dartblue}{Cross-Platform Healthcare App}}
+\end{center}
+
+\end{document}

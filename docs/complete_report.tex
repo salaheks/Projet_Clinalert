@@ -1,0 +1,1288 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\usepackage{pifont}
+\usepackage{setspace}
+\usepackage{lipsum}
+
+\usetikzlibrary{shapes,arrows,positioning,calc,fit,backgrounds}
+
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
+\definecolor{clinalertblue}{RGB}{41, 98, 255}
+\definecolor{clinalertgreen}{RGB}{0, 200, 83}
+\definecolor{clinorange}{RGB}{255, 145, 0}
+\definecolor{clinred}{RGB}{255, 82, 82}
+\definecolor{clingray}{RGB}{108, 117, 125}
+\definecolor{lightgray}{RGB}{248, 249, 250}
+\definecolor{darkblue}{RGB}{25, 55, 109}
+\definecolor{codebg}{RGB}{248, 249, 250}
+
+\hypersetup{colorlinks=true,linkcolor=clinalertblue,urlcolor=clinalertgreen,pdftitle={ClinAlert - Rapport Complet}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\leftmark}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small ClinAlert - Rapport Technique Complet}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries\color{clinalertblue}}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\lstdefinestyle{code}{basicstyle=\small\ttfamily,keywordstyle=\color{clinalertblue}\bfseries,stringstyle=\color{clinorange},commentstyle=\color{clingray}\itshape,backgroundcolor=\color{codebg},frame=single,breaklines=true,numbers=left,numberstyle=\tiny\color{clingray},showstringspaces=false}
+
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1][]{colback=blue!5,colframe=clinalertblue,fonttitle=\bfseries,title=#1,breakable}
+\newtcolorbox{warningbox}[1][]{colback=orange!5,colframe=clinorange,fonttitle=\bfseries,title=#1,breakable}
+\newtcolorbox{successbox}[1][]{colback=green!5,colframe=clinalertgreen,fonttitle=\bfseries,title=#1,breakable}
+
+\begin{document}
+
+% PAGE DE GARDE
+\begin{titlepage}
+\begin{tikzpicture}[remember picture, overlay]
+\node[anchor=north west] at ([xshift=2cm, yshift=-2cm]current page.north west) {
+\begin{tikzpicture}\draw[clinalertblue, line width=3pt] (0,0) circle (1.2cm);\fill[clinalertblue!20] (0,0) circle (1cm);\node at (0,0) {\Huge\textcolor{clinalertblue}{$\heartsuit$}};\end{tikzpicture}};
+\node[anchor=north east, align=right] at ([xshift=-2cm, yshift=-2cm]current page.north east) {{\color{clinalertblue}\bfseries\large Documentation Technique Complète}\\[3pt]{\color{clingray} Version 1.0}};
+\draw[clinalertblue, line width=1.5pt] ([xshift=2cm, yshift=-5cm]current page.north west) -- ([xshift=-2cm, yshift=-5cm]current page.north east);
+\node[align=center] at ([yshift=2cm]current page.center) {{\color{clinalertblue}\fontsize{50}{55}\selectfont\bfseries ClinAlert}\\[0.8cm]{\color{clingray}\Large Système de Suivi Médical Intelligent}};
+\node at ([yshift=-1cm]current page.center) {\textcolor{clinalertgreen}{\rule{10cm}{2.5pt}}};
+\node[align=center] at ([yshift=-4cm]current page.center) {{\color{darkblue}\fontsize{18}{22}\selectfont\bfseries Rapport Technique Intégral}\\[0.5cm]{\color{clingray}\fontsize{14}{18}\selectfont Backend Spring Boot \& Frontend Flutter}};
+\node at ([yshift=-7cm]current page.center) {\textcolor{clinalertgreen}{\rule{10cm}{2.5pt}}};
+\node[anchor=south, align=center] at ([yshift=2cm]current page.south) {\begin{tabular}{rl}{\color{clinalertblue}\textbf{Backend}} & Spring Boot 3.2, Java 17, PostgreSQL \\{\color{clinalertblue}\textbf{Frontend}} & Flutter 3.x, Dart 3.x, Provider \\{\color{clinalertblue}\textbf{IoT}} & Bluetooth Low Energy (BLE) \\{\color{clinalertblue}\textbf{Date}} & \today \\\end{tabular}};
+\end{tikzpicture}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% INTRODUCTION
+\chapter{Introduction Générale}
+\section{Contexte du Projet}
+Dans le contexte actuel de la santé numérique, le suivi à distance des patients devient une nécessité croissante. Les avancées technologiques, notamment les appareils connectés (SmartWatch, capteurs), permettent aujourd'hui de collecter des données de santé en temps réel.
+
+\begin{infobox}[Problématique]
+Comment concevoir une plateforme capable de :
+\begin{itemize}
+\item Collecter les données de santé provenant d'appareils connectés ?
+\item Détecter automatiquement les anomalies dans les signes vitaux ?
+\item Alerter les professionnels de santé en cas de risque ?
+\item Fournir un historique complet pour le suivi médical ?
+\end{itemize}
+\end{infobox}
+
+\textbf{ClinAlert} répond à ces besoins en proposant une solution complète de suivi médical intelligent.
+
+\section{Objectifs du Projet}
+\begin{enumerate}
+\item \textbf{Collecte de données SmartWatch} : Réception des mesures (fréquence cardiaque, SpO2, pas, sommeil)
+\item \textbf{Gestion des patients} : CRUD complet avec association aux médecins et cliniques
+\item \textbf{Système d'alertes} : Génération automatique en cas d'anomalies détectées
+\item \textbf{Authentification sécurisée} : JWT avec gestion des rôles (Admin, Doctor, Nurse, Patient)
+\item \textbf{API REST complète} : Plus de 50 endpoints documentés
+\item \textbf{Génération de rapports} : Résumés quotidiens et bilans de santé PDF
+\end{enumerate}
+
+\section{Architecture Globale}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/architecture_diagram.png}
+\caption{Architecture Globale du Système ClinAlert}
+\end{figure}
+
+Le système ClinAlert repose sur une architecture client-serveur moderne avec trois composants principaux :
+\begin{itemize}
+\item \textbf{Backend API} : Spring Boot exposant une API REST sécurisée
+\item \textbf{Application Mobile} : Flutter cross-platform (Android/iOS)
+\item \textbf{Objets Connectés} : SmartWatch via Bluetooth BLE
+\end{itemize}
+
+\section{Diagramme de Déploiement}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/deployment_diagram.png}
+\caption{Diagramme de Déploiement UML}
+\end{figure}
+
+% PARTIE BACKEND
+\part{Backend Spring Boot}
+
+\chapter{Architecture Backend}
+\section{Stack Technologique}
+\begin{table}[H]
+\centering
+\caption{Technologies utilisées dans le backend ClinAlert}
+\begin{tabular}{llp{7cm}}
+\toprule
+\textbf{Catégorie} & \textbf{Technologie} & \textbf{Description} \\
+\midrule
+Framework & Spring Boot 3.2.0 & Framework Java pour applications web modernes \\
+Langage & Java 17 LTS & Version Long Term Support avec nouveautés \\
+Base de données & PostgreSQL 15 & SGBD relationnel robuste et performant \\
+ORM & Hibernate JPA 6.x & Mapping objet-relationnel automatisé \\
+Sécurité & Spring Security & Authentification et autorisation \\
+Token & JWT (jjwt 0.11.5) & Tokens stateless sécurisés \\
+Build & Maven 3.x & Gestion des dépendances et build \\
+PDF & iText7 7.2.5 & Génération de rapports PDF \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Architecture en Couches}
+Le backend suit une architecture \textbf{MVC (Model-View-Controller)} adaptée pour une API REST.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+layer/.style={rectangle, draw=clinalertblue, line width=2pt, fill=clinalertblue!10, minimum width=13cm, minimum height=1.3cm, rounded corners=5pt, font=\bfseries},
+arrow/.style={->, line width=3pt, color=clinalertgreen}]
+\node[layer] (client) at (0,7.5) {Client (Application Flutter Mobile)};
+\node[layer] (controller) at (0,6) {Controller Layer - 8 Contrôleurs REST};
+\node[layer] (service) at (0,4.5) {Service Layer - 11 Services Métier};
+\node[layer] (repository) at (0,3) {Repository Layer - 9 Repositories JPA};
+\node[layer] (database) at (0,1.5) {Database Layer - PostgreSQL 15};
+\draw[arrow] (client) -- (controller);
+\draw[arrow] (controller) -- (service);
+\draw[arrow] (service) -- (repository);
+\draw[arrow] (repository) -- (database);
+\end{tikzpicture}
+\caption{Architecture en couches du backend ClinAlert}
+\end{figure}
+
+\section{Structure des Packages}
+\begin{successbox}[Organisation des packages]
+\begin{itemize}
+\item \texttt{model/} : 9 entités JPA (User, Patient, Doctor, Clinic, HealthData, Alert, etc.)
+\item \texttt{repository/} : 9 interfaces Spring Data JPA
+\item \texttt{service/} : 11 services de logique métier
+\item \texttt{controller/} : 8 contrôleurs REST
+\item \texttt{security/} : 5 classes de sécurité JWT
+\item \texttt{dto/} : 3 objets de transfert de données
+\end{itemize}
+\end{successbox}
+
+\chapter{Modèle de Données}
+
+\section{Diagramme Entité-Relation}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/entity_relationship_diagram.png}
+\caption{Diagramme Entité-Relation de la base de données}
+\end{figure}
+
+\section{Diagramme de Classes UML}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/class_diagram_backend.png}
+\caption{Diagramme de Classes UML - Modèle de données}
+\end{figure}
+
+\section{Description des Entités}
+\begin{table}[H]
+\centering
+\caption{Liste complète des entités JPA}
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{Entité} & \textbf{Table SQL} & \textbf{Description} \\
+\midrule
+User & users & Comptes utilisateurs avec authentification JWT \\
+Patient & patients & Informations des patients suivis \\
+Doctor & doctors & Médecins et professionnels de santé \\
+Clinic & clinics & Établissements médicaux \\
+HealthData & health\_data & Données de santé collectées (12 métriques) \\
+Alert & alerts & Alertes médicales générées \\
+SmartWatchDevice & smartwatch\_devices & Appareils connectés \\
+DailyHealthSummary & daily\_health\_summaries & Résumés quotidiens \\
+Measurement & measurements & Mesures historiques manuelles \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Entité HealthData}
+L'entité \texttt{HealthData} est centrale au système et contient 12 métriques de santé :
+
+\begin{lstlisting}[style=code, caption=Entité HealthData]
+@Entity
+@Table(name = "health_data")
+public class HealthData {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    
+    @Column(name = "patient_id", nullable = false)
+    private String patientId;
+    
+    @Column(name = "device_id")
+    private String deviceId;
+    
+    private Integer heartRate;           // bpm (40-200)
+    private Double spO2;                 // % (0-100)
+    private Integer steps;               // pas quotidiens
+    private Integer sleepMinutes;        // minutes de sommeil
+    private Integer bloodPressureSystolic;
+    private Integer bloodPressureDiastolic;
+    private Double temperature;          // Celsius
+    private Integer caloriesBurned;
+    private Double distanceMeters;
+    
+    private LocalDateTime timestamp;
+    private String source;  // "smartwatch", "manual"
+}
+\end{lstlisting}
+
+\section{Entité User}
+\begin{lstlisting}[style=code, caption=Entité User avec roles]
+@Entity
+@Table(name = "users")
+public class User implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    
+    @Column(unique = true, nullable = false)
+    private String email;
+    
+    @Column(nullable = false)
+    private String password;
+    
+    @Enumerated(EnumType.STRING)
+    private UserRole role;  // ADMIN, DOCTOR, NURSE, PATIENT
+    
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private boolean enabled = true;
+    
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+}
+\end{lstlisting}
+
+\chapter{Cas d'Utilisation}
+
+\section{Identification des Acteurs}
+\begin{table}[H]
+\centering
+\caption{Description des acteurs du système}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Acteur} & \textbf{Rôle} & \textbf{Responsabilités} \\
+\hline
+\textcolor{clinred}{\textbf{Admin}} & ADMIN & Gestion utilisateurs, configuration système, cliniques \\
+\hline
+\textcolor{clinalertblue}{\textbf{Médecin}} & DOCTOR & Suivi patients, données de santé, alertes, rapports \\
+\hline
+\textcolor{clinalertgreen}{\textbf{Infirmier}} & NURSE & Saisie mesures manuelles, assistance suivi \\
+\hline
+\textcolor{clinorange}{\textbf{Patient}} & PATIENT & Consultation données perso, connexion SmartWatch \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Diagramme de Cas d'Utilisation}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/use_case_diagram.png}
+\caption{Diagramme de Cas d'Utilisation UML}
+\end{figure}
+
+\section{Cas d'Utilisation Détaillés}
+
+\subsection{UC-01 : Gérer les Patients}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Nom} & UC-01 : Gérer les patients \\
+\hline
+\textbf{Acteur} & Médecin (Doctor) \\
+\hline
+\textbf{Précondition} & Authentifié avec rôle DOCTOR \\
+\hline
+\textbf{Scénario} & 1. Accéder à la liste des patients \\
+& 2. Ajouter un nouveau patient (POST /api/patients) \\
+& 3. Modifier les informations (PUT /api/patients/\{id\}) \\
+& 4. Supprimer un patient (DELETE /api/patients/\{id\}) \\
+\hline
+\textbf{Postcondition} & Modifications persistées en base \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{UC-02 : Consulter Données de Santé}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Nom} & UC-02 : Consulter données de santé \\
+\hline
+\textbf{Acteurs} & Médecin, Patient \\
+\hline
+\textbf{Précondition} & Authentification JWT valide \\
+\hline
+\textbf{Scénario} & 1. Sélectionner un patient \\
+& 2. GET /api/smartwatch/health-data/\{patientId\} \\
+& 3. Afficher historique et graphiques \\
+\hline
+\end{tabularx}
+\end{table}
+
+\chapter{Diagrammes de Séquence}
+
+\section{Séquence : Authentification JWT}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.95]
+\node[draw, rectangle, fill=clinorange!20, minimum width=2cm] (client) at (0,0) {Client};
+\node[draw, rectangle, fill=clinalertblue!20, minimum width=2cm] (auth) at (4,0) {AuthController};
+\node[draw, rectangle, fill=clinalertblue!20, minimum width=2cm] (svc) at (8,0) {AuthService};
+\node[draw, rectangle, fill=clinalertgreen!20, minimum width=2cm] (jwt) at (12,0) {JwtProvider};
+\draw[dashed] (client) -- (0,-9);
+\draw[dashed] (auth) -- (4,-9);
+\draw[dashed] (svc) -- (8,-9);
+\draw[dashed] (jwt) -- (12,-9);
+\draw[->, thick, clinalertblue] (0,-1) -- node[above, font=\small] {POST /api/auth/login} (4,-1);
+\draw[->, thick, clinalertblue] (4,-2) -- node[above, font=\small] {login(email, password)} (8,-2);
+\draw[->, thick, clingray] (8,-3) -- node[above, font=\small] {findByEmail()} (8,-3.5);
+\draw[->, thick, clingray] (8,-4) -- node[above, font=\small] {matches(password)} (8,-4.5);
+\draw[->, thick, clinalertblue] (8,-5) -- node[above, font=\small] {generateToken(user)} (12,-5);
+\draw[<--, thick, clinalertgreen] (8,-6) -- node[above, font=\small] {JWT Token} (12,-6);
+\draw[<--, thick, clinalertblue] (4,-7) -- node[above, font=\small] {LoginResponse} (8,-7);
+\draw[<--, thick, clinalertgreen] (0,-8) -- node[above, font=\small] {\{token, userId, role\}} (4,-8);
+\end{tikzpicture}
+\caption{Diagramme de Séquence - Authentification}
+\end{figure}
+
+\section{Séquence : Soumission Données SmartWatch}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/sequence_diagram_ble.png}
+\caption{Diagramme de Séquence - Soumission des données de santé}
+\end{figure}
+
+\chapter{Sécurité et Authentification}
+
+\section{Architecture de Sécurité}
+La sécurité repose sur \textbf{Spring Security} avec authentification \textbf{JWT (JSON Web Token)}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[box/.style={rectangle, draw=clinalertblue, thick, fill=clinalertblue!10, minimum width=5cm, minimum height=1cm, rounded corners}]
+\node[box] (req) at (0,4) {Requête HTTP + JWT};
+\node[box, fill=clinorange!10, draw=clinorange] (filter) at (0,2.5) {JwtAuthenticationFilter};
+\node[box, fill=clinalertgreen!10, draw=clinalertgreen] (provider) at (0,1) {JwtTokenProvider};
+\node[box] (ctrl) at (0,-0.5) {Controller Sécurisé};
+\draw[->, thick, clinalertblue] (req) -- (filter);
+\draw[->, thick, clinorange] (filter) -- node[right, font=\small] {Validation} (provider);
+\draw[->, thick, clinalertgreen] (provider) -- (ctrl);
+\end{tikzpicture}
+\caption{Flux d'authentification JWT}
+\end{figure}
+
+\section{Configuration Spring Security}
+\begin{lstlisting}[style=code, caption=Configuration de la sécurité]
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) {
+        http
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtAuthenticationFilter, 
+                UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+}
+\end{lstlisting}
+
+\section{Matrice des Permissions}
+\begin{table}[H]
+\centering
+\caption{Matrice d'accès aux endpoints par rôle}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Endpoint} & \textbf{ADMIN} & \textbf{DOCTOR} & \textbf{NURSE} & \textbf{PATIENT} \\
+\hline
+/api/auth/* & \ding{51} & \ding{51} & \ding{51} & \ding{51} \\
+\hline
+/api/users/* & \ding{51} & \ding{55} & \ding{55} & \ding{55} \\
+\hline
+/api/clinics/* & \ding{51} & \ding{51} & \ding{55} & \ding{55} \\
+\hline
+/api/patients/* & \ding{51} & \ding{51} & \ding{51} & \ding{55} \\
+\hline
+/api/smartwatch/* & \ding{51} & \ding{51} & \ding{51} & \ding{51}* \\
+\hline
+/api/alerts/* & \ding{51} & \ding{51} & \ding{51} & \ding{51}* \\
+\hline
+\end{tabular}
+\end{table}
+\textit{* Le patient peut uniquement accéder à ses propres données}
+
+\chapter{Documentation API REST}
+
+\section{Endpoints Authentification}
+\begin{table}[H]
+\centering
+\caption{API Authentification (/api/auth)}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+\hline
+POST & /login & Authentification et génération JWT \\
+\hline
+POST & /register & Inscription nouvel utilisateur \\
+\hline
+GET & /me & Profil utilisateur connecté \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Endpoints Patients}
+\begin{table}[H]
+\centering
+\caption{API Patients (/api/patients)}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+\hline
+GET & / & Liste tous les patients \\
+\hline
+GET & /\{id\} & Détails d'un patient \\
+\hline
+GET & /doctor/\{doctorId\} & Patients d'un médecin \\
+\hline
+GET & /clinic/\{clinicId\} & Patients d'une clinique \\
+\hline
+POST & / & Créer un patient \\
+\hline
+PUT & /\{id\} & Modifier un patient \\
+\hline
+DELETE & /\{id\} & Supprimer un patient \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Endpoints SmartWatch}
+\begin{table}[H]
+\centering
+\caption{API SmartWatch (/api/smartwatch)}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+\hline
+POST & /devices & Enregistrer un nouvel appareil \\
+\hline
+GET & /devices/\{patientId\} & Liste des appareils du patient \\
+\hline
+DELETE & /devices/\{deviceId\} & Supprimer un appareil \\
+\hline
+POST & /health-data & Soumettre un lot de données \\
+\hline
+POST & /health-data/single & Soumettre une mesure unique \\
+\hline
+GET & /health-data/\{patientId\} & Historique complet \\
+\hline
+GET & /health-data/\{patientId\}/heart-rate & Historique cardiaque \\
+\hline
+GET & /health-data/\{patientId\}/spo2 & Historique SpO2 \\
+\hline
+GET & /health-data/\{patientId\}/steps & Historique pas \\
+\hline
+GET & /health-data/\{patientId\}/stats & Statistiques calculées \\
+\hline
+\end{tabularx}
+\end{table}
+
+% PARTIE FRONTEND
+\part{Frontend Flutter}
+
+\chapter{Architecture Frontend}
+
+\section{Stack Technologique}
+\begin{table}[H]
+\centering
+\caption{Technologies utilisées dans le frontend}
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{Catégorie} & \textbf{Technologie} & \textbf{Description} \\
+\midrule
+Framework & Flutter 3.x & Framework UI cross-platform de Google \\
+Langage & Dart 3.x & Langage orienté objet et typé \\
+State Management & Provider & Gestion d'état réactive \\
+HTTP Client & Dio & Appels REST API vers le backend \\
+Stockage local & SharedPreferences & Persistance du token JWT \\
+Bluetooth & flutter\_reactive\_ble & Communication avec SmartWatch \\
+Graphiques & fl\_chart & Visualisation des données de santé \\
+Localisation & flutter\_localizations & Support FR/EN/AR \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Architecture Provider}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+layer/.style={rectangle, draw=clinalertblue, line width=2pt, fill=clinalertblue!10, minimum width=12cm, minimum height=1.2cm, rounded corners=5pt, font=\bfseries},
+arrow/.style={->, line width=3pt, color=clinalertgreen}]
+\node[layer] (ui) at (0,6) {UI Layer - 27 Screens (Widgets)};
+\node[layer] (provider) at (0,4.5) {State Layer - 3 Providers (AuthProvider, etc.)};
+\node[layer] (service) at (0,3) {Service Layer - 7 Services (ApiService, etc.)};
+\node[layer] (model) at (0,1.5) {Model Layer - 15 Models (Patient, HealthData, etc.)};
+\node[layer, fill=clinalertgreen!10, draw=clinalertgreen] (api) at (0,0) {Backend API - Spring Boot REST};
+\draw[arrow] (ui) -- (provider);
+\draw[arrow] (provider) -- (service);
+\draw[arrow] (service) -- (model);
+\draw[arrow] (service) -- (api);
+\end{tikzpicture}
+\caption{Architecture en couches Flutter}
+\end{figure}
+
+\section{Structure du Projet}
+\begin{successbox}[Organisation des dossiers lib/]
+\begin{itemize}
+\item \texttt{screens/} : 27 écrans de l'application
+\item \texttt{models/} : 15 modèles de données
+\item \texttt{services/} : 7 services (API, Auth, BLE, etc.)
+\item \texttt{widgets/} : 18 composants réutilisables
+\item \texttt{providers/} : 3 providers de gestion d'état
+\item \texttt{l10n/} : Fichiers de traduction (FR, EN, AR)
+\item \texttt{themes/} : Configuration du thème visuel
+\end{itemize}
+\end{successbox}
+
+\chapter{Écrans de l'Application}
+
+\section{Aperçu des Interfaces}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/mobile_screens_mockup.png}
+\caption{Aperçu des écrans principaux de l'application}
+\end{figure}
+
+\section{Écrans d'Authentification}
+\begin{table}[H]
+\centering
+\caption{Écrans d'authentification}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+WelcomeScreen & Page d'accueil avec options Login/Register \\
+\hline
+LoginScreen & Formulaire de connexion avec email/password \\
+\hline
+SignupScreen & Inscription avec sélection du rôle \\
+\hline
+ForgotPasswordScreen & Réinitialisation du mot de passe \\
+\hline
+CreateProfileScreen & Création du profil après inscription \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Tableaux de Bord}
+\begin{table}[H]
+\centering
+\caption{Dashboards par rôle utilisateur}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+DoctorDashboardScreen & Vue médecin avec liste patients, alertes, statistiques \\
+\hline
+NurseDashboardScreen & Vue infirmier avec patients assignés, formulaires \\
+\hline
+PatientDashboardScreen & Vue patient avec données perso, SmartWatch, graphiques \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Gestion des Patients}
+\begin{table}[H]
+\centering
+\caption{Écrans de gestion des patients}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+PatientsScreen & Liste des patients avec recherche et filtres \\
+\hline
+PatientDetailScreen & Détails complets d'un patient avec onglets \\
+\hline
+PatientHistoryScreen & Historique des mesures et consultations \\
+\hline
+AddEditPatientScreen & Formulaire d'ajout/modification patient \\
+\hline
+HealthDataScreen & Graphiques interactifs des données de santé \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{SmartWatch et Données}
+\begin{table}[H]
+\centering
+\caption{Écrans SmartWatch}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+SmartWatchConnectionScreen & Appairage Bluetooth avec détection \\
+\hline
+BleScanScreen & Scan des appareils BLE disponibles \\
+\hline
+MeasurementScreen & Affichage des mesures en temps réel \\
+\hline
+RecordVitalScreen & Saisie manuelle des signes vitaux \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Administration}
+\begin{table}[H]
+\centering
+\caption{Écrans d'administration}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Écran} & \textbf{Description} \\
+\hline
+SettingsScreen & Paramètres utilisateur, thème, langue \\
+\hline
+UsersManagementScreen & CRUD des comptes utilisateurs (Admin) \\
+\hline
+ClinicsScreen & Gestion des cliniques et établissements \\
+\hline
+DoctorsScreen & Gestion des médecins \\
+\hline
+AlertsScreen & Liste et gestion des alertes \\
+\hline
+\end{tabularx}
+\end{table}
+
+\chapter{Modèles de Données Flutter}
+
+\section{Vue d'Ensemble}
+\begin{table}[H]
+\centering
+\caption{Liste complète des modèles Flutter}
+\begin{tabular}{llc}
+\toprule
+\textbf{Modèle} & \textbf{Description} & \textbf{Taille} \\
+\midrule
+User & Compte utilisateur authentifié & 2.7 KB \\
+Patient & Patient suivi dans le système & 3.4 KB \\
+Doctor & Médecin avec spécialité & 2.2 KB \\
+Clinic & Établissement médical & 1.6 KB \\
+HealthData & Données de santé (12 métriques) & 3.9 KB \\
+DailyHealthSummary & Résumé quotidien calculé & 5.9 KB \\
+Alert & Alerte médicale générée & 3.3 KB \\
+SmartWatchDevice & Appareil connecté & 2.7 KB \\
+VitalSign & Signe vital individuel & 3.7 KB \\
+Measurement & Mesure ponctuelle & 1.0 KB \\
+Message & Message chat & 3.6 KB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Modèle HealthData}
+\begin{lstlisting}[style=code, caption=Modèle HealthData Dart]
+class HealthData {
+  final String? id;
+  final String patientId;
+  final String? deviceId;
+  final int? heartRate;
+  final double? spO2;
+  final int? steps;
+  final int? sleepMinutes;
+  final int? bloodPressureSystolic;
+  final int? bloodPressureDiastolic;
+  final double? temperature;
+  final DateTime timestamp;
+  final String? source;
+  
+  factory HealthData.fromJson(Map<String, dynamic> json) {
+    return HealthData(
+      id: json['id'],
+      patientId: json['patientId'],
+      heartRate: json['heartRate'],
+      spO2: json['spO2']?.toDouble(),
+      steps: json['steps'],
+      sleepMinutes: json['sleepMinutes'],
+      timestamp: DateTime.parse(json['timestamp']),
+      source: json['source'],
+    );
+  }
+  
+  Map<String, dynamic> toJson() => {
+    'patientId': patientId,
+    'heartRate': heartRate,
+    'spO2': spO2,
+    'steps': steps,
+    'timestamp': timestamp.toIso8601String(),
+  };
+}
+\end{lstlisting}
+
+\section{Modèle User avec Rôles}
+\begin{lstlisting}[style=code, caption=Modèle User Dart]
+enum UserRole { ADMIN, DOCTOR, NURSE, PATIENT }
+
+class User {
+  final String id;
+  final String email;
+  final UserRole role;
+  final String? firstName;
+  final String? lastName;
+  final String? phone;
+  final bool enabled;
+  
+  bool get isAdmin => role == UserRole.ADMIN;
+  bool get isDoctor => role == UserRole.DOCTOR;
+  bool get isPatient => role == UserRole.PATIENT;
+  
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      email: json['email'],
+      role: UserRole.values.firstWhere(
+        (r) => r.name == json['role'],
+        orElse: () => UserRole.PATIENT,
+      ),
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      enabled: json['enabled'] ?? true,
+    );
+  }
+}
+\end{lstlisting}
+
+\chapter{Services et Communication API}
+
+\section{Vue d'Ensemble des Services}
+\begin{table}[H]
+\centering
+\caption{Services de l'application}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Service} & \textbf{Responsabilité} & \textbf{Taille} \\
+\hline
+ApiService & Appels REST vers le backend (50+ endpoints) & 20.7 KB \\
+\hline
+AuthService & Authentification, login, register, logout & 7.3 KB \\
+\hline
+BleService & Communication Bluetooth avec SmartWatch & 3.7 KB \\
+\hline
+StorageService & Persistance locale (token, préférences) & 1.7 KB \\
+\hline
+MessageService & Gestion des messages et chat & 12.7 KB \\
+\hline
+NotificationService & Notifications push locales & 0.6 KB \\
+\hline
+ExportService & Export de données (PDF, CSV) & 0.7 KB \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{ApiService}
+\begin{lstlisting}[style=code, caption=Extrait ApiService]
+class ApiService {
+  static const String baseUrl = 'http://10.0.2.2:8080/api';
+  
+  Future<Map<String, String>> _getHeaders() async {
+    final token = await StorageService.getToken();
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': token != null ? 'Bearer $token' : '',
+    };
+  }
+  
+  Future<List<Patient>> getPatients() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/patients'),
+      headers: await _getHeaders(),
+    );
+    
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((e) => Patient.fromJson(e)).toList();
+    }
+    throw Exception('Failed to load patients');
+  }
+  
+  Future<void> submitHealthData(List<HealthData> dataList) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/smartwatch/health-data'),
+      headers: await _getHeaders(),
+      body: json.encode(dataList.map((e) => e.toJson()).toList()),
+    );
+    
+    if (response.statusCode != 201) {
+      throw Exception('Failed to submit health data');
+    }
+  }
+}
+\end{lstlisting}
+
+\section{BleService - Connexion SmartWatch}
+\begin{lstlisting}[style=code, caption=Service Bluetooth BLE]
+class BleService {
+  final Uuid _heartRateServiceUuid = 
+      Uuid.parse("0000180d-0000-1000-8000-00805f9b34fb");
+  final Uuid _heartRateCharacteristicUuid = 
+      Uuid.parse("00002a37-0000-1000-8000-00805f9b34fb");
+  
+  Stream<List<DiscoveredDevice>> scanForDevices() {
+    return _ble.scanForDevices(withServices: []);
+  }
+  
+  Future<void> connectToDevice(String deviceId) async {
+    _connectionStream = _ble.connectToDevice(id: deviceId);
+  }
+  
+  Stream<int> subscribeToHeartRate(String deviceId) {
+    final characteristic = QualifiedCharacteristic(
+      characteristicId: _heartRateCharacteristicUuid,
+      serviceId: _heartRateServiceUuid,
+      deviceId: deviceId,
+    );
+    
+    return _ble.subscribeToCharacteristic(characteristic)
+        .map((data) => _parseHeartRate(data));
+  }
+  
+  int _parseHeartRate(List<int> data) {
+    if (data.isEmpty) return 0;
+    final flags = data[0];
+    final is16Bit = (flags & 0x01) != 0;
+    if (is16Bit && data.length >= 3) {
+      return data[1] | (data[2] << 8);
+    } else if (data.length >= 2) {
+      return data[1];
+    }
+    return 0;
+  }
+}
+\end{lstlisting}
+
+\chapter{Gestion d'État avec Provider}
+
+\section{AuthProvider}
+\begin{lstlisting}[style=code, caption=AuthProvider complet]
+class AuthProvider extends ChangeNotifier {
+  User? _currentUser;
+  String? _token;
+  bool _isLoading = false;
+  
+  User? get currentUser => _currentUser;
+  bool get isAuthenticated => _token != null;
+  bool get isLoading => _isLoading;
+  
+  Future<bool> login(String email, String password) async {
+    _isLoading = true;
+    notifyListeners();
+    
+    try {
+      final response = await _authService.login(email, password);
+      _token = response['token'];
+      _currentUser = User.fromJson(response);
+      
+      await _storageService.saveToken(_token!);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+  
+  Future<void> logout() async {
+    _token = null;
+    _currentUser = null;
+    await _storageService.clearToken();
+    notifyListeners();
+  }
+}
+\end{lstlisting}
+
+\chapter{Interface Utilisateur}
+
+\section{Widgets Réutilisables}
+\begin{table}[H]
+\centering
+\caption{Widgets personnalisés}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Widget} & \textbf{Usage} \\
+\hline
+PatientCard & Carte affichant les infos patient avec avatar \\
+\hline
+HealthMetricCard & Carte métrique avec icône et valeur \\
+\hline
+AlertBadge & Badge coloré selon sévérité de l'alerte \\
+\hline
+VitalSignChart & Graphique fl\_chart pour données vitales \\
+\hline
+LoadingIndicator & Indicateur de chargement personnalisé \\
+\hline
+CustomTextField & Champ de saisie avec validation \\
+\hline
+GradientButton & Bouton avec dégradé de couleurs \\
+\hline
+StatCard & Carte statistique avec tendance \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Thème et Couleurs}
+\begin{lstlisting}[style=code, caption=Configuration du thème]
+class AppTheme {
+  static ThemeData lightTheme = ThemeData(
+    primaryColor: Color(0xFF2962FF),
+    colorScheme: ColorScheme.light(
+      primary: Color(0xFF2962FF),
+      secondary: Color(0xFF00C853),
+      error: Color(0xFFFF5252),
+    ),
+    scaffoldBackgroundColor: Color(0xFFF8F9FA),
+    cardTheme: CardTheme(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    ),
+    appBarTheme: AppBarTheme(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Color(0xFF2D3436),
+    ),
+  );
+}
+\end{lstlisting}
+
+\section{Localisation Multilingue}
+L'application supporte 3 langues avec support RTL pour l'arabe :
+\begin{table}[H]
+\centering
+\caption{Langues supportées}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Langue} & \textbf{Code} & \textbf{Direction} \\
+\hline
+Français & fr & LTR \\
+\hline
+Anglais & en & LTR \\
+\hline
+Arabe & ar & RTL \\
+\hline
+\end{tabular}
+\end{table}
+
+\chapter{Diagrammes UML Frontend}
+
+\section{Diagramme de Classes - Modèles}
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+classbox/.style={rectangle, draw=#1, line width=2pt, fill=white, minimum width=4.5cm, inner sep=0pt, rounded corners=3pt},
+assoc/.style={->, line width=2pt, >=stealth, #1}]
+
+\node[classbox=clinalertblue] (user) at (0,8) {
+\begin{tabular}{c}
+\cellcolor{clinalertblue!25} \textbf{User} \\
+\hline
+\texttt{+ id: String} \\
+\texttt{+ email: String} \\
+\texttt{+ role: UserRole} \\
+\texttt{+ firstName: String?} \\
+\hline
+\texttt{+ fromJson()} \\
+\texttt{+ toJson()} \\
+\end{tabular}};
+
+\node[classbox=clinalertgreen] (patient) at (-5,4) {
+\begin{tabular}{c}
+\cellcolor{clinalertgreen!25} \textbf{Patient} \\
+\hline
+\texttt{+ id: String} \\
+\texttt{+ name: String} \\
+\texttt{+ age: int} \\
+\texttt{+ doctorId: String} \\
+\hline
+\texttt{+ fromJson()} \\
+\end{tabular}};
+
+\node[classbox=clinred] (health) at (0,4) {
+\begin{tabular}{c}
+\cellcolor{clinred!20} \textbf{HealthData} \\
+\hline
+\texttt{+ heartRate: int?} \\
+\texttt{+ spO2: double?} \\
+\texttt{+ steps: int?} \\
+\texttt{+ timestamp: DateTime} \\
+\hline
+\texttt{+ fromJson()} \\
+\texttt{+ toJson()} \\
+\end{tabular}};
+
+\node[classbox=clinorange] (alert) at (5,4) {
+\begin{tabular}{c}
+\cellcolor{clinorange!20} \textbf{Alert} \\
+\hline
+\texttt{+ id: String} \\
+\texttt{+ type: String} \\
+\texttt{+ severity: String} \\
+\texttt{+ message: String} \\
+\hline
+\texttt{+ fromJson()} \\
+\end{tabular}};
+
+\draw[assoc=clinalertgreen] (patient.north) -- node[left] {*} (user.south west);
+\draw[assoc=clinred] (patient.east) -- node[above] {1..*} (health.west);
+\draw[assoc=clinorange] (patient.south east) -- node[above] {0..*} (alert.south west);
+\end{tikzpicture}}
+\caption{Diagramme de Classes - Modèles Flutter}
+\end{figure}
+
+\section{Diagramme de Séquence - Login}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.9]
+\node[draw, rectangle, fill=clinalertblue!20, minimum width=2cm] (ui) at (0,0) {LoginScreen};
+\node[draw, rectangle, fill=clinalertgreen!20, minimum width=2cm] (prov) at (4,0) {AuthProvider};
+\node[draw, rectangle, fill=clinorange!20, minimum width=2cm] (api) at (8,0) {ApiService};
+\node[draw, rectangle, fill=clingray!30, minimum width=2cm] (backend) at (12,0) {Backend};
+
+\draw[dashed] (ui) -- (0,-9);
+\draw[dashed] (prov) -- (4,-9);
+\draw[dashed] (api) -- (8,-9);
+\draw[dashed] (backend) -- (12,-9);
+
+\draw[->, thick, clinalertblue] (0,-1) -- node[above, font=\small] {login(email, pwd)} (4,-1);
+\draw[->, thick, clinalertgreen] (4,-2) -- node[above, font=\small] {authService.login()} (8,-2);
+\draw[->, thick, clinorange] (8,-3) -- node[above, font=\small] {POST /api/auth/login} (12,-3);
+\draw[<--, thick, clinorange] (8,-4) -- node[above, font=\small] {\{token, user\}} (12,-4);
+\draw[->, thick, clingray] (4,-5) -- node[above, font=\scriptsize] {storage.saveToken()} (4,-5.5);
+\draw[->, thick, clingray] (4,-6) -- node[above, font=\scriptsize] {notifyListeners()} (4,-6.5);
+\draw[<--, thick, clinalertgreen] (0,-7) -- node[above, font=\small] {success} (4,-7);
+\draw[->, thick, clinalertblue] (0,-8) -- node[above, font=\scriptsize] {Navigator.push(Dashboard)} (0,-8.5);
+\end{tikzpicture}
+\caption{Diagramme de Séquence - Processus de connexion}
+\end{figure}
+
+% ANNEXE - CAPTURES D'ÉCRAN
+\chapter{Annexe : Captures d'Écran de l'Application}
+
+Cette annexe présente les captures d'écran réelles de l'application ClinAlert Mobile, organisées par fonctionnalité.
+
+\section{Écrans d'Authentification}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/ecran_accueil.jpg}
+\caption{Écran d'Accueil - Page de bienvenue avec options de connexion}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/ecran_connexion.jpg}
+\caption{Écran de Connexion - Formulaire d'authentification}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/ecran_inscription.jpg}
+\caption{Écran d'Inscription - Création de compte utilisateur}
+\end{figure}
+
+\section{Tableaux de Bord}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/tableau_bord_medecin.jpg}
+\caption{Tableau de Bord Médecin - Vue principale avec statistiques}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/tableau_bord_patient.jpg}
+\caption{Tableau de Bord Patient - Données personnelles de santé}
+\end{figure}
+
+\section{Gestion des Patients}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/liste_patients.jpg}
+\caption{Liste des Patients - Affichage avec recherche}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/detail_patient.jpg}
+\caption{Détail Patient - Informations complètes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/ajout_patient.jpg}
+\caption{Ajout/Modification Patient - Formulaire de saisie}
+\end{figure}
+
+\section{Données de Santé}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/donnees_sante.jpg}
+\caption{Données de Santé - Affichage des métriques vitales}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/graphique_cardiaque.jpg}
+\caption{Graphique Cardiaque - Évolution du rythme cardiaque}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/historique_mesures.jpg}
+\caption{Historique des Mesures - Liste chronologique}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/statistiques_sante.jpg}
+\caption{Statistiques de Santé - Résumé des données}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/resume_quotidien.jpg}
+\caption{Résumé Quotidien - Bilan journalier de santé}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/saisie_manuelle.jpg}
+\caption{Saisie Manuelle - Enregistrement des signes vitaux}
+\end{figure}
+
+\section{SmartWatch et Bluetooth}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/connexion_smartwatch.jpg}
+\caption{Connexion SmartWatch - Interface d'appairage}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/scan_bluetooth.jpg}
+\caption{Scan Bluetooth - Détection des appareils BLE}
+\end{figure}
+
+\section{Alertes et Notifications}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/alertes_medicales.jpg}
+\caption{Alertes Médicales - Liste des notifications d'anomalies}
+\end{figure}
+
+\section{Paramètres et Administration}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/parametres.jpg}
+\caption{Paramètres - Configuration de l'application}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/profil_utilisateur.jpg}
+\caption{Profil Utilisateur - Informations personnelles}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/choix_langue.jpg}
+\caption{Choix de la Langue - Support multilingue (FR/EN/AR)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/gestion_utilisateurs.jpg}
+\caption{Gestion des Utilisateurs - Administration des comptes (Admin)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{images/gestion_cliniques.jpg}
+\caption{Gestion des Cliniques - Administration des établissements}
+\end{figure}
+
+% CONCLUSION
+\chapter*{Conclusion Générale}
+\addcontentsline{toc}{chapter}{Conclusion Générale}
+
+\section*{Récapitulatif}
+Le système ClinAlert offre une solution complète et moderne pour le suivi médical :
+
+\begin{itemize}
+\item \ding{51} \textbf{Backend robuste} : Spring Boot 3.2, 9 entités JPA, 50+ endpoints REST
+\item \ding{51} \textbf{Frontend moderne} : Flutter 3.x, 27 écrans, Provider, multilingue
+\item \ding{51} \textbf{Sécurité} : Authentification JWT, gestion des rôles
+\item \ding{51} \textbf{IoT} : Intégration Bluetooth BLE complète
+\item \ding{51} \textbf{Données} : 12 métriques de santé, alertes automatiques
+\end{itemize}
+
+\section*{Améliorations Futures}
+\begin{successbox}[Évolutions prévues]
+\begin{enumerate}
+\item \textbf{Tests} : Couverture > 80\% (unitaires et intégration)
+\item \textbf{Notifications push} : Firebase Cloud Messaging
+\item \textbf{Mode hors-ligne} : Cache local avec synchronisation
+\item \textbf{WebSocket} : Alertes temps réel
+\item \textbf{Monitoring} : Prometheus/Grafana
+\item \textbf{CI/CD} : Pipeline automatisé GitHub Actions
+\end{enumerate}
+\end{successbox}
+
+\vspace{1cm}
+\begin{center}
+{\color{clinalertblue}\rule{12cm}{2pt}}\\[0.8cm]
+{\fontsize{30}{35}\selectfont\bfseries\textcolor{clinalertblue}{ClinAlert}}\\[0.5cm]
+{\Large\textcolor{clingray}{Healthcare Monitoring System}}\\[0.3cm]
+{\textcolor{clinalertgreen}{Suivi Médical Intelligent}}
+\end{center}
+
+\end{document}

@@ -1,0 +1,435 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{fontawesome5}
+
+\usetikzlibrary{shapes,arrows,positioning}
+
+% Thème et couleurs
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\definecolor{clinalertblue}{RGB}{41, 98, 255}
+\definecolor{clinalertgreen}{RGB}{0, 200, 83}
+\definecolor{clinorange}{RGB}{255, 145, 0}
+\definecolor{clinred}{RGB}{255, 82, 82}
+
+\setbeamercolor{palette primary}{bg=clinalertblue,fg=white}
+\setbeamercolor{palette secondary}{bg=clinalertblue!80,fg=white}
+\setbeamercolor{palette tertiary}{bg=clinalertblue!60,fg=white}
+\setbeamercolor{structure}{fg=clinalertblue}
+\setbeamercolor{title}{fg=clinalertblue}
+\setbeamercolor{frametitle}{fg=clinalertblue}
+\setbeamercolor{block title}{bg=clinalertblue,fg=white}
+\setbeamercolor{block body}{bg=clinalertblue!10}
+
+% Infos présentation
+\title[ClinAlert]{\textbf{ClinAlert}}
+\subtitle{Système de Suivi Médical Intelligent}
+\author{Équipe ClinAlert}
+\institute{Projet de Fin d'Études}
+\date{\today}
+\logo{\begin{tikzpicture}[scale=0.3]
+    \draw[clinalertblue, line width=2pt] (0,0) circle (1cm);
+    \fill[clinalertblue!30] (0,0) circle (0.8cm);
+    \node at (0,0) {\textcolor{clinalertblue}{$\heartsuit$}};
+\end{tikzpicture}}
+
+\begin{document}
+
+%=============================================================================
+% SLIDE 1: TITRE
+%=============================================================================
+\begin{frame}
+\titlepage
+\end{frame}
+
+%=============================================================================
+% SLIDE 2: PLAN
+%=============================================================================
+\begin{frame}{Plan de la Présentation}
+\tableofcontents
+\end{frame}
+
+%=============================================================================
+% SECTION 1: INTRODUCTION
+%=============================================================================
+\section{Introduction}
+
+\begin{frame}{Contexte du Projet}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{block}{Problématique}
+\begin{itemize}
+    \item Suivi médical à distance de plus en plus nécessaire
+    \item Données de santé collectées par appareils connectés
+    \item Besoin de détection précoce des anomalies
+    \item Communication médecin-patient améliorée
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.35\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.2]
+    \draw[clinalertblue, line width=3pt] (0,0) circle (1.5cm);
+    \fill[clinalertblue!20] (0,0) circle (1.3cm);
+    \node at (0,0) {\Huge\textcolor{clinalertblue}{$\heartsuit$}};
+    \node at (0,-0.4) {\small\textcolor{clinalertblue}{\textbf{+}}};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Solution ClinAlert}
+\begin{block}{Notre Solution}
+\textbf{ClinAlert} : Plateforme complète de suivi médical en temps réel
+\end{block}
+
+\vspace{0.5cm}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textcolor{clinalertblue}{\faHeartbeat} \textbf{Collecte de données}
+\begin{itemize}
+    \item SmartWatch Bluetooth
+    \item Fréquence cardiaque, SpO2
+    \item Pas, sommeil, calories
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textcolor{clinred}{\faBell} \textbf{Alertes automatiques}
+\begin{itemize}
+    \item Détection d'anomalies
+    \item Notifications en temps réel
+    \item Historique complet
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+%=============================================================================
+% SECTION 2: ARCHITECTURE
+%=============================================================================
+\section{Architecture}
+
+\begin{frame}{Stack Technologique}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{\faServer\ Backend}
+\begin{itemize}
+    \item Spring Boot 3.2
+    \item Java 17 LTS
+    \item PostgreSQL 15
+    \item JWT Security
+    \item API REST
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{\faMobile\ Frontend}
+\begin{itemize}
+    \item Flutter 3.x
+    \item Dart 3.x
+    \item Provider (State)
+    \item BLE (Bluetooth)
+    \item Multilingue (FR/EN/AR)
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Architecture en Couches}
+\centering
+\begin{tikzpicture}[
+    layer/.style={rectangle, draw=clinalertblue, thick, fill=clinalertblue!15, 
+                  minimum width=10cm, minimum height=0.9cm, rounded corners=3pt, font=\small\bfseries}
+]
+    \node[layer] (mobile) at (0,4) {\faMobile\ Application Flutter Mobile};
+    \node[layer] (api) at (0,3) {\faExchangeAlt\ API REST (JSON + JWT)};
+    \node[layer] (ctrl) at (0,2) {\faServer\ Controllers Spring Boot (8)};
+    \node[layer] (svc) at (0,1) {\faCogs\ Services Métier (11)};
+    \node[layer] (repo) at (0,0) {\faDatabase\ Repositories JPA (9)};
+    \node[layer, fill=clinalertgreen!20, draw=clinalertgreen] (db) at (0,-1) {\faDatabase\ PostgreSQL 15};
+    
+    \draw[->, thick, clinalertblue] (mobile) -- (api);
+    \draw[->, thick, clinalertblue] (api) -- (ctrl);
+    \draw[->, thick, clinalertblue] (ctrl) -- (svc);
+    \draw[->, thick, clinalertblue] (svc) -- (repo);
+    \draw[->, thick, clinalertgreen] (repo) -- (db);
+\end{tikzpicture}
+\end{frame}
+
+%=============================================================================
+% SECTION 3: FONCTIONNALITÉS
+%=============================================================================
+\section{Fonctionnalités}
+
+\begin{frame}{Gestion des Utilisateurs}
+\begin{block}{4 Rôles Utilisateurs}
+\end{block}
+\begin{columns}
+\begin{column}{0.25\textwidth}
+\centering
+\textcolor{clinred}{\faUserShield}\\
+\textbf{Admin}\\
+{\small Gestion système}
+\end{column}
+\begin{column}{0.25\textwidth}
+\centering
+\textcolor{clinalertblue}{\faUserMd}\\
+\textbf{Médecin}\\
+{\small Suivi patients}
+\end{column}
+\begin{column}{0.25\textwidth}
+\centering
+\textcolor{clinalertgreen}{\faUserNurse}\\
+\textbf{Infirmier}\\
+{\small Saisie mesures}
+\end{column}
+\begin{column}{0.25\textwidth}
+\centering
+\textcolor{clinorange}{\faUser}\\
+\textbf{Patient}\\
+{\small Données perso}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Connexion SmartWatch}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{block}{Données collectées}
+\begin{itemize}
+    \item \textcolor{clinred}{\faHeartbeat} Fréquence cardiaque (bpm)
+    \item \textcolor{clinalertblue}{\faLungs} Saturation O2 (SpO2 \%)
+    \item \textcolor{clinalertgreen}{\faWalking} Nombre de pas
+    \item \textcolor{clinorange}{\faBed} Minutes de sommeil
+    \item \textcolor{clinalertblue}{\faFire} Calories brûlées
+    \item \textcolor{clinalertgreen}{\faThermometerHalf} Température
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.4\textwidth}
+\centering
+\begin{tikzpicture}
+    \node[draw=clinalertblue, thick, rounded corners, fill=clinalertblue!10, minimum width=3cm, minimum height=2cm] (watch) at (0,0) {};
+    \node at (0,0.3) {\Large\faHeartbeat};
+    \node at (0,-0.3) {\textbf{72 bpm}};
+    \node[below=0.5cm of watch] {\small Bluetooth BLE};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Système d'Alertes}
+\begin{block}{Détection Automatique d'Anomalies}
+\end{block}
+
+\begin{table}
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Métrique} & \textbf{Seuil bas} & \textbf{Seuil haut} \\
+\midrule
+Fréquence cardiaque & < 50 bpm & > 120 bpm \\
+SpO2 & < 90\% & - \\
+Température & < 35°C & > 38.5°C \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{columns}
+\begin{column}{0.33\textwidth}
+\centering
+\textcolor{clinalertgreen}{\faCheckCircle}\\
+\textbf{Normal}
+\end{column}
+\begin{column}{0.33\textwidth}
+\centering
+\textcolor{clinorange}{\faExclamationTriangle}\\
+\textbf{Warning}
+\end{column}
+\begin{column}{0.33\textwidth}
+\centering
+\textcolor{clinred}{\faTimesCircle}\\
+\textbf{Critical}
+\end{column}
+\end{columns}
+\end{frame}
+
+%=============================================================================
+% SECTION 4: DÉMONSTRATION
+%=============================================================================
+\section{Application Mobile}
+
+\begin{frame}{Écrans Principaux}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{27 Écrans}
+\begin{itemize}
+    \item Login / Register
+    \item Dashboard par rôle
+    \item Liste des patients
+    \item Détails patient + graphiques
+    \item Connexion SmartWatch
+    \item Gestion des alertes
+    \item Paramètres multilingues
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.45\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.7]
+    % Phone frame
+    \draw[rounded corners=8pt, thick, fill=gray!10] (0,0) rectangle (4,7);
+    \draw[rounded corners=4pt, fill=white] (0.2,0.5) rectangle (3.8,6.5);
+    
+    % Content mock
+    \fill[clinalertblue!80] (0.2,5.5) rectangle (3.8,6.5);
+    \node[white] at (2,6) {\small\textbf{ClinAlert}};
+    
+    \fill[clinalertblue!15] (0.4,4.8) rectangle (3.6,5.3);
+    \node at (2,5.05) {\tiny\faHeartbeat\ 72 bpm};
+    
+    \fill[clinalertgreen!15] (0.4,4.1) rectangle (3.6,4.6);
+    \node at (2,4.35) {\tiny\faLungs\ 98\% SpO2};
+    
+    \fill[clinorange!15] (0.4,3.4) rectangle (3.6,3.9);
+    \node at (2,3.65) {\tiny\faWalking\ 5,432 pas};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+%=============================================================================
+% SECTION 5: API
+%=============================================================================
+\section{API REST}
+
+\begin{frame}{Endpoints Principaux}
+\begin{block}{50+ Endpoints REST}
+\end{block}
+
+\begin{table}
+\footnotesize
+\begin{tabular}{llp{5cm}}
+\toprule
+\textbf{Ressource} & \textbf{Endpoints} & \textbf{Opérations} \\
+\midrule
+/api/auth & 3 & Login, Register, Me \\
+/api/patients & 8 & CRUD + filtres \\
+/api/smartwatch & 20 & Devices, Health data, Summaries \\
+/api/alerts & 5 & CRUD + acquittement \\
+/api/clinics & 5 & CRUD cliniques \\
+/api/users & 6 & Gestion utilisateurs \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+%=============================================================================
+% SECTION 6: SÉCURITÉ
+%=============================================================================
+\section{Sécurité}
+
+\begin{frame}{Authentification JWT}
+\centering
+\begin{tikzpicture}[
+    box/.style={rectangle, draw=clinalertblue, thick, fill=clinalertblue!10, rounded corners, minimum width=2.5cm, minimum height=1cm}
+]
+    \node[box] (client) at (0,0) {\faMobile\ Client};
+    \node[box] (auth) at (5,0) {\faKey\ Auth};
+    \node[box] (api) at (10,0) {\faServer\ API};
+    
+    \draw[->, thick, clinalertblue] (client) -- node[above] {\small email/pwd} (auth);
+    \draw[->, thick, clinalertgreen] (auth) -- node[above] {\small JWT Token} (client);
+    \draw[->, thick, clinalertblue] ([yshift=-0.3cm]client.east) -- node[below] {\small + Bearer Token} ([yshift=-0.3cm]api.west);
+    \draw[->, thick, clinalertgreen] ([yshift=-0.6cm]api.west) -- node[below] {\small Data JSON} ([yshift=-0.6cm]client.east);
+\end{tikzpicture}
+
+\vspace{0.5cm}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{\faShieldAlt\ Sécurité}
+\begin{itemize}
+    \item Tokens JWT (24h)
+    \item Passwords BCrypt
+    \item CORS configuré
+    \item HTTPS (production)
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{\faUserLock\ Autorisations}
+\begin{itemize}
+    \item RBAC (4 rôles)
+    \item Endpoints protégés
+    \item Données filtrées
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+%=============================================================================
+% SECTION 7: CONCLUSION
+%=============================================================================
+\section{Conclusion}
+
+\begin{frame}{Récapitulatif}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{\faCheckCircle\ Réalisations}
+\begin{itemize}
+    \item Backend Spring Boot complet
+    \item Application Flutter multiplateforme
+    \item 9 entités, 50+ endpoints
+    \item Connexion SmartWatch BLE
+    \item Alertes automatiques
+    \item Multilingue (FR/EN/AR)
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{\faRocket\ Améliorations futures}
+\begin{itemize}
+    \item Tests automatisés
+    \item Notifications push
+    \item Mode hors-ligne
+    \item IA prédictive
+    \item Version web
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{}
+\centering
+\vspace{1cm}
+\begin{tikzpicture}
+    \draw[clinalertblue, line width=4pt] (0,0) circle (2cm);
+    \fill[clinalertblue!20] (0,0) circle (1.7cm);
+    \node at (0,0) {\Huge\textcolor{clinalertblue}{$\heartsuit$}};
+    \node at (0,-0.5) {\textcolor{clinalertblue}{\textbf{+}}};
+\end{tikzpicture}
+
+\vspace{0.8cm}
+{\Huge\textcolor{clinalertblue}{\textbf{ClinAlert}}}
+
+\vspace{0.3cm}
+{\Large Système de Suivi Médical Intelligent}
+
+\vspace{1cm}
+{\large\textcolor{clinalertgreen}{\textbf{Merci pour votre attention !}}}
+
+\vspace{0.5cm}
+{\small Questions ?}
+\end{frame}
+
+\end{document}

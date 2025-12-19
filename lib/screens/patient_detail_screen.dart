@@ -15,6 +15,12 @@ import 'package:clinalert/screens/health_data_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:file_selector/file_selector.dart';
+import 'package:share_plus/share_plus.dart';
+
+
 
 class PatientDetailScreen extends StatefulWidget {
   final Patient patient;
@@ -246,6 +252,84 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
     }
   }
 
+  Future<void> _downloadReport() async {
+    try {
+      String? savePath;
+
+      if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+        final FileSaveLocation? result = await getSaveLocation(
+          suggestedName: 'patient_report_${widget.patient.id}.pdf',
+          acceptedTypeGroups: [
+            const XTypeGroup(
+              label: 'PDFs',
+              extensions: <String>['pdf'],
+            ),
+          ],
+        );
+        
+        if (result == null) {
+          // User canceled
+          return;
+        }
+        savePath = result.path;
+      } else {
+        // Mobile (Android / iOS)
+        // Save to temporary or documents directory, then Share
+        final directory = await getApplicationDocumentsDirectory();
+        savePath = '${directory.path}/report_${widget.patient.id}.pdf';
+        
+        // We will download it first, and then share it below
+      }
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Génération du rapport en cours...')),
+      );
+
+      await _apiService.downloadPatientReport(widget.patient.id, savePath!);
+
+      if (Platform.isAndroid || Platform.isIOS) {
+        // Share the file on mobile
+        final result = await Share.shareXFiles(
+          [XFile(savePath)],
+          text: 'Rapport médical - ${widget.patient.fullName}',
+          subject: 'Rapport médical', // For email
+        );
+        
+        if (result.status == ShareResultStatus.dismissed) {
+           print('Share dismissed');
+        }
+      } else {
+        // Desktop notification
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Rapport enregistré : $savePath'),
+              backgroundColor: Colors.green,
+              duration: const Duration(seconds: 5),
+              action: SnackBarAction(
+                label: 'Ouvrir',
+                textColor: Colors.white,
+                onPressed: () {
+                  // Optional: Open the file or folder
+                },
+              ),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur lors du téléchargement : $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        print('Download error: $e');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Mock data for vital signs
@@ -281,6 +365,11 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
             onPressed: _isDeleting ? null : _deletePatient,
             tooltip: 'Supprimer',
           ),
+          IconButton(
+             icon: const Icon(Icons.picture_as_pdf),
+             onPressed: _downloadReport,
+             tooltip: 'Télécharger le rapport',
+           ),
         ],
       ),
       body: CustomScrollView(

@@ -43,6 +43,7 @@ C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\c
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\PatientRepository.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\UserRepository.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\PatientService.java
+C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\ReportController.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\User.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\dto\RegisterRequest.java
 C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AlertService.java
