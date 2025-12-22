@@ -1,45 +1,158 @@
-# Miscellaneous
+# ===========================
+# Java / Maven / Spring Boot
+# ===========================
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
 *.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+# Maven
+.mvn/
+mvn.cmd
+mvnw
+mvnw.cmd
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# ===========================
+# Flutter / Dart
+# ===========================
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
+.packages
 .pub-cache/
 .pub/
-/build/
-/coverage/
+build/
+flutter_*.png
+linked_*.ds
+unlinked.ds
+unlinked_spec.ds
 
-# Symbolication related
-app.*.symbols
+# Flutter Web
+/frontend/doctortracker_frontend/build/
 
-# Obfuscation related
-app.*.map.json
+# ===========================
+# IDE - IntelliJ IDEA
+# ===========================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# ===========================
+# IDE - Eclipse
+# ===========================
+.classpath
+.project
+.settings/
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+
+# ===========================
+# IDE - VS Code
+# ===========================
+.vscode/
+*.code-workspace
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db
+Thumbs.db:encryptable
+desktop.ini
+
+# ===========================
+# Node / npm (si utilisé)
+# ===========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===========================
+# Logs
+# ===========================
+*.log
+logs/
+log/
+
+# ===========================
+# Database
+# ===========================
+*.db
+*.sqlite
+*.sqlite3
+h2/
+
+# ===========================
+# Selenium / Test Reports
+# ===========================
+test-output/
+allure-results/
+allure-report/
+screenshots/
+*.webp
+surefire-reports/
+*.dump
+*.dumpstream
+
+# ===========================
+# LaTeX (Documentation)
+# ===========================
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.blg
+*.bbl
+*.lof
+*.lot
+
+# ===========================
+# Sensitive / Config Files
+# ===========================
+application-prod.yml
+application-prod.properties
+.env
+.env.local
+secrets/
+
+# ===========================
+# Compiled / Generated Files
+# ===========================
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+*.app
+*.apk
+*.aab
+*.dSYM.zip
+*.dSYM

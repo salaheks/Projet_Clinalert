@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ClinAlert Selenium Test Suite" parallel="false" verbose="1">
+    
+    <!-- Authentication Tests Suite -->
+    <test name="1. Authentication Tests" preserve-order="true">
+        <classes>
+            <class name="com.clinalert.tests.AuthenticationTest">
+                <methods>
+                    <include name="testLoginDoctorSuccess"/>
+                    <include name="testLoginPatientSuccess"/>
+                    <include name="testLoginInvalidCredentials"/>
+                    <include name="testLoginPasswordTooShort"/>
+                    <include name="testLoginEmptyFields"/>
+                    <include name="testLogoutSuccess"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- CRUD Tests Suite -->
+    <test name="2. Patient Management Tests (CRUD)" preserve-order="true">
+        <classes>
+            <class name="com.clinalert.tests.PatientManagementTest">
+                <methods>
+                    <include name="testCreatePatient"/>
+                    <include name="testReadPatientsList"/>
+                    <!-- UPDATE and DELETE disabled - not yet implemented in UI -->
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="3. Clinic Management Tests (CRUD)" preserve-order="true">
+        <classes>
+            <class name="com.clinalert.tests.ClinicManagementTest">
+                <methods>
+                    <include name="testCreateClinic"/>
+                    <include name="testReadClinicsList"/>
+                    <!-- UPDATE and DELETE disabled - not yet implemented in UI -->
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Navigation Tests Suite -->
+    <test name="4. Navigation Tests" preserve-order="true">
+        <classes>
+            <class name="com.clinalert.tests.NavigationTest">
+                <methods>
+                    <include name="testNavigateDashboardToPatients"/>
+                    <include name="testNavigateDashboardToAlerts"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Security Tests Suite -->
+    <test name="5. Security & Access Control Tests" preserve-order="true">
+        <classes>
+            <class name="com.clinalert.tests.SecurityTest">
+                <methods>
+                    <include name="testPatientDataIsolation"/>
+                    <include name="testPatientNoCRUDAccess"/>
+                    <include name="testUnauthorizedURLAccess"/>
+                    <include name="testSQLInjectionAttempt"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- End-to-End Test Suite -->
+    <test name="6. End-to-End Workflow Test" preserve-order="true">
+        <classes>
+            <class name="com.clinalert.tests.E2ETest">
+                <methods>
+                    <include name="testCompleteWork flow"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+</suite>

@@ -1,51 +1,51 @@
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\DoctorRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\AuthController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\HmacUtil.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\ClinicService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\DoctorService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\config\CorsConfig.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\DoctorTrackerApplication.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\SmartWatchDevice.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\UserController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AuthService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Doctor.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\SmartWatchController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\AuthDataSeeder.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\ClinicRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\MeasurementController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\dto\LoginResponse.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\SecurityConfig.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AnomalyDetectionService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\ClinicController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\MeasurementService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\DailyHealthSummary.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Measurement.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Alert.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Patient.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\UserService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\JwtAuthenticationEntryPoint.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\HealthDataRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\dto\LoginRequest.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\AlertController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\HealthData.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\SmartWatchDeviceRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\MeasurementRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\SmartWatchHealthService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Clinic.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\JwtAuthenticationFilter.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\AlertRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\PatientController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\DoctorController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\DailyHealthSummaryRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\JwtTokenProvider.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\EscalationService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\UserDetailsServiceImpl.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\PatientRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\UserRepository.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\PatientService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\ReportController.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\User.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\dto\RegisterRequest.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AlertService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\ReportService.java
-C:\Users\SalahPc\Desktop\clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\DataSeeder.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\HealthData.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\MeasurementRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\ClinicService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\SmartWatchController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\AuthDataSeeder.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\dto\LoginRequest.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\SecurityConfig.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AuthService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\JwtTokenProvider.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\ReportService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\DoctorController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\JwtAuthenticationFilter.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\HmacUtil.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Patient.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Clinic.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Doctor.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\SmartWatchDevice.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\PatientRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\util\DataSeeder.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\ClinicController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\dto\LoginResponse.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Measurement.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\MeasurementController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\dto\RegisterRequest.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AlertService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\DailyHealthSummary.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\AlertController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\DoctorRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\config\CorsConfig.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\Alert.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\model\User.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\UserDetailsServiceImpl.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\PatientController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\PatientService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\security\JwtAuthenticationEntryPoint.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\ClinicRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\AuthController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\SmartWatchHealthService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\ReportController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\UserService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\UserRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\SmartWatchDeviceRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\EscalationService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\DoctorService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\MeasurementService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\controller\UserController.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\DailyHealthSummaryRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\DoctorTrackerApplication.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\HealthDataRepository.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\service\AnomalyDetectionService.java
+C:\Users\Imad ADAOUMOUM\Documents\salahproj\Projet_Clinalert\backend\doctortracker-backend\src\main\java\com\clinalert\doctortracker\repository\AlertRepository.java

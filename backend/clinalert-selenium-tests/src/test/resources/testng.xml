@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ClinAlert Selenium Test Suite" verbose="1" parallel="false">
+    
+    <parameter name="baseUrl" value="http://localhost:57056"/>
+    
+    <test name="Authentication Tests">
+        <classes>
+            <class name="com.clinalert.selenium.tests.AuthenticationTest"/>
+        </classes>
+    </test>
+    
+    <test name="Navigation Tests">
+        <classes>
+            <class name="com.clinalert.selenium.tests.NavigationTest"/>
+        </classes>
+    </test>
+    
+    <test name="Patient Management Tests">
+        <classes>
+            <class name="com.clinalert.selenium.tests.PatientManagementTest"/>
+        </classes>
+    </test>
+    
+    <test name="Alerts Tests">
+        <classes>
+            <class name="com.clinalert.selenium.tests.AlertsTest"/>
+        </classes>
+    </test>
+    
+</suite>

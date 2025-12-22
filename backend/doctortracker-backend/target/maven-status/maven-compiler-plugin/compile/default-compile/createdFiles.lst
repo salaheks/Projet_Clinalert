@@ -5,6 +5,7 @@ com\clinalert\doctortracker\repository\SmartWatchDeviceRepository.class
 com\clinalert\doctortracker\repository\DoctorRepository.class
 com\clinalert\doctortracker\repository\AlertRepository.class
 com\clinalert\doctortracker\controller\SmartWatchController.class
+com\clinalert\doctortracker\controller\ReportController.class
 com\clinalert\doctortracker\model\Alert.class
 com\clinalert\doctortracker\DoctorTrackerApplication.class
 com\clinalert\doctortracker\util\HmacUtil.class
