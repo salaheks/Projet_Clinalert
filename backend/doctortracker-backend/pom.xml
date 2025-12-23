@@ -15,6 +15,7 @@
 	<description>Backend for Clinalert Doctor Tracker</description>
 	<properties>
 		<java.version>17</java.version>
+		<jmeter.test.duration>300</jmeter.test.duration>
 		
 		<!-- SonarQube Configuration -->
 		<sonar.projectKey>adaoumoum-org_projet-clinalert</sonar.projectKey>
@@ -117,6 +118,20 @@
 			<artifactId>commons-math3</artifactId>
 			<version>3.6.1</version>
 		</dependency>
+
+		<!-- RestAssured for API Integration Testing -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-path</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
 	
 	</dependencies>
 
@@ -132,6 +147,49 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			
+			<!-- JMeter Maven Plugin for Performance Testing -->
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>3.7.0</version>
+				<executions>
+					<execution>
+						<id>configuration</id>
+						<goals>
+							<goal>configure</goal>
+						</goals>
+						<phase>pre-integration-test</phase>
+					</execution>
+					<execution>
+						<id>jmeter-tests</id>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+						<phase>integration-test</phase>
+					</execution>
+					<execution>
+						<id>jmeter-results</id>
+						<goals>
+							<goal>results</goal>
+						</goals>
+						<phase>post-integration-test</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<testFilesDirectory>${project.basedir}/src/test/jmeter</testFilesDirectory>
+					<testFilesIncluded>
+						<jMeterTestFile>plans/*.jmx</jMeterTestFile>
+					</testFilesIncluded>
+					<resultsDirectory>${project.build.directory}/jmeter/results</resultsDirectory>
+					<generateReports>true</generateReports>
+					<ignoreResultFailures>false</ignoreResultFailures>
+					<propertiesJMeter>
+						<datadir>C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/test/jmeter/data</datadir>
+						<duration>${jmeter.test.duration}</duration>
+					</propertiesJMeter>
 				</configuration>
 			</plugin>
 			

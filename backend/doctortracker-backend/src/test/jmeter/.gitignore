@@ -1,0 +1,5 @@
+# Ignorer les rapports JMeter générés
+/target/jmeter/
+*.jtl
+*.log
+jmeter.log

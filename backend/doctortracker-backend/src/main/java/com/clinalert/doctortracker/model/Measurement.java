@@ -14,6 +14,7 @@ public class Measurement {
     private String patientId;
     private String deviceId;
     private String type;
+    @Column(name = "measurement_value")
     private Double value;
     private LocalDateTime timestamp;
     private String consentId;
