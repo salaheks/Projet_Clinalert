@@ -71,8 +71,8 @@ class AlertRepositoryTest {
         List<Alert> alerts = alertRepository.findByPatientId("patient-001");
 
         // Assert
-        assertThat(alerts).hasSize(2);
-        assertThat(alerts).extracting(Alert::getPatientId)
+        assertThat(alerts).hasSize(2)
+                .extracting(Alert::getPatientId)
                 .containsOnly("patient-001");
     }
 
@@ -94,8 +94,8 @@ class AlertRepositoryTest {
         List<Alert> unreadAlerts = alertRepository.findByIsReadFalse();
 
         // Assert
-        assertThat(unreadAlerts).hasSize(2);
-        assertThat(unreadAlerts).allMatch(a -> !a.isRead());
+        assertThat(unreadAlerts).hasSize(2)
+                .allMatch(a -> !a.isRead());
     }
 
     @Test
@@ -133,8 +133,9 @@ class AlertRepositoryTest {
                 "CRITICAL", LocalDateTime.now().plusMinutes(5));
 
         // Assert
-        assertThat(criticalBefore).hasSize(1);
-        assertThat(criticalBefore.get(0).getSeverity()).isEqualTo("CRITICAL");
+        assertThat(criticalBefore).hasSize(1)
+                .extracting(Alert::getSeverity)
+                .containsOnly("CRITICAL");
     }
 
     @Test

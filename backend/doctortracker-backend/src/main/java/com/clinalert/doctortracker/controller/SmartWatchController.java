@@ -4,7 +4,8 @@ import com.clinalert.doctortracker.model.DailyHealthSummary;
 import com.clinalert.doctortracker.model.HealthData;
 import com.clinalert.doctortracker.model.SmartWatchDevice;
 import com.clinalert.doctortracker.service.SmartWatchHealthService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.clinalert.doctortracker.util.AppConstants;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/smartwatch")
+@RequiredArgsConstructor
 public class SmartWatchController {
 
-    @Autowired
-    private SmartWatchHealthService smartWatchHealthService;
+    private final SmartWatchHealthService smartWatchHealthService;
 
     // ==================== Device Endpoints ====================
 
@@ -63,14 +64,14 @@ public class SmartWatchController {
     // ==================== Health Data Endpoints ====================
 
     @PostMapping("/health-data")
-    public ResponseEntity<?> submitHealthData(@RequestBody List<HealthData> healthDataList) {
+    public ResponseEntity<Map<String, Object>> submitHealthData(@RequestBody List<HealthData> healthDataList) {
         if (healthDataList == null || healthDataList.isEmpty()) {
-            return ResponseEntity.badRequest().body(Map.of("error", "No health data provided"));
+            return ResponseEntity.badRequest().body(Map.of(AppConstants.KEY_ERROR, "No health data provided"));
         }
 
         List<HealthData> saved = smartWatchHealthService.saveHealthData(healthDataList);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                "message", "Health data saved successfully",
+                AppConstants.KEY_MESSAGE, "Health data saved successfully",
                 "count", saved.size()));
     }
 
@@ -123,14 +124,14 @@ public class SmartWatchController {
     // ==================== Daily Summary Endpoints ====================
 
     @PostMapping("/daily-summary/{patientId}/generate")
-    public ResponseEntity<?> generateDailySummary(
+    public ResponseEntity<Object> generateDailySummary(
             @PathVariable String patientId,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         LocalDate targetDate = date != null ? date : LocalDate.now();
         DailyHealthSummary summary = smartWatchHealthService.generateDailySummary(patientId, targetDate);
 
         if (summary == null) {
-            return ResponseEntity.ok(Map.of("message", "No data available for the specified date"));
+            return ResponseEntity.ok(Map.of(AppConstants.KEY_MESSAGE, "No data available for the specified date"));
         }
 
         return ResponseEntity.ok(summary);
@@ -143,12 +144,13 @@ public class SmartWatchController {
     }
 
     @GetMapping("/daily-summary/{patientId}/{date}")
-    public ResponseEntity<?> getDailySummary(
+    public ResponseEntity<Object> getDailySummary(
             @PathVariable String patientId,
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return smartWatchHealthService.getDailySummary(patientId, date)
                 .map(summary -> ResponseEntity.ok((Object) summary))
-                .orElse(ResponseEntity.ok(Map.of("message", "No summary available for the specified date")));
+                .orElse(ResponseEntity
+                        .ok(Map.of(AppConstants.KEY_MESSAGE, "No summary available for the specified date")));
     }
 
     @GetMapping("/daily-summary/{patientId}/range")

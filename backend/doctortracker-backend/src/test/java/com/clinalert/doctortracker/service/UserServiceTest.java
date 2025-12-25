@@ -103,7 +103,7 @@ class UserServiceTest {
         when(userRepository.existsByEmail("test@clinalert.com")).thenReturn(true);
 
         assertThatThrownBy(() -> userService.createUser("test@clinalert.com", "pass", User.UserRole.DOCTOR))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Email already exists");
     }
 
@@ -116,6 +116,19 @@ class UserServiceTest {
         User result = userService.updateUser("user-001", User.UserRole.PATIENT, false);
 
         assertThat(result).isNotNull();
+        // Verify changes if using capture, but strictly we verify call
+        verify(userRepository).save(any());
+    }
+
+    @Test
+    @DisplayName("updateUser - Champs null")
+    void updateUser_NullFields_ShouldNotUpdate() {
+        when(userRepository.findById("user-001")).thenReturn(Optional.of(user));
+        when(userRepository.save(any())).thenReturn(user);
+
+        User result = userService.updateUser("user-001", null, null);
+
+        assertThat(result).isNotNull();
         verify(userRepository).save(any());
     }
 
@@ -125,7 +138,7 @@ class UserServiceTest {
         when(userRepository.findById("user-999")).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> userService.updateUser("user-999", null, null))
-                .isInstanceOf(RuntimeException.class);
+                .isInstanceOf(jakarta.persistence.EntityNotFoundException.class);
     }
 
     @Test
@@ -164,7 +177,7 @@ class UserServiceTest {
         when(userRepository.findByEmail("other@test.com")).thenReturn(Optional.of(otherUser));
 
         assertThatThrownBy(() -> userService.updateUserEmail("user-001", "other@test.com"))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Email already exists");
     }
 
@@ -184,7 +197,7 @@ class UserServiceTest {
         when(userRepository.existsById("user-999")).thenReturn(false);
 
         assertThatThrownBy(() -> userService.deleteUser("user-999"))
-                .isInstanceOf(RuntimeException.class);
+                .isInstanceOf(jakarta.persistence.EntityNotFoundException.class);
     }
 
     @Test

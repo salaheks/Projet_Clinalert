@@ -337,13 +337,78 @@ class SmartWatchHealthServiceTest {
     }
 
     @Test
-    @DisplayName("saveHealthData - Low SpO2 alert")
-    void saveHealthData_LowSpO2_ShouldCreateAlert() {
-        healthData.setSpO2(88.0);
+    @DisplayName("saveHealthData - Critical Fever Alert")
+    void saveHealthData_CriticalFever_ShouldCreateAlert() {
+        healthData.setTemperature(40.5);
         when(healthDataRepository.save(any())).thenReturn(healthData);
 
         service.saveHealthData(healthData);
 
-        verify(alertService, atLeastOnce()).createAlert(any());
+        verify(alertService, atLeastOnce()).createAlert(argThat(alert -> alert.getMessage().contains("Critical Fever")
+                &&
+                alert.getSeverity().equals(com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL)));
+    }
+
+    @Test
+    @DisplayName("saveHealthData - High Fever Alert")
+    void saveHealthData_HighFever_ShouldCreateAlert() {
+        healthData.setTemperature(39.5);
+        when(healthDataRepository.save(any())).thenReturn(healthData);
+
+        service.saveHealthData(healthData);
+
+        verify(alertService, atLeastOnce()).createAlert(argThat(alert -> alert.getMessage().contains("High Fever") &&
+                alert.getSeverity().equals(com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH)));
+    }
+
+    @Test
+    @DisplayName("saveHealthData - Hypothermia Alert")
+    void saveHealthData_Hypothermia_ShouldCreateAlert() {
+        healthData.setTemperature(34.0);
+        when(healthDataRepository.save(any())).thenReturn(healthData);
+
+        service.saveHealthData(healthData);
+
+        verify(alertService, atLeastOnce()).createAlert(argThat(alert -> alert.getMessage().contains("Hypothermia") &&
+                alert.getSeverity().equals(com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH)));
+    }
+
+    @Test
+    @DisplayName("saveHealthData - Hypertensive Crisis Alert")
+    void saveHealthData_HypertensiveCrisis_ShouldCreateAlert() {
+        healthData.setBloodPressureSystolic(190);
+        healthData.setBloodPressureDiastolic(120);
+        when(healthDataRepository.save(any())).thenReturn(healthData);
+
+        service.saveHealthData(healthData);
+
+        verify(alertService, atLeastOnce()).createAlert(argThat(alert -> alert.getMessage()
+                .contains("Hypertensive Crisis") &&
+                alert.getSeverity().equals(com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL)));
+    }
+
+    @Test
+    @DisplayName("saveHealthData - High Blood Pressure Alert")
+    void saveHealthData_HighBP_ShouldCreateAlert() {
+        healthData.setBloodPressureSystolic(150);
+        healthData.setBloodPressureDiastolic(95);
+        when(healthDataRepository.save(any())).thenReturn(healthData);
+
+        service.saveHealthData(healthData);
+
+        verify(alertService, atLeastOnce())
+                .createAlert(argThat(alert -> alert.getMessage().contains("High Blood Pressure") &&
+                        alert.getSeverity().equals(com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH)));
+    }
+
+    @Test
+    @DisplayName("generateDailySummary - Empty day data")
+    void generateDailySummary_NoData_ShouldReturnNull() {
+        when(healthDataRepository.findByPatientIdAndTimestampBetweenOrderByTimestampAsc(any(), any(), any()))
+                .thenReturn(List.of());
+
+        DailyHealthSummary result = service.generateDailySummary("patient-001", LocalDate.now());
+
+        assertThat(result).isNull();
     }
 }

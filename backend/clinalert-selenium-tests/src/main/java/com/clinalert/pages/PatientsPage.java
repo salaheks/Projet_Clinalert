@@ -6,6 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.time.Duration; // Added
+import org.openqa.selenium.JavascriptExecutor; // Added
+import org.openqa.selenium.interactions.Actions; // Added
+import org.openqa.selenium.support.ui.ExpectedConditions; // Added
+import org.openqa.selenium.support.ui.WebDriverWait; // Added
 
 /**
  * Page Object for Patients Management Page
@@ -14,43 +19,105 @@ public class PatientsPage {
 
     private WebDriver driver;
 
-    // XPath Locators
-    private By pageTitle = By.xpath("//*[contains(text(), 'Patients') or contains(text(), 'Tous les patients')]");
-    private By addPatientButton = By
-            .xpath("//button[contains(text(), 'Ajouter') or contains(., '+') or contains(@aria-label, 'Add')]");
-    private By fullNameField = By.xpath(
-            "//input[contains(@placeholder, 'nom') or contains(@name, 'fullName') or contains(@placeholder, 'Name')]");
-    private By ageField = By
-            .xpath("//input[@type='number' or contains(@placeholder, 'age') or contains(@name, 'age')]");
-    private By saveButton = By.xpath(
-            "//button[contains(text(), 'Ajouter') or contains(text(), 'Enregistrer') or contains(text(), 'Save')]");
-    private By cancelButton = By.xpath("//button[contains(text(), 'Annuler') or contains(text(), 'Cancel')]");
-    private By patientsList = By.xpath(
-            "//div[contains(@class, 'patient-card') or contains(@class, 'list-item') or contains(@class, 'patient-item')]");
-    private By searchField = By.xpath(
-            "//input[@type='search' or contains(@placeholder, 'Rechercher') or contains(@placeholder, 'Search')]");
-    private By activeStatusBadge = By.xpath("//*[contains(text(), 'ACTIVE') or contains(@class, 'status-active')]");
+    // Hybrid Strategy: User ID (Primary) | FAB Strategy (Fallback)
+    // "apres node-26 et apres node-70..." -> 70 is Add Button
+    // FAB Strategy:
+    // (//flt-semantics[@role='button'][not(@aria-label)][not(text())])[last()]
+    private By addPatientButton = By.xpath(
+            "//*[@id='flt-semantic-node-70'] | (//flt-semantics[@role='button'][not(@aria-label)][not(text())])[last()]");
+    private By returnToDashboardButton = By.xpath("//*[@id='flt-semantic-node-48']");
+
+    // Form Fields
+    private By fullNameField = By.xpath("//*[@id='flt-semantic-node-77']/input");
+    private By ageField = By.xpath("//*[@id='flt-semantic-node-78']/input");
+
+    // Gender (92=Male, 93=Female)
+    private By maleGender = By.xpath("//*[@id='flt-semantic-node-92']");
+    private By femaleGender = By.xpath("//*[@id='flt-semantic-node-93']");
+
+    // Status (80=Dropdown?, 99=Active, 100=Discharged)
+    private By statusDropdown = By.xpath("//*[@id='flt-semantic-node-80']");
+    private By activeStatusOption = By.xpath("//*[@id='flt-semantic-node-99']");
+    private By dischargedStatusOption = By.xpath("//*[@id='flt-semantic-node-100']");
+
+    // Save (81=Save Button)
+    private By saveButton = By.xpath("//*[@id='flt-semantic-node-81']");
+
+    // List & Search
+    private By searchField = By.xpath("//input[@aria-label='Search' or @aria-label='Rechercher']");
+    private By patientsList = By.xpath("//flt-semantics[contains(@aria-label, 'Patient')]");
+    private By activeStatusBadge = By.xpath("//*[contains(@aria-label, 'Actif')]");
 
     public PatientsPage(WebDriver driver) {
         this.driver = driver;
     }
 
     /**
-     * Check if patients page is displayed
+     * Debug: Dump HTML source to file
      */
-    public boolean isPatientsPageDisplayed() {
-        return driver.getCurrentUrl().contains("patients") &&
-                driver.findElements(pageTitle).size() > 0;
+    public void dumpHtmlSource(String filename) {
+        try {
+            String source = driver.getPageSource();
+            java.nio.file.Path path = java.nio.file.Paths.get("target", filename);
+            java.nio.file.Files.writeString(path, source);
+            System.out.println("DEBUG HTML saved to: " + path.toAbsolutePath());
+        } catch (Exception e) {
+            System.err.println("Failed to dump HTML: " + e.getMessage());
+        }
     }
 
     /**
-     * Click Add Patient button
+     * Check if patients page is displayed
+     * NOTE: URL might stay 'doctor-dashboard', so checking for Add Button (FAB) or
+     * Search Field.
+     */
+    public boolean isPatientsPageDisplayed() {
+        try {
+            // URL check is unreliable. Check for Add Button with Wait.
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            // Check if Add Patient button is visible (User ID 70 or Fallback)
+            wait.until(ExpectedConditions.visibilityOfElementLocated(addPatientButton));
+            return true;
+        } catch (Exception e) {
+            System.err.println("Patients Page Verification Failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Click the Add Patient button
      */
     public void clickAddPatient() {
-        WebElement btn = driver.findElement(addPatientButton);
-        // Scroll into view for Flutter web
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btn);
-        btn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        System.out.println("Attempting to click Add Patient (ID: 70)...");
+
+        // "Refresh content" strategy: Force driver to read source
+        System.out.println("Refreshing HTML context...");
+        dumpHtmlSource("patients_page_source.html"); // Dump to file
+        // System.out.println("DEBUG HTML: " + htmlSource.substring(0,
+        // Math.min(htmlSource.length(), 500)));
+
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(addPatientButton));
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", button);
+            Thread.sleep(1000);
+
+            try {
+                button.click();
+            } catch (Exception clickEx) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+            }
+
+            Thread.sleep(1000); // Wait for form
+
+        } catch (Exception e) {
+            System.err.println("Failed to click Add Patient (ID: 70): " + e.getMessage());
+            // Retry with explicit refresh? No, user warned about refresh losing state.
+            throw new RuntimeException("Could not interact with Add Patient button", e);
+        }
+        System.out.println("Add Patient action completed.");
     }
 
     /**

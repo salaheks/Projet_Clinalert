@@ -1,7 +1,7 @@
 package com.clinalert.doctortracker.controller;
 
 import com.clinalert.doctortracker.service.ReportService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/reports")
+@RequiredArgsConstructor
 public class ReportController {
 
-    @Autowired
-    private ReportService reportService;
+    private final ReportService reportService;
 
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<byte[]> downloadPatientReport(@PathVariable String patientId) {

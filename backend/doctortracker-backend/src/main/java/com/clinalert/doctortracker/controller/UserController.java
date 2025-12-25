@@ -2,7 +2,7 @@ package com.clinalert.doctortracker.controller;
 
 import com.clinalert.doctortracker.model.User;
 import com.clinalert.doctortracker.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +15,10 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping
     public List<Map<String, Object>> getAllUsers() {
@@ -35,11 +35,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody Map<String, String> request) {
+    public ResponseEntity<Object> createUser(@RequestBody Map<String, String> request) {
         try {
-            String email = request.get("email");
+            String email = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL);
             String password = request.get("password");
-            String roleStr = request.get("role");
+            String roleStr = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE);
 
             if (email == null || password == null || roleStr == null) {
                 return ResponseEntity.badRequest().body("Email, password and role are required");
@@ -56,16 +56,18 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable @NonNull String id, @RequestBody Map<String, Object> request) {
+    public ResponseEntity<Object> updateUser(@PathVariable @NonNull String id,
+            @RequestBody Map<String, Object> request) {
         try {
             User.UserRole role = null;
             Boolean enabled = null;
 
-            if (request.containsKey("role")) {
-                role = User.UserRole.valueOf(((String) request.get("role")).toUpperCase());
+            if (request.containsKey(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE)) {
+                role = User.UserRole.valueOf(
+                        ((String) request.get(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE)).toUpperCase());
             }
-            if (request.containsKey("enabled")) {
-                enabled = (Boolean) request.get("enabled");
+            if (request.containsKey(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED)) {
+                enabled = (Boolean) request.get(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED);
             }
 
             User user = userService.updateUser(Objects.requireNonNull(id), role, enabled);
@@ -76,7 +78,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}/password")
-    public ResponseEntity<?> updatePassword(@PathVariable @NonNull String id,
+    public ResponseEntity<Object> updatePassword(@PathVariable @NonNull String id,
             @RequestBody Map<String, String> request) {
         try {
             String newPassword = request.get("password");
@@ -92,9 +94,10 @@ public class UserController {
     }
 
     @PutMapping("/{id}/email")
-    public ResponseEntity<?> updateEmail(@PathVariable @NonNull String id, @RequestBody Map<String, String> request) {
+    public ResponseEntity<Object> updateEmail(@PathVariable @NonNull String id,
+            @RequestBody Map<String, String> request) {
         try {
-            String newEmail = request.get("email");
+            String newEmail = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL);
             if (newEmail == null || newEmail.isEmpty()) {
                 return ResponseEntity.badRequest().body("Email is required");
             }
@@ -107,7 +110,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable @NonNull String id) {
+    public ResponseEntity<Object> deleteUser(@PathVariable @NonNull String id) {
         try {
             userService.deleteUser(Objects.requireNonNull(id));
             return ResponseEntity.noContent().build();
@@ -117,11 +120,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}/profile")
-    public ResponseEntity<?> updateProfile(@PathVariable @NonNull String id, @RequestBody Map<String, String> request) {
+    public ResponseEntity<Object> updateProfile(@PathVariable @NonNull String id,
+            @RequestBody Map<String, String> request) {
         try {
-            String firstName = request.get("firstName");
-            String lastName = request.get("lastName");
-            String phone = request.get("phone");
+            String firstName = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_FIRST_NAME);
+            String lastName = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_LAST_NAME);
+            String phone = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_PHONE);
 
             User user = userService.updateUserProfile(Objects.requireNonNull(id), firstName, lastName, phone);
             return ResponseEntity.ok(userToMap(user));
@@ -133,13 +137,13 @@ public class UserController {
     // Convert User to Map (hide password)
     private Map<String, Object> userToMap(User user) {
         Map<String, Object> map = new HashMap<>();
-        map.put("id", user.getId());
-        map.put("email", user.getEmail());
-        map.put("role", user.getRole().name());
-        map.put("enabled", user.isEnabled());
-        map.put("firstName", user.getFirstName());
-        map.put("lastName", user.getLastName());
-        map.put("phone", user.getPhone());
+        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_ID, user.getId());
+        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL, user.getEmail());
+        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE, user.getRole().name());
+        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED, user.isEnabled());
+        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_FIRST_NAME, user.getFirstName());
+        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_LAST_NAME, user.getLastName());
+        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_PHONE, user.getPhone());
         map.put("createdAt", user.getCreatedAt() != null ? user.getCreatedAt().toString() : null);
         return map;
     }

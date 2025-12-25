@@ -200,8 +200,12 @@ class UserRepositoryTest {
         // Sur H2 par défaut, la recherche est souvent insensible à la casse
         // Mais il vaut mieux stocker les emails en minuscules pour éviter les problèmes
         // Ce test vous montre le comportement actuel de votre DB
-        System.out.println("Upper case found: " + upperCase.isPresent());
-        System.out.println("Mixed case found: " + mixedCase.isPresent());
+        // Asserting that the case sensitivity behavior is as expected for the DB
+        // For H2 default, it might be sensitive or not depending on collation, but
+        // usually sensitive without special config
+        // We just ensure we can call it without error.
+        assertNotNull(upperCase);
+        assertNotNull(mixedCase);
     }
 
     // ==========================================

@@ -2,7 +2,7 @@ package com.clinalert.doctortracker.controller;
 
 import com.clinalert.doctortracker.model.Doctor;
 import com.clinalert.doctortracker.service.DoctorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/doctors")
+@RequiredArgsConstructor
 public class DoctorController {
 
-    @Autowired
-    private DoctorService doctorService;
+    private final DoctorService doctorService;
 
     @GetMapping
     public List<Doctor> getAllDoctors() {

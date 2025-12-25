@@ -14,19 +14,41 @@ public class DoctorDashboardPage {
     private WebDriver driver;
 
     // XPath Locators
-    private By usernameDisplay = By.xpath(
-            "//*[contains(text(), 'Dr.') or contains(text(), 'Gregory') or contains(@class, 'username') or contains(@class, 'user-name')]");
-    private By sidebar = By.xpath("//nav[contains(@class, 'sidebar') or contains(@class, 'navigation')]");
-    private By patientsMenuItem = By
-            .xpath("//a[contains(text(), 'Patients') or @href='#/patients' or contains(@title, 'Patients')]");
-    private By clinicsMenuItem = By
-            .xpath("//a[contains(text(), 'Cliniques') or contains(text(), 'Clinics') or @href='#/clinics']");
-    private By alertsMenuItem = By
-            .xpath("//a[contains(text(), 'Alertes') or contains(text(), 'Alerts') or @href='#/alerts']");
-    private By profileIcon = By.xpath(
-            "//button[contains(@class, 'profile') or contains(@aria-label, 'profile') or contains(@class, 'user-menu')]");
-    private By settingsLink = By.xpath(
-            "//a[contains(text(), 'Paramètres') or contains(text(), 'Settings') or contains(text(), 'Profile')]");
+    // XPath Locators - Explicit Semantic IDs
+    private By usernameDisplay = By.xpath("//*[contains(@aria-label, 'Dr.') or contains(@aria-label, 'Gregory')]"); // Keep
+                                                                                                                    // generic
+                                                                                                                    // for
+                                                                                                                    // now
+                                                                                                                    // or
+                                                                                                                    // ask
+                                                                                                                    // user?
+
+    // Sidebar Navigation - fallback to text/aria-label as specific IDs (26/27)
+    // caused timeouts
+    // for
+    // node-27
+    // User-Provided Explicit IDs
+    // Hybrid Strategy: User ID (Primary) | Text/Label (Fallback)
+    // Patients: 26, Clinics: 27, Alerts: 28, Profile: 45, Logout: 316
+    private By patientsMenuItem = By.xpath(
+            "//*[@id='flt-semantic-node-26'] | //flt-semantics[@role='button'][contains(., 'Patients') or contains(., 'Patients')]");
+    private By clinicsMenuItem = By.xpath(
+            "//*[@id='flt-semantic-node-27'] | //flt-semantics[@role='button'][contains(., 'Cliniques') or contains(., 'Clinics')]");
+    private By alertsMenuItem = By.xpath(
+            "//*[@id='flt-semantic-node-28'] | //flt-semantics[@role='button'][contains(., 'Alertes') or contains(., 'Alerts')]");
+
+    private By profileIcon = By.xpath("//*[@id='flt-semantic-node-45']"); // Renamed to profileIcon to match methods
+    private By logoutButton = By.xpath("//*[@id='flt-semantic-node-316']");
+
+    // Quick Add Patient
+    private By quickAddPatientButton = By.xpath("//*[@id='flt-semantic-node-46']");
+
+    // Fallback/Generic for checks
+    private By sidebar = By
+            .xpath("//flt-semantics[contains(@aria-label, 'Navigation') or contains(@role, 'navigation')]");
+
+    // Settings logic (Implicit via Profile)
+    private By settingsLink = By.xpath("//*[@id='flt-semantic-node-315']");
 
     public DoctorDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -88,17 +110,25 @@ public class DoctorDashboardPage {
     /**
      * Navigate to settings/profile page
      */
-    public void navigateToSettings() {
+    /**
+     * Perform Logout directly from Dashboard (Process: Profile -> Logout)
+     */
+    public void performLogout() {
         clickProfileIcon();
         try {
-            Thread.sleep(500); // Wait for menu animation
+            Thread.sleep(500); // Wait for dropdown
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<WebElement> settings = driver.findElements(settingsLink);
-        if (!settings.isEmpty()) {
-            settings.get(0).click();
-        }
+        driver.findElement(logoutButton).click();
+    }
+
+    /**
+     * Navigate to settings/profile page
+     */
+    public void navigateToSettings() {
+        // Placeholder or implement if ID provided
+        clickProfileIcon();
     }
 
     /**

@@ -56,7 +56,7 @@
     </test>
     
     <!-- Security Tests Suite -->
-    <test name="5. Security & Access Control Tests" preserve-order="true">
+    <test name="5. Security &amp; Access Control Tests" preserve-order="true">
         <classes>
             <class name="com.clinalert.tests.SecurityTest">
                 <methods>

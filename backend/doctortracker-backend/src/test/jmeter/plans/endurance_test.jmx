@@ -15,7 +15,7 @@
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Endurance - 2 Hours">
         <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">30</stringProp>
-        <longProp name="ThreadGroup.duration">${__P(duration, 7200)}</longProp>
+        <stringProp name="ThreadGroup.duration">${__P(duration, 3600)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController">

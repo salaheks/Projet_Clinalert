@@ -1,18 +1,19 @@
 package com.clinalert.doctortracker.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import com.clinalert.doctortracker.model.Patient;
 import com.clinalert.doctortracker.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
 
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
@@ -49,6 +50,6 @@ public class PatientService {
             patient.setStatus(status);
             return patientRepository.save(patient);
         }
-        throw new RuntimeException("Patient not found with id: " + id);
+        throw new EntityNotFoundException("Patient not found with id: " + id);
     }
 }

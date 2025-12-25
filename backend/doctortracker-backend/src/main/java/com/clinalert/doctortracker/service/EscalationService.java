@@ -2,7 +2,7 @@ package com.clinalert.doctortracker.service;
 
 import com.clinalert.doctortracker.model.Alert;
 import com.clinalert.doctortracker.repository.AlertRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@lombok.extern.slf4j.Slf4j
 public class EscalationService {
 
-    @Autowired
-    private AlertRepository alertRepository;
+    private final AlertRepository alertRepository;
 
     // Run every minute
     @Scheduled(fixedRate = 60000)
@@ -35,7 +36,7 @@ public class EscalationService {
             alertRepository.save(alert);
 
             // Here we would also trigger a notification to a broader team or supervisor
-            System.out.println("Escalated alert " + alert.getId() + " for patient " + alert.getPatientId());
+            log.info("Escalated alert {} for patient {}", alert.getId(), alert.getPatientId());
         }
     }
 }

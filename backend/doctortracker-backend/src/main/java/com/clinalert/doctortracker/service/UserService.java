@@ -2,7 +2,9 @@ package com.clinalert.doctortracker.service;
 
 import com.clinalert.doctortracker.model.User;
 import com.clinalert.doctortracker.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.clinalert.doctortracker.util.AppConstants;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,13 +14,12 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -38,7 +39,7 @@ public class UserService {
         Objects.requireNonNull(role);
 
         if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already exists: " + email);
+            throw new IllegalArgumentException("Email already exists: " + email);
         }
 
         User user = new User();
@@ -53,7 +54,8 @@ public class UserService {
     public User updateUser(@NonNull String id, User.UserRole role, Boolean enabled) {
         Objects.requireNonNull(id);
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
 
         if (role != null) {
             user.setRole(role);
@@ -68,7 +70,8 @@ public class UserService {
         Objects.requireNonNull(id);
         Objects.requireNonNull(newPassword);
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
 
         user.setPassword(passwordEncoder.encode(newPassword));
         return userRepository.save(user);
@@ -78,12 +81,13 @@ public class UserService {
         Objects.requireNonNull(id);
         Objects.requireNonNull(newEmail);
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
 
         // Check if new email is already taken by another user
         Optional<User> existingUser = userRepository.findByEmail(newEmail);
         if (existingUser.isPresent() && !existingUser.get().getId().equals(id)) {
-            throw new RuntimeException("Email already exists: " + newEmail);
+            throw new IllegalArgumentException("Email already exists: " + newEmail);
         }
 
         user.setEmail(newEmail);
@@ -93,7 +97,7 @@ public class UserService {
     public void deleteUser(@NonNull String id) {
         Objects.requireNonNull(id);
         if (!userRepository.existsById(id)) {
-            throw new RuntimeException("User not found: " + id);
+            throw new EntityNotFoundException(AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id);
         }
         userRepository.deleteById(id);
     }
@@ -102,7 +106,8 @@ public class UserService {
     public User updateUserProfile(@NonNull String id, String firstName, String lastName, String phone) {
         Objects.requireNonNull(id);
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
 
         if (firstName != null) {
             user.setFirstName(firstName);

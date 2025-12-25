@@ -2,17 +2,17 @@ package com.clinalert.doctortracker.service;
 
 import com.clinalert.doctortracker.model.Doctor;
 import com.clinalert.doctortracker.repository.DoctorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DoctorService {
 
-    @Autowired
-    private DoctorRepository doctorRepository;
+    private final DoctorRepository doctorRepository;
 
     public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();

@@ -14,16 +14,19 @@ public class LoginPage {
 
     private WebDriver driver;
 
-    // XPath Locators - Flutter Web compatible
-    private By emailField = By
-            .xpath("//input[@type='email' or contains(@class, 'flt-text-editing') or contains(@placeholder, 'email')]");
-    private By passwordField = By.xpath(
-            "//input[@type='password' or contains(@placeholder, 'password') or contains(@placeholder, 'Password')]");
+    // Hybrid Strategy: User ID (Primary) | Stable Attribute (Fallback)
+    private By emailField = By.xpath("//*[@id='flt-semantic-node-7']/input | //input[@aria-label='Enter your email']");
+    private By passwordField = By
+            .xpath("//*[@id='flt-semantic-node-9']/input | //input[@aria-label='Enter your password']");
+
     private By loginButton = By
-            .xpath("//button[contains(text(), 'Login') or contains(., 'Connexion') or contains(., 'Se connecter')]");
-    private By errorMessage = By.xpath(
-            "//*[contains(text(), 'invalide') or contains(text(), 'incorrect') or contains(text(), 'Invalid') or contains(@class, 'error')]");
-    private By requiredFieldError = By.xpath("//*[contains(text(), 'requis') or contains(text(), 'required')]");
+            .xpath("//*[@id='flt-semantic-node-12'] | //flt-semantics[@role='button'][contains(., 'Login')]");
+    private By signupButton = By
+            .xpath("//*[@id='flt-semantic-node-13'] | //flt-semantics[@role='button'][contains(., 'Create Profile')]");
+
+    // Keep error messages generic as they are dynamic
+    private By errorMessage = By.xpath("//*[contains(@aria-label, 'Invalid') or contains(@aria-label, 'incorrect')]");
+    private By requiredFieldError = By.xpath("//*[contains(@aria-label, 'required')]");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;

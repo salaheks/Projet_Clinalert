@@ -20,8 +20,10 @@ com\clinalert\doctortracker\security\JwtAuthenticationEntryPoint.class
 com\clinalert\doctortracker\service\DoctorService.class
 com\clinalert\doctortracker\security\UserDetailsServiceImpl.class
 com\clinalert\doctortracker\service\SmartWatchHealthService$HealthDataStats.class
+com\clinalert\doctortracker\util\AppConstants.class
 com\clinalert\doctortracker\controller\PatientController.class
 com\clinalert\doctortracker\model\Doctor.class
+com\clinalert\doctortracker\dto\LoginRequest$LoginRequestBuilder.class
 com\clinalert\doctortracker\model\Measurement.class
 com\clinalert\doctortracker\controller\MeasurementController$1.class
 com\clinalert\doctortracker\util\DataSeeder.class
@@ -34,8 +36,10 @@ com\clinalert\doctortracker\model\DailyHealthSummary.class
 com\clinalert\doctortracker\service\ReportService.class
 com\clinalert\doctortracker\service\PatientService.class
 com\clinalert\doctortracker\controller\UserController.class
+com\clinalert\doctortracker\dto\RegisterRequest$RegisterRequestBuilder.class
 com\clinalert\doctortracker\service\AlertService.class
 com\clinalert\doctortracker\repository\PatientRepository.class
+com\clinalert\doctortracker\model\User$UserBuilder.class
 com\clinalert\doctortracker\repository\DailyHealthSummaryRepository.class
 com\clinalert\doctortracker\repository\ClinicRepository.class
 com\clinalert\doctortracker\model\Patient.class

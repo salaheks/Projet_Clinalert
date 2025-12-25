@@ -467,14 +467,10 @@ class PatientControllerTest {
          * Note : Ce test dépend de votre configuration SecurityConfig
          */
         @Test
-        @WithMockUser(roles = "PATIENT")
-        @DisplayName("GET /api/patients - Avec rôle PATIENT : pourrait retourner 403")
-        void getAllPatients_WithPatientRole_MayBeForbidden() throws Exception {
-                // Ce test dépend de votre configuration de sécurité
-                // Si les patients peuvent voir la liste, le test devra être adapté
-
-                mockMvc.perform(get("/api/patients"))
-                                .andDo(print());
-                // .andExpect(status().isForbidden()); // 403 si la sécurité l'interdit
+        @WithMockUser(username = "patient@clinalert.com", roles = "PATIENT")
+        void getAllPatients_WithPatientRole_AccessAllowed() throws Exception {
+                mockMvc.perform(get("/api/patients")
+                                .contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(status().isOk());
         }
 }

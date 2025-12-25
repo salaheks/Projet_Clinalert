@@ -11,6 +11,10 @@ import java.util.Collections;
 
 @Entity
 @Table(name = "users")
+@lombok.Data
+@lombok.Builder
+@lombok.NoArgsConstructor
+@lombok.AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -28,6 +32,7 @@ public class User implements UserDetails {
     private UserRole role;
 
     @Column(nullable = false)
+    @lombok.Builder.Default
     private Boolean enabled = true;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -44,24 +49,6 @@ public class User implements UserDetails {
 
     @Column(name = "phone")
     private String phone;
-
-    // Constructors
-    public User() {
-    }
-
-    public User(String id, String email, String password, UserRole role, Boolean enabled, LocalDateTime createdAt,
-            LocalDateTime updatedAt, String firstName, String lastName, String phone) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.enabled = enabled;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-    }
 
     @PrePersist
     protected void onCreate() {
@@ -164,7 +151,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return getEmail();
     }
 
     @Override

@@ -18,242 +18,231 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Comprehensive DataSeeder tests with CORRECT method signatures
- * Target: 13% → 70%+ (+10% total coverage)
- */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("DataSeeder Comprehensive Tests")
 class DataSeederCompleteTest {
 
-    @Mock
-    private MeasurementRepository measurementRepository;
+        @Mock
+        private MeasurementRepository measurementRepository;
+        @Mock
+        private DoctorRepository doctorRepository;
+        @Mock
+        private PatientRepository patientRepository;
+        @Mock
+        private AlertRepository alertRepository;
 
-    @Mock
-    private DoctorRepository doctorRepository;
+        private DataSeeder seeder;
 
-    @Mock
-    private PatientRepository patientRepository;
+        @BeforeEach
+        void setUp() {
+                seeder = new DataSeeder(measurementRepository, doctorRepository, patientRepository, alertRepository);
+        }
 
-    @Mock
-    private AlertRepository alertRepository;
+        // --- Core Logic Tests (Reflection) ---
 
-    private DataSeeder seeder;
+        @Test
+        @DisplayName("Logic - Heart Rate Alert Evaluation")
+        void checkHeartRateAlert_Logic() throws Exception {
+                Method method = DataSeeder.class.getDeclaredMethod("checkHeartRateAlert", Measurement.class);
+                method.setAccessible(true);
 
-    @BeforeEach
-    void setUp() {
-        seeder = new DataSeeder(
-                measurementRepository,
-                doctorRepository,
-                patientRepository,
-                alertRepository);
-    }
+                // Case 1: High Severity (> 100)
+                Measurement mHigh = createMockMeasurement("hr", 101.0);
+                Alert aHigh = (Alert) method.invoke(seeder, mHigh);
+                assertNotNull(aHigh);
+                assertEquals(AppConstants.ALERT_SEVERITY_HIGH, aHigh.getSeverity());
 
-    @Test
-    @DisplayName("createMeasurement - Heart rate - Should create with correct values")
-    void createMeasurement_HeartRate_ShouldCreate() throws Exception {
-        Method method = DataSeeder.class.getDeclaredMethod(
-                "createMeasurement", String.class, String.class, Double.class, int.class);
-        method.setAccessible(true);
+                // Case 2: Medium Severity (> 90 but <= 100)
+                Measurement mMed = createMockMeasurement("hr", 95.0);
+                Alert aMed = (Alert) method.invoke(seeder, mMed);
+                assertNotNull(aMed);
+                assertEquals(AppConstants.ALERT_SEVERITY_MEDIUM, aMed.getSeverity());
 
-        Measurement result = (Measurement) method.invoke(
-                seeder, "patient-123", "heart_rate", 72.0, 30);
+                // Case 3: No Alert (<= 90)
+                Measurement mNone = createMockMeasurement("hr", 90.0);
+                assertNull(method.invoke(seeder, mNone));
+        }
 
-        assertNotNull(result);
-        assertEquals("patient-123", result.getPatientId());
-        assertEquals("heart_rate", result.getType());
-        assertEquals(72.0, result.getValue());
-        assertEquals("device-001", result.getDeviceId());
-        assertNotNull(result.getTimestamp());
-    }
+        @Test
+        @DisplayName("Logic - Temperature Alert Evaluation")
+        void checkTemperatureAlert_Logic() throws Exception {
+                Method method = DataSeeder.class.getDeclaredMethod("checkTemperatureAlert", Measurement.class);
+                method.setAccessible(true);
 
-    @Test
-    @DisplayName("createMeasurement - Temperature - Should create")
-    void createMeasurement_Temperature_ShouldCreate() throws Exception {
-        Method method = DataSeeder.class.getDeclaredMethod(
-                "createMeasurement", String.class, String.class, Double.class, int.class);
-        method.setAccessible(true);
+                // Case 1: High (> 38.0)
+                Measurement mHigh = createMockMeasurement("temp", 38.1);
+                Alert aHigh = (Alert) method.invoke(seeder, mHigh);
+                assertEquals(AppConstants.ALERT_SEVERITY_HIGH, aHigh.getSeverity());
 
-        Measurement result = (Measurement) method.invoke(
-                seeder, "p1", "temperature", 36.6, 15);
+                // Case 2: Medium (> 37.5 <= 38.0)
+                Measurement mMed = createMockMeasurement("temp", 37.8);
+                Alert aMed = (Alert) method.invoke(seeder, mMed);
+                assertEquals(AppConstants.ALERT_SEVERITY_MEDIUM, aMed.getSeverity());
 
-        assertEquals("temperature", result.getType());
-        assertEquals(36.6, result.getValue());
-    }
+                // Case 3: None (<= 37.5)
+                Measurement mNone = createMockMeasurement("temp", 37.5);
+                assertNull(method.invoke(seeder, mNone));
+        }
 
-    @Test
-    @DisplayName("createMeasurement - Blood pressure - Should create")
-    void createMeasurement_BloodPressure_ShouldCreate() throws Exception {
-        Method method = DataSeeder.class.getDeclaredMethod(
-                "createMeasurement", String.class, String.class, Double.class, int.class);
-        method.setAccessible(true);
+        @Test
+        @DisplayName("Logic - Blood Pressure Alert Evaluation")
+        void checkBloodPressureAlert_Logic() throws Exception {
+                Method method = DataSeeder.class.getDeclaredMethod("checkBloodPressureAlert", Measurement.class);
+                method.setAccessible(true);
 
-        Measurement result = (Measurement) method.invoke(
-                seeder, "p1", "blood_pressure_systolic", 120.0, 8);
+                // Case 1: Critical (> 160)
+                Measurement mCrit = createMockMeasurement("bp", 161.0);
+                Alert aCrit = (Alert) method.invoke(seeder, mCrit);
+                assertEquals(AppConstants.ALERT_SEVERITY_CRITICAL, aCrit.getSeverity());
 
-        assertEquals("blood_pressure_systolic", result.getType());
-        assertEquals(120.0, result.getValue());
-    }
+                // Case 2: High (> 140 <= 160)
+                Measurement mHigh = createMockMeasurement("bp", 150.0);
+                Alert aHigh = (Alert) method.invoke(seeder, mHigh);
+                assertEquals(AppConstants.ALERT_SEVERITY_HIGH, aHigh.getSeverity());
 
-    @Test
-    @DisplayName("createMeasurement - Oxygen saturation - Should create")
-    void createMeasurement_OxygenSaturation_ShouldCreate() throws Exception {
-        Method method = DataSeeder.class.getDeclaredMethod(
-                "createMeasurement", String.class, String.class, Double.class, int.class);
-        method.setAccessible(true);
+                // Case 3: None (<= 140)
+                Measurement mNone = createMockMeasurement("bp", 140.0);
+                assertNull(method.invoke(seeder, mNone));
+        }
 
-        Measurement result = (Measurement) method.invoke(
-                seeder, "p1", "oxygen_saturation", 98.0, 5);
+        @Test
+        @DisplayName("Logic - Oxygen Alert Evaluation")
+        void checkOxygenAlert_Logic() throws Exception {
+                Method method = DataSeeder.class.getDeclaredMethod("checkOxygenAlert", Measurement.class);
+                method.setAccessible(true);
 
-        assertEquals("oxygen_saturation", result.getType());
-        assertEquals(98.0, result.getValue());
-    }
+                // Case 1: Critical (< 90)
+                Measurement mCrit = createMockMeasurement("o2", 89.0);
+                Alert aCrit = (Alert) method.invoke(seeder, mCrit);
+                assertEquals(AppConstants.ALERT_SEVERITY_CRITICAL, aCrit.getSeverity());
 
-    @Test
-    @DisplayName("createAlert - HIGH severity - Should create")
-    void createAlert_HighSeverity_ShouldCreate() throws Exception {
-        Method method = DataSeeder.class.getDeclaredMethod(
-                "createAlert", String.class, String.class, String.class, String.class);
-        method.setAccessible(true);
+                // Case 2: Medium (< 95 >= 90)
+                Measurement mMed = createMockMeasurement("o2", 92.0);
+                Alert aMed = (Alert) method.invoke(seeder, mMed);
+                assertEquals(AppConstants.ALERT_SEVERITY_MEDIUM, aMed.getSeverity());
 
-        Alert result = (Alert) method.invoke(
-                seeder, "patient-123", "measurement-456", "High BP detected", "HIGH");
+                // Case 3: None (>= 95)
+                Measurement mNone = createMockMeasurement("o2", 95.0);
+                assertNull(method.invoke(seeder, mNone));
+        }
 
-        assertNotNull(result);
-        assertEquals("patient-123", result.getPatientId());
-        assertEquals("measurement-456", result.getMeasurementId());
-        assertEquals("High BP detected", result.getMessage());
-        assertEquals("HIGH", result.getSeverity());
-    }
+        @Test
+        @DisplayName("Logic - Measurement Generation (Age & Name Conditions)")
+        void seedMeasurements_Logic() throws Exception {
+                // Mock Patients
+                Patient oldMarie = new Patient();
+                oldMarie.setId("p1");
+                oldMarie.setName("Marie Curie");
+                oldMarie.setAge(70);
+                Patient youngJohn = new Patient();
+                youngJohn.setId("p2");
+                youngJohn.setName("John Doe");
+                youngJohn.setAge(30);
 
-    @Test
-    @DisplayName("createAlert - All severities - LOW, MEDIUM, HIGH, CRITICAL")
-    void createAlert_AllSeverities_ShouldWork() throws Exception {
-        Method method = DataSeeder.class.getDeclaredMethod(
-                "createAlert", String.class, String.class, String.class, String.class);
-        method.setAccessible(true);
+                List<Patient> patients = List.of(oldMarie, youngJohn);
 
-        Alert low = (Alert) method.invoke(seeder, "p1", "m1", "msg", "LOW");
-        Alert med = (Alert) method.invoke(seeder, "p1", "m1", "msg", "MEDIUM");
-        Alert high = (Alert) method.invoke(seeder, "p1", "m1", "msg", "HIGH");
-        Alert crit = (Alert) method.invoke(seeder, "p1", "m1", "msg", "CRITICAL");
+                // Setup method
+                Method method = DataSeeder.class.getDeclaredMethod("seedMeasurements", List.class);
+                method.setAccessible(true);
+                when(measurementRepository.count()).thenReturn(0L);
+                when(measurementRepository.saveAll(any())).thenAnswer(i -> i.getArgument(0));
 
-        assertEquals("LOW", low.getSeverity());
-        assertEquals("MEDIUM", med.getSeverity());
-        assertEquals("HIGH", high.getSeverity());
-        assertEquals("CRITICAL", crit.getSeverity());
-    }
+                // Execute
+                List<Measurement> results = (List<Measurement>) method.invoke(seeder, patients);
 
-    @Test
-    @DisplayName("run - No data exists - Should create all seed data")
-    void run_NoDataExists_ShouldCreateAll() throws Exception {
-        // Setup: All repositories are empty
-        when(doctorRepository.count()).thenReturn(0L);
-        when(patientRepository.count()).thenReturn(0L);
-        when(measurementRepository.count()).thenReturn(0L);
-        when(alertRepository.count()).thenReturn(0L);
+                // Verify "Marie" logic (Temp > 38.2 vs 36.8)
+                boolean hasHighTemp = results.stream().anyMatch(m -> m.getPatientId().equals("p1") &&
+                                m.getType().equals(AppConstants.MEASUREMENT_TYPE_TEMPERATURE) &&
+                                m.getValue() == 38.2);
+                assertTrue(hasHighTemp, "Should generate 38.2 temp for 'Marie'");
 
-        // Mock saveAll to return saved entities (NEED 2 doctors!)
-        Doctor doc1 = new Doctor();
-        doc1.setId("doc-1");
-        doc1.setName("Dr. Test 1");
+                // Verify Age > 60 logic (HR 95.0)
+                boolean hasHighHR = results.stream().anyMatch(m -> m.getPatientId().equals("p1") &&
+                                m.getType().equals(AppConstants.MEASUREMENT_TYPE_HEART_RATE) &&
+                                m.getValue() == 95.0);
+                assertTrue(hasHighHR, "Should generate 95.0 HR for Age > 60");
 
-        Doctor doc2 = new Doctor();
-        doc2.setId("doc-2");
-        doc2.setName("Dr. Test 2");
-        when(doctorRepository.saveAll(any())).thenReturn(Arrays.asList(doc1, doc2));
+                // Verify Age <= 60 logic (HR 78.0)
+                boolean hasNormalHR = results.stream().anyMatch(m -> m.getPatientId().equals("p2") &&
+                                m.getType().equals(AppConstants.MEASUREMENT_TYPE_HEART_RATE) &&
+                                m.getValue() == 78.0);
+                assertTrue(hasNormalHR, "Should generate 78.0 HR for Age <= 60");
 
-        Patient pat = new Patient();
-        pat.setId("pat-1");
-        pat.setName("Test Patient");
-        pat.setAge(45);
-        when(patientRepository.saveAll(any())).thenReturn(Arrays.asList(pat));
+                // Verify Age > 65 logic (Oxygen 92.0 vs 98.0)
+                boolean hasLowO2 = results.stream().anyMatch(m -> m.getPatientId().equals("p1") &&
+                                m.getType().equals(AppConstants.MEASUREMENT_TYPE_OXYGEN_SATURATION) &&
+                                m.getValue() == 92.0);
+                assertTrue(hasLowO2, "Should generate 92.0 O2 for Age > 65");
+        }
 
-        Measurement meas = new Measurement();
-        meas.setId("meas-1");
-        meas.setPatientId("pat-1");
-        meas.setType("heart_rate");
-        meas.setValue(75.0);
-        when(measurementRepository.saveAll(any())).thenReturn(Arrays.asList(meas));
+        @Test
+        @DisplayName("Dispatch - checkMeasurementForAlert")
+        void checkMeasurementForAlert_Dispatch() throws Exception {
+                Method method = DataSeeder.class.getDeclaredMethod("checkMeasurementForAlert", Measurement.class);
+                method.setAccessible(true);
 
-        // Execute
-        seeder.run();
+                // Verify dispatch to types
+                assertNull(method.invoke(seeder, createMockMeasurement("unknown", 100.0)));
+                assertNotNull(method.invoke(seeder,
+                                createMockMeasurement(AppConstants.MEASUREMENT_TYPE_HEART_RATE, 101.0)));
+                assertNotNull(method.invoke(seeder,
+                                createMockMeasurement(AppConstants.MEASUREMENT_TYPE_BLOOD_PRESSURE, 161.0)));
+        }
 
-        // Verify all saves were called
-        verify(doctorRepository).saveAll(any());
-        verify(patientRepository).saveAll(any());
-        verify(measurementRepository).saveAll(any());
-        verify(alertRepository).saveAll(any());
-    }
+        // --- Standard Flow Tests ---
 
-    @Test
-    @DisplayName("run - All data exists - Should skip seeding")
-    void run_AllDataExists_ShouldSkipSeeding() throws Exception {
-        when(doctorRepository.count()).thenReturn(10L);
-        when(patientRepository.count()).thenReturn(20L);
-        when(measurementRepository.count()).thenReturn(100L);
-        when(alertRepository.count()).thenReturn(50L);
+        @Test
+        @DisplayName("Run - Empty DB - Should Seed All")
+        void run_EmptyDB() throws Exception {
+                when(doctorRepository.count()).thenReturn(0L);
+                when(doctorRepository.saveAll(any())).thenReturn(List.of(new Doctor(), new Doctor())); // need 2 docs
 
-        when(doctorRepository.findAll()).thenReturn(Collections.emptyList());
-        when(patientRepository.findAll()).thenReturn(Collections.emptyList());
-        when(measurementRepository.findAll()).thenReturn(Collections.emptyList());
+                when(patientRepository.count()).thenReturn(0L);
+                when(patientRepository.saveAll(any())).thenAnswer(i -> i.getArgument(0)); // return list
 
-        seeder.run();
+                when(measurementRepository.count()).thenReturn(0L);
+                when(measurementRepository.saveAll(any())).thenReturn(Collections.emptyList());
 
-        // Should NOT save anything
-        verify(doctorRepository, never()).saveAll(any());
-        verify(patientRepository, never()).saveAll(any());
-        verify(measurementRepository, never()).saveAll(any());
-        verify(alertRepository, never()).saveAll(any());
-    }
+                when(alertRepository.count()).thenReturn(0L);
 
-    @Test
-    @DisplayName("run - Doctors exist but patients don't - Should skip doctors, create patients")
-    void run_DoctorsExist_PatientsDoNot_ShouldCreatePatients() throws Exception {
-        when(doctorRepository.count()).thenReturn(2L);
-        when(patientRepository.count()).thenReturn(0L);
-        when(measurementRepository.count()).thenReturn(0L);
-        when(alertRepository.count()).thenReturn(0L);
+                seeder.run();
 
-        Doctor doc1 = new Doctor();
-        doc1.setId("doc-1");
-        Doctor doc2 = new Doctor();
-        doc2.setId("doc-2");
-        when(doctorRepository.findAll()).thenReturn(Arrays.asList(doc1, doc2));
+                verify(doctorRepository).saveAll(any());
+                verify(patientRepository).saveAll(any());
+                verify(measurementRepository).saveAll(any());
+                verify(alertRepository).saveAll(any());
+        }
 
-        Patient pat = new Patient();
-        pat.setId("pat-1");
-        pat.setName("Test");
-        pat.setAge(50);
-        when(patientRepository.saveAll(any())).thenReturn(Arrays.asList(pat));
+        @Test
+        @DisplayName("Run - Full DB - Should Skip")
+        void run_FullDB() throws Exception {
+                when(doctorRepository.count()).thenReturn(5L);
+                when(doctorRepository.findAll()).thenReturn(Collections.emptyList());
+                when(patientRepository.count()).thenReturn(5L);
+                when(patientRepository.findAll()).thenReturn(Collections.emptyList());
+                when(measurementRepository.count()).thenReturn(5L);
+                when(measurementRepository.findAll()).thenReturn(Collections.emptyList());
+                when(alertRepository.count()).thenReturn(5L);
 
-        Measurement m = new Measurement();
-        m.setId("m-1");
-        m.setPatientId("pat-1");
-        m.setType("heart_rate");
-        m.setValue(70.0);
-        when(measurementRepository.saveAll(any())).thenReturn(Arrays.asList(m));
+                seeder.run();
 
-        seeder.run();
+                verify(doctorRepository, never()).saveAll(any());
+        }
 
-        verify(doctorRepository, never()).saveAll(any());
-        verify(patientRepository).saveAll(any());
-    }
-
-    @Test
-    @DisplayName("Constructor - Should initialize all repositories")
-    void constructor_ShouldInitialize() {
-        DataSeeder newSeeder = new DataSeeder(
-                measurementRepository,
-                doctorRepository,
-                patientRepository,
-                alertRepository);
-
-        assertNotNull(newSeeder);
-    }
+        // Helper
+        private Measurement createMockMeasurement(String type, Double value) {
+                Measurement m = new Measurement();
+                m.setPatientId("p1");
+                m.setId("m1");
+                m.setType(type);
+                m.setValue(value);
+                m.setTimestamp(java.time.LocalDateTime.now());
+                return m;
+        }
 }

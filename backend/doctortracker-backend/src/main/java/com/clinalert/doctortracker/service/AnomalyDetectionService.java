@@ -2,17 +2,17 @@ package com.clinalert.doctortracker.service;
 
 import com.clinalert.doctortracker.model.Measurement;
 import com.clinalert.doctortracker.repository.MeasurementRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AnomalyDetectionService {
 
-    @Autowired
-    private MeasurementRepository measurementRepository;
+    private final MeasurementRepository measurementRepository;
 
     private static final double STD_DEV_THRESHOLD = 2.5;
 

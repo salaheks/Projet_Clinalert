@@ -2,7 +2,8 @@ package com.clinalert.doctortracker.util;
 
 import com.clinalert.doctortracker.model.User;
 import com.clinalert.doctortracker.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -10,20 +11,20 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
+@Slf4j
 public class AuthDataSeeder implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     // Set to true to force password reset for all demo users
     private static final boolean FORCE_PASSWORD_RESET = true;
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Checking authentication seed data...");
+        log.info("Checking authentication seed data...");
 
         // Create or update Admin User
         createOrUpdateUser("admin@clinalert.com", "admin123", User.UserRole.ADMIN);
@@ -36,7 +37,7 @@ public class AuthDataSeeder implements CommandLineRunner {
         createOrUpdateUser("john.doe@clinalert.com", "patient123", User.UserRole.PATIENT);
         createOrUpdateUser("luc.moreau@clinalert.com", "patient123", User.UserRole.PATIENT);
 
-        System.out.println("Auth seed data check completed!");
+        log.info("Auth seed data check completed!");
     }
 
     private void createOrUpdateUser(String email, String password, User.UserRole role) {
@@ -47,9 +48,9 @@ public class AuthDataSeeder implements CommandLineRunner {
                 User user = existingUser.get();
                 user.setPassword(passwordEncoder.encode(password));
                 userRepository.save(user);
-                System.out.println("Updated password for user: " + email + " / " + password);
+                log.info("Updated password for user: {} / [PROTECTED]", email);
             } else {
-                System.out.println("User already exists: " + email);
+                log.info("User already exists: {}", email);
             }
         } else {
             User user = new User();
@@ -58,7 +59,7 @@ public class AuthDataSeeder implements CommandLineRunner {
             user.setRole(role);
             user.setEnabled(true);
             userRepository.save(user);
-            System.out.println("Created user: " + email + " / " + password);
+            log.info("Created user: {} / [PROTECTED]", email);
         }
     }
 }

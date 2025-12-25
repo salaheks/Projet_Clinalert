@@ -270,6 +270,44 @@ class AuthServiceTest {
         verify(userRepository, times(2)).findByEmail(anyString());
     }
 
+    /**
+     * TEST 3b : Login avec email contenant des caractères spéciaux (CRLF)
+     *
+     * SCÉNARIO :
+     * - Un utilisateur essaie de se connecter avec un email contenant des sauts de
+     * ligne
+     *
+     * RÉSULTAT ATTENDU :
+     * - Le login doit procéder normalement (après sanitization dans les logs)
+     * - Si l'utilisateur n'existe pas avec cet email, une exception est levée
+     */
+    @Test
+    @DisplayName("Login avec sanitization : doit gérer les caractères CRLF dans l'email")
+    void login_WithCRLFInEmail_ShouldSanitizeAndProceed() {
+        // ===== ARRANGE =====
+        LoginRequest maliciousRequest = new LoginRequest();
+        maliciousRequest.setEmail("hacker@clinalert.com\r\nADMIN");
+        maliciousRequest.setPassword("password123");
+
+        Authentication mockAuthentication = mock(Authentication.class);
+        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+                .thenReturn(mockAuthentication);
+
+        // On simule que l'utilisateur n'est pas trouvé (pour aller jusqu'au log WARN
+        // qui utilise la sanitization)
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
+
+        // ===== ACT & ASSERT =====
+        assertThrows(RuntimeException.class, () -> {
+            authService.login(maliciousRequest);
+        });
+
+        // La vérification principale ici est que le code s'exécute sans erreur de
+        // formatage de log
+        // et que la méthode sanitizeForLog a été traversée par l'exécution
+        verify(userRepository, atLeastOnce()).findByEmail(anyString());
+    }
+
     // ==========================================
     // SECTION 4 : TESTS D'INSCRIPTION
     // ==========================================
@@ -388,14 +426,16 @@ class AuthServiceTest {
      * - Une exception RuntimeException avec le message "Email already in use"
      */
     @Test
-    @DisplayName("Inscription échouée : doit lever une exception si l'email existe déjà")
+    @DisplayName("Inscription échouée : doit lever IllegalArgumentException si l'email existe déjà")
     void register_WithExistingEmail_ShouldThrowException() {
         // ===== ARRANGE =====
         // L'email existe déjà dans la base
         when(userRepository.existsByEmail("newdoctor@clinalert.com")).thenReturn(true);
 
         // ===== ACT & ASSERT =====
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        // Correction: AuthService lance maintenant IllegalArgumentException, pas
+        // RuntimeException
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             authService.register(registerRequest);
         });
 
@@ -404,45 +444,48 @@ class AuthServiceTest {
 
         // Vérifier qu'aucune sauvegarde n'a été effectuée
         verify(userRepository, never()).save(any(User.class));
-        verify(doctorRepository, never()).save(any(Doctor.class));
-        verify(patientRepository, never()).save(any(Patient.class));
     }
 
     // ==========================================
     // SECTION 5 : TESTS DE RÉCUPÉRATION DE L'UTILISATEUR COURANT
     // ==========================================
 
-    /**
-     * TEST 7 : Récupérer l'utilisateur actuellement connecté
-     * 
-     * SCÉNARIO :
-     * - Un utilisateur authentifié demande ses informations
-     * 
-     * RÉSULTAT ATTENDU :
-     * - Les informations de l'utilisateur connecté sont retournées
-     */
     @Test
-    @DisplayName("Récupération de l'utilisateur courant : doit retourner l'utilisateur authentifié")
+    @DisplayName("getCurrentUser - Utilisateur connecté")
     void getCurrentUser_WhenAuthenticated_ShouldReturnUser() {
-        // Note : Ce test nécessiterait de mocker SecurityContextHolder
-        // qui est un peu plus complexe. Pour l'instant, on le laisse en exemple.
-        // Dans un test réel, vous utiliseriez @WithMockUser ou
-        // SecurityMockMvcResultMatchers
+        // Arrange
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.isAuthenticated()).thenReturn(true);
+        when(authentication.getName()).thenReturn("test@test.com");
+
+        org.springframework.security.core.context.SecurityContext securityContext = mock(
+                org.springframework.security.core.context.SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        org.springframework.security.core.context.SecurityContextHolder.setContext(securityContext);
+
+        when(userRepository.findByEmail("test@test.com")).thenReturn(Optional.of(testUser));
+
+        // Act
+        User result = authService.getCurrentUser();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(testUser, result);
     }
 
-    /**
-     * TEST 8 : Récupérer l'utilisateur sans authentification
-     * 
-     * SCÉNARIO :
-     * - Une requête non authentifiée demande l'utilisateur courant
-     * 
-     * RÉSULTAT ATTENDU :
-     * - null doit être retourné
-     */
     @Test
-    @DisplayName("Récupération de l'utilisateur courant : doit retourner null si non authentifié")
+    @DisplayName("getCurrentUser - Non connecté")
     void getCurrentUser_WhenNotAuthenticated_ShouldReturnNull() {
-        // Note : Exemple de test de cas d'échec
-        // Nécessiterait également le mock du SecurityContext
+        // Arrange
+        org.springframework.security.core.context.SecurityContext securityContext = mock(
+                org.springframework.security.core.context.SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(null);
+        org.springframework.security.core.context.SecurityContextHolder.setContext(securityContext);
+
+        // Act
+        User result = authService.getCurrentUser();
+
+        // Assert
+        assertNull(result);
     }
 }

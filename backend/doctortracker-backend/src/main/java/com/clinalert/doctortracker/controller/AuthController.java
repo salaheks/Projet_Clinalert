@@ -5,7 +5,8 @@ import com.clinalert.doctortracker.dto.LoginResponse;
 import com.clinalert.doctortracker.dto.RegisterRequest;
 import com.clinalert.doctortracker.model.User;
 import com.clinalert.doctortracker.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,41 +16,42 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @PostMapping(value = "/login", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        System.out.println("=== CONTROLLER: LOGIN ENDPOINT HIT ===");
-        System.out.println("Request email: " + request.getEmail());
+    public ResponseEntity<Object> login(@RequestBody LoginRequest request) {
+        log.info("=== CONTROLLER: LOGIN ENDPOINT HIT ===");
+        log.info("Request email: {}", request.getEmail());
         try {
             LoginResponse response = authService.login(request);
-            System.out.println("=== LOGIN SUCCESS ===");
+            log.info("=== LOGIN SUCCESS ===");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            System.out.println("=== LOGIN ERROR: " + e.getMessage() + " ===");
+            log.error("=== LOGIN ERROR: {} ===", e.getMessage());
             Map<String, String> error = new HashMap<>();
-            error.put("error", "Invalid email or password");
+            error.put(com.clinalert.doctortracker.util.AppConstants.KEY_ERROR, "Invalid email or password");
             return ResponseEntity.badRequest().body(error);
         }
     }
 
     @PostMapping(value = "/register", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<Object> register(@RequestBody RegisterRequest request) {
         try {
             LoginResponse response = authService.register(request);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
-            error.put("error", e.getMessage());
+            error.put(com.clinalert.doctortracker.util.AppConstants.KEY_ERROR, e.getMessage());
             return ResponseEntity.badRequest().body(error);
         }
     }
 
     @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser() {
+    public ResponseEntity<Object> getCurrentUser() {
         try {
             User user = authService.getCurrentUser();
             if (user == null) {
@@ -57,13 +59,13 @@ public class AuthController {
             }
 
             Map<String, Object> response = new HashMap<>();
-            response.put("id", user.getId());
-            response.put("email", user.getEmail());
-            response.put("role", user.getRole().name());
-            response.put("enabled", user.isEnabled());
-            response.put("firstName", user.getFirstName());
-            response.put("lastName", user.getLastName());
-            response.put("phone", user.getPhone());
+            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_ID, user.getId());
+            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL, user.getEmail());
+            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE, user.getRole().name());
+            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED, user.isEnabled());
+            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_FIRST_NAME, user.getFirstName());
+            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_LAST_NAME, user.getLastName());
+            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_PHONE, user.getPhone());
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {

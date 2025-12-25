@@ -1,0 +1,6 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+Step 1: Authenticate,3796,192,128,333,31.54,0.000%,63.07639,52.07,16.71,845.3
+Step 2: GET Patients List,3783,93,4,262,40.59,0.000%,63.29050,15301.01,32.45,247560.5
+Step 3: CREATE Patient,3776,84,4,230,39.80,0.000%,63.23263,32.91,40.89,533.0
+Step 4: GET Clinics List,3770,84,4,244,40.99,0.000%,63.14379,24.91,32.31,404.0
+TOTAL,15125,113,4,333,59.83,0.000%,251.32517,15306.46,121.57,62364.7

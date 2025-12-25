@@ -2,7 +2,7 @@ package com.clinalert.doctortracker.controller;
 
 import com.clinalert.doctortracker.model.Alert;
 import com.clinalert.doctortracker.service.AlertService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/alerts")
+@RequiredArgsConstructor
 public class AlertController {
 
-    @Autowired
-    private AlertService alertService;
+    private final AlertService alertService;
 
     @GetMapping
     public List<Alert> getAllAlerts() {

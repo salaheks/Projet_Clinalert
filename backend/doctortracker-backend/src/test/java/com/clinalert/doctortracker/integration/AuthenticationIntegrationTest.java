@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("Authentication Integration Tests")
-public class AuthenticationIntegrationTest {
+class AuthenticationIntegrationTest {
 
     @LocalServerPort
     private int port;

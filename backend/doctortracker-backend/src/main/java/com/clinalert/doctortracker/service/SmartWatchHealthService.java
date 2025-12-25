@@ -7,7 +7,7 @@ import com.clinalert.doctortracker.model.Alert;
 import com.clinalert.doctortracker.repository.DailyHealthSummaryRepository;
 import com.clinalert.doctortracker.repository.HealthDataRepository;
 import com.clinalert.doctortracker.repository.SmartWatchDeviceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,19 +19,16 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class SmartWatchHealthService {
 
-    @Autowired
-    private SmartWatchDeviceRepository deviceRepository;
+    private final SmartWatchDeviceRepository deviceRepository;
 
-    @Autowired
-    private HealthDataRepository healthDataRepository;
+    private final HealthDataRepository healthDataRepository;
 
-    @Autowired
-    private DailyHealthSummaryRepository dailySummaryRepository;
+    private final DailyHealthSummaryRepository dailySummaryRepository;
 
-    @Autowired
-    private AlertService alertService;
+    private final AlertService alertService;
 
     // ==================== Device Management ====================
 
@@ -63,7 +60,7 @@ public class SmartWatchHealthService {
     }
 
     public void deactivateDevice(String deviceId) {
-        Objects.requireNonNull(deviceId, "deviceId must not be null");
+        Objects.requireNonNull(deviceId, com.clinalert.doctortracker.util.AppConstants.ERROR_DEVICE_ID_NULL);
         deviceRepository.findById(deviceId).ifPresent(device -> {
             device.setIsActive(false);
             deviceRepository.save(device);
@@ -71,12 +68,12 @@ public class SmartWatchHealthService {
     }
 
     public void deleteDevice(String deviceId) {
-        Objects.requireNonNull(deviceId, "deviceId must not be null");
+        Objects.requireNonNull(deviceId, com.clinalert.doctortracker.util.AppConstants.ERROR_DEVICE_ID_NULL);
         deviceRepository.deleteById(deviceId);
     }
 
     public void updateDeviceLastConnected(String deviceId) {
-        Objects.requireNonNull(deviceId, "deviceId must not be null");
+        Objects.requireNonNull(deviceId, com.clinalert.doctortracker.util.AppConstants.ERROR_DEVICE_ID_NULL);
         deviceRepository.findById(deviceId).ifPresent(device -> {
             device.setLastConnected(LocalDateTime.now());
             deviceRepository.save(device);
@@ -249,45 +246,92 @@ public class SmartWatchHealthService {
     // ==================== Alert Detection ====================
 
     private void checkAndCreateAlerts(HealthData data) {
-        // Check heart rate
+        checkHeartRate(data);
+        checkSpO2(data);
+        checkBloodPressure(data);
+        checkTemperature(data);
+    }
+
+    private void checkHeartRate(HealthData data) {
         if (data.getHeartRate() != null) {
-            if (data.getHeartRate() > 120) {
-                createAlert(data, "High Heart Rate: " + data.getHeartRate() + " bpm", "HIGH");
+            String alertMessage = null;
+            String severity = null;
+
+            if (data.getHeartRate() > 150) {
+                alertMessage = "Critical Heart Rate: " + data.getHeartRate() + " bpm";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;
+            } else if (data.getHeartRate() > 120) {
+                alertMessage = "High Heart Rate: " + data.getHeartRate() + " bpm";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;
             } else if (data.getHeartRate() < 50) {
-                createAlert(data, "Low Heart Rate: " + data.getHeartRate() + " bpm", "MEDIUM");
-            } else if (data.getHeartRate() > 150) {
-                createAlert(data, "Critical Heart Rate: " + data.getHeartRate() + " bpm", "CRITICAL");
+                alertMessage = "Low Heart Rate: " + data.getHeartRate() + " bpm";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_MEDIUM;
+            }
+
+            if (alertMessage != null) {
+                createAlert(data, alertMessage, severity);
             }
         }
+    }
 
-        // Check SpO2
+    private void checkSpO2(HealthData data) {
         if (data.getSpO2() != null) {
+            String alertMessage = null;
+            String severity = null;
+
             if (data.getSpO2() < 90) {
-                createAlert(data, "Critical SpO2 Level: " + data.getSpO2() + "%", "CRITICAL");
+                alertMessage = "Critical SpO2 Level: " + data.getSpO2() + "%";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;
             } else if (data.getSpO2() < 94) {
-                createAlert(data, "Low SpO2 Level: " + data.getSpO2() + "%", "HIGH");
+                alertMessage = "Low SpO2 Level: " + data.getSpO2() + "%";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;
+            }
+
+            if (alertMessage != null) {
+                createAlert(data, alertMessage, severity);
             }
         }
+    }
 
-        // Check blood pressure
+    private void checkBloodPressure(HealthData data) {
         if (data.getBloodPressureSystolic() != null) {
+            String alertMessage = null;
+            String severity = null;
+
             if (data.getBloodPressureSystolic() > 180) {
-                createAlert(data, "Hypertensive Crisis: " + data.getBloodPressureSystolic() + "/" +
-                        data.getBloodPressureDiastolic() + " mmHg", "CRITICAL");
+                alertMessage = "Hypertensive Crisis: " + data.getBloodPressureSystolic() + "/" +
+                        data.getBloodPressureDiastolic() + " mmHg";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;
             } else if (data.getBloodPressureSystolic() > 140) {
-                createAlert(data, "High Blood Pressure: " + data.getBloodPressureSystolic() + "/" +
-                        data.getBloodPressureDiastolic() + " mmHg", "HIGH");
+                alertMessage = "High Blood Pressure: " + data.getBloodPressureSystolic() + "/" +
+                        data.getBloodPressureDiastolic() + " mmHg";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;
+            }
+
+            if (alertMessage != null) {
+                createAlert(data, alertMessage, severity);
             }
         }
+    }
 
-        // Check temperature
+    private void checkTemperature(HealthData data) {
         if (data.getTemperature() != null) {
-            if (data.getTemperature() > 39.0) {
-                createAlert(data, "High Fever: " + data.getTemperature() + "°C", "HIGH");
-            } else if (data.getTemperature() > 40.0) {
-                createAlert(data, "Critical Fever: " + data.getTemperature() + "°C", "CRITICAL");
+            String alertMessage = null;
+            String severity = null;
+
+            if (data.getTemperature() > 40.0) {
+                alertMessage = "Critical Fever: " + data.getTemperature() + "°C";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;
+            } else if (data.getTemperature() > 39.0) {
+                alertMessage = "High Fever: " + data.getTemperature() + "°C";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;
             } else if (data.getTemperature() < 35.0) {
-                createAlert(data, "Hypothermia: " + data.getTemperature() + "°C", "HIGH");
+                alertMessage = "Hypothermia: " + data.getTemperature() + "°C";
+                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;
+            }
+
+            if (alertMessage != null) {
+                createAlert(data, alertMessage, severity);
             }
         }
     }

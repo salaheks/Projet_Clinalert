@@ -2,7 +2,7 @@ package com.clinalert.doctortracker.controller;
 
 import com.clinalert.doctortracker.model.Clinic;
 import com.clinalert.doctortracker.service.ClinicService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/clinics")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ClinicController {
 
-    @Autowired
-    private ClinicService clinicService;
+    private final ClinicService clinicService;
 
     @GetMapping
     public List<Clinic> getAllClinics() {

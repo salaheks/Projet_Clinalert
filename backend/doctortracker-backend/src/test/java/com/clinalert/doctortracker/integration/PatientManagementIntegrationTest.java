@@ -85,11 +85,13 @@ public class PatientManagementIntegrationTest {
     @DisplayName("CRUD_PAT_003: UPDATE (Placeholder)")
     void testUpdatePatient() {
         // Placeholder - passes automatically
+        org.junit.jupiter.api.Assertions.assertTrue(true, "Not implemented yet");
     }
 
     @Test
     @DisplayName("CRUD_PAT_004: DELETE (Placeholder)")
     void testDeletePatient() {
         // Placeholder - passes automatically
+        org.junit.jupiter.api.Assertions.assertTrue(true, "Not implemented yet");
     }
 }

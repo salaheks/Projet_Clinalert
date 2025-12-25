@@ -6,7 +6,7 @@ package com.clinalert.config;
 public class TestConfig {
 
     // Application URLs
-    public static final String BASE_URL = "http://localhost:57056";
+    public static final String BASE_URL = "http://localhost:3000"; // Port 3000 (No trailing slash)
     public static final String LOGIN_URL = BASE_URL + "/#/login";
     public static final String DOCTOR_DASHBOARD_URL = BASE_URL + "/#/doctor-dashboard";
     public static final String PATIENT_DASHBOARD_URL = BASE_URL + "/#/patient-dashboard";

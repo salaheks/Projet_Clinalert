@@ -3,22 +3,20 @@ package com.clinalert.doctortracker.service;
 import com.clinalert.doctortracker.model.Alert;
 import com.clinalert.doctortracker.model.Measurement;
 import com.clinalert.doctortracker.repository.MeasurementRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MeasurementService {
 
-    @Autowired
-    private MeasurementRepository measurementRepository;
+    private final MeasurementRepository measurementRepository;
 
-    @Autowired
-    private AlertService alertService;
+    private final AlertService alertService;
 
-    @Autowired
-    private AnomalyDetectionService anomalyDetectionService;
+    private final AnomalyDetectionService anomalyDetectionService;
 
     @SuppressWarnings("null")
     public List<Measurement> saveMeasurements(List<Measurement> measurements) {
@@ -48,10 +46,8 @@ public class MeasurementService {
             } else if (m.getValue() < 50) {
                 createAlert(m, "Low Heart Rate detected: " + m.getValue(), "MEDIUM");
             }
-        } else if ("SpO2".equalsIgnoreCase(m.getType())) {
-            if (m.getValue() < 90) {
-                createAlert(m, "Low SpO2 detected: " + m.getValue(), "CRITICAL");
-            }
+        } else if ("SpO2".equalsIgnoreCase(m.getType()) && m.getValue() < 90) {
+            createAlert(m, "Low SpO2 detected: " + m.getValue(), "CRITICAL");
         }
     }
 

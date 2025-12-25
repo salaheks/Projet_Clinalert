@@ -14,8 +14,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 // @Component - Temporarily disabled to avoid conflict with AuthDataSeeder
 public class DataSeeder implements CommandLineRunner {
+
+    private static final Logger logger = LoggerFactory.getLogger(DataSeeder.class);
 
     private final MeasurementRepository measurementRepository;
     private final DoctorRepository doctorRepository;
@@ -34,155 +39,178 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Seed Doctors
-        List<Doctor> doctors = new ArrayList<>();
-        if (doctorRepository.count() == 0) {
-            System.out.println("Seeding doctors...");
+        List<Doctor> doctors = seedDoctors();
+        List<Patient> patients = seedPatients(doctors);
+        List<Measurement> measurements = seedMeasurements(patients);
+        seedAlerts(measurements);
+        logSummary();
+    }
 
-            Doctor d1 = new Doctor();
-            d1.setName("Dr. Gregory House");
-            d1.setSpecialty("Diagnostic Medicine");
-            d1.setEmail("house@clinalert.com");
-            d1.setPhoneNumber("555-0101");
-
-            Doctor d2 = new Doctor();
-            d2.setName("Dr. Allison Cameron");
-            d2.setSpecialty("Immunology");
-            d2.setEmail("cameron@clinalert.com");
-            d2.setPhoneNumber("555-0102");
-
-            doctors = doctorRepository.saveAll(new ArrayList<>(List.of(d1, d2)));
-            System.out.println("✓ Doctors seeded: " + doctors.size());
-        } else {
-            doctors = doctorRepository.findAll();
+    private List<Doctor> seedDoctors() {
+        if (doctorRepository.count() > 0) {
+            return doctorRepository.findAll();
         }
 
-        // Seed Patients
-        List<Patient> patients = new ArrayList<>();
-        if (patientRepository.count() == 0) {
-            System.out.println("Seeding patients...");
+        logger.info("Seeding doctors...");
+        Doctor d1 = new Doctor();
+        d1.setName("Dr. Gregory House");
+        d1.setSpecialty("Diagnostic Medicine");
+        d1.setEmail("house@clinalert.com");
+        d1.setPhoneNumber("555-0101");
 
-            String doctor1Id = doctors.get(0).getId();
-            String doctor2Id = doctors.get(1).getId();
+        Doctor d2 = new Doctor();
+        d2.setName("Dr. Allison Cameron");
+        d2.setSpecialty("Immunology");
+        d2.setEmail("cameron@clinalert.com");
+        d2.setPhoneNumber("555-0102");
 
-            Patient p1 = new Patient();
-            p1.setName("Jean Dupont");
-            p1.setAge(45);
-            p1.setGender("M");
-            p1.setDoctorId(doctor1Id);
-            p1.setStatus("active");
+        List<Doctor> doctors = doctorRepository.saveAll(new ArrayList<>(List.of(d1, d2)));
+        logger.info("✓ Doctors seeded: {}", doctors.size());
+        return doctors;
+    }
 
-            Patient p2 = new Patient();
-            p2.setName("Marie Martin");
-            p2.setAge(62);
-            p2.setGender("F");
-            p2.setDoctorId(doctor1Id);
-            p2.setStatus("active");
-
-            Patient p3 = new Patient();
-            p3.setName("Pierre Bernard");
-            p3.setAge(38);
-            p3.setGender("M");
-            p3.setDoctorId(doctor2Id);
-            p3.setStatus("transferred");
-
-            Patient p4 = new Patient();
-            p4.setName("Sophie Dubois");
-            p4.setAge(55);
-            p4.setGender("F");
-            p4.setDoctorId(doctor2Id);
-            p4.setStatus("active");
-
-            Patient p5 = new Patient();
-            p5.setName("Luc Moreau");
-            p5.setAge(71);
-            p5.setGender("M");
-            p5.setDoctorId(doctor1Id);
-            p5.setStatus("discharged");
-
-            patients = patientRepository.saveAll(new ArrayList<>(List.of(p1, p2, p3, p4, p5)));
-            System.out.println("✓ Patients seeded: " + patients.size());
-        } else {
-            patients = patientRepository.findAll();
+    private List<Patient> seedPatients(List<Doctor> doctors) {
+        if (patientRepository.count() > 0) {
+            return patientRepository.findAll();
         }
 
-        // Seed Measurements
+        logger.info("Seeding patients...");
+        String doctor1Id = doctors.get(0).getId();
+        String doctor2Id = doctors.get(1).getId();
+
+        Patient p1 = createPatient("Jean Dupont", 45, "M", doctor1Id, AppConstants.STATUS_ACTIVE);
+        Patient p2 = createPatient("Marie Martin", 62, "F", doctor1Id, AppConstants.STATUS_ACTIVE);
+        Patient p3 = createPatient("Pierre Bernard", 38, "M", doctor2Id, AppConstants.STATUS_TRANSFERRED);
+        Patient p4 = createPatient("Sophie Dubois", 55, "F", doctor2Id, AppConstants.STATUS_ACTIVE);
+        Patient p5 = createPatient("Luc Moreau", 71, "M", doctor1Id, AppConstants.STATUS_DISCHARGED);
+
+        List<Patient> patients = patientRepository.saveAll(new ArrayList<>(List.of(p1, p2, p3, p4, p5)));
+        logger.info("✓ Patients seeded: {}", patients.size());
+        return patients;
+    }
+
+    private Patient createPatient(String name, int age, String gender, String doctorId, String status) {
+        Patient p = new Patient();
+        p.setName(name);
+        p.setAge(age);
+        p.setGender(gender);
+        p.setDoctorId(doctorId);
+        p.setStatus(status);
+        return p;
+    }
+
+    private List<Measurement> seedMeasurements(List<Patient> patients) {
+        if (measurementRepository.count() > 0) {
+            return measurementRepository.findAll();
+        }
+
+        logger.info("Seeding measurements...");
         List<Measurement> measurements = new ArrayList<>();
-        if (measurementRepository.count() == 0) {
-            System.out.println("Seeding measurements...");
 
-            for (Patient patient : patients) {
-                String patientId = patient.getId();
+        for (Patient patient : patients) {
+            String patientId = patient.getId();
 
-                // Heart rate measurements (normal and some abnormal)
-                measurements.add(createMeasurement(patientId, "heart_rate", 72.0, 30));
-                measurements.add(createMeasurement(patientId, "heart_rate", 75.0, 25));
-                measurements.add(createMeasurement(patientId, "heart_rate",
-                        patient.getAge() > 60 ? 95.0 : 78.0, 20));
+            // Heart rate
+            measurements.add(createMeasurement(patientId, AppConstants.MEASUREMENT_TYPE_HEART_RATE, 72.0, 30));
+            measurements.add(createMeasurement(patientId, AppConstants.MEASUREMENT_TYPE_HEART_RATE, 75.0, 25));
+            measurements.add(createMeasurement(patientId, AppConstants.MEASUREMENT_TYPE_HEART_RATE,
+                    patient.getAge() > 60 ? 95.0 : 78.0, 20));
 
-                // Temperature
-                measurements.add(createMeasurement(patientId, "temperature", 36.6, 15));
-                measurements.add(createMeasurement(patientId, "temperature",
-                        patient.getName().contains("Marie") ? 38.2 : 36.8, 10));
+            // Temperature
+            measurements.add(createMeasurement(patientId, AppConstants.MEASUREMENT_TYPE_TEMPERATURE, 36.6, 15));
+            measurements.add(createMeasurement(patientId, AppConstants.MEASUREMENT_TYPE_TEMPERATURE,
+                    patient.getName().contains("Marie") ? 38.2 : 36.8, 10));
 
-                // Blood pressure (systolic)
-                measurements.add(createMeasurement(patientId, "blood_pressure_systolic",
-                        patient.getAge() > 60 ? 145.0 : 120.0, 8));
+            // Blood pressure
+            measurements.add(createMeasurement(patientId, AppConstants.MEASUREMENT_TYPE_BLOOD_PRESSURE,
+                    patient.getAge() > 60 ? 145.0 : 120.0, 8));
 
-                // Oxygen saturation
-                measurements.add(createMeasurement(patientId, "oxygen_saturation",
-                        patient.getAge() > 65 ? 92.0 : 98.0, 5));
-            }
-
-            measurements = measurementRepository.saveAll(measurements);
-            System.out.println("✓ Measurements seeded: " + measurements.size());
-        } else {
-            measurements = measurementRepository.findAll();
+            // Oxygen saturation
+            measurements.add(createMeasurement(patientId, AppConstants.MEASUREMENT_TYPE_OXYGEN_SATURATION,
+                    patient.getAge() > 65 ? 92.0 : 98.0, 5));
         }
 
-        // Seed Alerts
-        if (alertRepository.count() == 0) {
-            System.out.println("Seeding alerts...");
-            List<Alert> alerts = new ArrayList<>();
+        measurements = measurementRepository.saveAll(measurements);
+        logger.info("✓ Measurements seeded: {}", measurements.size());
+        return measurements;
+    }
 
-            // Create alerts for abnormal measurements
-            for (Measurement m : measurements) {
-                Alert alert = null;
-
-                if (m.getType().equals("heart_rate") && m.getValue() > 90) {
-                    alert = createAlert(m.getPatientId(), m.getId(),
-                            "Rythme cardiaque élevé détecté: " + m.getValue() + " bpm",
-                            m.getValue() > 100 ? "HIGH" : "MEDIUM");
-                } else if (m.getType().equals("temperature") && m.getValue() > 37.5) {
-                    alert = createAlert(m.getPatientId(), m.getId(),
-                            "Température élevée détectée: " + m.getValue() + "°C",
-                            m.getValue() > 38.0 ? "HIGH" : "MEDIUM");
-                } else if (m.getType().equals("blood_pressure_systolic") && m.getValue() > 140) {
-                    alert = createAlert(m.getPatientId(), m.getId(),
-                            "Pression artérielle élevée: " + m.getValue() + " mmHg",
-                            m.getValue() > 160 ? "CRITICAL" : "HIGH");
-                } else if (m.getType().equals("oxygen_saturation") && m.getValue() < 95) {
-                    alert = createAlert(m.getPatientId(), m.getId(),
-                            "Saturation en oxygène faible: " + m.getValue() + "%",
-                            m.getValue() < 90 ? "CRITICAL" : "MEDIUM");
-                }
-
-                if (alert != null) {
-                    alerts.add(alert);
-                }
-            }
-
-            alertRepository.saveAll(alerts);
-            System.out.println("✓ Alerts seeded: " + alerts.size());
+    private void seedAlerts(List<Measurement> measurements) {
+        if (alertRepository.count() > 0) {
+            return;
         }
 
-        System.out.println("=================================");
-        System.out.println("Database seeding completed!");
-        System.out.println("Doctors: " + doctorRepository.count());
-        System.out.println("Patients: " + patientRepository.count());
-        System.out.println("Measurements: " + measurementRepository.count());
-        System.out.println("Alerts: " + alertRepository.count());
-        System.out.println("=================================");
+        logger.info("Seeding alerts...");
+        List<Alert> alerts = new ArrayList<>();
+
+        for (Measurement m : measurements) {
+            Alert alert = checkMeasurementForAlert(m);
+            if (alert != null) {
+                alerts.add(alert);
+            }
+        }
+
+        alertRepository.saveAll(alerts);
+        logger.info("✓ Alerts seeded: {}", alerts.size());
+    }
+
+    private Alert checkMeasurementForAlert(Measurement m) {
+        if (m.getType().equals(AppConstants.MEASUREMENT_TYPE_HEART_RATE)) {
+            return checkHeartRateAlert(m);
+        } else if (m.getType().equals(AppConstants.MEASUREMENT_TYPE_TEMPERATURE)) {
+            return checkTemperatureAlert(m);
+        } else if (m.getType().equals(AppConstants.MEASUREMENT_TYPE_BLOOD_PRESSURE)) {
+            return checkBloodPressureAlert(m);
+        } else if (m.getType().equals(AppConstants.MEASUREMENT_TYPE_OXYGEN_SATURATION)) {
+            return checkOxygenAlert(m);
+        }
+        return null;
+    }
+
+    private Alert checkHeartRateAlert(Measurement m) {
+        if (m.getValue() > 90) {
+            return createAlert(m.getPatientId(), m.getId(),
+                    "Rythme cardiaque élevé détecté: " + m.getValue() + " bpm",
+                    m.getValue() > 100 ? AppConstants.ALERT_SEVERITY_HIGH : AppConstants.ALERT_SEVERITY_MEDIUM);
+        }
+        return null;
+    }
+
+    private Alert checkTemperatureAlert(Measurement m) {
+        if (m.getValue() > 37.5) {
+            return createAlert(m.getPatientId(), m.getId(),
+                    "Température élevée détectée: " + m.getValue() + "°C",
+                    m.getValue() > 38.0 ? AppConstants.ALERT_SEVERITY_HIGH : AppConstants.ALERT_SEVERITY_MEDIUM);
+        }
+        return null;
+    }
+
+    private Alert checkBloodPressureAlert(Measurement m) {
+        if (m.getValue() > 140) {
+            return createAlert(m.getPatientId(), m.getId(),
+                    "Pression artérielle élevée: " + m.getValue() + " mmHg",
+                    m.getValue() > 160 ? AppConstants.ALERT_SEVERITY_CRITICAL : AppConstants.ALERT_SEVERITY_HIGH);
+        }
+        return null;
+    }
+
+    private Alert checkOxygenAlert(Measurement m) {
+        if (m.getValue() < 95) {
+            return createAlert(m.getPatientId(), m.getId(),
+                    "Saturation en oxygène faible: " + m.getValue() + "%",
+                    m.getValue() < 90 ? AppConstants.ALERT_SEVERITY_CRITICAL : AppConstants.ALERT_SEVERITY_MEDIUM);
+        }
+        return null;
+    }
+
+    private void logSummary() {
+        logger.info("=================================");
+        logger.info("Database seeding completed!");
+        logger.info("Doctors: {}", doctorRepository.count());
+        logger.info("Patients: {}", patientRepository.count());
+        logger.info("Measurements: {}", measurementRepository.count());
+        logger.info("Alerts: {}", alertRepository.count());
+        logger.info("=================================");
     }
 
     private Measurement createMeasurement(String patientId, String type, Double value, int minutesAgo) {

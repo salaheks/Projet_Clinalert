@@ -33,16 +33,35 @@ class HmacUtilTest {
     @DisplayName("Should verify valid HMAC signature")
     void verifySignature_ValidSignature_ShouldReturnTrue() {
         String payload = "test-payload";
-        // Calculate expected signature manually for TEST_SECRET
-        String validSignature = "6f8db599de986058b8b8bce34f17c93a93e0b6e0d8899b5e8c9e6e5f8e9a7e8d";
 
-        // Since we're using a test secret, we need to compute the actual signature
-        // For simplicity in testing, we'll test with a known pair
+        // Dynamically calculate the signature to ensure it matches the implementation
+        // This avoids hardcoding issues if the algorithm or secret handling changes
+        // slightly
+        // We replicate the logic from HmacUtil here for the test expectation
+        String validSignature = "";
+        try {
+            javax.crypto.Mac sha256Hmac = javax.crypto.Mac.getInstance("HmacSHA256");
+            javax.crypto.spec.SecretKeySpec secretKey = new javax.crypto.spec.SecretKeySpec(
+                    TEST_SECRET.getBytes(java.nio.charset.StandardCharsets.UTF_8), "HmacSHA256");
+            sha256Hmac.init(secretKey);
+            byte[] digest = sha256Hmac.doFinal(payload.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder(2 * digest.length);
+            for (byte b : digest) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            validSignature = hexString.toString();
+        } catch (Exception e) {
+            fail("Failed to setup test signature: " + e.getMessage());
+        }
+
         boolean result = hmacUtil.verifySignature(payload, validSignature);
 
-        // The result depends on actual HMAC computation
-        // We test that the method runs without error
-        assertNotNull(result);
+        // Fixed: assertNotNull on primitive is invalid
+        assertTrue(result, "Signature verification should succeed for valid input");
     }
 
     @Test
@@ -79,7 +98,8 @@ class HmacUtilTest {
 
         assertDoesNotThrow(() -> {
             boolean result = hmacUtil.verifySignature(emptyPayload, someSignature);
-            assertNotNull(result);
+            // Fixed: assertNotNull on primitive is invalid
+            assertFalse(result, "Signature should be invalid for random signature");
         });
     }
 

@@ -1,8 +1,6 @@
 package com.clinalert.doctortracker.security;
 
 import com.clinalert.doctortracker.model.User;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

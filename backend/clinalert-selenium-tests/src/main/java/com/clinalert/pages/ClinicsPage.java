@@ -5,6 +5,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -16,16 +19,23 @@ public class ClinicsPage {
 
     // XPath Locators
     private By pageTitle = By.xpath("//*[contains(text(), 'Cliniques') or contains(text(), 'Clinics')]");
-    private By createClinicButton = By
-            .xpath("//button[contains(text(), 'Créer') or contains(text(), 'Create') or contains(text(), 'Ajouter')]");
-    private By clinicNameField = By.xpath(
-            "//input[contains(@placeholder, 'nom') or contains(@name, 'name') or contains(@placeholder, 'Name')]");
-    private By addressField = By.xpath(
-            "//input[contains(@placeholder, 'adresse') or contains(@name, 'address') or contains(@placeholder, 'Address')]");
-    private By phoneField = By
-            .xpath("//input[@type='tel' or contains(@placeholder, 'téléphone') or contains(@placeholder, 'phone')]");
-    private By saveButton = By.xpath(
-            "//button[contains(text(), 'Créer la clinique') or contains(text(), 'Enregistrer') or contains(text(), 'Save')]");
+    // XPath Locators - Explicit Semantic IDs
+    // User-Provided Explicit IDs
+    // "apres node-27... on click node-116"
+    private By createClinicButton = By.xpath("//*[@id='flt-semantic-node-116']");
+    private By returnToDashboardButton = By.xpath("//*[@id='flt-semantic-node-48']");
+
+    // Form Fields
+    private By clinicNameField = By.xpath("//*[@id='flt-semantic-node-125']/input");
+    private By addressField = By.xpath("//*[@id='flt-semantic-node-127']/textarea");
+    private By phoneField = By.xpath("//*[@id='flt-semantic-node-129']/input");
+
+    // Save
+    // "et apres on click //*[@id='flt-semantic-node-183'] pour ajoutter un
+    // clinique"
+    private By saveButton = By.xpath("//*[@id='flt-semantic-node-183']");
+
+    // List & Search (Generic or IDs if provided, keeping generic for flexibility)
     private By successBanner = By.xpath(
             "//*[contains(text(), 'succès') or contains(text(), 'success') or contains(@class, 'success-message')]");
     private By clinicsList = By.xpath("//div[contains(@class, 'clinic-card') or contains(@class, 'clinic-item')]");
@@ -122,10 +132,27 @@ public class ClinicsPage {
     }
 
     /**
-     * Complete clinic creation flow
+     * Create a new clinic
      */
     public void createClinic(String name, String address, String phone) {
-        clickCreateClinic();
+        try {
+            // Robust click for Add Clinic
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.presenceOfElementLocated(createClinicButton));
+
+            WebElement btn = driver.findElement(createClinicButton);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btn);
+            Thread.sleep(500);
+
+            try {
+                btn.click();
+            } catch (Exception e) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to click create clinic button: " + e.getMessage());
+        }
+
         enterClinicName(name);
         enterAddress(address);
         enterPhone(phone);

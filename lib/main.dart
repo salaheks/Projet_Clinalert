@@ -32,7 +32,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:clinalert/l10n/app_localizations.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final binding = WidgetsFlutterBinding.ensureInitialized();
+  binding.ensureSemantics(); // FORCE SEMANTICS FOR SELENIUM
   final storageService = StorageService();
   await storageService.init();
   

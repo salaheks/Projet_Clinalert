@@ -27,7 +27,7 @@ public class PatientManagementTest extends BaseTest {
         // Login as doctor before each test
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(TestConfig.DOCTOR_EMAIL, TestConfig.DOCTOR_PASSWORD);
-        waitHelper.waitForUrlContains("doctor-dashboard", TestConfig.DEFAULT_TIMEOUT);
+        waitHelper.waitForUrlContains("doctor-dashboard", 30); // Explicitly increased timeout for slow redirects
     }
 
     @Test(priority = 1)

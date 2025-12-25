@@ -10,7 +10,10 @@ import com.clinalert.doctortracker.repository.DoctorRepository;
 import com.clinalert.doctortracker.repository.PatientRepository;
 import com.clinalert.doctortracker.repository.UserRepository;
 import com.clinalert.doctortracker.security.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.clinalert.doctortracker.util.AppConstants;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,40 +23,36 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private DoctorRepository doctorRepository;
+    private final DoctorRepository doctorRepository;
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+    private final JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     public LoginResponse login(LoginRequest request) {
-        System.out.println("=== LOGIN ATTEMPT ===");
-        System.out.println("Email: " + request.getEmail());
-        System.out.println("Password received: " + request.getPassword());
+        String safeEmail = sanitizeForLog(request.getEmail());
+        log.info("=== LOGIN ATTEMPT ===");
+        log.info("Email: {}", safeEmail);
+        log.debug("Password received: [PROTECTED]");
 
         // Check if user exists first
         User existingUser = userRepository.findByEmail(request.getEmail()).orElse(null);
         if (existingUser == null) {
-            System.out.println("ERROR: User not found in database!");
+            log.warn("ERROR: User not found in database for email: {}", safeEmail);
         } else {
-            System.out.println("User found! ID: " + existingUser.getId());
-            System.out.println("Stored password hash: " + existingUser.getPassword());
+            log.info("User found! ID: {}", existingUser.getId());
             boolean matches = passwordEncoder.matches(request.getPassword(), existingUser.getPassword());
-            System.out.println("Password matches: " + matches);
+            log.info("Password matches: {}", matches);
         }
 
         try {
@@ -63,23 +62,25 @@ public class AuthService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             User user = userRepository.findByEmail(request.getEmail())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                    .orElseThrow(() -> new EntityNotFoundException(
+                            AppConstants.ERROR_USER_NOT_FOUND_PREFIX + request.getEmail()));
 
             String token = tokenProvider.generateToken(user, user.getId(), user.getRole().name());
-            System.out.println("Login successful! Token generated.");
+            log.info("Login successful! Token generated.");
 
             return new LoginResponse(token, user.getId(), user.getEmail(), user.getRole().name());
         } catch (Exception e) {
-            System.out.println("Authentication FAILED: " + e.getMessage());
+            log.error("Authentication FAILED: {}", e.getMessage());
             throw e;
         }
     }
 
     @Transactional
     public LoginResponse register(RegisterRequest request) {
+        String safeEmail = sanitizeForLog(request.getEmail());
         // Check if email already exists
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already in use");
+            throw new IllegalArgumentException("Email already in use");
         }
 
         // Create user
@@ -90,6 +91,7 @@ public class AuthService {
         user.setEnabled(true);
 
         user = userRepository.save(user);
+        log.info("Registered new user with email: {}", safeEmail);
 
         // Create associated Doctor or Patient profile
         if (request.getRole() == User.UserRole.DOCTOR && request.getName() != null) {
@@ -99,6 +101,7 @@ public class AuthService {
             doctor.setEmail(request.getEmail());
             doctor.setPhoneNumber(request.getPhoneNumber());
             doctorRepository.save(doctor);
+            log.info("Created Doctor profile for user: {}", safeEmail);
         } else if (request.getRole() == User.UserRole.PATIENT && request.getName() != null) {
             Patient patient = new Patient();
             patient.setName(request.getName());
@@ -123,5 +126,12 @@ public class AuthService {
 
         String email = authentication.getName();
         return userRepository.findByEmail(email).orElse(null);
+    }
+
+    private String sanitizeForLog(String input) {
+        if (input == null) {
+            return "null";
+        }
+        return input.replaceAll("[\r\n]", "_");
     }
 }

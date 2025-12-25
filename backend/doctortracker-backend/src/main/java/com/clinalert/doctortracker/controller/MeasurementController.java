@@ -3,7 +3,7 @@ package com.clinalert.doctortracker.controller;
 import com.clinalert.doctortracker.model.Measurement;
 import com.clinalert.doctortracker.service.MeasurementService;
 import com.clinalert.doctortracker.util.HmacUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,18 +12,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/measurements")
+@RequiredArgsConstructor
 public class MeasurementController {
 
-    @Autowired
-    private MeasurementService measurementService;
+    private final MeasurementService measurementService;
 
-    @Autowired
-    private HmacUtil hmacUtil;
+    private final HmacUtil hmacUtil;
 
     @PostMapping
-    public ResponseEntity<?> receiveMeasurements(
+    public ResponseEntity<String> receiveMeasurements(
             @RequestHeader(value = "X-Signature", required = false) String signature,
-            @RequestHeader(value = "Authorization", required = false) String authHeader,
+            @RequestHeader(value = com.clinalert.doctortracker.util.AppConstants.AUTHORIZATION_HEADER, required = false) String authHeader,
             @RequestBody String rawBody) {
         // 1. Check HMAC if present
         if (signature != null) {
@@ -32,7 +31,8 @@ public class MeasurementController {
             }
         }
         // 2. Check JWT if HMAC is missing
-        else if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        else if (authHeader != null
+                && authHeader.startsWith(com.clinalert.doctortracker.util.AppConstants.BEARER_PREFIX)) {
             // In a real app, Spring Security filter chain handles this.
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Missing Authentication");

@@ -7,19 +7,27 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class HmacUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(HmacUtil.class);
 
     @Value("${app.hmacSecret}")
     private String hmacSecret;
 
     public boolean verifySignature(String payload, String signature) {
+        if (payload == null || signature == null) {
+            return false;
+        }
         try {
-            Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secret_key = new SecretKeySpec(hmacSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-            sha256_HMAC.init(secret_key);
+            Mac mac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKeySpec = new SecretKeySpec(hmacSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+            mac.init(secretKeySpec);
 
-            byte[] digest = sha256_HMAC.doFinal(payload.getBytes(StandardCharsets.UTF_8));
+            byte[] digest = mac.doFinal(payload.getBytes(StandardCharsets.UTF_8));
             // We used digest.toString() in Dart which is not Hex, it's Instance ID usually!
             // Wait, in Dart crypto package, digest.toString() returns Hex string.
             // So we need to convert bytes to Hex here.
@@ -28,7 +36,7 @@ public class HmacUtil {
 
             return calculatedSignature.equalsIgnoreCase(signature);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error verifying signature", e);
             return false;
         }
     }
