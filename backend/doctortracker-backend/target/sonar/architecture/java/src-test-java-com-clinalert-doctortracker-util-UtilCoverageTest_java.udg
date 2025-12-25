@@ -1,0 +1,390 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684697973*java2.BÄ
+I
+Dsrc/test/java/com/clinalert/doctortracker/util/UtilCoverageTest.java2
+	
+type3
+	
+TEST4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+D
+?adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.util9
+7
+1com.clinalert.doctortracker.util.UtilCoverageTest11
+
+class12
+
+access13
+
+	protected14
+
+
+full-range15
+
+(11:1)-(62:2)16
+
+simple-name17
+
+UtilCoverageTest18
+'
+!org.junit.jupiter.api.DisplayName20
+
+unknown21
+
+annotated by22
+
+
+uses23
+Z
+Tcom.clinalert.doctortracker.util.UtilCoverageTest#appConstants_PrivateConstructor()V25
+
+method26
+
+(14:5)-(21:6)27
+%
+appConstants_PrivateConstructor28
+ 
+org.junit.jupiter.api.Test30
+3
+-com.clinalert.doctortracker.util.AppConstants32
+
+returns33
+/
+)org.assertj.core.api.AbstractStringAssert35
+
+
+references36
+x
+rorg.assertj.core.api.AbstractStringAssert#isEqualTo(Ljava/lang/String;)Lorg/assertj/core/api/AbstractStringAssert;38
+
+calls39
+%
+org.assertj.core.api.Assertions41
+o
+iorg.assertj.core.api.Assertions#assertThat(Ljava/lang/String;)Lorg/assertj/core/api/AbstractStringAssert;43
+?
+9com.clinalert.doctortracker.util.AppConstants.ROLE_DOCTOR45
+P
+Jcom.clinalert.doctortracker.util.UtilCoverageTest#verifySignature_Tests()V47
+
+(23:5)-(45:6)48
+
+verifySignature_Tests49
+/
+)com.clinalert.doctortracker.util.HmacUtil51
+
+is type52
+Ö
+com.clinalert.doctortracker.util.UtilCoverageTest#calculateExpectedHmac(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;54
+0
+*org.assertj.core.api.AbstractBooleanAssert56
+e
+_org.assertj.core.api.AbstractBooleanAssert#isTrue()Lorg/assertj/core/api/AbstractBooleanAssert;58
+_
+Yorg.assertj.core.api.Assertions#assertThat(Z)Lorg/assertj/core/api/AbstractBooleanAssert;60
+f
+`com.clinalert.doctortracker.util.HmacUtil#verifySignature(Ljava/lang/String;Ljava/lang/String;)Z62
+f
+`org.assertj.core.api.AbstractBooleanAssert#isFalse()Lorg/assertj/core/api/AbstractBooleanAssert;64
+
+private65
+
+(47:5)-(61:6)66
+
+calculateExpectedHmac67J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j‘
+
+37
+373821
+
+59
+596021
+
+63
+636421
+
+31
+313221
+N
+46H
+464726 *
+1
+ (210:7B$
+
+
+13
+14
+
+
+15
+48
+
+
+17
+49
+
+55
+555621
+N
+24H
+242526 *
+1
+ ()210:7B$
+
+
+13
+14
+
+
+15
+27
+
+
+17
+28
+
+57
+575821
+
+42
+424321
+
+19
+192021
+
+29
+293021
+
+61
+616221
+
+50
+505121
+N
+53H
+535426 *
+1/ /()210:7B$
+
+
+13
+65
+
+
+15
+66
+
+
+17
+67
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+40
+404121
+
+34
+343521
+
+44
+444521r≤
+
+101922*
+1 (&
+
+101923*
+1 (
+
+242922*
+1 (
+
+
+242923*
+1 (
+
+
+241922*
+1 (7
+
+241923*
+1 (
+
+243123*
+1 (!
+
+243123*
+11 (=
+
+243133*
+1	 ( 
+
+243436*
+1	 (7
+
+243739*
+1. (7
+
+243433*
+1	 (
+
+244036*
+1	 (
+
+244239*
+1	 (
+
+243123*
+1 ( 
+
+244436*
+1! (,
+
+462922*
+1 (
+
+
+462923*
+1 (
+
+
+461922*
+1 (0
+
+461923*
+1 (
+
+465052*
+1 (
+
+465023*
+1	 (
+
+465039*
+1! ()
+
+465023*
+1 (%
+
+461036*
+1"! "(6
+
+465339*
+1"! "(6
+
+465536*
+1%	 %(M
+
+465739*
+1%G %(M
+
+465533*
+1%	 %(
+
+464036*
+1%	 %(
+
+465939*
+1%	 %(
+
+465036*
+1% %(,
+
+466139*
+1% %(,
+
+465536*
+1(	 ((J
+
+466339*
+1(C ((J
+
+465533*
+1(	 ((
+
+464036*
+1(	 ((
+
+465939*
+1(	 ((
+
+465036*
+1( ((,
+
+466139*
+1( ((,
+
+465536*
+1+	 +(K
+
+466339*
+1+D +(K
+
+465533*
+1+	 +(
+
+464036*
+1+	 +(
+
+465939*
+1+	 +(
+
+465036*
+1+ +(,
+
+466139*
+1+ +(,
+
+465536*
+1,	 ,(D
+
+466339*
+1,= ,(D
+
+465533*
+1,	 ,(
+
+464036*
+1,	 ,(
+
+465939*
+1,	 ,(
+
+465036*
+1, ,(,
+
+466139*
+1, ,(,

@@ -1,0 +1,169 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684695135*java2.BÑ
+D
+?src/main/java/com/clinalert/doctortracker/dto/LoginRequest.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+C
+>adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.dto9
+2
+,com.clinalert.doctortracker.dto.LoginRequest11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(8:1)-(15:2)16
+
+simple-name17
+
+LoginRequest18
+
+lombok.Data20
+
+unknown21
+
+annotated by22
+
+
+uses23
+
+lombok.Builder25
+
+lombok.NoArgsConstructor27
+
+lombok.AllArgsConstructor29
+8
+2com.clinalert.doctortracker.dto.LoginRequest.email31
+
+field32
+
+private33
+
+(13:5)-(13:26)34
+
+email35
+;
+5com.clinalert.doctortracker.dto.LoginRequest.password37
+
+(14:5)-(14:29)38
+
+password39J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jº
+
+24
+242521
+N
+30H
+303132 *
+1 (210:7B$
+
+
+13
+33
+
+
+15
+34
+
+
+17
+35
+
+19
+192021
+N
+36H
+363732 *
+1 (210:7B$
+
+
+13
+33
+
+
+15
+38
+
+
+17
+39
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+28
+282921
+
+26
+262721rÿ
+
+101922*
+1 (
+
+101923*
+1 (
+
+102422*
+1	 	(	
+
+102423*
+1	 	(	
+
+102622*
+1
+ 
+(
+
+102623*
+1
+ 
+(
+
+102822*
+1 (
+
+102823*
+1 (

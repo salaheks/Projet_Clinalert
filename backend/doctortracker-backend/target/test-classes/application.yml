@@ -1,0 +1,55 @@
+# ============================================
+# Configuration de Test pour ClinAlert
+# ============================================
+# Ce fichier configure l'environnement de test avec :
+# - Base de données H2 en mémoire (pas besoin de PostgreSQL)
+# - JWT avec une clé secrète de test
+# - Logs activés pour le debugging
+
+spring:
+  # Configuration de la base de données H2 pour les tests
+  # H2 est une base de données en mémoire, parfaite pour les tests
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  
+  # Configuration JPA/Hibernate
+  jpa:
+    # create-drop : crée le schéma au début et le supprime à la fin des tests
+    hibernate:
+      ddl-auto: create-drop
+    # Afficher les requêtes SQL dans les logs
+    show-sql: true
+    properties:
+      hibernate:
+        # Formater les requêtes SQL pour une meilleure lisibilité
+        format_sql: true
+        # Mode PostgreSQL pour H2
+        dialect: org.hibernate.dialect.H2Dialect
+  
+  # Désactiver la console H2 dans les tests
+  h2:
+    console:
+      enabled: false
+
+# Configuration de l'application (JWT, etc.)
+app:
+  # Clé secrète pour signer les tokens JWT de test (256 bits minimum)
+  jwtSecret: test-secret-key-for-testing-purposes-must-be-at-least-256-bits-long-for-security
+  # Expiration du token : 1 heure (en millisecondes)
+  jwtExpirationMs: 3600000
+  # Clé secrète pour HMAC (utilisée pour la vérification d'intégrité)
+  hmacSecret: test-hmac-secret-key-for-testing-purposes-must-be-secure
+
+# Configuration des logs
+logging:
+  level:
+    # Niveau de log pour votre application
+    com.clinalert.doctortracker: DEBUG
+    # Logs Hibernate
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    # Logs Spring Security (pour débugger l'authentification)
+    org.springframework.security: DEBUG

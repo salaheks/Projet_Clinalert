@@ -1,0 +1,328 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684695810*java2.BÈ
+S
+Nsrc/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+G
+Badaoumoum-org_projet-clinalert:com.clinalert.doctortracker.service9
+A
+;com.clinalert.doctortracker.service.AnomalyDetectionService11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(11:1)-(44:2)16
+
+simple-name17
+
+AnomalyDetectionService18
+,
+&org.springframework.stereotype.Service20
+
+unknown21
+
+annotated by22
+
+
+uses23
+$
+lombok.RequiredArgsConstructor25
+W
+Qcom.clinalert.doctortracker.service.AnomalyDetectionService.measurementRepository27
+
+field28
+
+private29
+
+(15:5)-(15:63)30
+
+measurementRepository31
+B
+<com.clinalert.doctortracker.repository.MeasurementRepository33
+
+is type34
+S
+Mcom.clinalert.doctortracker.service.AnomalyDetectionService.STD_DEV_THRESHOLD36
+
+(17:5)-(17:57)37
+
+STD_DEV_THRESHOLD38
+}
+wcom.clinalert.doctortracker.service.AnomalyDetectionService#isAnomaly(Lcom/clinalert/doctortracker/model/Measurement;)Z40
+
+method41
+
+(19:5)-(43:6)42
+
+	isAnomaly43
+3
+-com.clinalert.doctortracker.model.Measurement45
+
+	has param46
+
+
+references47
+©
+¢com.clinalert.doctortracker.repository.MeasurementRepository#findTop20ByPatientIdAndTypeOrderByTimestampDesc(Ljava/lang/String;Ljava/lang/String;)Ljava/util/List;49
+
+calls50
+T
+Ncom.clinalert.doctortracker.model.Measurement#getPatientId()Ljava/lang/String;52
+O
+Icom.clinalert.doctortracker.model.Measurement#getType()Ljava/lang/String;54
+E
+?org.apache.commons.math3.stat.descriptive.DescriptiveStatistics56
+R
+Lorg.apache.commons.math3.stat.descriptive.DescriptiveStatistics#addValue(D)V58
+P
+Jcom.clinalert.doctortracker.model.Measurement#getValue()Ljava/lang/Double;60
+P
+Jorg.apache.commons.math3.stat.descriptive.DescriptiveStatistics#getMean()D62
+]
+Worg.apache.commons.math3.stat.descriptive.DescriptiveStatistics#getStandardDeviation()D64J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j¬
+J
+10D
+101112 *
+1 (%:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+24
+242521
+
+57
+575821
+
+32
+323321
+
+53
+535421
+
+63
+636421
+N
+39H
+394041 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+42
+
+
+17
+43
+
+51
+515221
+N
+26H
+262728 *
+1) (>210:7B$
+
+
+13
+29
+
+
+15
+30
+
+
+17
+31
+
+61
+616221
+
+19
+192021
+
+55
+555621
+
+48
+484921
+
+59
+596021
+N
+35H
+353628 *
+1! (2210:7B$
+
+
+13
+29
+
+
+15
+37
+
+
+17
+38
+
+44
+444521r‚
+
+101922*
+1 (	
+
+101923*
+1 (	
+
+102422*
+1 (
+
+102423*
+1 (
+
+263234*
+1 ((
+
+263223*
+1 ((
+
+263223*
+1) (>
+
+394446*
+1 ()
+
+394434*
+1* (8
+
+394423*
+1 ()
+
+394423*
+1 (
+
+393247*
+1% (j
+
+394850*
+1; (j
+
+392647*
+1% (:
+
+393223*
+1% (:
+
+392647*
+1% (:
+
+394447*
+1 (,
+
+395150*
+1  (,
+
+394447*
+10 (F
+
+395350*
+1? (F
+
+395534*
+1 ($
+
+395523*
+1	 (
+
+395550*
+1+ (@
+
+394434*
+1 (
+
+394423*
+1 (
+
+395547*
+1 (
+
+395750*
+1 (
+
+394447*
+1 (&
+
+395950*
+1 (&
+
+395547*
+1! !($
+
+396150*
+1! !($
+
+395547*
+1" "(3
+
+396350*
+1" "(3
+
+394447*
+1& &(4
+
+395950*
+1&, &(4
+
+394447*
+1)# )(:
+
+395950*
+1)2 )(:
+
+393547*
+1* *(*

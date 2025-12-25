@@ -1,0 +1,250 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684694398*java2.BË
+E
+@src/main/java/com/clinalert/doctortracker/config/CorsConfig.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+F
+Aadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.config9
+3
+-com.clinalert.doctortracker.config.CorsConfig11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(11:1)-(41:2)16
+
+simple-name17
+
+
+CorsConfig18
+:
+4org.springframework.context.annotation.Configuration20
+
+unknown21
+
+annotated by22
+
+
+uses23
+É
+}com.clinalert.doctortracker.config.CorsConfig#corsConfigurationSource()Lorg/springframework/web/cors/CorsConfigurationSource;25
+
+method26
+
+(14:5)-(40:6)27
+
+corsConfigurationSource28
+:
+4org.springframework.web.cors.CorsConfigurationSource30
+
+returns31
+1
++org.springframework.context.annotation.Bean33
+4
+.org.springframework.web.cors.CorsConfiguration35
+
+is type36
+
+calls37
+
+
+references38
+ê
+âorg.springframework.web.cors.CorsConfiguration#setAllowedOriginPatterns(Ljava/util/List;)Lorg/springframework/web/cors/CorsConfiguration;40
+Y
+Sorg.springframework.web.cors.CorsConfiguration#setAllowedMethods(Ljava/util/List;)V42
+Y
+Sorg.springframework.web.cors.CorsConfiguration#setAllowedHeaders(Ljava/util/List;)V44
+^
+Xorg.springframework.web.cors.CorsConfiguration#setAllowCredentials(Ljava/lang/Boolean;)V46
+Y
+Sorg.springframework.web.cors.CorsConfiguration#setExposedHeaders(Ljava/util/List;)V48
+Q
+Korg.springframework.web.cors.CorsConfiguration#setMaxAge(Ljava/lang/Long;)V50
+B
+<org.springframework.web.cors.UrlBasedCorsConfigurationSource52
+¢
+õorg.springframework.web.cors.UrlBasedCorsConfigurationSource#registerCorsConfiguration(Ljava/lang/String;Lorg/springframework/web/cors/CorsConfiguration;)V54J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jå
+
+43
+434421
+
+51
+515221
+
+53
+535421
+
+34
+343521
+
+41
+414221
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+19
+192021
+
+29
+293021
+
+45
+454621
+
+39
+394021
+N
+24H
+242526 *
+1$ (;210:7B$
+
+
+13
+14
+
+
+15
+27
+
+
+17
+28
+
+49
+495021
+
+32
+323321
+
+47
+474821rŸ
+
+101922*
+1 (
+
+101923*
+1 (
+
+242931*
+1 (#
+
+243222*
+1 (
+
+
+243223*
+1 (
+
+
+242923*
+1 (#
+
+243436*
+1 ((
+
+243423*
+1	 (
+
+243437*
+1/ (@
+
+243431*
+1	 (/
+
+243438*
+1	 (/
+
+243937*
+1 (/
+
+243438*
+1	 ((
+
+244137*
+1 ((
+
+243438*
+1	 ((
+
+244337*
+1 ((
+
+243438*
+1	 (*
+
+244537*
+1 (*
+
+243438*
+1	 ((
+
+244737*
+1 ((
+
+243438*
+1"	 "( 
+
+244937*
+1" "( 
+
+245136*
+1$) $(/
+
+245123*
+1$	 $((
+
+245137*
+1$6 $(U
+
+245138*
+1%	 %()
+
+245337*
+1% %()

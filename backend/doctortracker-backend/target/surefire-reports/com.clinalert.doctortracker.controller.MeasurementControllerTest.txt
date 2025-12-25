@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.clinalert.doctortracker.controller.MeasurementControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.413 s -- in com.clinalert.doctortracker.controller.MeasurementControllerTest

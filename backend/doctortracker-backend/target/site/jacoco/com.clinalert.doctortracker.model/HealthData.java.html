@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HealthData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.model</a> &gt; <span class="el_source">HealthData.java</span></div><h1>HealthData.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = &quot;health_data&quot;)
+<span class="fc" id="L8">public class HealthData {</span>
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @Column(name = &quot;patient_id&quot;, nullable = false)
+    private String patientId;
+
+    @Column(name = &quot;device_id&quot;)
+    private String deviceId;
+
+    @Column(name = &quot;heart_rate&quot;)
+    private Integer heartRate; // bpm
+
+    @Column(name = &quot;steps&quot;)
+    private Integer steps;
+
+    @Column(name = &quot;sleep_minutes&quot;)
+    private Integer sleepMinutes;
+
+    @Column(name = &quot;spo2&quot;)
+    private Double spO2; // percentage
+
+    @Column(name = &quot;blood_pressure_systolic&quot;)
+    private Integer bloodPressureSystolic;
+
+    @Column(name = &quot;blood_pressure_diastolic&quot;)
+    private Integer bloodPressureDiastolic;
+
+    @Column(name = &quot;temperature&quot;)
+    private Double temperature; // Celsius
+
+    @Column(name = &quot;calories_burned&quot;)
+    private Integer caloriesBurned;
+
+    @Column(name = &quot;distance_meters&quot;)
+    private Double distanceMeters;
+
+    @Column(name = &quot;timestamp&quot;, nullable = false)
+    private LocalDateTime timestamp;
+
+    @Column(name = &quot;source&quot;)
+    private String source; // &quot;smartwatch&quot;, &quot;manual&quot;, &quot;sensor&quot;
+
+    @Column(name = &quot;received_at&quot;)
+    private LocalDateTime receivedAt;
+
+    @PrePersist
+    protected void onCreate() {
+<span class="nc" id="L57">        receivedAt = LocalDateTime.now();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (timestamp == null) {</span>
+<span class="nc" id="L59">            timestamp = LocalDateTime.now();</span>
+        }
+<span class="nc" id="L61">    }</span>
+
+    // Getters and Setters
+    public String getId() {
+<span class="fc" id="L65">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="fc" id="L69">        this.id = id;</span>
+<span class="fc" id="L70">    }</span>
+
+    public String getPatientId() {
+<span class="fc" id="L73">        return patientId;</span>
+    }
+
+    public void setPatientId(String patientId) {
+<span class="fc" id="L77">        this.patientId = patientId;</span>
+<span class="fc" id="L78">    }</span>
+
+    public String getDeviceId() {
+<span class="fc" id="L81">        return deviceId;</span>
+    }
+
+    public void setDeviceId(String deviceId) {
+<span class="fc" id="L85">        this.deviceId = deviceId;</span>
+<span class="fc" id="L86">    }</span>
+
+    public Integer getHeartRate() {
+<span class="fc" id="L89">        return heartRate;</span>
+    }
+
+    public void setHeartRate(Integer heartRate) {
+<span class="fc" id="L93">        this.heartRate = heartRate;</span>
+<span class="fc" id="L94">    }</span>
+
+    public Integer getSteps() {
+<span class="fc" id="L97">        return steps;</span>
+    }
+
+    public void setSteps(Integer steps) {
+<span class="fc" id="L101">        this.steps = steps;</span>
+<span class="fc" id="L102">    }</span>
+
+    public Integer getSleepMinutes() {
+<span class="fc" id="L105">        return sleepMinutes;</span>
+    }
+
+    public void setSleepMinutes(Integer sleepMinutes) {
+<span class="fc" id="L109">        this.sleepMinutes = sleepMinutes;</span>
+<span class="fc" id="L110">    }</span>
+
+    public Double getSpO2() {
+<span class="fc" id="L113">        return spO2;</span>
+    }
+
+    public void setSpO2(Double spO2) {
+<span class="fc" id="L117">        this.spO2 = spO2;</span>
+<span class="fc" id="L118">    }</span>
+
+    public Integer getBloodPressureSystolic() {
+<span class="fc" id="L121">        return bloodPressureSystolic;</span>
+    }
+
+    public void setBloodPressureSystolic(Integer bloodPressureSystolic) {
+<span class="fc" id="L125">        this.bloodPressureSystolic = bloodPressureSystolic;</span>
+<span class="fc" id="L126">    }</span>
+
+    public Integer getBloodPressureDiastolic() {
+<span class="fc" id="L129">        return bloodPressureDiastolic;</span>
+    }
+
+    public void setBloodPressureDiastolic(Integer bloodPressureDiastolic) {
+<span class="fc" id="L133">        this.bloodPressureDiastolic = bloodPressureDiastolic;</span>
+<span class="fc" id="L134">    }</span>
+
+    public Double getTemperature() {
+<span class="fc" id="L137">        return temperature;</span>
+    }
+
+    public void setTemperature(Double temperature) {
+<span class="fc" id="L141">        this.temperature = temperature;</span>
+<span class="fc" id="L142">    }</span>
+
+    public Integer getCaloriesBurned() {
+<span class="fc" id="L145">        return caloriesBurned;</span>
+    }
+
+    public void setCaloriesBurned(Integer caloriesBurned) {
+<span class="fc" id="L149">        this.caloriesBurned = caloriesBurned;</span>
+<span class="fc" id="L150">    }</span>
+
+    public Double getDistanceMeters() {
+<span class="fc" id="L153">        return distanceMeters;</span>
+    }
+
+    public void setDistanceMeters(Double distanceMeters) {
+<span class="fc" id="L157">        this.distanceMeters = distanceMeters;</span>
+<span class="fc" id="L158">    }</span>
+
+    public LocalDateTime getTimestamp() {
+<span class="fc" id="L161">        return timestamp;</span>
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+<span class="fc" id="L165">        this.timestamp = timestamp;</span>
+<span class="fc" id="L166">    }</span>
+
+    public String getSource() {
+<span class="fc" id="L169">        return source;</span>
+    }
+
+    public void setSource(String source) {
+<span class="fc" id="L173">        this.source = source;</span>
+<span class="fc" id="L174">    }</span>
+
+    public LocalDateTime getReceivedAt() {
+<span class="fc" id="L177">        return receivedAt;</span>
+    }
+
+    public void setReceivedAt(LocalDateTime receivedAt) {
+<span class="fc" id="L181">        this.receivedAt = receivedAt;</span>
+<span class="fc" id="L182">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

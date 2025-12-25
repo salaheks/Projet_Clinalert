@@ -1,0 +1,39 @@
+
+M__sonar_lambda_14$com.clinalert.doctortracker.security.UserDetailsServiceImpl´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/security/UserDetailsServiceImpl.java (g"startingBlock*Ç
+startingBlock (g¦
+£
+
+__unknown_file (
+emailjava.lang.String"__id*f
+
+__unknown_file (J*H=
+;com.clinalert.doctortracker.security.UserDetailsServiceImpl"
+email*
+1*¸
+1A (^…
+‚
+A (f
+%3java.lang.String"__concat*+
+A (^
+User not found with email: *'
+a (f
+
+emailjava.lang.String¥¢
+' (@M
+%4Gorg.springframework.security.core.userdetails.UsernameNotFoundException"Gorg.springframework.security.core.userdetails.UsernameNotFoundException›
+˜
+# (g
+%5"corg.springframework.security.core.userdetails.UsernameNotFoundException#<init>(Ljava/lang/String;)V*k
+
+__unknown_file (O
+M
+%4Gorg.springframework.security.core.userdetails.UsernameNotFoundException*4
+
+__unknown_file (
+
+%3java.lang.String"[
+# (gO
+M
+%4Gorg.springframework.security.core.userdetails.UsernameNotFoundExceptionB
+java.util.function.Supplier

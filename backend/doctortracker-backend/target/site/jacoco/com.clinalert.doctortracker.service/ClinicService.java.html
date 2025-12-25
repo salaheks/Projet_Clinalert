@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClinicService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.service</a> &gt; <span class="el_source">ClinicService.java</span></div><h1>ClinicService.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.service;
+
+import com.clinalert.doctortracker.model.Clinic;
+import com.clinalert.doctortracker.repository.ClinicRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class ClinicService {
+
+    private final ClinicRepository clinicRepository;
+
+    public List&lt;Clinic&gt; getAllClinics() {
+<span class="fc" id="L18">        return clinicRepository.findAll();</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Optional&lt;Clinic&gt; getClinicById(String id) {
+<span class="fc" id="L23">        return clinicRepository.findById(id);</span>
+    }
+
+    public List&lt;Clinic&gt; getClinicsByDoctorId(String doctorId) {
+<span class="fc" id="L27">        return clinicRepository.findByDoctorId(doctorId);</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Clinic createClinic(Clinic clinic) {
+<span class="fc" id="L32">        return clinicRepository.save(clinic);</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Clinic updateClinic(String id, Clinic clinicDetails) {
+<span class="fc" id="L37">        return clinicRepository.findById(id)</span>
+<span class="fc" id="L38">                .map(clinic -&gt; {</span>
+<span class="fc" id="L39">                    clinic.setName(clinicDetails.getName());</span>
+<span class="fc" id="L40">                    clinic.setAddress(clinicDetails.getAddress());</span>
+<span class="fc" id="L41">                    clinic.setPhone(clinicDetails.getPhone());</span>
+<span class="fc" id="L42">                    clinic.setDoctorId(clinicDetails.getDoctorId());</span>
+<span class="fc" id="L43">                    return clinicRepository.save(clinic);</span>
+                })
+<span class="fc" id="L45">                .orElseThrow(() -&gt; new RuntimeException(&quot;Clinic not found with id: &quot; + id));</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public void deleteClinic(String id) {
+<span class="fc" id="L50">        clinicRepository.deleteById(id);</span>
+<span class="fc" id="L51">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

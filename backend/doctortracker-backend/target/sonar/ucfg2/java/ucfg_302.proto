@@ -1,0 +1,964 @@
+
+]com.clinalert.doctortracker.service.ReportService#generatePatientReport(Ljava/lang/String;)[B™
+üC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ReportService.java" "('"74*â
+68. /(.ÚÔ
+. /(.,
+%18%com.itextpdf.layout.element.Paragraph"^com.itextpdf.layout.ElementPropertyContainer#setBold()Lcom/itextpdf/layout/IPropertyContainer;*J
+
+__unknown_file (.
+,
+%17%com.itextpdf.layout.element.Paragraph2	setBold()*
+67*®
+24I I(Bëé
+I I(B(
+%70!com.itextpdf.layout.element.Table"Écom.itextpdf.layout.element.BlockElement#setWidth(Lcom/itextpdf/layout/properties/UnitValue;)Lcom/itextpdf/layout/element/IElement;*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table*M
+
+__unknown_file (1
+/
+%69(com.itextpdf.layout.properties.UnitValue24setWidth(Lcom/itextpdf/layout/properties/UnitValue;)*
+23*µ
+69/! /(#ûõ
+. /($,
+%17%com.itextpdf.layout.element.Paragraph"ccom.itextpdf.layout.ElementPropertyContainer#setFontSize(F)Lcom/itextpdf/layout/IPropertyContainer;*J
+
+__unknown_file (.
+,
+%15%com.itextpdf.layout.element.Paragraph* 
+
+__unknown_file (22setFontSize(F)*
+68*∫
+25H H(`å
+â
+H H(`/
+
+alertTable!com.itextpdf.layout.element.Table"__id*F
+
+__unknown_file (*
+(
+%67!com.itextpdf.layout.element.Tableî
+ë
+I  I(A/
+%69(com.itextpdf.layout.properties.UnitValue"hcom.itextpdf.layout.properties.UnitValue#createPercentValue(F)Lcom/itextpdf/layout/properties/UnitValue;*H
+
+__unknown_file (,"*
+(com.itextpdf.layout.properties.UnitValue* 
+
+__unknown_file (2d*
+24*˜
+26H H(_YW
+H# H(((
+%67!com.itextpdf.layout.element.Table"!com.itextpdf.layout.element.TableÖ
+Ç
+H H(_
+%68"Vcom.itextpdf.layout.element.Table#<init>([Lcom/itextpdf/layout/properties/UnitValue;)V*F
+
+__unknown_file (*
+(
+%67!com.itextpdf.layout.element.Table*O
+
+__unknown_file (3
+1
+%66*com.itextpdf.layout.properties.UnitValue[]*
+25*±
+27H) H(2ö
+ó
+H) H(^1
+%66*com.itextpdf.layout.properties.UnitValue[]"jcom.itextpdf.layout.properties.UnitValue#createPercentArray([F)[Lcom/itextpdf/layout/properties/UnitValue;*H
+
+__unknown_file (,"*
+(com.itextpdf.layout.properties.UnitValue*"
+
+__unknown_file (
+""*
+26*¸
+28G G(TÂ‚
+G G(T#
+%65com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%64%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+27*â
+29G G(SÚÔ
+G G(S,
+%64%com.itextpdf.layout.element.Paragraph"^com.itextpdf.layout.ElementPropertyContainer#setBold()Lcom/itextpdf/layout/IPropertyContainer;*J
+
+__unknown_file (.
+,
+%63%com.itextpdf.layout.element.Paragraph2	setBold()*
+28*‚
+70+ +(2
+}
++ +(2(
+documentcom.itextpdf.layout.Document"__id*A
+
+__unknown_file (%
+#
+%13com.itextpdf.layout.Documenta_
+. .(&,
+%15%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.ParagraphÁ
+‰
+. .(L
+%16"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%15%com.itextpdf.layout.element.Paragraph*B
+
+__unknown_file (&$
+"ClinAlert - Patient Medical Report*
+69*‚
+71* *(6â
+Ü
+* *(6*
+pdf#com.itextpdf.kernel.pdf.PdfDocument"__id*H
+
+__unknown_file (,
+*
+%11#com.itextpdf.kernel.pdf.PdfDocumentOM
++$ +(,#
+%13com.itextpdf.layout.Document"com.itextpdf.layout.DocumentÓ
+Î
++  +(1
+%14"Kcom.itextpdf.layout.Document#<init>(Lcom/itextpdf/kernel/pdf/PdfDocument;)V*A
+
+__unknown_file (%
+#
+%13com.itextpdf.layout.Document*H
+
+__unknown_file (,
+*
+pdf#com.itextpdf.kernel.pdf.PdfDocument*
+70*˚
+72) )(2á
+Ñ
+) )(2+
+writer!com.itextpdf.kernel.pdf.PdfWriter"__id*E
+
+__unknown_file ()
+'
+%9!com.itextpdf.kernel.pdf.PdfWriter][
+*" *(-*
+%11#com.itextpdf.kernel.pdf.PdfDocument"#com.itextpdf.kernel.pdf.PdfDocument˚
+¯
+* *(5
+%12"Pcom.itextpdf.kernel.pdf.PdfDocument#<init>(Lcom/itextpdf/kernel/pdf/PdfWriter;)V*H
+
+__unknown_file (,
+*
+%11#com.itextpdf.kernel.pdf.PdfDocument*I
+
+__unknown_file (-
++
+writer!com.itextpdf.kernel.pdf.PdfWriter*
+71*”
+73)- )(0XV
+)# )(,'
+%9!com.itextpdf.kernel.pdf.PdfWriter"!com.itextpdf.kernel.pdf.PdfWriter‚
+ﬂ
+) )(1
+%10"Acom.itextpdf.kernel.pdf.PdfWriter#<init>(Ljava/io/OutputStream;)V*E
+
+__unknown_file ()
+'
+%9!com.itextpdf.kernel.pdf.PdfWriter*B
+
+__unknown_file (&
+$
+outjava.io.ByteArrayOutputStream*
+72*ï
+74# #(™
+ß
+# #(F
+%0java.lang.String"Xjava.util.Objects#requireNonNull(Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;*1
+
+__unknown_file ("
+java.util.Objects*;
+
+__unknown_file (
+
+	patientIdjava.lang.String*9
+
+__unknown_file (
+Patient ID cannot be nullΩ
+∫
+$ $(+>
+%18com.clinalert.doctortracker.repository.PatientRepository"__id*h
+
+__unknown_file (L*J3
+1com.clinalert.doctortracker.service.ReportService"
+patientRepository≈¬
+$ $(?
+%2java.util.Optional"corg.springframework.data.repository.CrudRepository#findById(Ljava/lang/Object;)Ljava/util/Optional;*\
+
+__unknown_file (@
+>
+%18com.clinalert.doctortracker.repository.PatientRepository*;
+
+__unknown_file (
+
+	patientIdjava.lang.String2findById(Ljava/lang/Object;)®
+•
+% %(S!
+%3java.util.function.Supplier"__declareFunction*c
+
+__unknown_file (GE
+C__sonar_lambda_17$com.clinalert.doctortracker.service.ReportService¥±
+$ %(T/
+%6)com.clinalert.doctortracker.model.Patient"Ojava.util.Optional#orElseThrow(Ljava/util/function/Supplier;)Ljava/lang/Object;*6
+
+__unknown_file (
+
+%2java.util.Optional*?
+
+__unknown_file (#
+!
+%3java.util.function.Supplier2*orElseThrow(Ljava/util/function/Supplier;)ò
+ï
+$ %(U4
+patient)com.clinalert.doctortracker.model.Patient"__id*M
+
+__unknown_file (1
+/
+%6)com.clinalert.doctortracker.model.PatientPN
+'( '(=#
+%7java.io.ByteArrayOutputStream"java.io.ByteArrayOutputStream~
+|
+'$ '(?
+%8"'java.io.ByteArrayOutputStream#<init>()V*A
+
+__unknown_file (%
+#
+%7java.io.ByteArrayOutputStream{
+y
+' '(@$
+outjava.io.ByteArrayOutputStream"__id*A
+
+__unknown_file (%
+#
+%7java.io.ByteArrayOutputStream*
+73*µ
+30GF G(Hûõ
+G G(I,
+%63%com.itextpdf.layout.element.Paragraph"ccom.itextpdf.layout.ElementPropertyContainer#setFontSize(F)Lcom/itextpdf/layout/IPropertyContainer;*J
+
+__unknown_file (.
+,
+%61%com.itextpdf.layout.element.Paragraph* 
+
+__unknown_file (22setFontSize(F)*
+29*Œ
+31G G(a_
+G G(&,
+%61%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.Paragraph‘
+—
+G G(9
+%62"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%61%com.itextpdf.layout.element.Paragraph*/
+
+__unknown_file (
+\nRecent Alerts*
+30*ˇ
+32D D(ËÂ
+D D($#
+%60com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+31*∂
+33> >(j
+h
+> >(2
+m-com.clinalert.doctortracker.model.Measurement"__id*"
+
+__unknown_file (
+""Ø
+¨
+> >(2
+m-com.clinalert.doctortracker.model.Measurement"
+__arrayGet*<
+
+__unknown_file ( 
+
+measurementsjava.util.List*"
+
+__unknown_file (
+""*
+42
+32*”
+34B B(?ºπ
+B B(?(
+%59!com.itextpdf.layout.element.Table"`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*5
+
+__unknown_file (
+
+%58java.lang.String2addCell(Ljava/lang/String;)*
+33*Ω
+35B# B(>¶£
+B# B(>
+%58java.lang.String"4java.time.LocalDateTime#toString()Ljava/lang/String;*<
+
+__unknown_file ( 
+
+%57java.time.LocalDateTime2
+toString()*
+34*˝
+36B B(Ê„
+B# B(3
+%57java.time.LocalDateTime"Ucom.clinalert.doctortracker.model.Measurement#getTimestamp()Ljava/time/LocalDateTime;*P
+
+__unknown_file (4
+2
+m-com.clinalert.doctortracker.model.Measurement2getTimestamp()*
+35*ø
+37A A(®•
+A A('(
+%56!com.itextpdf.layout.element.Table"`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*!
+
+__unknown_file (
+-2addCell(Ljava/lang/String;)*
+36*”
+38@ @(@ºπ
+@ @(@(
+%55!com.itextpdf.layout.element.Table"`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*5
+
+__unknown_file (
+
+%54java.lang.String2addCell(Ljava/lang/String;)*
+37*Ê
+39@# @(?œ
+Ã
+@# @(?
+%54java.lang.String">java.lang.String#valueOf(Ljava/lang/Object;)Ljava/lang/String;*0
+
+__unknown_file ("
+java.lang.String*5
+
+__unknown_file (
+
+%53java.lang.Double*
+38*Á
+40@ @(–Õ
+@2 @(>
+%53java.lang.Double"Jcom.clinalert.doctortracker.model.Measurement#getValue()Ljava/lang/Double;*P
+
+__unknown_file (4
+2
+m-com.clinalert.doctortracker.model.Measurement2
+getValue()*
+39*”
+41? ?(/ºπ
+? ?(/(
+%52!com.itextpdf.layout.element.Table"`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*5
+
+__unknown_file (
+
+%51java.lang.String2addCell(Ljava/lang/String;)*
+40*Â
+42? ?(ŒÀ
+?# ?(.
+%51java.lang.String"Icom.clinalert.doctortracker.model.Measurement#getType()Ljava/lang/String;*P
+
+__unknown_file (4
+2
+m-com.clinalert.doctortracker.model.Measurement2	getType()*
+41*}
+44= =(wg
+e
+= =(w
+measurementsjava.util.List"__id*3
+
+__unknown_file (
+
+%50java.util.List*
+33*Ó
+45=- =(B∆
+√
+=- =(BC
+%49<com.clinalert.doctortracker.repository.MeasurementRepository"__id*l
+
+__unknown_file (P*N3
+1com.clinalert.doctortracker.service.ReportService"
+measurementRepositoryéã
+=- =(v
+%50java.util.List"âcom.clinalert.doctortracker.repository.MeasurementRepository#findTop20ByPatientIdOrderByTimestampDesc(Ljava/lang/String;)Ljava/util/List;*a
+
+__unknown_file (E
+C
+%49<com.clinalert.doctortracker.repository.MeasurementRepository*;
+
+__unknown_file (
+
+	patientIdjava.lang.String2<findTop20ByPatientIdOrderByTimestampDesc(Ljava/lang/String;)*
+44*Œ
+46; ;(∑¥
+; ;(,(
+%48!com.itextpdf.layout.element.Table"fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*$
+
+__unknown_file (
+Time2!addHeaderCell(Ljava/lang/String;)*
+45*Œ
+47: :(∑¥
+: :(,(
+%47!com.itextpdf.layout.element.Table"fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*$
+
+__unknown_file (
+Unit2!addHeaderCell(Ljava/lang/String;)*
+46*œ
+489 9(∏µ
+9 9(-(
+%46!com.itextpdf.layout.element.Table"fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*%
+
+__unknown_file (	
+Value2!addHeaderCell(Ljava/lang/String;)*
+47*Œ
+498 8(∑¥
+8 8(,(
+%45!com.itextpdf.layout.element.Table"fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*$
+
+__unknown_file (
+Type2!addHeaderCell(Ljava/lang/String;)*
+48*®
+507 7(Bëé
+7 7(B(
+%44!com.itextpdf.layout.element.Table"Écom.itextpdf.layout.element.BlockElement#setWidth(Lcom/itextpdf/layout/properties/UnitValue;)Lcom/itextpdf/layout/element/IElement;*M
+
+__unknown_file (1
+/
+
+vitalTable!com.itextpdf.layout.element.Table*M
+
+__unknown_file (1
+/
+%43(com.itextpdf.layout.properties.UnitValue24setWidth(Lcom/itextpdf/layout/properties/UnitValue;)*
+49*∫
+516 6(cå
+â
+6 6(c/
+
+vitalTable!com.itextpdf.layout.element.Table"__id*F
+
+__unknown_file (*
+(
+%41!com.itextpdf.layout.element.Tableî
+ë
+7  7(A/
+%43(com.itextpdf.layout.properties.UnitValue"hcom.itextpdf.layout.properties.UnitValue#createPercentValue(F)Lcom/itextpdf/layout/properties/UnitValue;*H
+
+__unknown_file (,"*
+(com.itextpdf.layout.properties.UnitValue* 
+
+__unknown_file (2d*
+50*˜
+526 6(bYW
+6# 6(((
+%41!com.itextpdf.layout.element.Table"!com.itextpdf.layout.element.TableÖ
+Ç
+6 6(b
+%42"Vcom.itextpdf.layout.element.Table#<init>([Lcom/itextpdf/layout/properties/UnitValue;)V*F
+
+__unknown_file (*
+(
+%41!com.itextpdf.layout.element.Table*O
+
+__unknown_file (3
+1
+%40*com.itextpdf.layout.properties.UnitValue[]*
+51*±
+536) 6(2ö
+ó
+6) 6(a1
+%40*com.itextpdf.layout.properties.UnitValue[]"jcom.itextpdf.layout.properties.UnitValue#createPercentArray([F)[Lcom/itextpdf/layout/properties/UnitValue;*H
+
+__unknown_file (,"*
+(com.itextpdf.layout.properties.UnitValue*"
+
+__unknown_file (
+""*
+52*¸
+545 5(YÂ‚
+5 5(Y#
+%39com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%38%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+53*£
+10O O(d
+b
+O O(,
+a'com.clinalert.doctortracker.model.Alert"__id*"
+
+__unknown_file (
+""£
+†
+O O(,
+a'com.clinalert.doctortracker.model.Alert"
+__arrayGet*6
+
+__unknown_file (
+
+alertsjava.util.List*"
+
+__unknown_file (
+""*
+17
+9*â
+555 5(XÚÔ
+5 5(X,
+%38%com.itextpdf.layout.element.Paragraph"^com.itextpdf.layout.ElementPropertyContainer#setBold()Lcom/itextpdf/layout/IPropertyContainer;*J
+
+__unknown_file (.
+,
+%37%com.itextpdf.layout.element.Paragraph2	setBold()*
+54*”
+11R R(?ºπ
+R R(?(
+%82!com.itextpdf.layout.element.Table"`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table*5
+
+__unknown_file (
+
+%81java.lang.String2addCell(Ljava/lang/String;)*
+10*µ
+565K 5(Mûõ
+5 5(N,
+%37%com.itextpdf.layout.element.Paragraph"ccom.itextpdf.layout.ElementPropertyContainer#setFontSize(F)Lcom/itextpdf/layout/IPropertyContainer;*J
+
+__unknown_file (.
+,
+%35%com.itextpdf.layout.element.Paragraph* 
+
+__unknown_file (22setFontSize(F)*
+55*Ω
+12R# R(>¶£
+R# R(>
+%81java.lang.String"4java.time.LocalDateTime#toString()Ljava/lang/String;*<
+
+__unknown_file ( 
+
+%80java.time.LocalDateTime2
+toString()*
+11*”
+575 5(a_
+5 5(&,
+%35%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.ParagraphŸ
+÷
+5 5(>
+%36"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%35%com.itextpdf.layout.element.Paragraph*4
+
+__unknown_file (
+\nRecent Vital Signs*
+56*Ò
+13R R(⁄◊
+R# R(3
+%80java.time.LocalDateTime"Ocom.clinalert.doctortracker.model.Alert#getTimestamp()Ljava/time/LocalDateTime;*J
+
+__unknown_file (.
+,
+a'com.clinalert.doctortracker.model.Alert2getTimestamp()*
+12*¸
+582 2(CÂ‚
+2 2(C#
+%34com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%32%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+57*”
+14Q Q(2ºπ
+Q Q(2(
+%79!com.itextpdf.layout.element.Table"`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table*5
+
+__unknown_file (
+
+%78java.lang.String2addCell(Ljava/lang/String;)*
+13*ƒ
+592' 2(An
+l
+2' 2(A
+%31java.lang.String"__concat*
+2' 2(.	
+Age: *&
+21 2(A
+
+%30java.lang.Integera_
+2 2(&,
+%32%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.Paragraph⁄
+◊
+2 2(B
+%33"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%32%com.itextpdf.layout.element.Paragraph*5
+
+__unknown_file (
+
+%31java.lang.String*
+58*ﬂ
+15Q Q(»≈
+Q# Q(1
+%78java.lang.String"Fcom.clinalert.doctortracker.model.Alert#getMessage()Ljava/lang/String;*J
+
+__unknown_file (.
+,
+a'com.clinalert.doctortracker.model.Alert2getMessage()*
+14*”
+16P P(3ºπ
+P P(3(
+%77!com.itextpdf.layout.element.Table"`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table*5
+
+__unknown_file (
+
+%76java.lang.String2addCell(Ljava/lang/String;)*
+15*·
+17P P( «
+P# P(2
+%76java.lang.String"Gcom.clinalert.doctortracker.model.Alert#getSeverity()Ljava/lang/String;*J
+
+__unknown_file (.
+,
+a'com.clinalert.doctortracker.model.Alert2getSeverity()*
+16*w
+19N N(ea
+_
+N N(e
+alertsjava.util.List"__id*3
+
+__unknown_file (
+
+%75java.util.List*
+10*À
+1^ ^(ûõ
+^ ^( 
+%93byte[]"-java.io.ByteArrayOutputStream#toByteArray()[B*B
+
+__unknown_file (&
+$
+outjava.io.ByteArrayOutputStream2toByteArray()"
+^ ^(!
+
+%93byte[]*ß
+4Z Z(íè
+Z Z(
+%90void"%com.itextpdf.layout.Document#close()V*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document2close()*
+1*˙
+5X X(;Â‚
+X X(;#
+%89com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%87%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+4*Õ
+6X X(a_
+X X(&,
+%87%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.Paragraph’
+“
+X X(:
+%88"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%87%com.itextpdf.layout.element.Paragraph*0
+
+__unknown_file (
+Doctor Signature*
+5*˙
+7W W(IÂ‚
+W W(I#
+%86com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%84%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+6*€
+8W W(a_
+W W(&,
+%84%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.Paragraph„
+‡
+W W(H
+%85"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%84%com.itextpdf.layout.element.Paragraph*>
+
+__unknown_file (" 
+\n\n__________________________*
+7*˝
+9T T(ËÂ
+T T($#
+%83com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+8*„
+602 2(Ã…
+21 2(A
+%30java.lang.Integer"Ecom.clinalert.doctortracker.model.Patient#getAge()Ljava/lang/Integer;*R
+
+__unknown_file (6
+4
+patient)com.clinalert.doctortracker.model.Patient2getAge()*
+59*¸
+611 1(HÂ‚
+1 1(H#
+%29com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%27%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+60*«
+621' 1(Fq
+o
+1' 1(F
+%26java.lang.String"__concat*
+1' 1(2
+	Patient: *%
+15 1(F
+
+%25java.lang.Stringa_
+1 1(&,
+%27%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.Paragraph⁄
+◊
+1 1(G
+%28"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%27%com.itextpdf.layout.element.Paragraph*5
+
+__unknown_file (
+
+%26java.lang.String*
+61*„
+631 1(Ã…
+15 1(F
+%25java.lang.String"Ecom.clinalert.doctortracker.model.Patient#getName()Ljava/lang/String;*R
+
+__unknown_file (6
+4
+patient)com.clinalert.doctortracker.model.Patient2	getName()*
+62*¸
+640 0(OÂ‚
+0 0(O#
+%24com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%22%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+63*÷
+20N! N(0∫
+∑
+N! N(0=
+%746com.clinalert.doctortracker.repository.AlertRepository"__id*f
+
+__unknown_file (J*H3
+1com.clinalert.doctortracker.service.ReportService"
+alertRepositoryÇˇ
+N! N(d
+%75java.util.List"Écom.clinalert.doctortracker.repository.AlertRepository#findTop10ByPatientIdOrderByTimestampDesc(Ljava/lang/String;)Ljava/util/List;*[
+
+__unknown_file (?
+=
+%746com.clinalert.doctortracker.repository.AlertRepository*;
+
+__unknown_file (
+
+	patientIdjava.lang.String2<findTop10ByPatientIdOrderByTimestampDesc(Ljava/lang/String;)*
+19*”
+650' 0(M}
+{
+0' 0(M
+%21java.lang.String"__concat*
+0' 0(7
+Generated on: *,
+0: 0(M 
+
+%20java.time.LocalDateTimea_
+0 0(&,
+%22%com.itextpdf.layout.element.Paragraph"%com.itextpdf.layout.element.Paragraph⁄
+◊
+0 0(N
+%23"Acom.itextpdf.layout.element.Paragraph#<init>(Ljava/lang/String;)V*J
+
+__unknown_file (.
+,
+%22%com.itextpdf.layout.element.Paragraph*5
+
+__unknown_file (
+
+%21java.lang.String*
+64*Œ
+21L L(∑¥
+L L(,(
+%73!com.itextpdf.layout.element.Table"fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table*$
+
+__unknown_file (
+Time2!addHeaderCell(Ljava/lang/String;)*
+20*µ
+660 0(û
+õ
+0: 0(M
+%20java.time.LocalDateTime"6java.time.LocalDateTime#now()Ljava/time/LocalDateTime;*7
+
+__unknown_file ("
+java.time.LocalDateTime*
+65*—
+22K K(∫∑
+K K(/(
+%72!com.itextpdf.layout.element.Table"fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table*'
+
+__unknown_file (	
+Message2!addHeaderCell(Ljava/lang/String;)*
+21*¸
+67. /(/Â‚
+. /(/#
+%19com.itextpdf.layout.Document"kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;*F
+
+__unknown_file (*
+(
+documentcom.itextpdf.layout.Document*J
+
+__unknown_file (.
+,
+%18%com.itextpdf.layout.element.Paragraph20add(Lcom/itextpdf/layout/element/IBlockElement;)*
+66*“
+23J J(ª∏
+J J(0(
+%71!com.itextpdf.layout.element.Table"fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;*M
+
+__unknown_file (1
+/
+
+alertTable!com.itextpdf.layout.element.Table*(
+
+__unknown_file (
+
+Severity2!addHeaderCell(Ljava/lang/String;)*
+22:)
+"( "(8
+	patientIdjava.lang.StringB53
+1com.clinalert.doctortracker.service.ReportServiceHh

@@ -1,0 +1,40 @@
+
+˜com.clinalert.doctortracker.security.SecurityConfig#authenticationManager(Lorg/springframework/security/config/annotation/authentication/configuration/AuthenticationConfiguration;)Lorg/springframework/security/authentication/AuthenticationManager;¨
+°C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/security/SecurityConfig.javaF! F(6"startingBlock*‹
+startingBlockF6 F(^Ç
+ˇ
+E E(	
+%1"
+__annotate*K
+
+__unknown_file (/-
++org.springframework.context.annotation.Bean*ì
+
+__unknown_file (w
+u
+
+authConfiggorg.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration∂
+≥
+FS F(]u
+
+authConfiggorg.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration"__annotation*"
+
+__unknown_file (
+
+%1*
+1*∑
+1G G(–Õ
+G G(4G
+%0Aorg.springframework.security.authentication.AuthenticationManager"≈org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration#getAuthenticationManager()Lorg/springframework/security/authentication/AuthenticationManager;*ì
+
+__unknown_file (w
+u
+
+authConfiggorg.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration2getAuthenticationManager()"U
+G G(5I
+G
+%0Aorg.springframework.security.authentication.AuthenticationManager:Å
+F7 F(]u
+
+authConfiggorg.springframework.security.config.annotation.authentication.configuration.AuthenticationConfigurationB75
+3com.clinalert.doctortracker.security.SecurityConfigH

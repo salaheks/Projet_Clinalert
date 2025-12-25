@@ -1,0 +1,64 @@
+
+Šcom.clinalert.doctortracker.controller.SmartWatchController#getPatientDevices(Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/SmartWatchController.java#2 #(C"startingBlock*²
+startingBlock#C #(c²
+¯
+#D #(Q
+%3"
+__annotate*T
+
+__unknown_file (86
+4org.springframework.web.bind.annotation.PathVariable*;
+
+__unknown_file (
+
+	patientIdjava.lang.String]
+[
+#Y #(b
+	patientIdjava.lang.String"__annotation*"
+
+__unknown_file (
+
+%3*
+1*ˆ
+1$) $(@Ð
+Í
+$) $(@A
+%0;com.clinalert.doctortracker.service.SmartWatchHealthService"__id*x
+
+__unknown_file (\*Z=
+;com.clinalert.doctortracker.controller.SmartWatchController"
+smartWatchHealthServiceÛØ
+$) $(]
+%1java.util.List"qcom.clinalert.doctortracker.service.SmartWatchHealthService#getPatientDevices(Ljava/lang/String;)Ljava/util/List;*_
+
+__unknown_file (C
+A
+%0;com.clinalert.doctortracker.service.SmartWatchHealthService*;
+
+__unknown_file (
+
+	patientIdjava.lang.String2%getPatientDevices(Ljava/lang/String;)a
+_
+$ $(^
+devicesjava.util.List"__id*2
+
+__unknown_file (
+
+%1java.util.List§
+¤
+% %()-
+%2'org.springframework.http.ResponseEntity"gorg.springframework.http.ResponseEntity#ok(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity*7
+
+__unknown_file (
+
+devicesjava.util.List";
+% %(*/
+-
+%2'org.springframework.http.ResponseEntity:)
+#D #(b
+	patientIdjava.lang.StringB?=
+;com.clinalert.doctortracker.controller.SmartWatchControllerH

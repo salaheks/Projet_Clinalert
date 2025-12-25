@@ -1,0 +1,15 @@
+
+Mcom.clinalert.doctortracker.model.HealthData#getPatientId()Ljava/lang/String;¥
+šC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/HealthData.javaH H("1*¾
+1I I(ˆ
+…
+I I(
+%0java.lang.String"__id*[
+
+__unknown_file (?*=.
+,com.clinalert.doctortracker.model.HealthData"
+	patientId"$
+I I(
+
+%0java.lang.StringB0.
+,com.clinalert.doctortracker.model.HealthDataH

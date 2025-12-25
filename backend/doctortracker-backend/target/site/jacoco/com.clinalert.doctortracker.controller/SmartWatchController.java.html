@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartWatchController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.controller</a> &gt; <span class="el_source">SmartWatchController.java</span></div><h1>SmartWatchController.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.controller;
+
+import com.clinalert.doctortracker.model.DailyHealthSummary;
+import com.clinalert.doctortracker.model.HealthData;
+import com.clinalert.doctortracker.model.SmartWatchDevice;
+import com.clinalert.doctortracker.service.SmartWatchHealthService;
+import com.clinalert.doctortracker.util.AppConstants;
+import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping(&quot;/api/smartwatch&quot;)
+@RequiredArgsConstructor
+public class SmartWatchController {
+
+    private final SmartWatchHealthService smartWatchHealthService;
+
+    // ==================== Device Endpoints ====================
+
+    @PostMapping(&quot;/devices&quot;)
+    public ResponseEntity&lt;SmartWatchDevice&gt; registerDevice(@RequestBody SmartWatchDevice device) {
+<span class="fc" id="L30">        SmartWatchDevice registered = smartWatchHealthService.registerDevice(device);</span>
+<span class="fc" id="L31">        return ResponseEntity.status(HttpStatus.CREATED).body(registered);</span>
+    }
+
+    @GetMapping(&quot;/devices/{patientId}&quot;)
+    public ResponseEntity&lt;List&lt;SmartWatchDevice&gt;&gt; getPatientDevices(@PathVariable String patientId) {
+<span class="fc" id="L36">        List&lt;SmartWatchDevice&gt; devices = smartWatchHealthService.getPatientDevices(patientId);</span>
+<span class="fc" id="L37">        return ResponseEntity.ok(devices);</span>
+    }
+
+    @GetMapping(&quot;/devices/{patientId}/active&quot;)
+    public ResponseEntity&lt;List&lt;SmartWatchDevice&gt;&gt; getActiveDevices(@PathVariable String patientId) {
+<span class="fc" id="L42">        List&lt;SmartWatchDevice&gt; devices = smartWatchHealthService.getActiveDevices(patientId);</span>
+<span class="fc" id="L43">        return ResponseEntity.ok(devices);</span>
+    }
+
+    @PutMapping(&quot;/devices/{deviceId}/deactivate&quot;)
+    public ResponseEntity&lt;Void&gt; deactivateDevice(@PathVariable String deviceId) {
+<span class="fc" id="L48">        smartWatchHealthService.deactivateDevice(deviceId);</span>
+<span class="fc" id="L49">        return ResponseEntity.ok().build();</span>
+    }
+
+    @DeleteMapping(&quot;/devices/{deviceId}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteDevice(@PathVariable String deviceId) {
+<span class="fc" id="L54">        smartWatchHealthService.deleteDevice(deviceId);</span>
+<span class="fc" id="L55">        return ResponseEntity.noContent().build();</span>
+    }
+
+    @PutMapping(&quot;/devices/{deviceId}/ping&quot;)
+    public ResponseEntity&lt;Void&gt; pingDevice(@PathVariable String deviceId) {
+<span class="fc" id="L60">        smartWatchHealthService.updateDeviceLastConnected(deviceId);</span>
+<span class="fc" id="L61">        return ResponseEntity.ok().build();</span>
+    }
+
+    // ==================== Health Data Endpoints ====================
+
+    @PostMapping(&quot;/health-data&quot;)
+    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; submitHealthData(@RequestBody List&lt;HealthData&gt; healthDataList) {
+<span class="pc bpc" id="L68" title="1 of 4 branches missed.">        if (healthDataList == null || healthDataList.isEmpty()) {</span>
+<span class="fc" id="L69">            return ResponseEntity.badRequest().body(Map.of(AppConstants.KEY_ERROR, &quot;No health data provided&quot;));</span>
+        }
+
+<span class="fc" id="L72">        List&lt;HealthData&gt; saved = smartWatchHealthService.saveHealthData(healthDataList);</span>
+<span class="fc" id="L73">        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(</span>
+                AppConstants.KEY_MESSAGE, &quot;Health data saved successfully&quot;,
+<span class="fc" id="L75">                &quot;count&quot;, saved.size()));</span>
+    }
+
+    @PostMapping(&quot;/health-data/single&quot;)
+    public ResponseEntity&lt;HealthData&gt; submitSingleHealthData(@RequestBody HealthData healthData) {
+<span class="fc" id="L80">        HealthData saved = smartWatchHealthService.saveHealthData(healthData);</span>
+<span class="fc" id="L81">        return ResponseEntity.status(HttpStatus.CREATED).body(saved);</span>
+    }
+
+    @GetMapping(&quot;/health-data/{patientId}&quot;)
+    public ResponseEntity&lt;List&lt;HealthData&gt;&gt; getPatientHealthData(@PathVariable String patientId) {
+<span class="fc" id="L86">        List&lt;HealthData&gt; data = smartWatchHealthService.getPatientHealthData(patientId);</span>
+<span class="fc" id="L87">        return ResponseEntity.ok(data);</span>
+    }
+
+    @GetMapping(&quot;/health-data/{patientId}/range&quot;)
+    public ResponseEntity&lt;List&lt;HealthData&gt;&gt; getPatientHealthDataRange(
+            @PathVariable String patientId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+<span class="nc" id="L95">        List&lt;HealthData&gt; data = smartWatchHealthService.getPatientHealthDataBetween(patientId, start, end);</span>
+<span class="nc" id="L96">        return ResponseEntity.ok(data);</span>
+    }
+
+    @GetMapping(&quot;/health-data/{patientId}/heart-rate&quot;)
+    public ResponseEntity&lt;List&lt;HealthData&gt;&gt; getHeartRateHistory(@PathVariable String patientId) {
+<span class="fc" id="L101">        return ResponseEntity.ok(smartWatchHealthService.getHeartRateHistory(patientId));</span>
+    }
+
+    @GetMapping(&quot;/health-data/{patientId}/steps&quot;)
+    public ResponseEntity&lt;List&lt;HealthData&gt;&gt; getStepsHistory(@PathVariable String patientId) {
+<span class="fc" id="L106">        return ResponseEntity.ok(smartWatchHealthService.getStepsHistory(patientId));</span>
+    }
+
+    @GetMapping(&quot;/health-data/{patientId}/spo2&quot;)
+    public ResponseEntity&lt;List&lt;HealthData&gt;&gt; getSpO2History(@PathVariable String patientId) {
+<span class="fc" id="L111">        return ResponseEntity.ok(smartWatchHealthService.getSpO2History(patientId));</span>
+    }
+
+    @GetMapping(&quot;/health-data/{patientId}/sleep&quot;)
+    public ResponseEntity&lt;List&lt;HealthData&gt;&gt; getSleepHistory(@PathVariable String patientId) {
+<span class="fc" id="L116">        return ResponseEntity.ok(smartWatchHealthService.getSleepHistory(patientId));</span>
+    }
+
+    @GetMapping(&quot;/health-data/{patientId}/stats&quot;)
+    public ResponseEntity&lt;SmartWatchHealthService.HealthDataStats&gt; getPatientStats(@PathVariable String patientId) {
+<span class="nc" id="L121">        return ResponseEntity.ok(smartWatchHealthService.getPatientStats(patientId));</span>
+    }
+
+    // ==================== Daily Summary Endpoints ====================
+
+    @PostMapping(&quot;/daily-summary/{patientId}/generate&quot;)
+    public ResponseEntity&lt;Object&gt; generateDailySummary(
+            @PathVariable String patientId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        LocalDate targetDate = date != null ? date : LocalDate.now();</span>
+<span class="fc" id="L131">        DailyHealthSummary summary = smartWatchHealthService.generateDailySummary(patientId, targetDate);</span>
+
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        if (summary == null) {</span>
+<span class="fc" id="L134">            return ResponseEntity.ok(Map.of(AppConstants.KEY_MESSAGE, &quot;No data available for the specified date&quot;));</span>
+        }
+
+<span class="fc" id="L137">        return ResponseEntity.ok(summary);</span>
+    }
+
+    @GetMapping(&quot;/daily-summary/{patientId}&quot;)
+    public ResponseEntity&lt;List&lt;DailyHealthSummary&gt;&gt; getRecentDailySummaries(@PathVariable String patientId) {
+<span class="fc" id="L142">        List&lt;DailyHealthSummary&gt; summaries = smartWatchHealthService.getRecentDailySummaries(patientId);</span>
+<span class="fc" id="L143">        return ResponseEntity.ok(summaries);</span>
+    }
+
+    @GetMapping(&quot;/daily-summary/{patientId}/{date}&quot;)
+    public ResponseEntity&lt;Object&gt; getDailySummary(
+            @PathVariable String patientId,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+<span class="nc" id="L150">        return smartWatchHealthService.getDailySummary(patientId, date)</span>
+<span class="nc" id="L151">                .map(summary -&gt; ResponseEntity.ok((Object) summary))</span>
+<span class="nc" id="L152">                .orElse(ResponseEntity</span>
+<span class="nc" id="L153">                        .ok(Map.of(AppConstants.KEY_MESSAGE, &quot;No summary available for the specified date&quot;)));</span>
+    }
+
+    @GetMapping(&quot;/daily-summary/{patientId}/range&quot;)
+    public ResponseEntity&lt;List&lt;DailyHealthSummary&gt;&gt; getDailySummariesRange(
+            @PathVariable String patientId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+<span class="nc" id="L161">        List&lt;DailyHealthSummary&gt; summaries = smartWatchHealthService.getDailySummariesBetween(patientId, start, end);</span>
+<span class="nc" id="L162">        return ResponseEntity.ok(summaries);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

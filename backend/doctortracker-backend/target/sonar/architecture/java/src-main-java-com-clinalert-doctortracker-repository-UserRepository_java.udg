@@ -1,0 +1,225 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684693431*java2.B×	
+M
+Hsrc/main/java/com/clinalert/doctortracker/repository/UserRepository.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+J
+Eadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.repository9
+;
+5com.clinalert.doctortracker.repository.UserRepository11
+
+	interface12
+
+access13
+
+public14
+
+
+full-range15
+
+(10:1)-(19:2)16
+
+simple-name17
+
+UserRepository18
+;
+5org.springframework.data.jpa.repository.JpaRepository20
+
+unknown21
+
+
+implements22
+/
+)org.springframework.stereotype.Repository24
+
+annotated by25
+
+
+uses26
+,
+&com.clinalert.doctortracker.model.User28
+o
+icom.clinalert.doctortracker.repository.UserRepository#findByEmail(Ljava/lang/String;)Ljava/util/Optional;30
+
+method31
+
+(12:5)-(12:46)32
+
+findByEmail33
+^
+Xcom.clinalert.doctortracker.repository.UserRepository#existsByEmail(Ljava/lang/String;)Z35
+
+(14:5)-(14:41)36
+
+existsByEmail37
+“
+Œcom.clinalert.doctortracker.repository.UserRepository#save(Lcom/clinalert/doctortracker/model/User;)Lcom/clinalert/doctortracker/model/User;39
+
+(16:5)-(18:48)40
+
+
+save41
+
+S43
+
+returns44
+
+	has param45
+&
+ org.springframework.lang.NonNull47
+
+is type48J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j 
+
+42
+424321
+N
+38H
+383931 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+40
+
+
+17
+41
+
+46
+464721
+J
+10D
+101112 *
+1 ( :7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+27
+272821
+
+23
+232421
+N
+29H
+293031 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+32
+
+
+17
+33
+
+19
+192021
+N
+34H
+343531 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+36
+
+
+17
+37r•
+
+101922*
+1) (D
+
+102325*
+1
+ 
+(
+
+102326*
+1
+ 
+(
+
+101926*
+1) (6
+
+102726*
+17 (;
+
+292726*
+1 (
+
+384244*
+1 (
+
+384245*
+1& ('
+
+384625*
+1 (
+
+384626*
+1 (
+
+382745*
+1 (
+
+382726*
+1 (
+
+384248*
+1( (.
+
+384625*
+1 (%
+
+384626*
+1 (%

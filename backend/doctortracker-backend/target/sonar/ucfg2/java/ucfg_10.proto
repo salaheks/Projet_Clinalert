@@ -1,0 +1,41 @@
+
+F__sonar_lambda_0$com.clinalert.doctortracker.controller.UserController®
+£C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/UserController.java! !(?"startingBlock*‚
+startingBlock! !(?á
+Þ
+
+__unknown_file (L
+UserController.this5com.clinalert.doctortracker.controller.UserController"__id*n
+
+__unknown_file (R*P7
+5com.clinalert.doctortracker.controller.UserController"
+UserController.this*
+1*Ç
+1! !(+Ö
+Ó
+!/ !(>
+%4java.util.Map"xcom.clinalert.doctortracker.controller.UserController#userToMap(Lcom/clinalert/doctortracker/model/User;)Ljava/util/Map;*j
+
+__unknown_file (N
+L
+UserController.this5com.clinalert.doctortracker.controller.UserController*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User¡
+ž
+! !(?-
+%5'org.springframework.http.ResponseEntity"gorg.springframework.http.ResponseEntity#ok(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity*1
+
+__unknown_file (
+
+%4java.util.Map";
+! !(?/
+-
+%5'org.springframework.http.ResponseEntity::
+! !(.
+user&com.clinalert.doctortracker.model.UserB
+java.util.function.Function

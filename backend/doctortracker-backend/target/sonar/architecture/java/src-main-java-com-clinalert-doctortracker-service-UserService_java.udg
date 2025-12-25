@@ -1,0 +1,1094 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684693073*java2.BŸ$
+G
+Bsrc/main/java/com/clinalert/doctortracker/service/UserService.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+G
+Badaoumoum-org_projet-clinalert:com.clinalert.doctortracker.service9
+5
+/com.clinalert.doctortracker.service.UserService11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(16:1)-(123:2)16
+
+simple-name17
+
+UserService18
+,
+&org.springframework.stereotype.Service20
+
+unknown21
+
+annotated by22
+
+
+uses23
+$
+lombok.RequiredArgsConstructor25
+D
+>com.clinalert.doctortracker.service.UserService.userRepository27
+
+field28
+
+private29
+
+(20:5)-(20:49)30
+
+userRepository31
+;
+5com.clinalert.doctortracker.repository.UserRepository33
+
+is type34
+E
+?com.clinalert.doctortracker.service.UserService.passwordEncoder36
+
+(22:5)-(22:51)37
+
+passwordEncoder38
+B
+<org.springframework.security.crypto.password.PasswordEncoder40
+S
+Mcom.clinalert.doctortracker.service.UserService#getAllUsers()Ljava/util/List;42
+
+method43
+
+(24:5)-(26:6)44
+
+getAllUsers45
+,
+&com.clinalert.doctortracker.model.User47
+<
+6org.springframework.data.repository.ListCrudRepository49
+
+
+references50
+V
+Porg.springframework.data.repository.ListCrudRepository#findAll()Ljava/util/List;52
+
+calls53
+i
+ccom.clinalert.doctortracker.service.UserService#getUserById(Ljava/lang/String;)Ljava/util/Optional;55
+
+(28:5)-(30:6)56
+
+getUserById57
+&
+ org.springframework.lang.NonNull59
+8
+2org.springframework.data.repository.CrudRepository61
+i
+corg.springframework.data.repository.CrudRepository#findById(Ljava/lang/Object;)Ljava/util/Optional;63
+l
+fcom.clinalert.doctortracker.service.UserService#getUserByEmail(Ljava/lang/String;)Ljava/util/Optional;65
+
+(32:5)-(34:6)66
+
+getUserByEmail67
+o
+icom.clinalert.doctortracker.repository.UserRepository#findByEmail(Ljava/lang/String;)Ljava/util/Optional;69
+À
+¹com.clinalert.doctortracker.service.UserService#createUser(Ljava/lang/String;Ljava/lang/String;Lcom/clinalert/doctortracker/model/User$UserRole;)Lcom/clinalert/doctortracker/model/User;71
+
+(36:5)-(51:6)72
+
+
+createUser73
+
+returns74
+5
+/com.clinalert.doctortracker.model.User$UserRole76
+
+	has param77
+^
+Xcom.clinalert.doctortracker.repository.UserRepository#existsByEmail(Ljava/lang/String;)Z79
+J
+Dcom.clinalert.doctortracker.model.User#setEmail(Ljava/lang/String;)V81
+M
+Gcom.clinalert.doctortracker.model.User#setPassword(Ljava/lang/String;)V83
+u
+oorg.springframework.security.crypto.password.PasswordEncoder#encode(Ljava/lang/CharSequence;)Ljava/lang/String;85
+h
+bcom.clinalert.doctortracker.model.User#setRole(Lcom/clinalert/doctortracker/model/User$UserRole;)V87
+M
+Gcom.clinalert.doctortracker.model.User#setEnabled(Ljava/lang/Boolean;)V89
+“
+Œcom.clinalert.doctortracker.repository.UserRepository#save(Lcom/clinalert/doctortracker/model/User;)Lcom/clinalert/doctortracker/model/User;91
+Á
+ºcom.clinalert.doctortracker.service.UserService#updateUser(Ljava/lang/String;Lcom/clinalert/doctortracker/model/User$UserRole;Ljava/lang/Boolean;)Lcom/clinalert/doctortracker/model/User;93
+
+(53:5)-(67:6)94
+
+
+updateUser95
+1
++jakarta.persistence.EntityNotFoundException97
+3
+-com.clinalert.doctortracker.util.AppConstants99
+P
+Icom.clinalert.doctortracker.util.AppConstants.ERROR_USER_NOT_FOUND_PREFIX101
+˜
+com.clinalert.doctortracker.service.UserService#updateUserPassword(Ljava/lang/String;Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User;103
+
+(69:5)-(78:6)104
+
+updateUserPassword105
+•
+com.clinalert.doctortracker.service.UserService#updateUserEmail(Ljava/lang/String;Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User;107
+
+(80:5)-(95:6)108
+
+updateUserEmail109
+G
+@com.clinalert.doctortracker.model.User#getId()Ljava/lang/String;111
+V
+Ocom.clinalert.doctortracker.service.UserService#deleteUser(Ljava/lang/String;)V113
+
+(97:5)-(103:6)114
+
+
+deleteUser115
+Y
+Rorg.springframework.data.repository.CrudRepository#existsById(Ljava/lang/Object;)Z117
+Y
+Rorg.springframework.data.repository.CrudRepository#deleteById(Ljava/lang/Object;)V119
+»
+³com.clinalert.doctortracker.service.UserService#updateUserProfile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User;121
+
+(105:5)-(122:6)122
+
+updateUserProfile123
+O
+Hcom.clinalert.doctortracker.model.User#setFirstName(Ljava/lang/String;)V125
+N
+Gcom.clinalert.doctortracker.model.User#setLastName(Ljava/lang/String;)V127
+K
+Dcom.clinalert.doctortracker.model.User#setPhone(Ljava/lang/String;)V129J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j•
+
+51
+515221
+
+100
+10010121
+
+98
+989921
+
+24
+242521
+N
+54H
+545543 *
+1 (&210:7B$
+
+
+13
+14
+
+
+15
+56
+
+
+17
+57
+N
+70H
+707143 *
+1$ $(210:7B$
+
+
+13
+14
+
+
+15
+72
+
+
+17
+73
+
+32
+323321
+
+60
+606121
+
+68
+686921
+S
+112L
+11211343 *
+1a a(210:7B&
+
+
+13
+14
+
+15
+114
+
+17
+115
+N
+26H
+262728 *
+1" (0210:7B$
+
+
+13
+29
+
+
+15
+30
+
+
+17
+31
+N
+92H
+929343 *
+16 6(210:7B$
+
+
+13
+14
+
+
+15
+94
+
+
+17
+95
+
+19
+192021
+S
+102L
+10210343 *
+1E E(#210:7B&
+
+
+13
+14
+
+15
+104
+
+17
+105
+
+96
+969721
+N
+64H
+646543 *
+1   ()210:7B$
+
+
+13
+14
+
+
+15
+66
+
+
+17
+67
+
+75
+757621
+
+82
+828321
+
+86
+868721
+S
+120L
+12012143 *
+1j j("210:7B&
+
+
+13
+14
+
+15
+122
+
+17
+123
+
+126
+12612721
+
+80
+808121
+
+110
+11011121
+
+118
+11811921
+N
+41H
+414243 *
+1 ("210:7B$
+
+
+13
+14
+
+
+15
+44
+
+
+17
+45
+
+48
+484921
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+84
+848521
+
+88
+888921
+
+116
+11611721
+
+39
+394021
+
+90
+909121
+S
+106L
+10610743 *
+1P P( 210:7B&
+
+
+13
+14
+
+15
+108
+
+17
+109
+
+58
+585921
+N
+35H
+353628 *
+1# (2210:7B$
+
+
+13
+29
+
+
+15
+37
+
+
+17
+38
+
+46
+464721
+
+62
+626321
+
+124
+12412521
+
+78
+787921
+
+128
+12812921r€-
+
+101922*
+1 (	
+
+101923*
+1 (	
+
+102422*
+1 (
+
+102423*
+1 (
+
+263234*
+1 (!
+
+263223*
+1 (!
+
+263223*
+1" (0
+
+353934*
+1 ("
+
+353923*
+1 ("
+
+353923*
+1# (2
+
+414623*
+1 (
+
+414850*
+1 (&
+
+415153*
+1 (&
+
+412650*
+1 (
+
+413223*
+1 (
+
+412650*
+1 (
+
+544623*
+1 (
+
+545822*
+1' (/
+
+545823*
+1( (/
+
+546050*
+1 ('
+
+546253*
+1 ('
+
+542650*
+1 (
+
+543223*
+1 (
+
+542650*
+1 (
+
+644623*
+1   (
+
+645822*
+1 *  (2
+
+645823*
+1 +  (2
+
+643250*
+1! !(*
+
+646853*
+1! !(*
+
+642650*
+1! !(
+
+643223*
+1! !(
+
+642650*
+1! !(
+
+704674*
+1$ $(
+
+707577*
+1$V $(c
+
+704623*
+1$ $(
+
+705822*
+1$ $($
+
+705823*
+1$ $($
+
+705822*
+1$3 $(;
+
+705823*
+1$4 $(;
+
+707534*
+1$d $(h
+
+705822*
+1$M $(U
+
+705823*
+1$N $(U
+
+704623*
+1$V $(Z
+
+707523*
+1$[ $(c
+
+707550*
+1$[ $(c
+
+707574*
+1'	 '(
+
+703250*
+1) )()
+
+707853*
+1) )()
+
+702650*
+1) )(
+
+703223*
+1) )(
+
+702650*
+1) )(
+
+704634*
+1- -(
+
+704623*
+1-	 -(
+
+704653*
+1- -(
+
+704650*
+1.	 .(
+
+708053*
+1. .(
+
+704650*
+1/	 /(
+
+708253*
+1/ /(
+
+703950*
+1/ /(0
+
+708453*
+1/* /(0
+
+703550*
+1/ /()
+
+703923*
+1/ /()
+
+703550*
+1/ /()
+
+704650*
+10	 0(
+
+708653*
+10 0(
+
+704650*
+11	 1(
+
+708853*
+11 1(
+
+704674*
+12 2(#
+
+703250*
+12 2(#
+
+709053*
+12 2(#
+
+702650*
+12 2(
+
+703223*
+12 2(
+
+702650*
+12 2(
+
+924674*
+16 6(
+
+927577*
+160 6(=
+
+924623*
+16 6(
+
+925822*
+16 6($
+
+925823*
+16 6($
+
+927534*
+16> 6(B
+
+924623*
+160 6(4
+
+927523*
+165 6(=
+
+927550*
+165 6(=
+
+924634*
+18 8(
+
+924623*
+18	 8(
+
+924674*
+18 9(
+
+926050*
+18 8(,
+
+926253*
+18$ 8(,
+
+922650*
+18 8(#
+
+923223*
+18 8(#
+
+922650*
+18 8(#
+
+929653*
+19( 9(?
+
+929823*
+1: :(%
+
+9210050*
+1:& :(A
+
+924650*
+1= =(
+
+928653*
+1= =(
+
+924650*
+1@ @(
+
+928853*
+1@ @(
+
+924674*
+1B B(#
+
+923250*
+1B B(#
+
+929053*
+1B B(#
+
+922650*
+1B B(
+
+923223*
+1B B(
+
+922650*
+1B B(
+
+1024674*
+1E E(
+
+1024623*
+1E E(
+
+1025822*
+1E$ E(,
+
+1025823*
+1E% E(,
+
+1025822*
+1E8 E(@
+
+1025823*
+1E9 E(@
+
+1024634*
+1H H(
+
+1024623*
+1H	 H(
+
+1024674*
+1H I(
+
+1026050*
+1H H(,
+
+1026253*
+1H$ H(,
+
+1022650*
+1H H(#
+
+1023223*
+1H H(#
+
+1022650*
+1H H(#
+
+1029653*
+1I( I(?
+
+1029823*
+1J J(%
+
+10210050*
+1J& J(A
+
+1024650*
+1L	 L(
+
+1028253*
+1L L(
+
+1023950*
+1L L(0
+
+1028453*
+1L* L(0
+
+1023550*
+1L L()
+
+1023923*
+1L L()
+
+1023550*
+1L L()
+
+1024674*
+1M M(#
+
+1023250*
+1M M(#
+
+1029053*
+1M M(#
+
+1022650*
+1M M(
+
+1023223*
+1M M(
+
+1022650*
+1M M(
+
+1064674*
+1P P(
+
+1064623*
+1P P(
+
+1065822*
+1P! P()
+
+1065823*
+1P" P()
+
+1065822*
+1P5 P(=
+
+1065823*
+1P6 P(=
+
+1064634*
+1S S(
+
+1064623*
+1S	 S(
+
+1064674*
+1S T(
+
+1066050*
+1S S(,
+
+1066253*
+1S$ S(,
+
+1062650*
+1S S(#
+
+1063223*
+1S S(#
+
+1062650*
+1S S(#
+
+1069653*
+1T( T(?
+
+1069823*
+1U U(%
+
+10610050*
+1U& U(A
+
+1064623*
+1X X(
+
+1063250*
+1X' X(A
+
+1066853*
+1X6 X(A
+
+1062650*
+1X' X(5
+
+1063223*
+1X' X(5
+
+1062650*
+1X' X(5
+
+1064650*
+1Y* Y(B
+
+10611053*
+1Y= Y(B
+
+1064674*
+1Y* Y(:
+
+1064650*
+1]	 ](
+
+1068053*
+1] ](
+
+1064674*
+1^ ^(#
+
+1063250*
+1^ ^(#
+
+1069053*
+1^ ^(#
+
+1062650*
+1^ ^(
+
+1063223*
+1^ ^(
+
+1062650*
+1^ ^(
+
+1125822*
+1a a($
+
+1125823*
+1a a($
+
+1126050*
+1c c('
+
+11211653*
+1c c('
+
+1122650*
+1c c(
+
+1123223*
+1c c(
+
+1122650*
+1c c(
+
+1129653*
+1d d(.
+
+1129823*
+1d/ d(;
+
+11210050*
+1d< d(W
+
+1126050*
+1f	 f("
+
+11211853*
+1f f("
+
+1122650*
+1f	 f(
+
+1123223*
+1f	 f(
+
+1122650*
+1f	 f(
+
+1204674*
+1j j(
+
+1204623*
+1j j(
+
+1205822*
+1j# j(+
+
+1205823*
+1j$ j(+
+
+1204634*
+1l l(
+
+1204623*
+1l	 l(
+
+1204674*
+1l m(
+
+1206050*
+1l l(,
+
+1206253*
+1l$ l(,
+
+1202650*
+1l l(#
+
+1203223*
+1l l(#
+
+1202650*
+1l l(#
+
+1209653*
+1m( m(?
+
+1209823*
+1n n(%
+
+12010050*
+1n& n(A
+
+1204650*
+1q q(
+
+12012453*
+1q q(
+
+1204650*
+1t t(
+
+12012653*
+1t t(
+
+1204650*
+1w w(
+
+12012853*
+1w w(
+
+1204674*
+1y y(#
+
+1203250*
+1y y(#
+
+1209053*
+1y y(#
+
+1202650*
+1y y(
+
+1203223*
+1y y(
+
+1202650*
+1y y(

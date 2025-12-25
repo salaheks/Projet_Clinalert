@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoctorController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.controller</a> &gt; <span class="el_source">DoctorController.java</span></div><h1>DoctorController.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.controller;
+
+import com.clinalert.doctortracker.model.Doctor;
+import com.clinalert.doctortracker.service.DoctorService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/doctors&quot;)
+@RequiredArgsConstructor
+public class DoctorController {
+
+    private final DoctorService doctorService;
+
+    @GetMapping
+    public List&lt;Doctor&gt; getAllDoctors() {
+<span class="fc" id="L20">        return doctorService.getAllDoctors();</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Doctor&gt; getDoctorById(@PathVariable String id) {
+<span class="fc" id="L25">        return doctorService.getDoctorById(id)</span>
+<span class="fc" id="L26">                .map(ResponseEntity::ok)</span>
+<span class="fc" id="L27">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    @PostMapping
+    public Doctor createDoctor(@RequestBody Doctor doctor) {
+<span class="fc" id="L32">        return doctorService.createDoctor(doctor);</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Doctor&gt; updateDoctor(@PathVariable String id, @RequestBody Doctor doctor) {
+        try {
+<span class="fc" id="L38">            Doctor updatedDoctor = doctorService.updateDoctor(id, doctor);</span>
+<span class="fc" id="L39">            return ResponseEntity.ok(updatedDoctor);</span>
+<span class="fc" id="L40">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L41">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteDoctor(@PathVariable String id) {
+<span class="fc" id="L47">        doctorService.deleteDoctor(id);</span>
+<span class="fc" id="L48">        return ResponseEntity.ok().build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

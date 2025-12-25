@@ -1,0 +1,1176 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684697325*java2.Bù*
+S
+Nsrc/test/java/com/clinalert/doctortracker/controller/ReportControllerTest.java2
+	
+type3
+	
+TEST4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+J
+Eadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.controller9
+A
+;com.clinalert.doctortracker.controller.ReportControllerTest11
+
+class12
+
+access13
+
+	protected14
+
+
+full-range15
+
+(24:1)-(96:2)16
+
+simple-name17
+
+ReportControllerTest18
+:
+4org.springframework.boot.test.context.SpringBootTest20
+
+unknown21
+
+annotated by22
+
+
+uses23
+R
+Lorg.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc25
+'
+!org.junit.jupiter.api.DisplayName27
+I
+Ccom.clinalert.doctortracker.controller.ReportControllerTest.mockMvc29
+
+field30
+
+private31
+
+(29:5)-(30:29)32
+
+mockMvc33
+2
+,org.springframework.test.web.servlet.MockMvc35
+
+is type36
+<
+6org.springframework.beans.factory.annotation.Autowired38
+O
+Icom.clinalert.doctortracker.controller.ReportControllerTest.reportService40
+
+(32:5)-(33:41)41
+
+reportService42
+7
+1com.clinalert.doctortracker.service.ReportService44
+9
+3org.springframework.boot.test.mock.mockito.MockBean46
+{
+ucom.clinalert.doctortracker.controller.ReportControllerTest#downloadPatientReport_ValidPatientId_ShouldGeneratePDF()V48
+
+method49
+
+(35:5)-(49:6)50
+<
+6downloadPatientReport_ValidPatientId_ShouldGeneratePDF51
+ 
+org.junit.jupiter.api.Test53
+D
+>org.springframework.security.test.context.support.WithMockUser55
+*
+$org.mockito.stubbing.OngoingStubbing57
+
+returns58
+
+
+references59
+o
+iorg.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;61
+
+calls62
+
+org.mockito.Mockito64
+X
+Rorg.mockito.Mockito#when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;66
+c
+]com.clinalert.doctortracker.service.ReportService#generatePatientReport(Ljava/lang/String;)[B68
+8
+2org.springframework.test.web.servlet.ResultActions70
+­
+¦org.springframework.test.web.servlet.ResultActions#andExpect(Lorg/springframework/test/web/servlet/ResultMatcher;)Lorg/springframework/test/web/servlet/ResultActions;72
+¦
+Ÿorg.springframework.test.web.servlet.MockMvc#perform(Lorg/springframework/test/web/servlet/RequestBuilder;)Lorg/springframework/test/web/servlet/ResultActions;74
+P
+Jorg.springframework.test.web.servlet.request.MockHttpServletRequestBuilder76
+I
+Corg.springframework.test.web.servlet.request.MockMvcRequestBuilders78
+Á
+ºorg.springframework.test.web.servlet.request.MockMvcRequestBuilders#get(Ljava/lang/String;[Ljava/lang/Object;)Lorg/springframework/test/web/servlet/request/MockHttpServletRequestBuilder;80
+8
+2org.springframework.test.web.servlet.ResultMatcher82
+F
+@org.springframework.test.web.servlet.result.StatusResultMatchers84
+
+{org.springframework.test.web.servlet.result.StatusResultMatchers#isOk()Lorg/springframework/test/web/servlet/ResultMatcher;86
+G
+Aorg.springframework.test.web.servlet.result.MockMvcResultMatchers88
+“
+Œorg.springframework.test.web.servlet.result.MockMvcResultMatchers#status()Lorg/springframework/test/web/servlet/result/StatusResultMatchers;90
+G
+Aorg.springframework.test.web.servlet.result.ContentResultMatchers92
+®
+§org.springframework.test.web.servlet.result.ContentResultMatchers#contentType(Lorg/springframework/http/MediaType;)Lorg/springframework/test/web/servlet/ResultMatcher;94
+•
+Žorg.springframework.test.web.servlet.result.MockMvcResultMatchers#content()Lorg/springframework/test/web/servlet/result/ContentResultMatchers;96
+(
+"org.springframework.http.MediaType98
+9
+2org.springframework.http.MediaType.APPLICATION_PDF100
+G
+@org.springframework.test.web.servlet.result.HeaderResultMatchers102
+©
+¡org.springframework.test.web.servlet.result.HeaderResultMatchers#string(Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/test/web/servlet/ResultMatcher;104
+”
+Œorg.springframework.test.web.servlet.result.MockMvcResultMatchers#header()Lorg/springframework/test/web/servlet/result/HeaderResultMatchers;106
+G
+@org.mockito.Mockito#verify(Ljava/lang/Object;)Ljava/lang/Object;108
+~
+wcom.clinalert.doctortracker.controller.ReportControllerTest#downloadPatientReport_InvalidPatientId_ShouldReturnError()V110
+
+(51:5)-(60:6)111
+?
+8downloadPatientReport_InvalidPatientId_ShouldReturnError112
+s
+lorg.mockito.stubbing.OngoingStubbing#thenThrow([Ljava/lang/Throwable;)Lorg/mockito/stubbing/OngoingStubbing;114
+#
+org.mockito.ArgumentMatchers116
+A
+:org.mockito.ArgumentMatchers#anyString()Ljava/lang/String;118
+”
+Œorg.springframework.test.web.servlet.result.StatusResultMatchers#isInternalServerError()Lorg/springframework/test/web/servlet/ResultMatcher;120
+ƒ
+|com.clinalert.doctortracker.controller.ReportControllerTest#downloadPatientReport_ServiceException_ShouldHandleGracefully()V122
+
+(62:5)-(71:6)123
+D
+=downloadPatientReport_ServiceException_ShouldHandleGracefully124
+z
+scom.clinalert.doctortracker.controller.ReportControllerTest#downloadPatientReport_EmptyData_ShouldReturnEmptyPDF()V126
+
+(73:5)-(83:6)127
+;
+4downloadPatientReport_EmptyData_ShouldReturnEmptyPDF128
+†
+org.springframework.test.web.servlet.result.ContentResultMatchers#bytes([B)Lorg/springframework/test/web/servlet/ResultMatcher;130
+r
+kcom.clinalert.doctortracker.controller.ReportControllerTest#downloadPatientReport_LargePDF_ShouldSucceed()V132
+
+(85:5)-(95:6)133
+3
+,downloadPatientReport_LargePDF_ShouldSucceed134J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j¸
+
+105
+10510621
+
+113
+11311421
+
+73
+737421
+
+115
+11511621
+S
+109L
+10911049 *
+16
+ 6(B210:7B&
+
+
+13
+14
+
+15
+111
+
+17
+112
+
+117
+11711821
+
+37
+373821
+N
+28H
+282930 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+32
+
+
+17
+33
+
+81
+818221
+
+83
+838421
+
+129
+12913021
+
+75
+757621
+
+34
+343521
+
+43
+434421
+
+69
+697021
+
+95
+959621
+
+107
+10710821
+
+101
+10110221
+
+67
+676821
+
+45
+454621
+
+93
+939421
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+99
+9910021
+
+89
+899021
+
+119
+11912021
+
+103
+10310421
+
+56
+565721
+
+97
+979821
+N
+39H
+394030 *
+1! !((210:7B$
+
+
+13
+31
+
+
+15
+41
+
+
+17
+42
+N
+47H
+474849 *
+1&
+ &(@210:7B$
+
+
+13
+14
+
+
+15
+50
+
+
+17
+51
+
+87
+878821
+S
+125L
+12512649 *
+1L
+ L(>210:7B&
+
+
+13
+14
+
+15
+127
+
+17
+128
+
+60
+606121
+
+77
+777821
+S
+131L
+13113249 *
+1X
+ X(6210:7B&
+
+
+13
+14
+
+15
+133
+
+17
+134
+
+26
+262721
+
+52
+525321
+
+63
+636421
+
+71
+717221
+
+24
+242521
+S
+121L
+12112249 *
+1A
+ A(G210:7B&
+
+
+13
+14
+
+15
+123
+
+17
+124
+
+19
+192021
+
+54
+545521
+
+79
+798021
+
+91
+919221
+
+85
+858621
+
+65
+656621rï4
+
+101922*
+1 (
+
+101923*
+1 (
+
+102422*
+1 (
+
+102423*
+1 (
+
+102622*
+1 (5
+
+102623*
+1 (
+
+283436*
+1 (
+
+283722*
+1 (
+
+283723*
+1 (
+
+283423*
+1 (
+
+283423*
+1 (
+
+394336*
+1! !(
+
+394522*
+1   (
+
+394523*
+1   (
+
+394323*
+1! !(
+
+394323*
+1! !((
+
+475222*
+1# #(
+
+
+475223*
+1# #(
+
+
+475422*
+1$ $($
+
+475423*
+1$ $(
+
+472622*
+1% %(O
+
+472623*
+1% %(
+
+475658*
+1(	 ((L
+
+475659*
+1(	 ((L
+
+476062*
+1(B ((L
+
+475658*
+1(	 ((
+
+476359*
+1(	 ((
+
+476562*
+1(	 ((
+
+474359*
+1( ((1
+
+476762*
+1( ((1
+
+473959*
+1( ((
+
+474323*
+1( ((
+
+473959*
+1( ((
+
+476958*
+1*	 -(
+
+476959*
+1*	 -(
+
+477162*
+1- -(
+
+476958*
+1*	 ,(
+
+476959*
+1*	 ,(
+
+477162*
+1, ,(
+
+476958*
+1*	 +(
+
+476959*
+1*	 +(
+
+477162*
+1+ +(
+
+476958*
+1*	 *(
+
+473459*
+1*	 *(
+
+477362*
+1* *(
+
+472859*
+1*	 *(
+
+473423*
+1*	 *(
+
+472859*
+1*	 *(
+
+477558*
+1* *(
+
+477759*
+1* *(
+
+477962*
+1* *(
+
+478158*
+1+ +()
+
+478359*
+1+ +()
+
+478562*
+1+% +()
+
+478358*
+1+ +("
+
+478759*
+1+ +("
+
+478962*
+1+ +("
+
+478158*
+1, ,(1
+
+479159*
+1, ,(1
+
+479362*
+1,& ,(1
+
+479158*
+1, ,(#
+
+478759*
+1, ,(#
+
+479562*
+1, ,(#
+
+479723*
+1,2 ,(;
+
+479723*
+1,< ,(K
+
+479959*
+1,< ,(K
+
+478158*
+1- -(+
+
+4710159*
+1- -(+
+
+4710362*
+1-% -(+
+
+4710158*
+1- -("
+
+478759*
+1- -("
+
+4710562*
+1- -("
+
+474359*
+10	 0(4
+
+476762*
+10 0(4
+
+474358*
+10	 0(
+
+476359*
+10	 0(
+
+4710762*
+10	 0(
+
+474323*
+10 0(
+
+473959*
+10 0(
+
+1095222*
+13 3(
+
+
+1095223*
+13 3(
+
+
+1095422*
+14 4($
+
+1095423*
+14 4(
+
+1092622*
+15 5(M
+
+1092623*
+15 5(
+
+1095658*
+17	 8(
+
+1095659*
+17	 8(
+
+10911362*
+18 8(
+
+1095658*
+17	 7(
+
+1096359*
+17	 7(
+
+1096562*
+17	 7(
+
+1094359*
+17 7(1
+
+1096762*
+17 7(1
+
+1093959*
+17 7(
+
+1094323*
+17 7(
+
+1093959*
+17 7(
+
+10911559*
+172 7(;
+
+10911762*
+172 7(;
+
+1096958*
+1:	 ;(
+
+1096959*
+1:	 ;(
+
+1097162*
+1; ;(
+
+1096958*
+1:	 :(
+
+1093459*
+1:	 :(
+
+1097362*
+1: :(
+
+1092859*
+1:	 :(
+
+1093423*
+1:	 :(
+
+1092859*
+1:	 :(
+
+1097558*
+1: :(
+
+1097759*
+1: :(
+
+1097962*
+1: :(
+
+1098158*
+1; ;(:
+
+1098359*
+1; ;(:
+
+10911962*
+1;% ;(:
+
+1098358*
+1; ;("
+
+1098759*
+1; ;("
+
+1098962*
+1; ;("
+
+1215222*
+1> >(
+
+
+1215223*
+1> >(
+
+
+1215422*
+1? ?($
+
+1215423*
+1? ?(
+
+1212622*
+1@ @(M
+
+1212623*
+1@ @(
+
+1215658*
+1B	 C(
+
+1215659*
+1B	 C(
+
+12111362*
+1C C(
+
+1215658*
+1B	 B(
+
+1216359*
+1B	 B(
+
+1216562*
+1B	 B(
+
+1214359*
+1B B(1
+
+1216762*
+1B B(1
+
+1213959*
+1B B(
+
+1214323*
+1B B(
+
+1213959*
+1B B(
+
+12111559*
+1B2 B(;
+
+12111762*
+1B2 B(;
+
+1216958*
+1E	 F(
+
+1216959*
+1E	 F(
+
+1217162*
+1F F(
+
+1216958*
+1E	 E(
+
+1213459*
+1E	 E(
+
+1217362*
+1E E(
+
+1212859*
+1E	 E(
+
+1213423*
+1E	 E(
+
+1212859*
+1E	 E(
+
+1217558*
+1E E(
+
+1217759*
+1E E(
+
+1217962*
+1E E(
+
+1218158*
+1F F(:
+
+1218359*
+1F F(:
+
+12111962*
+1F% F(:
+
+1218358*
+1F F("
+
+1218759*
+1F F("
+
+1218962*
+1F F("
+
+1255222*
+1I I(
+
+
+1255223*
+1I I(
+
+
+1255422*
+1J J($
+
+1255423*
+1J J(
+
+1252622*
+1K K(E
+
+1252623*
+1K K(
+
+1255658*
+1N	 N(L
+
+1255659*
+1N	 N(L
+
+1256062*
+1NB N(L
+
+1255658*
+1N	 N(
+
+1256359*
+1N	 N(
+
+1256562*
+1N	 N(
+
+1254359*
+1N N(1
+
+1256762*
+1N N(1
+
+1253959*
+1N N(
+
+1254323*
+1N N(
+
+1253959*
+1N N(
+
+1256958*
+1P	 R(
+
+1256959*
+1P	 R(
+
+1257162*
+1R R(
+
+1256958*
+1P	 Q(
+
+1256959*
+1P	 Q(
+
+1257162*
+1Q Q(
+
+1256958*
+1P	 P(
+
+1253459*
+1P	 P(
+
+1257362*
+1P P(
+
+1252859*
+1P	 P(
+
+1253423*
+1P	 P(
+
+1252859*
+1P	 P(
+
+1257558*
+1P P(
+
+1257759*
+1P P(
+
+1257962*
+1P P(
+
+1258158*
+1Q Q()
+
+1258359*
+1Q Q()
+
+1258562*
+1Q% Q()
+
+1258358*
+1Q Q("
+
+1258759*
+1Q Q("
+
+1258962*
+1Q Q("
+
+1258158*
+1R R(+
+
+1259159*
+1R R(+
+
+12512962*
+1R& R(+
+
+1259158*
+1R R(#
+
+1258759*
+1R R(#
+
+1259562*
+1R R(#
+
+1315222*
+1U U(
+
+
+1315223*
+1U U(
+
+
+1315422*
+1V V($
+
+1315423*
+1V V(
+
+1312622*
+1W W(E
+
+1312623*
+1W W(
+
+1315658*
+1Z	 Z(L
+
+1315659*
+1Z	 Z(L
+
+1316062*
+1ZB Z(L
+
+1315658*
+1Z	 Z(
+
+1316359*
+1Z	 Z(
+
+1316562*
+1Z	 Z(
+
+1314359*
+1Z Z(1
+
+1316762*
+1Z Z(1
+
+1313959*
+1Z Z(
+
+1314323*
+1Z Z(
+
+1313959*
+1Z Z(
+
+1316958*
+1\	 ^(
+
+1316959*
+1\	 ^(
+
+1317162*
+1^ ^(
+
+1316958*
+1\	 ](
+
+1316959*
+1\	 ](
+
+1317162*
+1] ](
+
+1316958*
+1\	 \(
+
+1313459*
+1\	 \(
+
+1317362*
+1\ \(
+
+1312859*
+1\	 \(
+
+1313423*
+1\	 \(
+
+1312859*
+1\	 \(
+
+1317558*
+1\ \(
+
+1317759*
+1\ \(
+
+1317962*
+1\ \(
+
+1318158*
+1] ]()
+
+1318359*
+1] ]()
+
+1318562*
+1]% ]()
+
+1318358*
+1] ]("
+
+1318759*
+1] ]("
+
+1318962*
+1] ]("
+
+1318158*
+1^ ^(1
+
+1319159*
+1^ ^(1
+
+1319362*
+1^& ^(1
+
+1319158*
+1^ ^(#
+
+1318759*
+1^ ^(#
+
+1319562*
+1^ ^(#
+
+1319723*
+1^2 ^(;
+
+1319723*
+1^< ^(K
+
+1319959*
+1^< ^(K

@@ -1,0 +1,589 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684693202*java2.Bé
+T
+Osrc/main/java/com/clinalert/doctortracker/security/JwtAuthenticationFilter.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+H
+Cadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.security9
+B
+<com.clinalert.doctortracker.security.JwtAuthenticationFilter11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(18:1)-(57:2)16
+
+simple-name17
+
+JwtAuthenticationFilter18
+9
+3org.springframework.web.filter.OncePerRequestFilter20
+
+unknown21
+
+extends22
+.
+(org.springframework.stereotype.Component24
+
+annotated by25
+
+
+uses26
+$
+lombok.RequiredArgsConstructor28
+P
+Jcom.clinalert.doctortracker.security.JwtAuthenticationFilter.tokenProvider30
+
+field31
+
+private32
+
+(22:5)-(22:50)33
+
+tokenProvider34
+;
+5com.clinalert.doctortracker.security.JwtTokenProvider36
+
+is type37
+U
+Ocom.clinalert.doctortracker.security.JwtAuthenticationFilter.userDetailsService39
+
+(24:5)-(24:61)40
+
+userDetailsService41
+A
+;com.clinalert.doctortracker.security.UserDetailsServiceImpl43
+«
+¿com.clinalert.doctortracker.security.JwtAuthenticationFilter#doFilterInternal(Ljakarta/servlet/http/HttpServletRequest;Ljakarta/servlet/http/HttpServletResponse;Ljakarta/servlet/FilterChain;)V45
+
+method46
+
+	protected47
+
+(26:5)-(48:6)48
+
+doFilterInternal49
+-
+'jakarta.servlet.http.HttpServletRequest51
+
+	has param52
+.
+(jakarta.servlet.http.HttpServletResponse54
+!
+jakarta.servlet.FilterChain56
+&
+ org.springframework.lang.NonNull58
+&
+ jakarta.servlet.ServletException60
+
+
+references61
+í
+ãcom.clinalert.doctortracker.security.JwtAuthenticationFilter#getJwtFromRequest(Ljakarta/servlet/http/HttpServletRequest;)Ljava/lang/String;63
+
+calls64
+*
+$org.springframework.util.StringUtils66
+G
+Aorg.springframework.util.StringUtils#hasText(Ljava/lang/String;)Z68
+^
+Xcom.clinalert.doctortracker.security.JwtTokenProvider#validateToken(Ljava/lang/String;)Z70
+v
+pcom.clinalert.doctortracker.security.JwtTokenProvider#getUsernameFromToken(Ljava/lang/String;)Ljava/lang/String;72
+?
+9org.springframework.security.core.userdetails.UserDetails74
+
+returns75
+§
+ùcom.clinalert.doctortracker.security.UserDetailsServiceImpl#loadUserByUsername(Ljava/lang/String;)Lorg/springframework/security/core/userdetails/UserDetails;77
+U
+Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken79
+f
+`org.springframework.security.core.userdetails.UserDetails#getAuthorities()Ljava/util/Collection;81
+M
+Gorg.springframework.security.authentication.AbstractAuthenticationToken83
+m
+gorg.springframework.security.authentication.AbstractAuthenticationToken#setDetails(Ljava/lang/Object;)V85
+N
+Horg.springframework.security.web.authentication.WebAuthenticationDetails87
+T
+Norg.springframework.security.web.authentication.WebAuthenticationDetailsSource89
+◊
+–org.springframework.security.web.authentication.WebAuthenticationDetailsSource#buildDetails(Ljakarta/servlet/http/HttpServletRequest;)Lorg/springframework/security/web/authentication/WebAuthenticationDetails;91
+?
+9org.springframework.security.core.context.SecurityContext93
+á
+Äorg.springframework.security.core.context.SecurityContext#setAuthentication(Lorg/springframework/security/core/Authentication;)V95
+E
+?org.springframework.security.core.context.SecurityContextHolder97
+é
+áorg.springframework.security.core.context.SecurityContextHolder#getContext()Lorg/springframework/security/core/context/SecurityContext;99
+%
+org.apache.commons.logging.Log101
+U
+Norg.apache.commons.logging.Log#error(Ljava/lang/Object;Ljava/lang/Throwable;)V103
+>
+7org.springframework.web.filter.GenericFilterBean.logger105
+o
+hjakarta.servlet.FilterChain#doFilter(Ljakarta/servlet/ServletRequest;Ljakarta/servlet/ServletResponse;)V107
+
+(50:5)-(56:6)108
+
+getJwtFromRequest109
+^
+Wjakarta.servlet.http.HttpServletRequest#getHeader(Ljava/lang/String;)Ljava/lang/String;111J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jù
+
+86
+868721
+
+102
+10210321
+
+50
+505121
+
+104
+10410521
+
+27
+272821
+
+19
+192021
+N
+29H
+293031 *
+1$ (1210:7B$
+
+
+13
+32
+
+
+15
+33
+
+
+17
+34
+
+42
+424321
+
+98
+989921
+
+35
+353621
+
+59
+596021
+P
+62J
+626346 *
+12 2(%210:7B&
+
+
+13
+32
+
+15
+108
+
+17
+109
+
+71
+717221
+
+73
+737421
+
+94
+949521
+
+96
+969721
+
+106
+10610721
+
+110
+11011121
+
+69
+697021
+
+90
+909121
+N
+38H
+383931 *
+1* (<210:7B$
+
+
+13
+32
+
+
+15
+40
+
+
+17
+41
+
+55
+555621
+
+76
+767721
+J
+10D
+101112 *
+1 (%:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+N
+44H
+444546 *
+1 ($210:7B$
+
+
+13
+47
+
+
+15
+48
+
+
+17
+49
+
+84
+848521
+
+88
+888921
+
+23
+232421
+
+92
+929321
+
+82
+828321
+
+67
+676821
+
+57
+575821
+
+100
+10010121
+
+53
+535421
+
+78
+787921
+
+80
+808121
+
+65
+656621r»
+
+101922*
+1. (B
+
+102325*
+1 (
+
+102326*
+1 (
+
+102725*
+1 (
+
+102726*
+1 (
+
+101926*
+1. (B
+
+293537*
+1 (#
+
+293526*
+1 (#
+
+293526*
+1$ (1
+
+384237*
+1 ()
+
+384226*
+1 ()
+
+384226*
+1* (<
+
+445052*
+1G (Y
+
+445352*
+1/ (B
+
+445552*
+1/ (:
+
+445037*
+1Z (a
+
+445725*
+1% (F
+
+445726*
+1? (F
+
+445026*
+1G (Y
+
+445337*
+1C (K
+
+445725*
+1 (.
+
+445726*
+1' (.
+
+445326*
+1/ (B
+
+445537*
+1; (F
+
+445725*
+1 (.
+
+445726*
+1' (.
+
+445526*
+1/ (:
+
+445926*
+1O (_
+
+441061*
+1 (+
+
+446264*
+1 (+
+
+446561*
+1! !($
+
+446764*
+1! !($
+
+446526*
+1! !(
+
+443561*
+1!- !(H
+
+446964*
+1!; !(H
+
+442961*
+1!- !(:
+
+443526*
+1!- !(:
+
+442961*
+1!- !(:
+
+443561*
+1"# "(E
+
+447164*
+1"1 "(E
+
+442961*
+1"# "(0
+
+443526*
+1"# "(0
+
+442961*
+1"# "(0
+
+447337*
+1$ $((
+
+447326*
+1$ $(
+
+447375*
+1$+ $(P
+
+444261*
+1$+ $(P
+
+447664*
+1$> $(P
+
+443861*
+1$+ $(=
+
+444226*
+1$+ $(=
+
+443861*
+1$+ $(=
+
+447837*
+1%5 %(C
+
+447826*
+1% %(4
+
+447864*
+1%J %(m
+
+447361*
+1&, &(F
+
+448064*
+1&8 &(F
+
+448261*
+1' '(*
+
+448464*
+1'  '(*
+
+448675*
+1'+ '(\
+
+448861*
+1'+ '(\
+
+449064*
+1'P '(\
+
+448864*
+1'/ '(M
+
+449261*
+1) )(E
+
+449464*
+1)4 )(E
+
+449275*
+1) )(1
+
+449661*
+1) )(1
+
+449864*
+1)' )(1
+
+449626*
+1) )(&
+
+4410061*
+1, ,(
+
+4410264*
+1, ,(
+
+4410461*
+1, ,(
+
+4410026*
+1, ,(
+
+4410461*
+1, ,(
+
+445561*
+1/	 /(
+
+4410664*
+1/ /(
+
+625052*
+12& 2(8
+
+625037*
+129 2(@
+
+625026*
+12& 2(8
+
+625061*
+13 3(/
+
+6211064*
+13& 3(/
+
+626561*
+14 4( 
+
+626764*
+14 4( 
+
+626526*
+14 4(

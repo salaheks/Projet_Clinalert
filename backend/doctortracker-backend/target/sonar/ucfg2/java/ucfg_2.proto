@@ -1,0 +1,47 @@
+
+pcom.clinalert.doctortracker.controller.ClinicController#getClinicsByDoctorId(Ljava/lang/String;)Ljava/util/List;°
+¥C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/ClinicController.java   (,"startingBlock*°
+startingBlock ,  (K±
+®
+ -  (:
+%2"
+__annotate*T
+
+__unknown_file (86
+4org.springframework.web.bind.annotation.PathVariable*:
+
+__unknown_file (
+
+doctorIdjava.lang.String\
+Z
+ B  (J
+doctorIdjava.lang.String"__annotation*"
+
+__unknown_file (
+
+%2*
+1*»
+1! !(¸
+µ
+! !(7
+%01com.clinalert.doctortracker.service.ClinicService"__id*j
+
+__unknown_file (N*L9
+7com.clinalert.doctortracker.controller.ClinicController"
+clinicServiceÌÉ
+! !(;
+%1java.util.List"jcom.clinalert.doctortracker.service.ClinicService#getClinicsByDoctorId(Ljava/lang/String;)Ljava/util/List;*U
+
+__unknown_file (9
+7
+%01com.clinalert.doctortracker.service.ClinicService*:
+
+__unknown_file (
+
+doctorIdjava.lang.String2(getClinicsByDoctorId(Ljava/lang/String;)""
+! !(<
+
+%1java.util.List:(
+ -  (J
+doctorIdjava.lang.StringB;9
+7com.clinalert.doctortracker.controller.ClinicControllerH

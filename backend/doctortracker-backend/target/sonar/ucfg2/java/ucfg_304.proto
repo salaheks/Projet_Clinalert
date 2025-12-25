@@ -1,0 +1,184 @@
+
+´com.clinalert.doctortracker.service.SmartWatchHealthService#registerDevice(Lcom/clinalert/doctortracker/model/SmartWatchDevice;)Lcom/clinalert/doctortracker/model/SmartWatchDevice;´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/SmartWatchHealthService.java# #(*"3*ç
+2*. *(6¸µ
+*. *(<8
+%52com.clinalert.doctortracker.model.SmartWatchDevice"*java.util.Optional#get()Ljava/lang/Object;*<
+
+__unknown_file ( 
+
+existingjava.util.Optional2get()±
+®
+* *(=D
+existingDevice2com.clinalert.doctortracker.model.SmartWatchDevice"__id*V
+
+__unknown_file (:
+8
+%52com.clinalert.doctortracker.model.SmartWatchDeviceèå
++) +(?
+%6java.lang.String"Tcom.clinalert.doctortracker.model.SmartWatchDevice#getDeviceName()Ljava/lang/String;*Z
+
+__unknown_file (>
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice2getDeviceName()­ª
++ +(@
+
+%7void"Ucom.clinalert.doctortracker.model.SmartWatchDevice#setDeviceName(Ljava/lang/String;)V*b
+
+__unknown_file (F
+D
+existingDevice2com.clinalert.doctortracker.model.SmartWatchDevice*4
+
+__unknown_file (
+
+%6java.lang.String2!setDeviceName(Ljava/lang/String;)èå
+,) ,(?
+%8java.lang.String"Tcom.clinalert.doctortracker.model.SmartWatchDevice#getDeviceType()Ljava/lang/String;*Z
+
+__unknown_file (>
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice2getDeviceType()­ª
+, ,(@
+
+%9void"Ucom.clinalert.doctortracker.model.SmartWatchDevice#setDeviceType(Ljava/lang/String;)V*b
+
+__unknown_file (F
+D
+existingDevice2com.clinalert.doctortracker.model.SmartWatchDevice*4
+
+__unknown_file (
+
+%8java.lang.String2!setDeviceType(Ljava/lang/String;)˜•
+- -(,
+%10void"Tcom.clinalert.doctortracker.model.SmartWatchDevice#setIsActive(Ljava/lang/Boolean;)V*b
+
+__unknown_file (F
+D
+existingDevice2com.clinalert.doctortracker.model.SmartWatchDevice* 
+
+__unknown_file (22 setIsActive(Ljava/lang/Boolean;)ž
+›
+., .(?
+%11java.time.LocalDateTime"6java.time.LocalDateTime#now()Ljava/time/LocalDateTime;*7
+
+__unknown_file ("
+java.time.LocalDateTimeÊÇ
+. .(@
+%12void"_com.clinalert.doctortracker.model.SmartWatchDevice#setLastConnected(Ljava/time/LocalDateTime;)V*b
+
+__unknown_file (F
+D
+existingDevice2com.clinalert.doctortracker.model.SmartWatchDevice*<
+
+__unknown_file ( 
+
+%11java.time.LocalDateTime2+setLastConnected(Ljava/time/LocalDateTime;)Ð
+Í
+/ /(#H
+%13Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository"__id*q
+
+__unknown_file (U*S=
+;com.clinalert.doctortracker.service.SmartWatchHealthService"
+deviceRepositoryŠ
+/ /(89
+%142com.clinalert.doctortracker.model.SmartWatchDevice"]org.springframework.data.repository.CrudRepository#save(Ljava/lang/Object;)Ljava/lang/Object;*f
+
+__unknown_file (J
+H
+%13Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository*b
+
+__unknown_file (F
+D
+existingDevice2com.clinalert.doctortracker.model.SmartWatchDevice2save(Ljava/lang/Object;)"G
+/ /(9;
+9
+%142com.clinalert.doctortracker.model.SmartWatchDevice*š
+3%. %(>Ï
+Ì
+%. %(>G
+%0Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository"__id*q
+
+__unknown_file (U*S=
+;com.clinalert.doctortracker.service.SmartWatchHealthService"
+deviceRepositoryæã
+&1 &(F
+%1java.lang.String"Scom.clinalert.doctortracker.model.SmartWatchDevice#getPatientId()Ljava/lang/String;*Z
+
+__unknown_file (>
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice2getPatientId()îë
+&H &(a
+%2java.lang.String"Wcom.clinalert.doctortracker.model.SmartWatchDevice#getDeviceAddress()Ljava/lang/String;*Z
+
+__unknown_file (>
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice2getDeviceAddress()ßÜ
+%. &(b
+%3java.util.Optional"›com.clinalert.doctortracker.repository.SmartWatchDeviceRepository#findByPatientIdAndDeviceAddress(Ljava/lang/String;Ljava/lang/String;)Ljava/util/Optional;*e
+
+__unknown_file (I
+G
+%0Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository*4
+
+__unknown_file (
+
+%1java.lang.String*4
+
+__unknown_file (
+
+%2java.lang.String2EfindByPatientIdAndDeviceAddress(Ljava/lang/String;Ljava/lang/String;)j
+h
+% &(c
+existingjava.util.Optional"__id*6
+
+__unknown_file (
+
+%3java.util.Optionalˆ…
+( (( 
+%4boolean"java.util.Optional#isPresent()Z*<
+
+__unknown_file ( 
+
+existingjava.util.Optional2isPresent()*
+2
+1*—	
+12 2(ž
+›
+2  2(3
+%15java.time.LocalDateTime"6java.time.LocalDateTime#now()Ljava/time/LocalDateTime;*7
+
+__unknown_file ("
+java.time.LocalDateTimeÂ¿
+2 2(4
+%16void"_com.clinalert.doctortracker.model.SmartWatchDevice#setLastConnected(Ljava/time/LocalDateTime;)V*Z
+
+__unknown_file (>
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice*<
+
+__unknown_file ( 
+
+%15java.time.LocalDateTime2+setLastConnected(Ljava/time/LocalDateTime;)Ð
+Í
+3 3(H
+%17Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository"__id*q
+
+__unknown_file (U*S=
+;com.clinalert.doctortracker.service.SmartWatchHealthService"
+deviceRepository…‚
+3 3(,9
+%182com.clinalert.doctortracker.model.SmartWatchDevice"]org.springframework.data.repository.CrudRepository#save(Ljava/lang/Object;)Ljava/lang/Object;*f
+
+__unknown_file (J
+H
+%17Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository*Z
+
+__unknown_file (>
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice2save(Ljava/lang/Object;)"G
+3 3(-;
+9
+%182com.clinalert.doctortracker.model.SmartWatchDevice:H
+#+ #(B<
+device2com.clinalert.doctortracker.model.SmartWatchDeviceB?=
+;com.clinalert.doctortracker.service.SmartWatchHealthServiceH

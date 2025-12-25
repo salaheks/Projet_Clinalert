@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoctorService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.service</a> &gt; <span class="el_source">DoctorService.java</span></div><h1>DoctorService.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.service;
+
+import com.clinalert.doctortracker.model.Doctor;
+import com.clinalert.doctortracker.repository.DoctorRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class DoctorService {
+
+    private final DoctorRepository doctorRepository;
+
+    public List&lt;Doctor&gt; getAllDoctors() {
+<span class="fc" id="L18">        return doctorRepository.findAll();</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Optional&lt;Doctor&gt; getDoctorById(String id) {
+<span class="fc" id="L23">        return doctorRepository.findById(id);</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Doctor createDoctor(Doctor doctor) {
+<span class="fc" id="L28">        return doctorRepository.save(doctor);</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Doctor updateDoctor(String id, Doctor doctorDetails) {
+<span class="fc" id="L33">        return doctorRepository.findById(id)</span>
+<span class="fc" id="L34">                .map(doctor -&gt; {</span>
+<span class="fc" id="L35">                    doctor.setName(doctorDetails.getName());</span>
+<span class="fc" id="L36">                    doctor.setSpecialty(doctorDetails.getSpecialty());</span>
+<span class="fc" id="L37">                    doctor.setEmail(doctorDetails.getEmail());</span>
+<span class="fc" id="L38">                    doctor.setPhoneNumber(doctorDetails.getPhoneNumber());</span>
+<span class="fc" id="L39">                    return doctorRepository.save(doctor);</span>
+                })
+<span class="pc" id="L41">                .orElseThrow(() -&gt; new RuntimeException(&quot;Doctor not found with id: &quot; + id));</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public void deleteDoctor(String id) {
+<span class="nc" id="L46">        doctorRepository.deleteById(id);</span>
+<span class="nc" id="L47">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

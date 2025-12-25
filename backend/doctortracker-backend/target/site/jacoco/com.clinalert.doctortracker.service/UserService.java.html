@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.service;
+
+import com.clinalert.doctortracker.model.User;
+import com.clinalert.doctortracker.repository.UserRepository;
+import com.clinalert.doctortracker.util.AppConstants;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public List&lt;User&gt; getAllUsers() {
+<span class="fc" id="L25">        return userRepository.findAll();</span>
+    }
+
+    public Optional&lt;User&gt; getUserById(@NonNull String id) {
+<span class="fc" id="L29">        return userRepository.findById(Objects.requireNonNull(id));</span>
+    }
+
+    public Optional&lt;User&gt; getUserByEmail(@NonNull String email) {
+<span class="fc" id="L33">        return userRepository.findByEmail(Objects.requireNonNull(email));</span>
+    }
+
+    public User createUser(@NonNull String email, @NonNull String password, @NonNull User.UserRole role) {
+<span class="fc" id="L37">        Objects.requireNonNull(email);</span>
+<span class="fc" id="L38">        Objects.requireNonNull(password);</span>
+<span class="fc" id="L39">        Objects.requireNonNull(role);</span>
+
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (userRepository.existsByEmail(email)) {</span>
+<span class="fc" id="L42">            throw new IllegalArgumentException(&quot;Email already exists: &quot; + email);</span>
+        }
+
+<span class="fc" id="L45">        User user = new User();</span>
+<span class="fc" id="L46">        user.setEmail(email);</span>
+<span class="fc" id="L47">        user.setPassword(passwordEncoder.encode(password));</span>
+<span class="fc" id="L48">        user.setRole(role);</span>
+<span class="fc" id="L49">        user.setEnabled(true);</span>
+<span class="fc" id="L50">        return userRepository.save(user);</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public User updateUser(@NonNull String id, User.UserRole role, Boolean enabled) {
+<span class="fc" id="L55">        Objects.requireNonNull(id);</span>
+<span class="fc" id="L56">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L57">                .orElseThrow(() -&gt; new EntityNotFoundException(</span>
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (role != null) {</span>
+<span class="fc" id="L61">            user.setRole(role);</span>
+        }
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (enabled != null) {</span>
+<span class="fc" id="L64">            user.setEnabled(enabled);</span>
+        }
+<span class="fc" id="L66">        return userRepository.save(user);</span>
+    }
+
+    public User updateUserPassword(@NonNull String id, @NonNull String newPassword) {
+<span class="fc" id="L70">        Objects.requireNonNull(id);</span>
+<span class="fc" id="L71">        Objects.requireNonNull(newPassword);</span>
+<span class="fc" id="L72">        User user = userRepository.findById(id)</span>
+<span class="pc" id="L73">                .orElseThrow(() -&gt; new EntityNotFoundException(</span>
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
+
+<span class="fc" id="L76">        user.setPassword(passwordEncoder.encode(newPassword));</span>
+<span class="fc" id="L77">        return userRepository.save(user);</span>
+    }
+
+    public User updateUserEmail(@NonNull String id, @NonNull String newEmail) {
+<span class="fc" id="L81">        Objects.requireNonNull(id);</span>
+<span class="fc" id="L82">        Objects.requireNonNull(newEmail);</span>
+<span class="fc" id="L83">        User user = userRepository.findById(id)</span>
+<span class="pc" id="L84">                .orElseThrow(() -&gt; new EntityNotFoundException(</span>
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
+
+        // Check if new email is already taken by another user
+<span class="fc" id="L88">        Optional&lt;User&gt; existingUser = userRepository.findByEmail(newEmail);</span>
+<span class="pc bpc" id="L89" title="1 of 4 branches missed.">        if (existingUser.isPresent() &amp;&amp; !existingUser.get().getId().equals(id)) {</span>
+<span class="fc" id="L90">            throw new IllegalArgumentException(&quot;Email already exists: &quot; + newEmail);</span>
+        }
+
+<span class="fc" id="L93">        user.setEmail(newEmail);</span>
+<span class="fc" id="L94">        return userRepository.save(user);</span>
+    }
+
+    public void deleteUser(@NonNull String id) {
+<span class="fc" id="L98">        Objects.requireNonNull(id);</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (!userRepository.existsById(id)) {</span>
+<span class="fc" id="L100">            throw new EntityNotFoundException(AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id);</span>
+        }
+<span class="fc" id="L102">        userRepository.deleteById(id);</span>
+<span class="fc" id="L103">    }</span>
+
+    @SuppressWarnings(&quot;null&quot;)
+    public User updateUserProfile(@NonNull String id, String firstName, String lastName, String phone) {
+<span class="fc" id="L107">        Objects.requireNonNull(id);</span>
+<span class="fc" id="L108">        User user = userRepository.findById(id)</span>
+<span class="pc" id="L109">                .orElseThrow(() -&gt; new EntityNotFoundException(</span>
+                        AppConstants.ERROR_USER_NOT_FOUND_PREFIX + id));
+
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (firstName != null) {</span>
+<span class="fc" id="L113">            user.setFirstName(firstName);</span>
+        }
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (lastName != null) {</span>
+<span class="fc" id="L116">            user.setLastName(lastName);</span>
+        }
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (phone != null) {</span>
+<span class="fc" id="L119">            user.setPhone(phone);</span>
+        }
+<span class="fc" id="L121">        return userRepository.save(user);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

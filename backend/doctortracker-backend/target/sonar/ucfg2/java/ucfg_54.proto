@@ -1,0 +1,57 @@
+
+ccom.clinalert.doctortracker.service.UserService#getUserById(Ljava/lang/String;)Ljava/util/Optional;®
+ùC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/UserService.java (%"startingBlock*ê
+startingBlock% (9ó
+î
+& (.
+%3"
+__annotate*@
+
+__unknown_file ($"
+ org.springframework.lang.NonNull*4
+
+__unknown_file (
+
+idjava.lang.StringV
+T
+6 (8
+idjava.lang.String"__annotation*"
+
+__unknown_file (
+
+%3*
+1*Ñ
+1 (µ
+≤
+ (;
+%05com.clinalert.doctortracker.repository.UserRepository"__id*c
+
+__unknown_file (G*E1
+/com.clinalert.doctortracker.service.UserService"
+userRepository÷
+”
+' (A
+%1java.lang.String"Fjava.util.Objects#requireNonNull(Ljava/lang/Object;)Ljava/lang/Object;*1
+
+__unknown_file ("
+java.util.Objects*4
+
+__unknown_file (
+
+idjava.lang.Stringª∏
+ (B
+%2java.util.Optional"corg.springframework.data.repository.CrudRepository#findById(Ljava/lang/Object;)Ljava/util/Optional;*Y
+
+__unknown_file (=
+;
+%05com.clinalert.doctortracker.repository.UserRepository*4
+
+__unknown_file (
+
+%1java.lang.String2findById(Ljava/lang/Object;)"&
+ (C
+
+%2java.util.Optional:"
+& (8
+idjava.lang.StringB31
+/com.clinalert.doctortracker.service.UserServiceH

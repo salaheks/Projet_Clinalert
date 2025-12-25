@@ -1,0 +1,15 @@
+
+Zcom.clinalert.doctortracker.model.SmartWatchDevice#getCreatedAt()Ljava/time/LocalDateTime;«
+ C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/SmartWatchDevice.javab b(%"1*Ò
+1c c(•
+’
+c c(
+%0java.time.LocalDateTime"__id*a
+
+__unknown_file (E*C4
+2com.clinalert.doctortracker.model.SmartWatchDevice"
+	createdAt"+
+c c(
+
+%0java.time.LocalDateTimeB64
+2com.clinalert.doctortracker.model.SmartWatchDeviceH

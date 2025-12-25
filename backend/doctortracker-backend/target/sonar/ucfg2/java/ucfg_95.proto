@@ -1,0 +1,21 @@
+
+Wcom.clinalert.doctortracker.controller.DoctorController#getAllDoctors()Ljava/util/List;°
+¥C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/DoctorController.java (%"1*Í
+1 (¸
+µ
+ (7
+%01com.clinalert.doctortracker.service.DoctorService"__id*j
+
+__unknown_file (N*L9
+7com.clinalert.doctortracker.controller.DoctorController"
+doctorServiceÞÛ
+ (,
+%1java.util.List"Qcom.clinalert.doctortracker.service.DoctorService#getAllDoctors()Ljava/util/List;*U
+
+__unknown_file (9
+7
+%01com.clinalert.doctortracker.service.DoctorService2getAllDoctors()""
+ (-
+
+%1java.util.ListB;9
+7com.clinalert.doctortracker.controller.DoctorControllerH

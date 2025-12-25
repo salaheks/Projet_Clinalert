@@ -1,0 +1,61 @@
+
+¨com.clinalert.doctortracker.service.SmartWatchHealthService#saveHealthData(Lcom/clinalert/doctortracker/model/HealthData;)Lcom/clinalert/doctortracker/model/HealthData;´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/SmartWatchHealthService.javab b($"1*ó
+1c c(å
+â
+c c(I2
+%0,com.clinalert.doctortracker.model.HealthData"Xjava.util.Objects#requireNonNull(Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;*1
+
+__unknown_file ("
+java.util.Objects*X
+
+__unknown_file (<
+:
+
+healthData,com.clinalert.doctortracker.model.HealthData*;
+
+__unknown_file (
+healthData must not be nullÍ
+Ê
+d d(/A
+%1;com.clinalert.doctortracker.repository.HealthDataRepository"__id*u
+
+__unknown_file (Y*W=
+;com.clinalert.doctortracker.service.SmartWatchHealthService"
+healthDataRepositoryõò
+d d(@2
+%2,com.clinalert.doctortracker.model.HealthData"]org.springframework.data.repository.CrudRepository#save(Ljava/lang/Object;)Ljava/lang/Object;*_
+
+__unknown_file (C
+A
+%1;com.clinalert.doctortracker.repository.HealthDataRepository*X
+
+__unknown_file (<
+:
+
+healthData,com.clinalert.doctortracker.model.HealthData2save(Ljava/lang/Object;)œ
+™
+d d(A5
+saved,com.clinalert.doctortracker.model.HealthData"__id*P
+
+__unknown_file (4
+2
+%2,com.clinalert.doctortracker.model.HealthDataÏ
+Ì
+e e(#
+
+%3void"com.clinalert.doctortracker.service.SmartWatchHealthService#checkAndCreateAlerts(Lcom/clinalert/doctortracker/model/HealthData;)V*[
+
+__unknown_file (?=
+;com.clinalert.doctortracker.service.SmartWatchHealthService*S
+
+__unknown_file (7
+5
+saved,com.clinalert.doctortracker.model.HealthData"C
+f f(7
+5
+saved,com.clinalert.doctortracker.model.HealthData:F
+b% b(::
+
+healthData,com.clinalert.doctortracker.model.HealthDataB?=
+;com.clinalert.doctortracker.service.SmartWatchHealthServiceH

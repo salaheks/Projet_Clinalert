@@ -1,0 +1,39 @@
+
+C__sonar_lambda_16$com.clinalert.doctortracker.service.ClinicService™
+üC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/ClinicService.java- -(Z"startingBlock*∑
+startingBlock- -(Zñ
+ì
+
+__unknown_file (
+idjava.lang.String"__id*Y
+
+__unknown_file (=*;3
+1com.clinalert.doctortracker.service.ClinicService"
+id*
+1*÷
+1-8 -(TÅ
+
+-8 -(Y
+%15java.lang.String"__concat**
+-8 -(T
+Clinic not found with id: *$
+-W -(Y
+
+idjava.lang.StringKI
+-' -(7!
+%16java.lang.RuntimeException"java.lang.RuntimeExceptionƒ
+¡
+-# -(Z
+%17"6java.lang.RuntimeException#<init>(Ljava/lang/String;)V*?
+
+__unknown_file (#
+!
+%16java.lang.RuntimeException*5
+
+__unknown_file (
+
+%15java.lang.String"/
+-# -(Z#
+!
+%16java.lang.RuntimeExceptionB
+java.util.function.Supplier

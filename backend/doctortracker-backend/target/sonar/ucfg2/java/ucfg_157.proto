@@ -1,0 +1,15 @@
+
+Ncom.clinalert.doctortracker.model.User#getUpdatedAt()Ljava/time/LocalDateTime;Ÿ
+”C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/User.javar r(%"1*Æ
+1s s(‰
+†
+s s(
+%0java.time.LocalDateTime"__id*U
+
+__unknown_file (9*7(
+&com.clinalert.doctortracker.model.User"
+	updatedAt"+
+s s(
+
+%0java.time.LocalDateTimeB*(
+&com.clinalert.doctortracker.model.UserH

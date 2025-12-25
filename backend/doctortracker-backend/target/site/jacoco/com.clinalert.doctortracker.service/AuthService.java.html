@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.service</a> &gt; <span class="el_source">AuthService.java</span></div><h1>AuthService.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.service;
+
+import com.clinalert.doctortracker.dto.LoginRequest;
+import com.clinalert.doctortracker.dto.LoginResponse;
+import com.clinalert.doctortracker.dto.RegisterRequest;
+import com.clinalert.doctortracker.model.Doctor;
+import com.clinalert.doctortracker.model.Patient;
+import com.clinalert.doctortracker.model.User;
+import com.clinalert.doctortracker.repository.DoctorRepository;
+import com.clinalert.doctortracker.repository.PatientRepository;
+import com.clinalert.doctortracker.repository.UserRepository;
+import com.clinalert.doctortracker.security.JwtTokenProvider;
+import com.clinalert.doctortracker.util.AppConstants;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+<span class="fc" id="L27">@Slf4j</span>
+public class AuthService {
+
+    private final UserRepository userRepository;
+
+    private final DoctorRepository doctorRepository;
+
+    private final PatientRepository patientRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final JwtTokenProvider tokenProvider;
+
+    private final AuthenticationManager authenticationManager;
+
+    public LoginResponse login(LoginRequest request) {
+<span class="fc" id="L43">        String safeEmail = sanitizeForLog(request.getEmail());</span>
+<span class="fc" id="L44">        log.info(&quot;=== LOGIN ATTEMPT ===&quot;);</span>
+<span class="fc" id="L45">        log.info(&quot;Email: {}&quot;, safeEmail);</span>
+<span class="fc" id="L46">        log.debug(&quot;Password received: [PROTECTED]&quot;);</span>
+
+        // Check if user exists first
+<span class="fc" id="L49">        User existingUser = userRepository.findByEmail(request.getEmail()).orElse(null);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (existingUser == null) {</span>
+<span class="fc" id="L51">            log.warn(&quot;ERROR: User not found in database for email: {}&quot;, safeEmail);</span>
+        } else {
+<span class="fc" id="L53">            log.info(&quot;User found! ID: {}&quot;, existingUser.getId());</span>
+<span class="fc" id="L54">            boolean matches = passwordEncoder.matches(request.getPassword(), existingUser.getPassword());</span>
+<span class="fc" id="L55">            log.info(&quot;Password matches: {}&quot;, matches);</span>
+        }
+
+        try {
+<span class="fc" id="L59">            Authentication authentication = authenticationManager.authenticate(</span>
+<span class="fc" id="L60">                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));</span>
+
+<span class="fc" id="L62">            SecurityContextHolder.getContext().setAuthentication(authentication);</span>
+
+<span class="fc" id="L64">            User user = userRepository.findByEmail(request.getEmail())</span>
+<span class="fc" id="L65">                    .orElseThrow(() -&gt; new EntityNotFoundException(</span>
+<span class="fc" id="L66">                            AppConstants.ERROR_USER_NOT_FOUND_PREFIX + request.getEmail()));</span>
+
+<span class="fc" id="L68">            String token = tokenProvider.generateToken(user, user.getId(), user.getRole().name());</span>
+<span class="fc" id="L69">            log.info(&quot;Login successful! Token generated.&quot;);</span>
+
+<span class="fc" id="L71">            return new LoginResponse(token, user.getId(), user.getEmail(), user.getRole().name());</span>
+<span class="fc" id="L72">        } catch (Exception e) {</span>
+<span class="fc" id="L73">            log.error(&quot;Authentication FAILED: {}&quot;, e.getMessage());</span>
+<span class="fc" id="L74">            throw e;</span>
+        }
+    }
+
+    @Transactional
+    public LoginResponse register(RegisterRequest request) {
+<span class="fc" id="L80">        String safeEmail = sanitizeForLog(request.getEmail());</span>
+        // Check if email already exists
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (userRepository.existsByEmail(request.getEmail())) {</span>
+<span class="fc" id="L83">            throw new IllegalArgumentException(&quot;Email already in use&quot;);</span>
+        }
+
+        // Create user
+<span class="fc" id="L87">        User user = new User();</span>
+<span class="fc" id="L88">        user.setEmail(request.getEmail());</span>
+<span class="fc" id="L89">        user.setPassword(passwordEncoder.encode(request.getPassword()));</span>
+<span class="fc" id="L90">        user.setRole(request.getRole());</span>
+<span class="fc" id="L91">        user.setEnabled(true);</span>
+
+<span class="fc" id="L93">        user = userRepository.save(user);</span>
+<span class="fc" id="L94">        log.info(&quot;Registered new user with email: {}&quot;, safeEmail);</span>
+
+        // Create associated Doctor or Patient profile
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">        if (request.getRole() == User.UserRole.DOCTOR &amp;&amp; request.getName() != null) {</span>
+<span class="fc" id="L98">            Doctor doctor = new Doctor();</span>
+<span class="fc" id="L99">            doctor.setName(request.getName());</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            doctor.setSpecialty(request.getSpecialty() != null ? request.getSpecialty() : &quot;General&quot;);</span>
+<span class="fc" id="L101">            doctor.setEmail(request.getEmail());</span>
+<span class="fc" id="L102">            doctor.setPhoneNumber(request.getPhoneNumber());</span>
+<span class="fc" id="L103">            doctorRepository.save(doctor);</span>
+<span class="fc" id="L104">            log.info(&quot;Created Doctor profile for user: {}&quot;, safeEmail);</span>
+<span class="pc bpc" id="L105" title="2 of 4 branches missed.">        } else if (request.getRole() == User.UserRole.PATIENT &amp;&amp; request.getName() != null) {</span>
+<span class="fc" id="L106">            Patient patient = new Patient();</span>
+<span class="fc" id="L107">            patient.setName(request.getName());</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">            patient.setAge(request.getAge() != null ? request.getAge() : 0);</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">            patient.setGender(request.getGender() != null ? request.getGender() : &quot;Unknown&quot;);</span>
+<span class="fc" id="L110">            patient.setDoctorId(request.getDoctorId());</span>
+<span class="fc" id="L111">            patient.setStatus(&quot;active&quot;);</span>
+<span class="fc" id="L112">            patientRepository.save(patient);</span>
+        }
+
+        // Generate token
+<span class="fc" id="L116">        String token = tokenProvider.generateToken(user, user.getId(), user.getRole().name());</span>
+
+<span class="fc" id="L118">        return new LoginResponse(token, user.getId(), user.getEmail(), user.getRole().name());</span>
+    }
+
+    public User getCurrentUser() {
+<span class="fc" id="L122">        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="pc bpc" id="L123" title="1 of 4 branches missed.">        if (authentication == null || !authentication.isAuthenticated()) {</span>
+<span class="fc" id="L124">            return null;</span>
+        }
+
+<span class="fc" id="L127">        String email = authentication.getName();</span>
+<span class="fc" id="L128">        return userRepository.findByEmail(email).orElse(null);</span>
+    }
+
+    private String sanitizeForLog(String input) {
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">        if (input == null) {</span>
+<span class="nc" id="L133">            return &quot;null&quot;;</span>
+        }
+<span class="fc" id="L135">        return input.replaceAll(&quot;[\r\n]&quot;, &quot;_&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

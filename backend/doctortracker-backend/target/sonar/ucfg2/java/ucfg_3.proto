@@ -1,0 +1,176 @@
+
+šcom.clinalert.doctortracker.controller.ClinicController#createClinic(Lcom/clinalert/doctortracker/model/Clinic;)Lcom/clinalert/doctortracker/model/Clinic;°
+¥C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/ClinicController.java% %("startingBlock*Õ
+startingBlock% %(:ˆ
+…
+
+__unknown_file (
+%2"__id*]
+
+__unknown_file (A*?
+2
+clinic(com.clinalert.doctortracker.model.Clinic"	
+address‰
+†
+
+__unknown_file (
+%3"__id*^
+
+__unknown_file (B*@
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+
+doctorIdƒ
+€
+
+__unknown_file (
+%4"__id*X
+
+__unknown_file (<*:
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+id…
+‚
+
+__unknown_file (
+%5"__id*Z
+
+__unknown_file (>*<
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+name†
+ƒ
+
+__unknown_file (
+%6"__id*[
+
+__unknown_file (?*=
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+phone˜
+•
+% %(+
+%7"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%5|
+z
+%3 %(9<
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+name"__annotation*"
+
+__unknown_file (
+
+%7˜
+•
+% %(+
+%8"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%6}
+{
+%3 %(9=
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+phone"__annotation*"
+
+__unknown_file (
+
+%8˜
+•
+% %(+
+%9"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%4z
+x
+%3 %(9:
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+id"__annotation*"
+
+__unknown_file (
+
+%9™
+–
+% %(+
+%10"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%3
+
+%3 %(9@
+2
+clinic(com.clinalert.doctortracker.model.Clinic"
+
+doctorId"__annotation*#
+
+__unknown_file (
+
+%10™
+–
+% %(+
+%11"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%2€
+~
+%3 %(9?
+2
+clinic(com.clinalert.doctortracker.model.Clinic"	
+address"__annotation*#
+
+__unknown_file (
+
+%11*
+1*À
+1& &(¸
+µ
+& &(7
+%01com.clinalert.doctortracker.service.ClinicService"__id*j
+
+__unknown_file (N*L9
+7com.clinalert.doctortracker.controller.ClinicController"
+clinicService·´
+& &(1.
+%1(com.clinalert.doctortracker.model.Clinic"”com.clinalert.doctortracker.service.ClinicService#createClinic(Lcom/clinalert/doctortracker/model/Clinic;)Lcom/clinalert/doctortracker/model/Clinic;*U
+
+__unknown_file (9
+7
+%01com.clinalert.doctortracker.service.ClinicService*P
+
+__unknown_file (4
+2
+clinic(com.clinalert.doctortracker.model.Clinic28createClinic(Lcom/clinalert/doctortracker/model/Clinic;)"<
+& &(20
+.
+%1(com.clinalert.doctortracker.model.Clinic:>
+% %(92
+clinic(com.clinalert.doctortracker.model.ClinicB;9
+7com.clinalert.doctortracker.controller.ClinicControllerH

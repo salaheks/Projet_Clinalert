@@ -1,0 +1,15 @@
+
+Dcom.clinalert.doctortracker.model.Doctor#getName()Ljava/lang/String;¡
+–C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/Doctor.java ("1*³
+1 (~
+|
+ (
+%0java.lang.String"__id*R
+
+__unknown_file (6*4*
+(com.clinalert.doctortracker.model.Doctor"
+name"$
+ (
+
+%0java.lang.StringB,*
+(com.clinalert.doctortracker.model.DoctorH

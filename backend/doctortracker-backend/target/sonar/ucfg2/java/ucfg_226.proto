@@ -1,0 +1,60 @@
+
+~com.clinalert.doctortracker.controller.AlertController#markAsRead(Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;Ø
+§C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/AlertController.java"  "(*"startingBlock*§
+startingBlock"* "(C´
+®
+"+ "(8
+%4"
+__annotate*T
+
+__unknown_file (86
+4org.springframework.web.bind.annotation.PathVariable*4
+
+__unknown_file (
+
+idjava.lang.StringV
+T
+"@ "(B
+idjava.lang.String"__annotation*"
+
+__unknown_file (
+
+%4*
+1*ù
+1# #(µ
+≤
+# #(6
+%00com.clinalert.doctortracker.service.AlertService"__id*h
+
+__unknown_file (L*J8
+6com.clinalert.doctortracker.controller.AlertController"
+alertServiceóî
+# #(#
+
+%1void"Pcom.clinalert.doctortracker.service.AlertService#markAsRead(Ljava/lang/String;)V*T
+
+__unknown_file (8
+6
+%00com.clinalert.doctortracker.service.AlertService*4
+
+__unknown_file (
+
+idjava.lang.String2markAsRead(Ljava/lang/String;)Ù
+Ò
+$ $("9
+%23org.springframework.http.ResponseEntity$BodyBuilder"aorg.springframework.http.ResponseEntity#ok()Lorg/springframework/http/ResponseEntity$BodyBuilder;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntityáÑ
+$ $(*-
+%3'org.springframework.http.ResponseEntity"gorg.springframework.http.ResponseEntity$HeadersBuilder#build()Lorg/springframework/http/ResponseEntity;*W
+
+__unknown_file (;
+9
+%23org.springframework.http.ResponseEntity$BodyBuilder2build()";
+$ $(+/
+-
+%3'org.springframework.http.ResponseEntity:"
+"+ "(B
+idjava.lang.StringB:8
+6com.clinalert.doctortracker.controller.AlertControllerH

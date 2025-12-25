@@ -1,0 +1,60 @@
+
+ƒcom.clinalert.doctortracker.controller.SmartWatchController#pingDevice(Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/SmartWatchController.java;  ;(*"startingBlock*°
+startingBlock;* ;(I±
+®
+;+ ;(8
+%4"
+__annotate*T
+
+__unknown_file (86
+4org.springframework.web.bind.annotation.PathVariable*:
+
+__unknown_file (
+
+deviceIdjava.lang.String\
+Z
+;@ ;(H
+deviceIdjava.lang.String"__annotation*"
+
+__unknown_file (
+
+%4*
+1*ò
+1< <(Ð
+Í
+< <(A
+%0;com.clinalert.doctortracker.service.SmartWatchHealthService"__id*x
+
+__unknown_file (\*Z=
+;com.clinalert.doctortracker.controller.SmartWatchController"
+smartWatchHealthServiceÑÎ
+< <(C
+
+%1void"jcom.clinalert.doctortracker.service.SmartWatchHealthService#updateDeviceLastConnected(Ljava/lang/String;)V*_
+
+__unknown_file (C
+A
+%0;com.clinalert.doctortracker.service.SmartWatchHealthService*:
+
+__unknown_file (
+
+deviceIdjava.lang.String2-updateDeviceLastConnected(Ljava/lang/String;)ô
+ñ
+= =("9
+%23org.springframework.http.ResponseEntity$BodyBuilder"aorg.springframework.http.ResponseEntity#ok()Lorg/springframework/http/ResponseEntity$BodyBuilder;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity‡„
+= =(*-
+%3'org.springframework.http.ResponseEntity"gorg.springframework.http.ResponseEntity$HeadersBuilder#build()Lorg/springframework/http/ResponseEntity;*W
+
+__unknown_file (;
+9
+%23org.springframework.http.ResponseEntity$BodyBuilder2build()";
+= =(+/
+-
+%3'org.springframework.http.ResponseEntity:(
+;+ ;(H
+deviceIdjava.lang.StringB?=
+;com.clinalert.doctortracker.controller.SmartWatchControllerH

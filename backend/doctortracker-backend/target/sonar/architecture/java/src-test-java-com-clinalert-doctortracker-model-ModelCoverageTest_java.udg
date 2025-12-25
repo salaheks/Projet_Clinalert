@@ -1,0 +1,1223 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684698046*java2.B¢4
+K
+Fsrc/test/java/com/clinalert/doctortracker/model/ModelCoverageTest.java2
+	
+type3
+	
+TEST4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+E
+@adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.model9
+9
+3com.clinalert.doctortracker.model.ModelCoverageTest11
+
+class12
+
+access13
+
+	protected14
+
+
+full-range15
+
+(10:1)-(96:2)16
+
+simple-name17
+
+ModelCoverageTest18
+'
+!org.junit.jupiter.api.DisplayName20
+
+unknown21
+
+annotated by22
+
+
+uses23
+N
+Hcom.clinalert.doctortracker.model.ModelCoverageTest#user_FullCoverage()V25
+
+method26
+
+(13:5)-(74:6)27
+
+user_FullCoverage28
+ 
+org.junit.jupiter.api.Test30
+,
+&com.clinalert.doctortracker.model.User32
+
+is type33
+
+returns34
+8
+2com.clinalert.doctortracker.model.User$UserBuilder36
+
+
+references37
+h
+bcom.clinalert.doctortracker.model.User$UserBuilder#build()Lcom/clinalert/doctortracker/model/User;39
+
+calls40
+’
+‹com.clinalert.doctortracker.model.User$UserBuilder#updatedAt(Ljava/time/LocalDateTime;)Lcom/clinalert/doctortracker/model/User$UserBuilder;42
+’
+‹com.clinalert.doctortracker.model.User$UserBuilder#createdAt(Ljava/time/LocalDateTime;)Lcom/clinalert/doctortracker/model/User$UserBuilder;44
+‡
+€com.clinalert.doctortracker.model.User$UserBuilder#phone(Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User$UserBuilder;46
+Š
+ƒcom.clinalert.doctortracker.model.User$UserBuilder#lastName(Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User$UserBuilder;48
+‹
+„com.clinalert.doctortracker.model.User$UserBuilder#firstName(Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User$UserBuilder;50
+Š
+ƒcom.clinalert.doctortracker.model.User$UserBuilder#enabled(Ljava/lang/Boolean;)Lcom/clinalert/doctortracker/model/User$UserBuilder;52
+¥
+žcom.clinalert.doctortracker.model.User$UserBuilder#role(Lcom/clinalert/doctortracker/model/User$UserRole;)Lcom/clinalert/doctortracker/model/User$UserBuilder;54
+Š
+ƒcom.clinalert.doctortracker.model.User$UserBuilder#password(Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User$UserBuilder;56
+‡
+€com.clinalert.doctortracker.model.User$UserBuilder#email(Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User$UserBuilder;58
+ƒ
+}com.clinalert.doctortracker.model.User$UserBuilder#id(Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User$UserBuilder;60
+j
+dcom.clinalert.doctortracker.model.User#builder()Lcom/clinalert/doctortracker/model/User$UserBuilder;62
+5
+/com.clinalert.doctortracker.model.User$UserRole64
+<
+6com.clinalert.doctortracker.model.User$UserRole.DOCTOR66
+G
+Acom.clinalert.doctortracker.model.User#setId(Ljava/lang/String;)V68
+J
+Dcom.clinalert.doctortracker.model.User#setEmail(Ljava/lang/String;)V70
+M
+Gcom.clinalert.doctortracker.model.User#setPassword(Ljava/lang/String;)V72
+h
+bcom.clinalert.doctortracker.model.User#setRole(Lcom/clinalert/doctortracker/model/User$UserRole;)V74
+M
+Gcom.clinalert.doctortracker.model.User#setEnabled(Ljava/lang/Boolean;)V76
+N
+Hcom.clinalert.doctortracker.model.User#setFirstName(Ljava/lang/String;)V78
+M
+Gcom.clinalert.doctortracker.model.User#setLastName(Ljava/lang/String;)V80
+J
+Dcom.clinalert.doctortracker.model.User#setPhone(Ljava/lang/String;)V82
+U
+Ocom.clinalert.doctortracker.model.User#setCreatedAt(Ljava/time/LocalDateTime;)V84
+U
+Ocom.clinalert.doctortracker.model.User#setUpdatedAt(Ljava/time/LocalDateTime;)V86
+/
+)org.assertj.core.api.AbstractStringAssert88
+x
+rorg.assertj.core.api.AbstractStringAssert#isEqualTo(Ljava/lang/String;)Lorg/assertj/core/api/AbstractStringAssert;90
+%
+org.assertj.core.api.Assertions92
+o
+iorg.assertj.core.api.Assertions#assertThat(Ljava/lang/String;)Lorg/assertj/core/api/AbstractStringAssert;94
+F
+@com.clinalert.doctortracker.model.User#getId()Ljava/lang/String;96
+6
+0org.assertj.core.api.AbstractLocalDateTimeAssert98
+ˆ
+€org.assertj.core.api.AbstractLocalDateTimeAssert#isEqualTo(Ljava/lang/Object;)Lorg/assertj/core/api/AbstractLocalDateTimeAssert;100
+~
+worg.assertj.core.api.Assertions#assertThat(Ljava/time/LocalDateTime;)Lorg/assertj/core/api/AbstractLocalDateTimeAssert;102
+U
+Ncom.clinalert.doctortracker.model.User#getCreatedAt()Ljava/time/LocalDateTime;104
+U
+Ncom.clinalert.doctortracker.model.User#getUpdatedAt()Ljava/time/LocalDateTime;106
+(
+!org.assertj.core.api.ObjectAssert108
+*
+#org.assertj.core.api.AbstractAssert110
+m
+forg.assertj.core.api.AbstractAssert#isEqualTo(Ljava/lang/Object;)Lorg/assertj/core/api/AbstractAssert;112
+h
+aorg.assertj.core.api.Assertions#assertThat(Ljava/lang/Object;)Lorg/assertj/core/api/ObjectAssert;114
+1
+*org.assertj.core.api.AbstractIntegerAssert116
+j
+corg.assertj.core.api.AbstractIntegerAssert#isEqualTo(I)Lorg/assertj/core/api/AbstractIntegerAssert;118
+`
+Yorg.assertj.core.api.Assertions#assertThat(I)Lorg/assertj/core/api/AbstractIntegerAssert;120
+9
+2com.clinalert.doctortracker.model.User#hashCode()I122
+p
+iorg.assertj.core.api.AbstractAssert#isNotEqualTo(Ljava/lang/Object;)Lorg/assertj/core/api/AbstractAssert;124
+6
+/org.assertj.core.api.AbstractCharSequenceAssert126
+Œ
+„org.assertj.core.api.AbstractCharSequenceAssert#contains([Ljava/lang/CharSequence;)Lorg/assertj/core/api/AbstractCharSequenceAssert;128
+J
+Ccom.clinalert.doctortracker.model.User#toString()Ljava/lang/String;130
+1
+*org.assertj.core.api.AbstractBooleanAssert132
+f
+_org.assertj.core.api.AbstractBooleanAssert#isTrue()Lorg/assertj/core/api/AbstractBooleanAssert;134
+`
+Yorg.assertj.core.api.Assertions#assertThat(Z)Lorg/assertj/core/api/AbstractBooleanAssert;136
+K
+Dcom.clinalert.doctortracker.model.User#canEqual(Ljava/lang/Object;)Z138
+9
+2com.clinalert.doctortracker.model.User#onCreate()V140
+[
+Torg.assertj.core.api.AbstractAssert#isNotNull()Lorg/assertj/core/api/AbstractAssert;142
+r
+korg.assertj.core.api.Assertions#assertThat(Ljava/lang/Boolean;)Lorg/assertj/core/api/AbstractBooleanAssert;144
+M
+Fcom.clinalert.doctortracker.model.User#getEnabled()Ljava/lang/Boolean;146
+9
+2com.clinalert.doctortracker.model.User#onUpdate()V148
+>
+7com.clinalert.doctortracker.model.User$UserRole.PATIENT150
+2
++org.assertj.core.api.AbstractIterableAssert152
+j
+corg.assertj.core.api.AbstractIterableAssert#hasSize(I)Lorg/assertj/core/api/AbstractIterableAssert;154
+4
+-org.assertj.core.api.AbstractCollectionAssert156
+x
+qorg.assertj.core.api.Assertions#assertThat(Ljava/util/Collection;)Lorg/assertj/core/api/AbstractCollectionAssert;158
+T
+Mcom.clinalert.doctortracker.model.User#getAuthorities()Ljava/util/Collection;160
+L
+Ecom.clinalert.doctortracker.model.ModelCoverageTest#verifyEquality()V162
+
+(76:5)-(95:6)163
+
+verifyEquality164J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jà
+
+123
+12312421
+
+109
+10911021
+
+117
+11711821
+
+83
+838421
+
+67
+676821
+
+97
+979821
+
+43
+434421
+
+38
+383921
+
+147
+14714821
+S
+161L
+16116226 *
+1N
+ N(210:7B&
+
+
+13
+14
+
+15
+163
+
+17
+164
+
+47
+474821
+
+91
+919221
+
+85
+858621
+
+87
+878821
+
+137
+13713821
+
+63
+636421
+
+135
+13513621
+
+69
+697021
+
+95
+959621
+N
+24H
+242526 *
+1
+ (210:7B$
+
+
+13
+14
+
+
+15
+27
+
+
+17
+28
+
+105
+10510621
+
+51
+515221
+
+149
+14915021
+
+57
+575821
+
+139
+13914021
+
+29
+293021
+
+107
+10710821
+
+77
+777821
+
+153
+15315421
+
+141
+14114221
+
+49
+495021
+
+121
+12112221
+
+157
+15715821
+
+89
+899021
+
+127
+12712821
+
+61
+616221
+
+115
+11511621
+
+125
+12512621
+
+35
+353621
+
+41
+414221
+
+119
+11912021
+
+133
+13313421
+
+143
+14314421
+
+159
+15916021
+
+155
+15515621
+
+53
+535421
+
+151
+15115221
+
+55
+555621
+
+71
+717221
+
+101
+10110221
+
+73
+737421
+
+79
+798021
+
+131
+13113221
+
+45
+454621
+
+111
+11111221
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+93
+939421
+
+19
+192021
+
+113
+11311421
+
+75
+757621
+
+59
+596021
+
+129
+12913021
+
+145
+14514621
+
+65
+656621
+
+103
+10310421
+
+31
+313221
+
+81
+818221
+
+99
+9910021rï6
+
+101922*
+1
+ 
+((
+
+101923*
+1
+ 
+(
+
+242922*
+1 (
+
+
+242923*
+1 (
+
+
+241922*
+1 (2
+
+241923*
+1 (
+
+243133*
+1 (
+
+243123*
+1	 (
+
+243134*
+1 (
+
+243537*
+1 (
+
+243840*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+244140*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+244340*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+244540*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+244740*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+244940*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+245140*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+245340*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+245540*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+245740*
+1 (
+
+243534*
+1 (
+
+243537*
+1 (
+
+245940*
+1 (
+
+243534*
+1 ("
+
+243137*
+1 ("
+
+246140*
+1 ("
+
+243123*
+1 (
+
+243123*
+1 (
+
+246323*
+1 ($
+
+246337*
+1 ($
+
+246323*
+1% (+
+
+246537*
+1% (+
+
+243133*
+1! !(
+
+243123*
+1!	 !(
+
+243140*
+1! !(
+
+243137*
+1"	 "(
+
+246740*
+1" "(
+
+243137*
+1#	 #(
+
+246940*
+1# #(
+
+243137*
+1$	 $(
+
+247140*
+1$ $(
+
+243137*
+1%	 %(
+
+247340*
+1% %(
+
+243123*
+1% %(
+
+246323*
+1% %($
+
+246337*
+1% %($
+
+246323*
+1%% %(+
+
+246537*
+1%% %(+
+
+243137*
+1&	 &(
+
+247540*
+1& &(
+
+243137*
+1'	 '(
+
+247740*
+1' '(
+
+243137*
+1(	 ((
+
+247940*
+1( ((
+
+243137*
+1)	 )(
+
+248140*
+1) )(
+
+243137*
+1*	 *(
+
+248340*
+1* *(
+
+243137*
+1+	 +(
+
+248540*
+1+ +(
+
+248737*
+1.	 .(,
+
+248940*
+1.# .(,
+
+248734*
+1.	 .(
+
+249137*
+1.	 .(
+
+249340*
+1.	 .(
+
+243137*
+1. .(
+
+249540*
+1. .(
+
+249737*
+1/	 /(3
+
+249940*
+1/* /(3
+
+249734*
+1/	 /(
+
+249137*
+1/	 /(
+
+2410140*
+1/	 /(
+
+243137*
+1/ /(&
+
+2410340*
+1/ /(&
+
+249737*
+10	 0(3
+
+249940*
+10* 0(3
+
+249734*
+10	 0(
+
+249137*
+10	 0(
+
+2410140*
+10	 0(
+
+243137*
+10 0(&
+
+2410540*
+10 0(&
+
+2410734*
+13	 3($
+
+2410937*
+13	 3($
+
+2411140*
+13 3($
+
+2410734*
+13	 3(
+
+249137*
+13	 3(
+
+2411340*
+13	 3(
+
+2411537*
+14	 4(/
+
+2411740*
+14& 4(/
+
+2411534*
+14	 4(
+
+249137*
+14	 4(
+
+2411940*
+14	 4(
+
+243137*
+14 4("
+
+2412140*
+14 4("
+
+243137*
+140 4(>
+
+2412140*
+146 4(>
+
+2410734*
+15	 5('
+
+2410937*
+15	 5('
+
+2412340*
+15 5('
+
+2410734*
+15	 5(
+
+249137*
+15	 5(
+
+2411340*
+15	 5(
+
+2410734*
+16	 6('
+
+2410937*
+16	 6('
+
+2412340*
+16 6('
+
+2410734*
+16	 6(
+
+249137*
+16	 6(
+
+2411340*
+16	 6(
+
+2412537*
+19	 9(.
+
+2412740*
+19& 9(.
+
+248734*
+19	 9(
+
+249137*
+19	 9(
+
+249340*
+19	 9(
+
+243137*
+19 9("
+
+2412940*
+19 9("
+
+2413137*
+1<	 <(1
+
+2413340*
+1<+ <(1
+
+2413134*
+1<	 <(
+
+249137*
+1<	 <(
+
+2413540*
+1<	 <(
+
+243137*
+1< <("
+
+2413740*
+1< <("
+
+243133*
+1? ?(
+
+243123*
+1?	 ?(
+
+243140*
+1? ?(
+
+243137*
+1@	 @(
+
+2413940*
+1@ @(
+
+2410937*
+1A	 A(3
+
+2414140*
+1A* A(3
+
+249734*
+1A	 A(
+
+249137*
+1A	 A(
+
+2410140*
+1A	 A(
+
+243137*
+1A A(&
+
+2410340*
+1A A(&
+
+2413137*
+1B	 B(.
+
+2413340*
+1B( B(.
+
+2413134*
+1B	 B(
+
+249137*
+1B	 B(
+
+2414340*
+1B	 B(
+
+243137*
+1B B($
+
+2414540*
+1B B($
+
+243137*
+1D	 D(
+
+2414740*
+1D D(
+
+2410937*
+1E	 E(3
+
+2414140*
+1E* E(3
+
+249734*
+1E	 E(
+
+249137*
+1E	 E(
+
+2410140*
+1E	 E(
+
+243137*
+1E E(&
+
+2410540*
+1E E(&
+
+243137*
+1H	 H(
+
+247340*
+1H H(
+
+243123*
+1H H(
+
+246323*
+1H H($
+
+246337*
+1H H($
+
+246323*
+1H% H(,
+
+2414937*
+1H% H(,
+
+2415137*
+1I	 I(3
+
+2415340*
+1I, I(3
+
+2415534*
+1I	 I(
+
+249137*
+1I	 I(
+
+2415740*
+1I	 I(
+
+243137*
+1I I((
+
+2415940*
+1I I((
+
+1612922*
+1L L(
+
+
+1612923*
+1L L(
+
+
+1611922*
+1M M(-
+
+1611923*
+1M M(
+
+1613133*
+1O O(
+
+1613123*
+1O	 O(
+
+1613140*
+1O O(
+
+1613137*
+1P	 P(
+
+1616740*
+1P P(
+
+1613133*
+1Q Q(
+
+1613123*
+1Q	 Q(
+
+1613140*
+1Q Q(
+
+1613137*
+1R	 R(
+
+1616740*
+1R R(
+
+1613133*
+1S S(
+
+1613123*
+1S	 S(
+
+1613140*
+1S S(
+
+1613137*
+1T	 T(
+
+1616740*
+1T T(
+
+16113137*
+1V	 V(+
+
+16113340*
+1V% V(+
+
+16113134*
+1V	 V(
+
+1619137*
+1V	 V(
+
+16113540*
+1V	 V(
+
+1613137*
+1V V(
+
+16113740*
+1V V(
+
+16110734*
+1W	 W(!
+
+16110937*
+1W	 W(!
+
+16111140*
+1W W(!
+
+16110734*
+1W	 W(
+
+1619137*
+1W	 W(
+
+16111340*
+1W	 W(
+
+16110734*
+1X	 X(!
+
+16110937*
+1X	 X(!
+
+16111140*
+1X X(!
+
+16110734*
+1X	 X(
+
+1619137*
+1X	 X(
+
+16111340*
+1X	 X(
+
+16110734*
+1Y	 Y($
+
+16110937*
+1Y	 Y($
+
+16112340*
+1Y Y($
+
+16110734*
+1Y	 Y(
+
+1619137*
+1Y	 Y(
+
+16111340*
+1Y	 Y(
+
+16110734*
+1Z	 Z($
+
+16110937*
+1Z	 Z($
+
+16112340*
+1Z Z($
+
+16110734*
+1Z	 Z(
+
+1619137*
+1Z	 Z(
+
+16111340*
+1Z	 Z(
+
+16110734*
+1[	 [($
+
+16110937*
+1[	 [($
+
+16112340*
+1[ [($
+
+16110734*
+1[	 [(
+
+1619137*
+1[	 [(
+
+16111340*
+1[	 [(
+
+16111537*
+1]	 ](,
+
+16111740*
+1]# ](,
+
+16111534*
+1]	 ](
+
+1619137*
+1]	 ](
+
+16111940*
+1]	 ](
+
+1613137*
+1] ](
+
+16112140*
+1] ](
+
+1613137*
+1]- ](8
+
+16112140*
+1]0 ](8
+
+16110937*
+1^	 ^(,
+
+16114140*
+1^# ^(,
+
+1618734*
+1^	 ^(
+
+1619137*
+1^	 ^(
+
+1619340*
+1^	 ^(
+
+1613137*
+1^ ^(
+
+16112940*
+1^ ^(

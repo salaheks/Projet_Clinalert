@@ -1,0 +1,102 @@
+
+lcom.clinalert.doctortracker.service.SmartWatchHealthService#saveHealthData(Ljava/util/List;)Ljava/util/List;¥
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/SmartWatchHealthService.javaV V(*"startingBlock*∞
+2[ [(l
+j
+[ [(4
+data,com.clinalert.doctortracker.model.HealthData"__id*"
+
+__unknown_file (
+""™
+ß
+[ [(4
+data,com.clinalert.doctortracker.model.HealthData"
+__arrayGet*5
+
+__unknown_file (
+
+savedjava.util.List*"
+
+__unknown_file (
+""*
+3
+1*„
+3\ \( Œ
+À
+\ \(&
+
+%3void"Åcom.clinalert.doctortracker.service.SmartWatchHealthService#checkAndCreateAlerts(Lcom/clinalert/doctortracker/model/HealthData;)V*[
+
+__unknown_file (?=
+;com.clinalert.doctortracker.service.SmartWatchHealthService*R
+
+__unknown_file (6
+4
+data,com.clinalert.doctortracker.model.HealthData*
+2*º
+startingBlockV* V(Kπ
+∂
+U U(
+%4"
+__annotate*X
+
+__unknown_file (<:
+8org.springframework.transaction.annotation.Transactional*>
+
+__unknown_file ("
+ 
+healthDataListjava.util.List`
+^
+V< V(J 
+healthDataListjava.util.List"__annotation*"
+
+__unknown_file (
+
+%4*
+5*√
+5W W(±
+Æ
+W W(Q
+%0java.util.List"Xjava.util.Objects#requireNonNull(Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;*1
+
+__unknown_file ("
+java.util.Objects*>
+
+__unknown_file ("
+ 
+healthDataListjava.util.List*?
+
+__unknown_file (#!
+healthDataList must not be nullÕ
+ 
+X! X(5A
+%1;com.clinalert.doctortracker.repository.HealthDataRepository"__id*u
+
+__unknown_file (Y*W=
+;com.clinalert.doctortracker.service.SmartWatchHealthService"
+healthDataRepository…∆
+X! X(M
+%2java.util.List"dorg.springframework.data.repository.ListCrudRepository#saveAll(Ljava/lang/Iterable;)Ljava/util/List;*_
+
+__unknown_file (C
+A
+%1;com.clinalert.doctortracker.repository.HealthDataRepository*>
+
+__unknown_file ("
+ 
+healthDataListjava.util.List2saveAll(Ljava/lang/Iterable;)_
+]
+X X(N
+savedjava.util.List"__id*2
+
+__unknown_file (
+
+%2java.util.List*
+2*4
+1_ _("%
+_ _(
+
+savedjava.util.List:,
+V+ V(J 
+healthDataListjava.util.ListB?=
+;com.clinalert.doctortracker.service.SmartWatchHealthServiceH

@@ -1,0 +1,353 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684697694*java2.B¡
+Q
+Lsrc/test/java/com/clinalert/doctortracker/security/SecurityCoverageTest.java2
+	
+type3
+	
+TEST4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+H
+Cadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.security9
+?
+9com.clinalert.doctortracker.security.SecurityCoverageTest11
+
+class12
+
+access13
+
+	protected14
+
+
+full-range15
+
+(15:1)-(37:2)16
+
+simple-name17
+
+SecurityCoverageTest18
+'
+!org.junit.jupiter.api.DisplayName20
+
+unknown21
+
+annotated by22
+
+
+uses23
+Z
+Tcom.clinalert.doctortracker.security.SecurityCoverageTest#commence_ShouldWrite401()V25
+
+method26
+
+(18:5)-(36:6)27
+
+commence_ShouldWrite40128
+ 
+org.junit.jupiter.api.Test30
+&
+ jakarta.servlet.ServletException32
+F
+@com.clinalert.doctortracker.security.JwtAuthenticationEntryPoint34
+
+is type35
+
+calls36
+-
+'jakarta.servlet.http.HttpServletRequest38
+
+returns39
+
+org.mockito.Mockito41
+
+
+references42
+C
+=org.mockito.Mockito#mock(Ljava/lang/Class;)Ljava/lang/Object;44
+.
+(jakarta.servlet.http.HttpServletResponse46
+?
+9org.springframework.security.core.AuthenticationException48
+*
+$org.mockito.stubbing.OngoingStubbing50
+o
+iorg.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;52
+X
+Rorg.mockito.Mockito#when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;54
+%
+jakarta.servlet.ServletResponse56
+F
+@jakarta.servlet.ServletResponse#getWriter()Ljava/io/PrintWriter;58
+á
+Úcom.clinalert.doctortracker.security.JwtAuthenticationEntryPoint#commence(Ljakarta/servlet/http/HttpServletRequest;Ljakarta/servlet/http/HttpServletResponse;Lorg/springframework/security/core/AuthenticationException;)V60
+N
+Hjakarta.servlet.http.HttpServletResponse#sendError(ILjava/lang/String;)V62
+F
+@org.mockito.Mockito#verify(Ljava/lang/Object;)Ljava/lang/Object;64
+>
+8jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED66J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j„
+
+57
+575821
+
+59
+596021
+
+37
+373821
+
+33
+333421
+
+65
+656621
+
+49
+495021
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+31
+313221
+
+43
+434421
+
+51
+515221
+
+19
+192021
+
+29
+293021
+N
+24H
+242526 *
+1
+ (!210:7B$
+
+
+13
+14
+
+
+15
+27
+
+
+17
+28
+
+40
+404121
+
+63
+636421
+
+61
+616221
+
+55
+555621
+
+47
+474821
+
+45
+454621
+
+53
+535421rá
+
+
+101922*
+1 (*
+
+101923*
+1 (
+
+242922*
+1 (
+
+
+242923*
+1 (
+
+
+241922*
+1 (F
+
+241923*
+1 (
+
+243123*
+1H (X
+
+243335*
+1% (/
+
+243323*
+1	 ($
+
+243336*
+16 (Q
+
+243735*
+1 (#
+
+243723*
+1	 (
+
+243739*
+1& (*
+
+244042*
+1& (*
+
+244336*
+1& (*
+
+243723*
+1+ (=
+
+244535*
+1 (%
+
+244523*
+1	 (
+
+244539*
+1( (,
+
+244042*
+1( (,
+
+244336*
+1( (,
+
+244523*
+1- (@
+
+244735*
+1! (.
+
+244723*
+1	 ( 
+
+244739*
+11 (5
+
+244042*
+11 (5
+
+244336*
+11 (5
+
+244723*
+16 (M
+
+244939*
+1	 (.
+
+244942*
+1	 (.
+
+245136*
+1$ (.
+
+244939*
+1	 (
+
+244042*
+1	 (
+
+245336*
+1	 (
+
+245542*
+1 ( 
+
+245736*
+1 ( 
+
+244939*
+1	 (4
+
+244942*
+1	 (4
+
+245136*
+1* (4
+
+244939*
+1	 (
+
+244042*
+1	 (
+
+245336*
+1	 (
+
+243342*
+1 	  (
+
+245936*
+1   (
+
+244542*
+1"	 "(#
+
+246136*
+1" "(#
+
+244539*
+1"	 "(
+
+244042*
+1"	 "(
+
+246336*
+1"	 "(
+
+244523*
+1"$ "(7
+
+246542*
+1"8 "(G

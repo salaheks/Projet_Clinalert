@@ -1,0 +1,16 @@
+
+Scom.clinalert.doctortracker.model.SmartWatchDevice#getIsActive()Ljava/lang/Boolean;«
+ C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/SmartWatchDevice.javaZ Z("1*Å
+1[ [(Ž
+‹
+[ [(
+%0java.lang.Boolean"__id*`
+
+__unknown_file (D*B4
+2com.clinalert.doctortracker.model.SmartWatchDevice"
+
+isActive"%
+[ [(
+
+%0java.lang.BooleanB64
+2com.clinalert.doctortracker.model.SmartWatchDeviceH

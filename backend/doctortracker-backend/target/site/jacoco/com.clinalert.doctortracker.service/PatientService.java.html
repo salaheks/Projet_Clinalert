@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.service</a> &gt; <span class="el_source">PatientService.java</span></div><h1>PatientService.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.service;
+
+import jakarta.persistence.EntityNotFoundException;
+import com.clinalert.doctortracker.model.Patient;
+import com.clinalert.doctortracker.repository.PatientRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class PatientService {
+
+    private final PatientRepository patientRepository;
+
+    public List&lt;Patient&gt; getAllPatients() {
+<span class="fc" id="L19">        return patientRepository.findAll();</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Optional&lt;Patient&gt; getPatientById(String id) {
+<span class="fc" id="L24">        return patientRepository.findById(id);</span>
+    }
+
+    public List&lt;Patient&gt; getPatientsByDoctorId(String doctorId) {
+<span class="fc" id="L28">        return patientRepository.findByDoctorId(doctorId);</span>
+    }
+
+    public List&lt;Patient&gt; getPatientsByClinicId(String clinicId) {
+<span class="fc" id="L32">        return patientRepository.findByClinicId(clinicId);</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Patient createPatient(Patient patient) {
+<span class="fc" id="L37">        return patientRepository.save(patient);</span>
+    }
+
+    @SuppressWarnings(&quot;null&quot;)
+    public void deletePatient(String id) {
+<span class="fc" id="L42">        patientRepository.deleteById(id);</span>
+<span class="fc" id="L43">    }</span>
+
+    @SuppressWarnings(&quot;null&quot;)
+    public Patient updatePatientStatus(String id, String status) {
+<span class="fc" id="L47">        Optional&lt;Patient&gt; patientOpt = patientRepository.findById(id);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (patientOpt.isPresent()) {</span>
+<span class="fc" id="L49">            Patient patient = patientOpt.get();</span>
+<span class="fc" id="L50">            patient.setStatus(status);</span>
+<span class="fc" id="L51">            return patientRepository.save(patient);</span>
+        }
+<span class="fc" id="L53">        throw new EntityNotFoundException(&quot;Patient not found with id: &quot; + id);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

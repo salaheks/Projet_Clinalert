@@ -1,0 +1,914 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684697676*java2.B³#
+W
+Rsrc/test/java/com/clinalert/doctortracker/integration/SecurityIntegrationTest.java2
+	
+type3
+	
+TEST4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+K
+Fadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.integration9
+E
+?com.clinalert.doctortracker.integration.SecurityIntegrationTest11
+
+class12
+
+access13
+
+	protected14
+
+
+full-range15
+
+(18:1)-(94:2)16
+
+simple-name17
+
+SecurityIntegrationTest18
+:
+4org.springframework.boot.test.context.SpringBootTest20
+
+unknown21
+
+annotated by22
+
+
+uses23
+I
+Corg.springframework.boot.test.context.SpringBootTest$WebEnvironment25
+
+
+references26
+U
+Oorg.springframework.boot.test.context.SpringBootTest$WebEnvironment.RANDOM_PORT28
+'
+!org.junit.jupiter.api.DisplayName30
+J
+Dcom.clinalert.doctortracker.integration.SecurityIntegrationTest.port32
+
+field33
+
+private34
+
+(22:9)-(23:26)35
+
+
+port36
+>
+8org.springframework.boot.test.web.server.LocalServerPort38
+R
+Lcom.clinalert.doctortracker.integration.SecurityIntegrationTest.patientToken40
+
+(25:9)-(25:37)41
+
+patientToken42
+N
+Hcom.clinalert.doctortracker.integration.SecurityIntegrationTest#setUp()V44
+
+method45
+
+(27:9)-(42:10)46
+
+setUp47
+&
+ org.junit.jupiter.api.BeforeEach49
+ 
+io.restassured.RestAssured51
+%
+io.restassured.RestAssured.port53
+(
+"io.restassured.RestAssured.baseURI55
+;
+5io.restassured.response.ResponseBodyExtractionOptions57
+y
+sio.restassured.response.ResponseBodyExtractionOptions#path(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/Object;59
+
+calls60
+1
++io.restassured.response.ExtractableResponse62
+
+returns63
+8
+2io.restassured.response.ValidatableResponseOptions65
+o
+iio.restassured.response.ValidatableResponseOptions#extract()Lio/restassured/response/ExtractableResponse;67
+1
++io.restassured.response.ValidatableResponse69
+)
+#io.restassured.response.Validatable71
+d
+^io.restassured.response.Validatable#then()Lio/restassured/response/ValidatableResponseOptions;73
+&
+ io.restassured.response.Response75
+7
+1io.restassured.specification.RequestSenderOptions77
+
+†io.restassured.specification.RequestSenderOptions#post(Ljava/lang/String;[Ljava/lang/Object;)Lio/restassured/response/ResponseOptions;79
+7
+1io.restassured.specification.RequestSpecification81
+q
+kio.restassured.specification.RequestSpecification#when()Lio/restassured/specification/RequestSpecification;83
+ƒ
+}io.restassured.specification.RequestSpecification#body(Ljava/lang/String;)Lio/restassured/specification/RequestSpecification;85
+š
+“io.restassured.specification.RequestSpecification#contentType(Lio/restassured/http/ContentType;)Lio/restassured/specification/RequestSpecification;87
+[
+Uio.restassured.RestAssured#given()Lio/restassured/specification/RequestSpecification;89
+%
+io.restassured.http.ContentType91
+*
+$io.restassured.http.ContentType.JSON93
+a
+[com.clinalert.doctortracker.integration.SecurityIntegrationTest#testPatientDataIsolation()V95
+
+(44:9)-(49:10)96
+
+testPatientDataIsolation97
+ 
+org.junit.jupiter.api.Test99
+'
+ org.junit.jupiter.api.Assertions101
+6
+/org.junit.jupiter.api.Assertions#assertTrue(Z)V103
+b
+[com.clinalert.doctortracker.integration.SecurityIntegrationTest#testPatientAccessControl()V105
+
+(51:9)-(62:10)106
+
+testPatientAccessControl107
+‘
+‰io.restassured.response.ValidatableResponseOptions#statusCode(Lorg/hamcrest/Matcher;)Lio/restassured/response/ValidatableResponseOptions;109
+
+…io.restassured.specification.RequestSenderOptions#get(Ljava/lang/String;[Ljava/lang/Object;)Lio/restassured/response/ResponseOptions;111
+¬
+¤io.restassured.specification.RequestSpecification#header(Ljava/lang/String;Ljava/lang/Object;[Ljava/lang/Object;)Lio/restassured/specification/RequestSpecification;113
+
+org.hamcrest.core.AnyOf115
+
+org.hamcrest.Matchers117
+
+xorg.hamcrest.Matchers#anyOf(Lorg/hamcrest/Matcher;Lorg/hamcrest/Matcher;Lorg/hamcrest/Matcher;)Lorg/hamcrest/core/AnyOf;119
+
+org.hamcrest.Matcher121
+I
+Borg.hamcrest.Matchers#is(Ljava/lang/Object;)Lorg/hamcrest/Matcher;123
+`
+Ycom.clinalert.doctortracker.integration.SecurityIntegrationTest#testUnauthorizedAccess()V125
+
+(64:9)-(74:10)126
+
+testUnauthorizedAccess127
+d
+]com.clinalert.doctortracker.integration.SecurityIntegrationTest#testSQLInjectionProtection()V129
+
+(76:9)-(93:10)130
+!
+testSQLInjectionProtection131
+i
+borg.hamcrest.Matchers#anyOf(Lorg/hamcrest/Matcher;Lorg/hamcrest/Matcher;)Lorg/hamcrest/core/AnyOf;133J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j¸
+
+37
+373821
+N
+39H
+394033 *
+1 ($210:7B$
+
+
+13
+34
+
+
+15
+41
+
+
+17
+42
+
+48
+484921
+
+72
+727321
+
+52
+525321
+
+68
+686921
+S
+104L
+10410545 *
+15 5(&210:7B&
+
+
+13
+14
+
+15
+106
+
+17
+107
+
+108
+10810921
+
+112
+11211321
+
+24
+242521
+N
+43H
+434445 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+46
+
+
+17
+47
+
+70
+707121
+
+84
+848521
+
+110
+11011121
+S
+128L
+12812945 *
+1N N((210:7B&
+
+
+13
+14
+
+15
+130
+
+17
+131
+
+82
+828321
+
+114
+11411521
+
+27
+272821
+
+64
+646521
+
+78
+787921
+N
+31H
+313233 *
+1 (210:7B$
+
+
+13
+34
+
+
+15
+35
+
+
+17
+36
+
+80
+808121
+
+122
+12212321
+
+54
+545521
+
+92
+929321
+
+86
+868721
+
+90
+909121
+N
+94H
+949545 *
+1. .(&210:7B$
+
+
+13
+14
+
+
+15
+96
+
+
+17
+97
+S
+124L
+12412545 *
+1B B($210:7B&
+
+
+13
+14
+
+15
+126
+
+17
+127
+
+76
+767721
+
+116
+11611721
+
+88
+888921
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+132
+13213321
+
+29
+293021
+
+98
+989921
+
+61
+616221
+
+102
+10210321
+
+66
+666721
+
+19
+192021
+
+56
+565721
+
+74
+747521
+
+120
+12012121
+
+100
+10010121
+
+58
+585921
+
+50
+505121
+
+118
+11811921r»"
+
+101922*
+1 (L
+
+101923*
+1 (
+
+101923*
+1" (0
+
+102423*
+11 (?
+
+102426*
+11 (?
+
+102423*
+1@ (K
+
+102726*
+1@ (K
+
+102922*
+1 (+
+
+102923*
+1 (
+
+313722*
+1	 (
+
+313723*
+1
+ (
+
+434822*
+1	 (
+
+434823*
+1
+ (
+
+435023*
+1 (
+
+435226*
+1 (!
+
+433126*
+1$ ((
+
+435023*
+1 (
+
+435426*
+1 ($
+
+433926*
+1   (
+
+435626*
+1   )(&
+
+435860*
+1)" )(&
+
+436163*
+1   (()
+
+436426*
+1   (()
+
+436660*
+1(" (()
+
+436863*
+1   '(&
+
+437026*
+1   '(&
+
+437260*
+1'" '(&
+
+437463*
+1   &(&
+
+437626*
+1   &(&
+
+437860*
+1&" &(&
+
+438063*
+1   %(&
+
+438026*
+1   %(&
+
+438260*
+1%" %(&
+
+438063*
+1   "(&
+
+438026*
+1   "(&
+
+438460*
+1"" "(&
+
+438063*
+1   !(-
+
+438026*
+1   !(-
+
+438660*
+1!" !(-
+
+438063*
+1    (%
+
+435026*
+1    (%
+
+438860*
+1    (%
+
+439023*
+1!. !(9
+
+439023*
+1!: !(>
+
+439226*
+1!: !(>
+
+949822*
+1,	 ,(
+
+949823*
+1,
+ ,(
+
+942922*
+1-	 -(=
+
+942923*
+1-
+ -(
+
+9410026*
+10 0(<
+
+9410260*
+102 0(<
+
+9410023*
+10' 0(1
+
+943926*
+10= 0(I
+
+943926*
+10V 0(b
+
+943926*
+10V 0(b
+
+1049822*
+13	 3(
+
+1049823*
+13
+ 3(
+
+1042922*
+14	 4(F
+
+1042923*
+14
+ 4(
+
+1046863*
+17 =(,
+
+1046426*
+17 =(,
+
+10410860*
+1=" =(,
+
+1046863*
+17 ;(&
+
+1047026*
+17 ;(&
+
+1047260*
+1;" ;(&
+
+1047463*
+17 :(%
+
+1047626*
+17 :(%
+
+10411060*
+1:" :(%
+
+1048063*
+17 9(&
+
+1048026*
+17 9(&
+
+1048260*
+19" 9(&
+
+1048063*
+17 8((
+
+1048026*
+17 8((
+
+10411260*
+18" 8((
+
+1048063*
+17 7(
+
+1045026*
+17 7(
+
+1048860*
+17 7(
+
+1043926*
+18F 8(R
+
+10411463*
+1=- =(2
+
+10411626*
+1=- =(2
+
+10411860*
+1=- =(2
+
+10412063*
+1=3 =(5
+
+10411626*
+1=3 =(5
+
+10412260*
+1=3 =(5
+
+10412063*
+1=< =(>
+
+10411626*
+1=< =(>
+
+10412260*
+1=< =(>
+
+10412063*
+1=E =(G
+
+10411626*
+1=E =(G
+
+10412260*
+1=E =(G
+
+1249822*
+1@	 @(
+
+1249823*
+1@
+ @(
+
+1242922*
+1A	 A(B
+
+1242923*
+1A
+ A(
+
+1246863*
+1E I(,
+
+1246426*
+1E I(,
+
+12410860*
+1I" I(,
+
+1246863*
+1E H(&
+
+1247026*
+1E H(&
+
+1247260*
+1H" H(&
+
+1247463*
+1E G(%
+
+1247626*
+1E G(%
+
+12411060*
+1G" G(%
+
+1248063*
+1E F(&
+
+1248026*
+1E F(&
+
+1248260*
+1F" F(&
+
+1248063*
+1E E(
+
+1245026*
+1E E(
+
+1248860*
+1E E(
+
+12411463*
+1I- I(2
+
+12411626*
+1I- I(2
+
+12411860*
+1I- I(2
+
+12412063*
+1I3 I(5
+
+12411626*
+1I3 I(5
+
+12412260*
+1I3 I(5
+
+12412063*
+1I< I(>
+
+12411626*
+1I< I(>
+
+12412260*
+1I< I(>
+
+12412063*
+1IE I(G
+
+12411626*
+1IE I(G
+
+12412260*
+1IE I(G
+
+1289822*
+1L	 L(
+
+1289823*
+1L
+ L(
+
+1282922*
+1M	 M(>
+
+1282923*
+1M
+ M(
+
+1286863*
+1V \(,
+
+1286426*
+1V \(,
+
+12810860*
+1\" \(,
+
+1286863*
+1V [(&
+
+1287026*
+1V [(&
+
+1287260*
+1[" [(&
+
+1287463*
+1V Z(&
+
+1287626*
+1V Z(&
+
+1287860*
+1Z" Z(&
+
+1288063*
+1V Y(&
+
+1288026*
+1V Y(&
+
+1288260*
+1Y" Y(&
+
+1288063*
+1V X(&
+
+1288026*
+1V X(&
+
+1288460*
+1X" X(&
+
+1288063*
+1V W(-
+
+1288026*
+1V W(-
+
+1288660*
+1W" W(-
+
+1288063*
+1V V(
+
+1285026*
+1V V(
+
+1288860*
+1V V(
+
+1289023*
+1W. W(9
+
+1289023*
+1W: W(>
+
+1289226*
+1W: W(>
+
+12811463*
+1\- \(2
+
+12811626*
+1\- \(2
+
+12813260*
+1\- \(2
+
+12812063*
+1\3 \(5
+
+12811626*
+1\3 \(5
+
+12812260*
+1\3 \(5
+
+12812063*
+1\< \(>
+
+12811626*
+1\< \(>
+
+12812260*
+1\< \(>

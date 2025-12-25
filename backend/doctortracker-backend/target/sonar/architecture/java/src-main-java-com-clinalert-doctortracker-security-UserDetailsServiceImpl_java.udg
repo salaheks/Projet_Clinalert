@@ -1,0 +1,236 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684695634*java2.B¡
+S
+Nsrc/main/java/com/clinalert/doctortracker/security/UserDetailsServiceImpl.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+H
+Cadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.security9
+A
+;com.clinalert.doctortracker.security.UserDetailsServiceImpl11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(10:1)-(21:2)16
+
+simple-name17
+
+UserDetailsServiceImpl18
+F
+@org.springframework.security.core.userdetails.UserDetailsService20
+
+unknown21
+
+
+implements22
+,
+&org.springframework.stereotype.Service24
+
+annotated by25
+
+
+uses26
+$
+lombok.RequiredArgsConstructor28
+P
+Jcom.clinalert.doctortracker.security.UserDetailsServiceImpl.userRepository30
+
+field31
+
+private32
+
+(14:5)-(14:49)33
+
+userRepository34
+;
+5com.clinalert.doctortracker.repository.UserRepository36
+
+is type37
+§
+ùcom.clinalert.doctortracker.security.UserDetailsServiceImpl#loadUserByUsername(Ljava/lang/String;)Lorg/springframework/security/core/userdetails/UserDetails;39
+
+method40
+
+(16:5)-(20:6)41
+
+loadUserByUsername42
+?
+9org.springframework.security.core.userdetails.UserDetails44
+
+returns45
+M
+Gorg.springframework.security.core.userdetails.UsernameNotFoundException47
+,
+&com.clinalert.doctortracker.model.User49
+
+
+references50
+o
+icom.clinalert.doctortracker.repository.UserRepository#findByEmail(Ljava/lang/String;)Ljava/util/Optional;52
+
+calls53J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jå
+
+46
+464721
+
+23
+232421
+
+19
+192021
+
+27
+272821
+N
+38H
+383940 *
+1 (*210:7B$
+
+
+13
+14
+
+
+15
+41
+
+
+17
+42
+
+43
+434421
+J
+10D
+101112 *
+1 ($:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+35
+353621
+N
+29H
+293031 *
+1" (0210:7B$
+
+
+13
+32
+
+
+15
+33
+
+
+17
+34
+
+48
+484921
+
+51
+515221rÅ
+
+101922*
+10 (B
+
+102325*
+1
+ 
+(	
+
+102326*
+1
+ 
+(	
+
+102725*
+1 (
+
+102726*
+1 (
+
+101926*
+10 (B
+
+293537*
+1 (!
+
+293526*
+1 (!
+
+293526*
+1" (0
+
+384345*
+1 (
+
+384326*
+1 (
+
+384626*
+1@ (Y
+
+384845*
+1 (
+
+383550*
+1 (*
+
+385153*
+1 (*
+
+382950*
+1 (
+
+383526*
+1 (
+
+382950*
+1 (
+
+384653*
+1( (A

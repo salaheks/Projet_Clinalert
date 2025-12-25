@@ -1,0 +1,27 @@
+
+pcom.clinalert.doctortracker.service.SmartWatchHealthService#getActiveDevices(Ljava/lang/String;)Ljava/util/List;´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/SmartWatchHealthService.java:" :(2"1*ˆ
+1; ;(Ï
+Ì
+; ;(G
+%0Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository"__id*q
+
+__unknown_file (U*S=
+;com.clinalert.doctortracker.service.SmartWatchHealthService"
+deviceRepository‚ÿ
+; ;(I
+%1java.util.List"„com.clinalert.doctortracker.repository.SmartWatchDeviceRepository#findByPatientIdAndIsActiveTrue(Ljava/lang/String;)Ljava/util/List;*e
+
+__unknown_file (I
+G
+%0Acom.clinalert.doctortracker.repository.SmartWatchDeviceRepository*;
+
+__unknown_file (
+
+	patientIdjava.lang.String22findByPatientIdAndIsActiveTrue(Ljava/lang/String;)""
+; ;(J
+
+%1java.util.List:)
+:3 :(C
+	patientIdjava.lang.StringB?=
+;com.clinalert.doctortracker.service.SmartWatchHealthServiceH

@@ -1,0 +1,939 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684696178*java2.B’
+I
+Dsrc/main/java/com/clinalert/doctortracker/service/ReportService.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+G
+Badaoumoum-org_projet-clinalert:com.clinalert.doctortracker.service9
+7
+1com.clinalert.doctortracker.service.ReportService11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(24:1)-(96:2)16
+
+simple-name17
+
+ReportService18
+,
+&org.springframework.stereotype.Service20
+
+unknown21
+
+annotated by22
+
+
+uses23
+$
+lombok.RequiredArgsConstructor25
+I
+Ccom.clinalert.doctortracker.service.ReportService.patientRepository27
+
+field28
+
+private29
+
+(28:5)-(28:55)30
+
+patientRepository31
+>
+8com.clinalert.doctortracker.repository.PatientRepository33
+
+is type34
+M
+Gcom.clinalert.doctortracker.service.ReportService.measurementRepository36
+
+(30:5)-(30:63)37
+
+measurementRepository38
+B
+<com.clinalert.doctortracker.repository.MeasurementRepository40
+G
+Acom.clinalert.doctortracker.service.ReportService.alertRepository42
+
+(32:5)-(32:51)43
+
+alertRepository44
+<
+6com.clinalert.doctortracker.repository.AlertRepository46
+c
+]com.clinalert.doctortracker.service.ReportService#generatePatientReport(Ljava/lang/String;)[B48
+
+method49
+
+(34:5)-(95:6)50
+
+generatePatientReport51
+/
+)com.clinalert.doctortracker.model.Patient53
+
+returns54
+8
+2org.springframework.data.repository.CrudRepository56
+
+
+references57
+i
+corg.springframework.data.repository.CrudRepository#findById(Ljava/lang/Object;)Ljava/util/Optional;59
+
+calls60
+1
++jakarta.persistence.EntityNotFoundException62
+'
+!com.itextpdf.kernel.pdf.PdfWriter64
+)
+#com.itextpdf.kernel.pdf.PdfDocument66
+"
+com.itextpdf.layout.Document68
+q
+kcom.itextpdf.layout.Document#add(Lcom/itextpdf/layout/element/IBlockElement;)Lcom/itextpdf/layout/Document;70
++
+%com.itextpdf.layout.element.Paragraph72
+2
+,com.itextpdf.layout.ElementPropertyContainer74
+d
+^com.itextpdf.layout.ElementPropertyContainer#setBold()Lcom/itextpdf/layout/IPropertyContainer;76
+i
+ccom.itextpdf.layout.ElementPropertyContainer#setFontSize(F)Lcom/itextpdf/layout/IPropertyContainer;78
+K
+Ecom.clinalert.doctortracker.model.Patient#getName()Ljava/lang/String;80
+K
+Ecom.clinalert.doctortracker.model.Patient#getAge()Ljava/lang/Integer;82
+'
+!com.itextpdf.layout.element.Table84
+.
+(com.itextpdf.layout.properties.UnitValue86
+p
+jcom.itextpdf.layout.properties.UnitValue#createPercentArray([F)[Lcom/itextpdf/layout/properties/UnitValue;88
+.
+(com.itextpdf.layout.element.BlockElement90
+Š
+ƒcom.itextpdf.layout.element.BlockElement#setWidth(Lcom/itextpdf/layout/properties/UnitValue;)Lcom/itextpdf/layout/element/IElement;92
+n
+hcom.itextpdf.layout.properties.UnitValue#createPercentValue(F)Lcom/itextpdf/layout/properties/UnitValue;94
+l
+fcom.itextpdf.layout.element.Table#addHeaderCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;96
+3
+-com.clinalert.doctortracker.model.Measurement98
+‘
+‰com.clinalert.doctortracker.repository.MeasurementRepository#findTop20ByPatientIdOrderByTimestampDesc(Ljava/lang/String;)Ljava/util/List;100
+g
+`com.itextpdf.layout.element.Table#addCell(Ljava/lang/String;)Lcom/itextpdf/layout/element/Table;102
+P
+Icom.clinalert.doctortracker.model.Measurement#getType()Ljava/lang/String;104
+Q
+Jcom.clinalert.doctortracker.model.Measurement#getValue()Ljava/lang/Double;106
+\
+Ucom.clinalert.doctortracker.model.Measurement#getTimestamp()Ljava/time/LocalDateTime;108
+.
+'com.clinalert.doctortracker.model.Alert110
+‹
+ƒcom.clinalert.doctortracker.repository.AlertRepository#findTop10ByPatientIdOrderByTimestampDesc(Ljava/lang/String;)Ljava/util/List;112
+N
+Gcom.clinalert.doctortracker.model.Alert#getSeverity()Ljava/lang/String;114
+M
+Fcom.clinalert.doctortracker.model.Alert#getMessage()Ljava/lang/String;116
+V
+Ocom.clinalert.doctortracker.model.Alert#getTimestamp()Ljava/time/LocalDateTime;118
+,
+%com.itextpdf.layout.Document#close()V120J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j£	
+
+63
+636421
+
+109
+10911021
+
+75
+757621
+
+79
+798021
+
+89
+899021
+
+119
+11912021
+
+24
+242521
+
+117
+11711821
+
+39
+394021
+
+103
+10310421
+
+55
+555621
+N
+26H
+262728 *
+1% (6210:7B$
+
+
+13
+29
+
+
+15
+30
+
+
+17
+31
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+32
+323321
+
+71
+717221
+
+115
+11511621
+
+87
+878821
+
+19
+192021
+
+111
+11111221
+N
+47H
+474849 *
+1" "((210:7B$
+
+
+13
+14
+
+
+15
+50
+
+
+17
+51
+
+105
+10510621
+N
+35H
+353628 *
+1) (>210:7B$
+
+
+13
+29
+
+
+15
+37
+
+
+17
+38
+
+61
+616221
+
+113
+11311421
+N
+41H
+414228 *
+1 #  (2210:7B$
+
+
+13
+29
+
+
+15
+43
+
+
+17
+44
+
+67
+676821
+
+65
+656621
+
+77
+777821
+
+45
+454621
+
+52
+525321
+
+107
+10710821
+
+85
+858621
+
+93
+939421
+
+83
+838421
+
+91
+919221
+
+101
+10110221
+
+95
+959621
+
+73
+737421
+
+58
+585921
+
+81
+818221
+
+69
+697021
+
+97
+979821
+
+99
+9910021rº(
+
+101922*
+1 (	
+
+101923*
+1 (	
+
+102422*
+1 (
+
+102423*
+1 (
+
+263234*
+1 ($
+
+263223*
+1 ($
+
+263223*
+1% (6
+
+353934*
+1 ((
+
+353923*
+1 ((
+
+353923*
+1) (>
+
+414534*
+1   ("
+
+414523*
+1   ("
+
+414523*
+1 #  (2
+
+475234*
+1$ $(
+
+475223*
+1$	 $(
+
+475254*
+1$ %(
+
+475557*
+1$ $(5
+
+475860*
+1$- $(5
+
+472657*
+1$ $(,
+
+473223*
+1$ $(,
+
+472657*
+1$ $(,
+
+476160*
+1%( %(?
+
+476334*
+1) )(
+
+476323*
+1) )(
+
+476360*
+1)$ )(-
+
+476534*
+1* *(
+
+476523*
+1* *(
+
+476560*
+1*# *(.
+
+476734*
+1+ +(
+
+476723*
+1+ +(
+
+476760*
+1+% +(-
+
+476754*
+1. .(
+
+476757*
+1. .(
+
+476960*
+1. .(
+
+477154*
+1. /(-
+
+477357*
+1. /(-
+
+477560*
+1/& /(-
+
+477154*
+1. /(!
+
+477357*
+1. /(!
+
+477760*
+1/ /(!
+
+477160*
+1. .('
+
+476754*
+10 0(
+
+476757*
+10 0(
+
+476960*
+10 0(
+
+477160*
+10 0('
+
+476754*
+11 1(
+
+476757*
+11 1(
+
+476960*
+11 1(
+
+477160*
+11 1('
+
+475257*
+116 1(E
+
+477960*
+11> 1(E
+
+476754*
+12 2(
+
+476757*
+12 2(
+
+476960*
+12 2(
+
+477160*
+12 2('
+
+475257*
+122 2(@
+
+478160*
+12: 2(@
+
+476754*
+15 5(
+
+476757*
+15 5(
+
+476960*
+15 5(
+
+477154*
+15 5(W
+
+477357*
+15 5(W
+
+477560*
+15P 5(W
+
+477154*
+15 5(K
+
+477357*
+15 5(K
+
+477760*
+15@ 5(K
+
+477160*
+15 5('
+
+478334*
+16 6(
+
+478323*
+16 6(
+
+478360*
+16$ 6()
+
+478554*
+16* 6(F
+
+478557*
+16* 6(F
+
+478760*
+164 6(F
+
+478523*
+16* 6(3
+
+478354*
+17 7( 
+
+478957*
+17 7( 
+
+479160*
+17 7( 
+
+478554*
+17! 7(=
+
+478557*
+17! 7(=
+
+479360*
+17+ 7(=
+
+478523*
+17! 7(*
+
+478354*
+18 8(%
+
+478357*
+18 8(%
+
+479560*
+18 8(%
+
+478354*
+19 9(%
+
+478357*
+19 9(%
+
+479560*
+19 9(%
+
+478354*
+1: :(%
+
+478357*
+1: :(%
+
+479560*
+1: :(%
+
+478354*
+1; ;(%
+
+478357*
+1; ;(%
+
+479560*
+1; ;(%
+
+479723*
+1= =(
+
+473957*
+1=. =(l
+
+479960*
+1=D =(l
+
+473557*
+1=. =(C
+
+473923*
+1=. =(C
+
+473557*
+1=. =(C
+
+479734*
+1> >(
+
+479723*
+1> >(
+
+478354*
+1? ?(#
+
+478357*
+1? ?(#
+
+4710160*
+1? ?(#
+
+479757*
+1?$ ?(-
+
+4710360*
+1?& ?(-
+
+478354*
+1@ @(#
+
+478357*
+1@ @(#
+
+4710160*
+1@ @(#
+
+479757*
+1@3 @(=
+
+4710560*
+1@5 @(=
+
+478354*
+1A A(#
+
+478357*
+1A A(#
+
+4710160*
+1A A(#
+
+478354*
+1B B(#
+
+478357*
+1B B(#
+
+4710160*
+1B B(#
+
+479757*
+1B$ B(2
+
+4710760*
+1B& B(2
+
+476754*
+1D D(
+
+476757*
+1D D(
+
+476960*
+1D D(
+
+476754*
+1G G(
+
+476757*
+1G G(
+
+476960*
+1G G(
+
+477154*
+1G G(R
+
+477357*
+1G G(R
+
+477560*
+1GK G(R
+
+477154*
+1G G(F
+
+477357*
+1G G(F
+
+477760*
+1G; G(F
+
+477160*
+1G G('
+
+478334*
+1H H(
+
+478323*
+1H H(
+
+478360*
+1H$ H()
+
+478554*
+1H* H(F
+
+478557*
+1H* H(F
+
+478760*
+1H4 H(F
+
+478523*
+1H* H(3
+
+478354*
+1I I( 
+
+478957*
+1I I( 
+
+479160*
+1I I( 
+
+478554*
+1I! I(=
+
+478557*
+1I! I(=
+
+479360*
+1I+ I(=
+
+478523*
+1I! I(*
+
+478354*
+1J J(%
+
+478357*
+1J J(%
+
+479560*
+1J J(%
+
+478354*
+1K K(%
+
+478357*
+1K K(%
+
+479560*
+1K K(%
+
+478354*
+1L L(%
+
+478357*
+1L L(%
+
+479560*
+1L L(%
+
+4710923*
+1N N(
+
+474557*
+1N" N(Z
+
+4711160*
+1N2 N(Z
+
+474157*
+1N" N(1
+
+474523*
+1N" N(1
+
+474157*
+1N" N(1
+
+4710934*
+1O O(
+
+4710923*
+1O O(
+
+478354*
+1P P(#
+
+478357*
+1P P(#
+
+4710160*
+1P P(#
+
+4710957*
+1P$ P(1
+
+4711360*
+1P& P(1
+
+478354*
+1Q Q(#
+
+478357*
+1Q Q(#
+
+4710160*
+1Q Q(#
+
+4710957*
+1Q$ Q(0
+
+4711560*
+1Q& Q(0
+
+478354*
+1R R(#
+
+478357*
+1R R(#
+
+4710160*
+1R R(#
+
+4710957*
+1R$ R(2
+
+4711760*
+1R& R(2
+
+476754*
+1T T(
+
+476757*
+1T T(
+
+476960*
+1T T(
+
+476754*
+1W W(
+
+476757*
+1W W(
+
+476960*
+1W W(
+
+477160*
+1W W('
+
+476754*
+1X X(
+
+476757*
+1X X(
+
+476960*
+1X X(
+
+477160*
+1X X('
+
+476757*
+1Z Z(
+
+4711960*
+1Z Z(

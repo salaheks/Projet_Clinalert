@@ -1,0 +1,2057 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684696625*java2.B÷R
+L
+Gsrc/main/java/com/clinalert/doctortracker/model/DailyHealthSummary.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+E
+@adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.model9
+:
+4com.clinalert.doctortracker.model.DailyHealthSummary11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(7:1)-(283:2)16
+
+simple-name17
+
+DailyHealthSummary18
+ 
+jakarta.persistence.Entity20
+
+unknown21
+
+annotated by22
+
+
+uses23
+
+jakarta.persistence.Table25
+*
+$jakarta.persistence.UniqueConstraint27
+=
+7com.clinalert.doctortracker.model.DailyHealthSummary.id29
+
+field30
+
+private31
+
+(12:5)-(14:23)32
+
+id33
+
+jakarta.persistence.Id35
+(
+"jakarta.persistence.GeneratedValue37
+(
+"jakarta.persistence.GenerationType39
+-
+'jakarta.persistence.GenerationType.UUID41
+
+
+references42
+D
+>com.clinalert.doctortracker.model.DailyHealthSummary.patientId44
+
+(16:5)-(17:30)45
+
+	patientId46
+ 
+jakarta.persistence.Column48
+?
+9com.clinalert.doctortracker.model.DailyHealthSummary.date50
+
+(19:5)-(20:28)51
+
+
+date52
+G
+Acom.clinalert.doctortracker.model.DailyHealthSummary.avgHeartRate54
+
+(23:5)-(24:33)55
+
+avgHeartRate56
+G
+Acom.clinalert.doctortracker.model.DailyHealthSummary.minHeartRate58
+
+(26:5)-(27:34)59
+
+minHeartRate60
+G
+Acom.clinalert.doctortracker.model.DailyHealthSummary.maxHeartRate62
+
+(29:5)-(30:34)63
+
+maxHeartRate64
+K
+Ecom.clinalert.doctortracker.model.DailyHealthSummary.restingHeartRate66
+
+(32:5)-(33:38)67
+
+restingHeartRate68
+E
+?com.clinalert.doctortracker.model.DailyHealthSummary.totalSteps70
+
+(36:5)-(37:32)71
+
+
+totalSteps72
+N
+Hcom.clinalert.doctortracker.model.DailyHealthSummary.totalDistanceMeters74
+
+(39:5)-(40:40)75
+
+totalDistanceMeters76
+N
+Hcom.clinalert.doctortracker.model.DailyHealthSummary.totalCaloriesBurned78
+
+(42:5)-(43:41)79
+
+totalCaloriesBurned80
+H
+Bcom.clinalert.doctortracker.model.DailyHealthSummary.activeMinutes82
+
+(45:5)-(46:35)83
+
+activeMinutes84
+L
+Fcom.clinalert.doctortracker.model.DailyHealthSummary.totalSleepMinutes86
+
+(49:5)-(50:39)87
+
+totalSleepMinutes88
+K
+Ecom.clinalert.doctortracker.model.DailyHealthSummary.deepSleepMinutes90
+
+(52:5)-(53:38)91
+
+deepSleepMinutes92
+L
+Fcom.clinalert.doctortracker.model.DailyHealthSummary.lightSleepMinutes94
+
+(55:5)-(56:39)95
+
+lightSleepMinutes96
+J
+Dcom.clinalert.doctortracker.model.DailyHealthSummary.remSleepMinutes98
+
+(58:5)-(59:37)99
+
+remSleepMinutes100
+C
+<com.clinalert.doctortracker.model.DailyHealthSummary.avgSpO2102
+
+(62:5)-(63:28)103
+
+avgSpO2104
+C
+<com.clinalert.doctortracker.model.DailyHealthSummary.minSpO2106
+
+(65:5)-(66:28)107
+
+minSpO2108
+G
+@com.clinalert.doctortracker.model.DailyHealthSummary.avgSystolic110
+
+(69:5)-(70:32)111
+
+avgSystolic112
+H
+Acom.clinalert.doctortracker.model.DailyHealthSummary.avgDiastolic114
+
+(72:5)-(73:33)115
+
+avgDiastolic116
+J
+Ccom.clinalert.doctortracker.model.DailyHealthSummary.avgTemperature118
+
+(76:5)-(77:35)119
+
+avgTemperature120
+K
+Dcom.clinalert.doctortracker.model.DailyHealthSummary.dataPointsCount122
+
+(79:5)-(80:37)123
+
+dataPointsCount124
+E
+>com.clinalert.doctortracker.model.DailyHealthSummary.createdAt126
+
+(82:5)-(83:37)127
+
+	createdAt128
+E
+>com.clinalert.doctortracker.model.DailyHealthSummary.updatedAt130
+
+(85:5)-(86:37)131
+
+	updatedAt132
+G
+@com.clinalert.doctortracker.model.DailyHealthSummary#onCreate()V134
+
+method135
+
+	protected136
+
+(88:5)-(92:6)137
+
+onCreate138
+%
+jakarta.persistence.PrePersist140
+G
+@com.clinalert.doctortracker.model.DailyHealthSummary#onUpdate()V142
+
+(94:5)-(97:6)143
+
+onUpdate144
+$
+jakarta.persistence.PreUpdate146
+U
+Ncom.clinalert.doctortracker.model.DailyHealthSummary#getId()Ljava/lang/String;148
+
+(100:5)-(102:6)149
+
+getId150
+V
+Ocom.clinalert.doctortracker.model.DailyHealthSummary#setId(Ljava/lang/String;)V152
+
+(104:5)-(106:6)153
+
+setId154
+\
+Ucom.clinalert.doctortracker.model.DailyHealthSummary#getPatientId()Ljava/lang/String;156
+
+(108:5)-(110:6)157
+
+getPatientId158
+]
+Vcom.clinalert.doctortracker.model.DailyHealthSummary#setPatientId(Ljava/lang/String;)V160
+
+(112:5)-(114:6)161
+
+setPatientId162
+Z
+Scom.clinalert.doctortracker.model.DailyHealthSummary#getDate()Ljava/time/LocalDate;164
+
+(116:5)-(118:6)165
+
+getDate166
+[
+Tcom.clinalert.doctortracker.model.DailyHealthSummary#setDate(Ljava/time/LocalDate;)V168
+
+(120:5)-(122:6)169
+
+setDate170
+_
+Xcom.clinalert.doctortracker.model.DailyHealthSummary#getAvgHeartRate()Ljava/lang/Double;172
+
+(124:5)-(126:6)173
+
+getAvgHeartRate174
+`
+Ycom.clinalert.doctortracker.model.DailyHealthSummary#setAvgHeartRate(Ljava/lang/Double;)V176
+
+(128:5)-(130:6)177
+
+setAvgHeartRate178
+`
+Ycom.clinalert.doctortracker.model.DailyHealthSummary#getMinHeartRate()Ljava/lang/Integer;180
+
+(132:5)-(134:6)181
+
+getMinHeartRate182
+a
+Zcom.clinalert.doctortracker.model.DailyHealthSummary#setMinHeartRate(Ljava/lang/Integer;)V184
+
+(136:5)-(138:6)185
+
+setMinHeartRate186
+`
+Ycom.clinalert.doctortracker.model.DailyHealthSummary#getMaxHeartRate()Ljava/lang/Integer;188
+
+(140:5)-(142:6)189
+
+getMaxHeartRate190
+a
+Zcom.clinalert.doctortracker.model.DailyHealthSummary#setMaxHeartRate(Ljava/lang/Integer;)V192
+
+(144:5)-(146:6)193
+
+setMaxHeartRate194
+d
+]com.clinalert.doctortracker.model.DailyHealthSummary#getRestingHeartRate()Ljava/lang/Integer;196
+
+(148:5)-(150:6)197
+
+getRestingHeartRate198
+e
+^com.clinalert.doctortracker.model.DailyHealthSummary#setRestingHeartRate(Ljava/lang/Integer;)V200
+
+(152:5)-(154:6)201
+
+setRestingHeartRate202
+^
+Wcom.clinalert.doctortracker.model.DailyHealthSummary#getTotalSteps()Ljava/lang/Integer;204
+
+(156:5)-(158:6)205
+
+getTotalSteps206
+_
+Xcom.clinalert.doctortracker.model.DailyHealthSummary#setTotalSteps(Ljava/lang/Integer;)V208
+
+(160:5)-(162:6)209
+
+setTotalSteps210
+f
+_com.clinalert.doctortracker.model.DailyHealthSummary#getTotalDistanceMeters()Ljava/lang/Double;212
+
+(164:5)-(166:6)213
+
+getTotalDistanceMeters214
+g
+`com.clinalert.doctortracker.model.DailyHealthSummary#setTotalDistanceMeters(Ljava/lang/Double;)V216
+
+(168:5)-(170:6)217
+
+setTotalDistanceMeters218
+g
+`com.clinalert.doctortracker.model.DailyHealthSummary#getTotalCaloriesBurned()Ljava/lang/Integer;220
+
+(172:5)-(174:6)221
+
+getTotalCaloriesBurned222
+h
+acom.clinalert.doctortracker.model.DailyHealthSummary#setTotalCaloriesBurned(Ljava/lang/Integer;)V224
+
+(176:5)-(178:6)225
+
+setTotalCaloriesBurned226
+a
+Zcom.clinalert.doctortracker.model.DailyHealthSummary#getActiveMinutes()Ljava/lang/Integer;228
+
+(180:5)-(182:6)229
+
+getActiveMinutes230
+b
+[com.clinalert.doctortracker.model.DailyHealthSummary#setActiveMinutes(Ljava/lang/Integer;)V232
+
+(184:5)-(186:6)233
+
+setActiveMinutes234
+e
+^com.clinalert.doctortracker.model.DailyHealthSummary#getTotalSleepMinutes()Ljava/lang/Integer;236
+
+(188:5)-(190:6)237
+
+getTotalSleepMinutes238
+f
+_com.clinalert.doctortracker.model.DailyHealthSummary#setTotalSleepMinutes(Ljava/lang/Integer;)V240
+
+(192:5)-(194:6)241
+
+setTotalSleepMinutes242
+d
+]com.clinalert.doctortracker.model.DailyHealthSummary#getDeepSleepMinutes()Ljava/lang/Integer;244
+
+(196:5)-(198:6)245
+
+getDeepSleepMinutes246
+e
+^com.clinalert.doctortracker.model.DailyHealthSummary#setDeepSleepMinutes(Ljava/lang/Integer;)V248
+
+(200:5)-(202:6)249
+
+setDeepSleepMinutes250
+e
+^com.clinalert.doctortracker.model.DailyHealthSummary#getLightSleepMinutes()Ljava/lang/Integer;252
+
+(204:5)-(206:6)253
+
+getLightSleepMinutes254
+f
+_com.clinalert.doctortracker.model.DailyHealthSummary#setLightSleepMinutes(Ljava/lang/Integer;)V256
+
+(208:5)-(210:6)257
+
+setLightSleepMinutes258
+c
+\com.clinalert.doctortracker.model.DailyHealthSummary#getRemSleepMinutes()Ljava/lang/Integer;260
+
+(212:5)-(214:6)261
+
+getRemSleepMinutes262
+d
+]com.clinalert.doctortracker.model.DailyHealthSummary#setRemSleepMinutes(Ljava/lang/Integer;)V264
+
+(216:5)-(218:6)265
+
+setRemSleepMinutes266
+Z
+Scom.clinalert.doctortracker.model.DailyHealthSummary#getAvgSpO2()Ljava/lang/Double;268
+
+(220:5)-(222:6)269
+
+
+getAvgSpO2270
+[
+Tcom.clinalert.doctortracker.model.DailyHealthSummary#setAvgSpO2(Ljava/lang/Double;)V272
+
+(224:5)-(226:6)273
+
+
+setAvgSpO2274
+Z
+Scom.clinalert.doctortracker.model.DailyHealthSummary#getMinSpO2()Ljava/lang/Double;276
+
+(228:5)-(230:6)277
+
+
+getMinSpO2278
+[
+Tcom.clinalert.doctortracker.model.DailyHealthSummary#setMinSpO2(Ljava/lang/Double;)V280
+
+(232:5)-(234:6)281
+
+
+setMinSpO2282
+^
+Wcom.clinalert.doctortracker.model.DailyHealthSummary#getAvgSystolic()Ljava/lang/Double;284
+
+(236:5)-(238:6)285
+
+getAvgSystolic286
+_
+Xcom.clinalert.doctortracker.model.DailyHealthSummary#setAvgSystolic(Ljava/lang/Double;)V288
+
+(240:5)-(242:6)289
+
+setAvgSystolic290
+_
+Xcom.clinalert.doctortracker.model.DailyHealthSummary#getAvgDiastolic()Ljava/lang/Double;292
+
+(244:5)-(246:6)293
+
+getAvgDiastolic294
+`
+Ycom.clinalert.doctortracker.model.DailyHealthSummary#setAvgDiastolic(Ljava/lang/Double;)V296
+
+(248:5)-(250:6)297
+
+setAvgDiastolic298
+a
+Zcom.clinalert.doctortracker.model.DailyHealthSummary#getAvgTemperature()Ljava/lang/Double;300
+
+(252:5)-(254:6)301
+
+getAvgTemperature302
+b
+[com.clinalert.doctortracker.model.DailyHealthSummary#setAvgTemperature(Ljava/lang/Double;)V304
+
+(256:5)-(258:6)305
+
+setAvgTemperature306
+c
+\com.clinalert.doctortracker.model.DailyHealthSummary#getDataPointsCount()Ljava/lang/Integer;308
+
+(260:5)-(262:6)309
+
+getDataPointsCount310
+d
+]com.clinalert.doctortracker.model.DailyHealthSummary#setDataPointsCount(Ljava/lang/Integer;)V312
+
+(264:5)-(266:6)313
+
+setDataPointsCount314
+c
+\com.clinalert.doctortracker.model.DailyHealthSummary#getCreatedAt()Ljava/time/LocalDateTime;316
+
+(268:5)-(270:6)317
+
+getCreatedAt318
+d
+]com.clinalert.doctortracker.model.DailyHealthSummary#setCreatedAt(Ljava/time/LocalDateTime;)V320
+
+(272:5)-(274:6)321
+
+setCreatedAt322
+c
+\com.clinalert.doctortracker.model.DailyHealthSummary#getUpdatedAt()Ljava/time/LocalDateTime;324
+
+(276:5)-(278:6)325
+
+getUpdatedAt326
+d
+]com.clinalert.doctortracker.model.DailyHealthSummary#setUpdatedAt(Ljava/time/LocalDateTime;)V328
+
+(280:5)-(282:6)329
+
+setUpdatedAt330J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j„1
+
+19
+192021
+N
+73H
+737430 *
+1( (('210:7B$
+
+
+13
+31
+
+
+15
+75
+
+
+17
+76
+V
+223O
+223224135 *
+1∞ ∞('210:7B&
+
+
+13
+14
+
+15
+225
+
+17
+226
+T
+163M
+163164135 *
+1t t(210:7B&
+
+
+13
+14
+
+15
+165
+
+17
+166
+
+139
+13914021
+U
+141N
+141142135 *
+1_ _(210:7B'
+
+13
+136
+
+15
+143
+
+17
+144
+S
+113L
+11311430 *
+1I I( 210:7B&
+
+
+13
+31
+
+15
+115
+
+17
+116
+
+145
+14514621
+T
+151M
+151152135 *
+1h h(210:7B&
+
+
+13
+14
+
+15
+153
+
+17
+154
+
+38
+383921
+U
+133N
+133134135 *
+1Y Y(210:7B'
+
+13
+136
+
+15
+137
+
+17
+138
+
+24
+242521
+V
+271O
+271272135 *
+1‡ ‡(210:7B&
+
+
+13
+14
+
+15
+273
+
+17
+274
+V
+287O
+287288135 *
+1 (210:7B&
+
+
+13
+14
+
+15
+289
+
+17
+290
+N
+53H
+535430 *
+1 ( 210:7B$
+
+
+13
+31
+
+
+15
+55
+
+
+17
+56
+T
+167M
+167168135 *
+1x x(210:7B&
+
+
+13
+14
+
+15
+169
+
+17
+170
+V
+251O
+251252135 *
+1Ã Ã((210:7B&
+
+
+13
+14
+
+15
+253
+
+17
+254
+N
+65H
+656630 *
+1! !(%210:7B$
+
+
+13
+31
+
+
+15
+67
+
+
+17
+68
+V
+327O
+327328135 *
+1ò ò(210:7B&
+
+
+13
+14
+
+15
+329
+
+17
+330
+N
+81H
+818230 *
+1. .("210:7B$
+
+
+13
+31
+
+
+15
+83
+
+
+17
+84
+T
+159M
+159160135 *
+1p p(210:7B&
+
+
+13
+14
+
+15
+161
+
+17
+162
+S
+117L
+11711830 *
+1M M("210:7B&
+
+
+13
+31
+
+15
+119
+
+17
+120
+V
+175O
+175176135 *
+1Ä Ä( 210:7B&
+
+
+13
+14
+
+15
+177
+
+17
+178
+N
+89H
+899030 *
+15 5(%210:7B$
+
+
+13
+31
+
+
+15
+91
+
+
+17
+92
+V
+239O
+239240135 *
+1¿ ¿(%210:7B&
+
+
+13
+14
+
+15
+241
+
+17
+242
+
+34
+343521
+N
+93H
+939430 *
+18 8(&210:7B$
+
+
+13
+31
+
+
+15
+95
+
+
+17
+96
+V
+255O
+255256135 *
+1– –(%210:7B&
+
+
+13
+14
+
+15
+257
+
+17
+258
+V
+279O
+279280135 *
+1Ë Ë(210:7B&
+
+
+13
+14
+
+15
+281
+
+17
+282
+V
+235O
+235236135 *
+1º º((210:7B&
+
+
+13
+14
+
+15
+237
+
+17
+238
+V
+191O
+191192135 *
+1ê ê( 210:7B&
+
+
+13
+14
+
+15
+193
+
+17
+194
+V
+275O
+275276135 *
+1‰ ‰(210:7B&
+
+
+13
+14
+
+15
+277
+
+17
+278
+V
+263O
+263264135 *
+1ÿ ÿ(#210:7B&
+
+
+13
+14
+
+15
+265
+
+17
+266
+V
+259O
+259260135 *
+1‘ ‘(&210:7B&
+
+
+13
+14
+
+15
+261
+
+17
+262
+V
+283O
+283284135 *
+1Ï Ï(!210:7B&
+
+
+13
+14
+
+15
+285
+
+17
+286
+N
+77H
+777830 *
+1+ +((210:7B$
+
+
+13
+31
+
+
+15
+79
+
+
+17
+80
+V
+219O
+219220135 *
+1¨ ¨(*210:7B&
+
+
+13
+14
+
+15
+221
+
+17
+222
+T
+147M
+147148135 *
+1d d(210:7B&
+
+
+13
+14
+
+15
+149
+
+17
+150
+N
+49H
+495030 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+51
+
+
+17
+52
+T
+171M
+171172135 *
+1| |("210:7B&
+
+
+13
+14
+
+15
+173
+
+17
+174
+V
+247O
+247248135 *
+1» »($210:7B&
+
+
+13
+14
+
+15
+249
+
+17
+250
+V
+323O
+323324135 *
+1î î(&210:7B&
+
+
+13
+14
+
+15
+325
+
+17
+326
+V
+267O
+267268135 *
+1‹ ‹(210:7B&
+
+
+13
+14
+
+15
+269
+
+17
+270
+V
+303O
+303304135 *
+1Ä Ä("210:7B&
+
+
+13
+14
+
+15
+305
+
+17
+306
+V
+291O
+291292135 *
+1Ù Ù("210:7B&
+
+
+13
+14
+
+15
+293
+
+17
+294
+V
+207O
+207208135 *
+1† †(210:7B&
+
+
+13
+14
+
+15
+209
+
+17
+210
+S
+129L
+12913030 *
+1V V($210:7B&
+
+
+13
+31
+
+15
+131
+
+17
+132
+
+40
+404121
+V
+203O
+203204135 *
+1ú ú(!210:7B&
+
+
+13
+14
+
+15
+205
+
+17
+206
+
+26
+262721
+V
+187O
+187188135 *
+1å å(#210:7B&
+
+
+13
+14
+
+15
+189
+
+17
+190
+N
+57H
+575830 *
+1 (!210:7B$
+
+
+13
+31
+
+
+15
+59
+
+
+17
+60
+S
+121L
+12112230 *
+1P P($210:7B&
+
+
+13
+31
+
+15
+123
+
+17
+124
+V
+243O
+243244135 *
+1ƒ ƒ('210:7B&
+
+
+13
+14
+
+15
+245
+
+17
+246
+S
+101L
+10110230 *
+1? ?(210:7B&
+
+
+13
+31
+
+15
+103
+
+17
+104
+N
+85H
+858630 *
+12 2(&210:7B$
+
+
+13
+31
+
+
+15
+87
+
+
+17
+88
+S
+125L
+12512630 *
+1S S($210:7B&
+
+
+13
+31
+
+15
+127
+
+17
+128
+O
+97I
+979830 *
+1; ;($210:7B%
+
+
+13
+31
+
+
+15
+99
+
+17
+100
+V
+211O
+211212135 *
+1§ §()210:7B&
+
+
+13
+14
+
+15
+213
+
+17
+214
+V
+199O
+199200135 *
+1ò ò($210:7B&
+
+
+13
+14
+
+15
+201
+
+17
+202
+N
+69H
+697030 *
+1% %(210:7B$
+
+
+13
+31
+
+
+15
+71
+
+
+17
+72
+N
+28H
+282930 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+32
+
+
+17
+33
+S
+105L
+10510630 *
+1B B(210:7B&
+
+
+13
+31
+
+15
+107
+
+17
+108
+V
+319O
+319320135 *
+1ê ê(210:7B&
+
+
+13
+14
+
+15
+321
+
+17
+322
+
+36
+363721
+V
+295O
+295296135 *
+1¯ ¯( 210:7B&
+
+
+13
+14
+
+15
+297
+
+17
+298
+J
+10D
+101112 *
+1 ( :7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+V
+183O
+183184135 *
+1à à( 210:7B&
+
+
+13
+14
+
+15
+185
+
+17
+186
+V
+215O
+215216135 *
+1® ®('210:7B&
+
+
+13
+14
+
+15
+217
+
+17
+218
+
+47
+474821
+V
+315O
+315316135 *
+1å å(&210:7B&
+
+
+13
+14
+
+15
+317
+
+17
+318
+V
+307O
+307308135 *
+1Ñ Ñ(&210:7B&
+
+
+13
+14
+
+15
+309
+
+17
+310
+V
+195O
+195196135 *
+1î î('210:7B&
+
+
+13
+14
+
+15
+197
+
+17
+198
+N
+43H
+434430 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+45
+
+
+17
+46
+N
+61H
+616230 *
+1 (!210:7B$
+
+
+13
+31
+
+
+15
+63
+
+
+17
+64
+V
+299O
+299300135 *
+1¸ ¸($210:7B&
+
+
+13
+14
+
+15
+301
+
+17
+302
+V
+311O
+311312135 *
+1à à(#210:7B&
+
+
+13
+14
+
+15
+313
+
+17
+314
+V
+179O
+179180135 *
+1Ñ Ñ(#210:7B&
+
+
+13
+14
+
+15
+181
+
+17
+182
+V
+227O
+227228135 *
+1¥ ¥($210:7B&
+
+
+13
+14
+
+15
+229
+
+17
+230
+S
+109L
+10911030 *
+1F F(210:7B&
+
+
+13
+31
+
+15
+111
+
+17
+112
+V
+231O
+231232135 *
+1∏ ∏(!210:7B&
+
+
+13
+14
+
+15
+233
+
+17
+234
+T
+155M
+155156135 *
+1l l(210:7B&
+
+
+13
+14
+
+15
+157
+
+17
+158rú#
+
+101922*
+1 (
+
+101923*
+1 (
+
+102422*
+1 
+(
+
+102423*
+1 (
+
+102622*
+1		 	(J
+
+102623*
+1	
+ 	(
+
+283422*
+1 (
+
+283423*
+1 (
+
+283622*
+1 (4
+
+283623*
+1 (
+
+283823*
+1  (.
+
+283823*
+1/ (3
+
+284042*
+1/ (3
+
+434722*
+1 (3
+
+434723*
+1 (
+
+494722*
+1 (5
+
+494723*
+1 (
+
+534722*
+1 (%
+
+534723*
+1 (
+
+574722*
+1 (%
+
+574723*
+1 (
+
+614722*
+1 (%
+
+614723*
+1 (
+
+654722*
+1   ()
+
+654723*
+1   (
+
+694722*
+1$ $("
+
+694723*
+1$ $(
+
+734722*
+1' '(,
+
+734723*
+1' '(
+
+774722*
+1* *(,
+
+774723*
+1* *(
+
+814722*
+1- -(%
+
+814723*
+1- -(
+
+854722*
+11 1(*
+
+854723*
+11 1(
+
+894722*
+14 4()
+
+894723*
+14 4(
+
+934722*
+17 7(*
+
+934723*
+17 7(
+
+974722*
+1: :((
+
+974723*
+1: :(
+
+1014722*
+1> >(
+
+1014723*
+1> >(
+
+1054722*
+1A A(
+
+1054723*
+1A A(
+
+1094722*
+1E E(#
+
+1094723*
+1E E(
+
+1134722*
+1H H($
+
+1134723*
+1H H(
+
+1174722*
+1L L(&
+
+1174723*
+1L L(
+
+1214722*
+1O O((
+
+1214723*
+1O O(
+
+1254722*
+1R R(!
+
+1254723*
+1R R(
+
+1294722*
+1U U(!
+
+1294723*
+1U U(
+
+13313922*
+1X X(
+
+13313923*
+1X X(
+
+13312542*
+1Z	 Z(
+
+13312942*
+1[	 [(
+
+14114522*
+1^ ^(
+
+14114523*
+1^ ^(
+
+14112942*
+1`	 `(
+
+1472842*
+1e e(
+
+1511023*
+1i	 i(
+
+1511042*
+1i	 i(
+
+1512842*
+1i i(
+
+1554342*
+1m m(
+
+1591023*
+1q	 q(
+
+1591042*
+1q	 q(
+
+1594342*
+1q q(
+
+1634942*
+1u u(
+
+1671023*
+1y	 y(
+
+1671042*
+1y	 y(
+
+1674942*
+1y y(
+
+1715342*
+1} }(
+
+1751023*
+1Å	 Å(
+
+1751042*
+1Å	 Å(
+
+1755342*
+1Å Å(
+
+1795742*
+1Ö Ö(
+
+1831023*
+1â	 â(
+
+1831042*
+1â	 â(
+
+1835742*
+1â â(
+
+1876142*
+1ç ç(
+
+1911023*
+1ë	 ë(
+
+1911042*
+1ë	 ë(
+
+1916142*
+1ë ë(
+
+1956542*
+1ï ï( 
+
+1991023*
+1ô	 ô(
+
+1991042*
+1ô	 ô(
+
+1996542*
+1ô ô(
+
+2036942*
+1ù ù(
+
+2071023*
+1°	 °(
+
+2071042*
+1°	 °(
+
+2076942*
+1° °(
+
+2117342*
+1• •(#
+
+2151023*
+1©	 ©(
+
+2151042*
+1©	 ©(
+
+2157342*
+1© ©(!
+
+2197742*
+1≠ ≠(#
+
+2231023*
+1±	 ±(
+
+2231042*
+1±	 ±(
+
+2237742*
+1± ±(!
+
+2278142*
+1µ µ(
+
+2311023*
+1π	 π(
+
+2311042*
+1π	 π(
+
+2318142*
+1π π(
+
+2358542*
+1Ω Ω(!
+
+2391023*
+1¡	 ¡(
+
+2391042*
+1¡	 ¡(
+
+2398542*
+1¡ ¡(
+
+2438942*
+1≈ ≈( 
+
+2471023*
+1…	 …(
+
+2471042*
+1…	 …(
+
+2478942*
+1… …(
+
+2519342*
+1Õ Õ(!
+
+2551023*
+1—	 —(
+
+2551042*
+1—	 —(
+
+2559342*
+1— —(
+
+2599742*
+1’ ’(
+
+2631023*
+1Ÿ	 Ÿ(
+
+2631042*
+1Ÿ	 Ÿ(
+
+2639742*
+1Ÿ Ÿ(
+
+26710142*
+1› ›(
+
+2711023*
+1·	 ·(
+
+2711042*
+1·	 ·(
+
+27110142*
+1· ·(
+
+27510542*
+1Â Â(
+
+2791023*
+1È	 È(
+
+2791042*
+1È	 È(
+
+27910542*
+1È È(
+
+28310942*
+1Ì Ì(
+
+2871023*
+1Ò	 Ò(
+
+2871042*
+1Ò	 Ò(
+
+28710942*
+1Ò Ò(
+
+29111342*
+1ı ı(
+
+2951023*
+1˘	 ˘(
+
+2951042*
+1˘	 ˘(
+
+29511342*
+1˘ ˘(
+
+29911742*
+1˝ ˝(
+
+3031023*
+1Å	 Å(
+
+3031042*
+1Å	 Å(
+
+30311742*
+1Å Å(
+
+30712142*
+1Ö Ö(
+
+3111023*
+1â	 â(
+
+3111042*
+1â	 â(
+
+31112142*
+1â â(
+
+31512542*
+1ç ç(
+
+3191023*
+1ë	 ë(
+
+3191042*
+1ë	 ë(
+
+31912542*
+1ë ë(
+
+32312942*
+1ï ï(
+
+3271023*
+1ô	 ô(
+
+3271042*
+1ô	 ô(
+
+32712942*
+1ô ô(

@@ -1,0 +1,38 @@
+
+D__sonar_lambda_8$com.clinalert.doctortracker.security.SecurityConfig¬
+¡C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/security/SecurityConfig.java! !(O"startingBlock*þ
+startingBlock! !(OÝ
+Ú
+
+__unknown_file (J
+SecurityConfig.this3com.clinalert.doctortracker.security.SecurityConfig"__id*l
+
+__unknown_file (P*N5
+3com.clinalert.doctortracker.security.SecurityConfig"
+SecurityConfig.this*
+1*¶
+1! !("×
+Ô
+!7 !(N:
+%14org.springframework.web.cors.CorsConfigurationSource"__id*…
+
+__unknown_file (i*g
+J
+SecurityConfig.this3com.clinalert.doctortracker.security.SecurityConfig"
+corsConfigurationSourceéæ
+! !(OS
+%2Morg.springframework.security.config.annotation.web.configurers.CorsConfigurer"èorg.springframework.security.config.annotation.web.configurers.CorsConfigurer#configurationSource(Lorg/springframework/web/cors/CorsConfigurationSource;)Lorg/springframework/security/config/annotation/web/configurers/CorsConfigurer;*s
+
+__unknown_file (W
+U
+corsMorg.springframework.security.config.annotation.web.configurers.CorsConfigurer*X
+
+__unknown_file (<
+:
+%14org.springframework.web.cors.CorsConfigurationSource2KconfigurationSource(Lorg/springframework/web/cors/CorsConfigurationSource;)"a
+! !(OU
+S
+%2Morg.springframework.security.config.annotation.web.configurers.CorsConfigurer:a
+! !(U
+corsMorg.springframework.security.config.annotation.web.configurers.CorsConfigurerB20
+.org.springframework.security.config.Customizer

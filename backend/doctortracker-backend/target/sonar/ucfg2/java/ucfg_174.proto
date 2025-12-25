@@ -1,0 +1,16 @@
+
+D__sonar_lambda_9$com.clinalert.doctortracker.security.SecurityConfig¬
+¡C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/security/SecurityConfig.java" "(,"1*õ
+1" "("‡„
+" "(,N
+%5Horg.springframework.security.config.annotation.web.builders.HttpSecurity"§org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer#disable()Lorg/springframework/security/config/annotation/web/HttpSecurityBuilder;*s
+
+__unknown_file (W
+U
+csrfMorg.springframework.security.config.annotation.web.configurers.CsrfConfigurer2	disable()"\
+" "(,P
+N
+%5Horg.springframework.security.config.annotation.web.builders.HttpSecurity:a
+" "(U
+csrfMorg.springframework.security.config.annotation.web.configurers.CsrfConfigurerB20
+.org.springframework.security.config.Customizer

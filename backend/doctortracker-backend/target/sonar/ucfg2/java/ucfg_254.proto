@@ -1,0 +1,15 @@
+
+^com.clinalert.doctortracker.model.SmartWatchDevice#getLastConnected()Ljava/time/LocalDateTime;«
+ C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/SmartWatchDevice.javaR R()"1*Ö
+1S S(™
+–
+S S(
+%0java.time.LocalDateTime"__id*e
+
+__unknown_file (I*G4
+2com.clinalert.doctortracker.model.SmartWatchDevice"
+lastConnected"+
+S S(
+
+%0java.time.LocalDateTimeB64
+2com.clinalert.doctortracker.model.SmartWatchDeviceH

@@ -1,0 +1,62 @@
+
+Mcom.clinalert.doctortracker.model.User#getAuthorities()Ljava/util/Collection;°
+îC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/User.javaî2 î(@"1*ø	
+1
+ï ï(û
+õ
+
+ïN ï(R5
+%0/com.clinalert.doctortracker.model.User$UserRole"__id*P
+
+__unknown_file (4*2(
+&com.clinalert.doctortracker.model.User"
+role≠™
+
+ïN ï(Y
+%1java.lang.String"'java.lang.Enum#name()Ljava/lang/String;*S
+
+__unknown_file (7
+5
+%0/com.clinalert.doctortracker.model.User$UserRole2name()q
+o
+
+ïD ï(Y
+%2java.lang.String"__concat*
+
+ïD ï(K	
+ROLE_*&
+
+ïN ï(Y
+
+%1java.lang.Stringùö
+
+ï- ï(CH
+%3Borg.springframework.security.core.authority.SimpleGrantedAuthority"Borg.springframework.security.core.authority.SimpleGrantedAuthorityì
+ê
+
+ï) ï(Z
+%4"^org.springframework.security.core.authority.SimpleGrantedAuthority#<init>(Ljava/lang/String;)V*f
+
+__unknown_file (J
+H
+%3Borg.springframework.security.core.authority.SimpleGrantedAuthority*4
+
+__unknown_file (
+
+%2java.lang.Stringç
+ä
+
+ï ï([
+%5java.util.List"Gjava.util.Collections#singletonList(Ljava/lang/Object;)Ljava/util/List;*5
+
+__unknown_file ("
+java.util.Collections*f
+
+__unknown_file (J
+H
+%3Borg.springframework.security.core.authority.SimpleGrantedAuthority"$
+
+ï ï(\
+
+%5java.util.ListB*(
+&com.clinalert.doctortracker.model.UserH

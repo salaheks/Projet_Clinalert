@@ -1,0 +1,34 @@
+
+M__sonar_lambda_29$com.clinalert.doctortracker.service.SmartWatchHealthService∂
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/SmartWatchHealthService.javaÔ Ô(5"1*ç
+1
+Ô Ô(⁄◊
+
+Ô Ô(-
+%16java.lang.Integer"Ncom.clinalert.doctortracker.model.HealthData#getHeartRate()Ljava/lang/Integer;*O
+
+__unknown_file (3
+1
+d,com.clinalert.doctortracker.model.HealthData2getHeartRate()
+}
+
+Ô Ô(5
+%17boolean"	__compare*
+
+Ô. Ô(0
+!=*(
+
+Ô Ô(-
+
+%16java.lang.Integer*
+
+Ô1 Ô(5
+"""
+
+Ô Ô(5
+
+%17boolean:?
+
+Ô Ô(1
+d,com.clinalert.doctortracker.model.HealthDataB 
+java.util.function.Predicate

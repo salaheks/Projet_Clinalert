@@ -1,0 +1,38 @@
+
+E__sonar_lambda_10$com.clinalert.doctortracker.security.SecurityConfig¬
+¡C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/security/SecurityConfig.java## $(N"startingBlock*þ
+startingBlock## $(NÝ
+Ú
+
+__unknown_file (J
+SecurityConfig.this3com.clinalert.doctortracker.security.SecurityConfig"__id*l
+
+__unknown_file (P*N5
+3com.clinalert.doctortracker.security.SecurityConfig"
+SecurityConfig.this*
+1*­
+1#0 #(9ç
+ä
+$2 $(MF
+%8@com.clinalert.doctortracker.security.JwtAuthenticationEntryPoint"__id*‰
+
+__unknown_file (m*k
+J
+SecurityConfig.this3com.clinalert.doctortracker.security.SecurityConfig"
+jwtAuthenticationEntryPointÃÀ
+#0 $(N`
+%9Zorg.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer"Œorg.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer#authenticationEntryPoint(Lorg/springframework/security/web/AuthenticationEntryPoint;)Lorg/springframework/security/config/annotation/web/configurers/ExceptionHandlingConfigurer;*…
+
+__unknown_file (i
+g
+	exceptionZorg.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer*d
+
+__unknown_file (H
+F
+%8@com.clinalert.doctortracker.security.JwtAuthenticationEntryPoint2UauthenticationEntryPoint(Lorg/springframework/security/web/AuthenticationEntryPoint;)"n
+#0 $(Nb
+`
+%9Zorg.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer:s
+## #(,g
+	exceptionZorg.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurerB20
+.org.springframework.security.config.Customizer

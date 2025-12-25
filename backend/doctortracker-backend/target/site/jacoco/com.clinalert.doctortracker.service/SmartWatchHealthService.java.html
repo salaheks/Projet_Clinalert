@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartWatchHealthService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.service</a> &gt; <span class="el_source">SmartWatchHealthService.java</span></div><h1>SmartWatchHealthService.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.service;
+
+import com.clinalert.doctortracker.model.DailyHealthSummary;
+import com.clinalert.doctortracker.model.HealthData;
+import com.clinalert.doctortracker.model.SmartWatchDevice;
+import com.clinalert.doctortracker.model.Alert;
+import com.clinalert.doctortracker.repository.DailyHealthSummaryRepository;
+import com.clinalert.doctortracker.repository.HealthDataRepository;
+import com.clinalert.doctortracker.repository.SmartWatchDeviceRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class SmartWatchHealthService {
+
+    private final SmartWatchDeviceRepository deviceRepository;
+
+    private final HealthDataRepository healthDataRepository;
+
+    private final DailyHealthSummaryRepository dailySummaryRepository;
+
+    private final AlertService alertService;
+
+    // ==================== Device Management ====================
+
+    public SmartWatchDevice registerDevice(SmartWatchDevice device) {
+        // Check if device already exists for this patient
+<span class="fc" id="L37">        Optional&lt;SmartWatchDevice&gt; existing = deviceRepository</span>
+<span class="fc" id="L38">                .findByPatientIdAndDeviceAddress(device.getPatientId(), device.getDeviceAddress());</span>
+
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (existing.isPresent()) {</span>
+            // Update existing device
+<span class="fc" id="L42">            SmartWatchDevice existingDevice = existing.get();</span>
+<span class="fc" id="L43">            existingDevice.setDeviceName(device.getDeviceName());</span>
+<span class="fc" id="L44">            existingDevice.setDeviceType(device.getDeviceType());</span>
+<span class="fc" id="L45">            existingDevice.setIsActive(true);</span>
+<span class="fc" id="L46">            existingDevice.setLastConnected(LocalDateTime.now());</span>
+<span class="fc" id="L47">            return deviceRepository.save(existingDevice);</span>
+        }
+
+<span class="fc" id="L50">        device.setLastConnected(LocalDateTime.now());</span>
+<span class="fc" id="L51">        return deviceRepository.save(device);</span>
+    }
+
+    public List&lt;SmartWatchDevice&gt; getPatientDevices(String patientId) {
+<span class="fc" id="L55">        return deviceRepository.findByPatientId(patientId);</span>
+    }
+
+    public List&lt;SmartWatchDevice&gt; getActiveDevices(String patientId) {
+<span class="fc" id="L59">        return deviceRepository.findByPatientIdAndIsActiveTrue(patientId);</span>
+    }
+
+    public void deactivateDevice(String deviceId) {
+<span class="fc" id="L63">        Objects.requireNonNull(deviceId, com.clinalert.doctortracker.util.AppConstants.ERROR_DEVICE_ID_NULL);</span>
+<span class="fc" id="L64">        deviceRepository.findById(deviceId).ifPresent(device -&gt; {</span>
+<span class="fc" id="L65">            device.setIsActive(false);</span>
+<span class="fc" id="L66">            deviceRepository.save(device);</span>
+<span class="fc" id="L67">        });</span>
+<span class="fc" id="L68">    }</span>
+
+    public void deleteDevice(String deviceId) {
+<span class="fc" id="L71">        Objects.requireNonNull(deviceId, com.clinalert.doctortracker.util.AppConstants.ERROR_DEVICE_ID_NULL);</span>
+<span class="fc" id="L72">        deviceRepository.deleteById(deviceId);</span>
+<span class="fc" id="L73">    }</span>
+
+    public void updateDeviceLastConnected(String deviceId) {
+<span class="fc" id="L76">        Objects.requireNonNull(deviceId, com.clinalert.doctortracker.util.AppConstants.ERROR_DEVICE_ID_NULL);</span>
+<span class="fc" id="L77">        deviceRepository.findById(deviceId).ifPresent(device -&gt; {</span>
+<span class="fc" id="L78">            device.setLastConnected(LocalDateTime.now());</span>
+<span class="fc" id="L79">            deviceRepository.save(device);</span>
+<span class="fc" id="L80">        });</span>
+<span class="fc" id="L81">    }</span>
+
+    // ==================== Health Data Management ====================
+
+    @Transactional
+    public List&lt;HealthData&gt; saveHealthData(List&lt;HealthData&gt; healthDataList) {
+<span class="fc" id="L87">        Objects.requireNonNull(healthDataList, &quot;healthDataList must not be null&quot;);</span>
+<span class="fc" id="L88">        List&lt;HealthData&gt; saved = healthDataRepository.saveAll(healthDataList);</span>
+
+        // Check for anomalies and create alerts
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        for (HealthData data : saved) {</span>
+<span class="fc" id="L92">            checkAndCreateAlerts(data);</span>
+<span class="fc" id="L93">        }</span>
+
+<span class="fc" id="L95">        return saved;</span>
+    }
+
+    public HealthData saveHealthData(HealthData healthData) {
+<span class="fc" id="L99">        Objects.requireNonNull(healthData, &quot;healthData must not be null&quot;);</span>
+<span class="fc" id="L100">        HealthData saved = healthDataRepository.save(healthData);</span>
+<span class="fc" id="L101">        checkAndCreateAlerts(saved);</span>
+<span class="fc" id="L102">        return saved;</span>
+    }
+
+    public List&lt;HealthData&gt; getPatientHealthData(String patientId) {
+<span class="fc" id="L106">        return healthDataRepository.findTop50ByPatientIdOrderByTimestampDesc(patientId);</span>
+    }
+
+    public List&lt;HealthData&gt; getPatientHealthDataBetween(String patientId, LocalDateTime start, LocalDateTime end) {
+<span class="fc" id="L110">        return healthDataRepository.findByPatientIdAndTimestampBetweenOrderByTimestampAsc(patientId, start, end);</span>
+    }
+
+    public List&lt;HealthData&gt; getHeartRateHistory(String patientId) {
+<span class="fc" id="L114">        return healthDataRepository.findHeartRateDataByPatientId(patientId);</span>
+    }
+
+    public List&lt;HealthData&gt; getStepsHistory(String patientId) {
+<span class="fc" id="L118">        return healthDataRepository.findStepsDataByPatientId(patientId);</span>
+    }
+
+    public List&lt;HealthData&gt; getSpO2History(String patientId) {
+<span class="fc" id="L122">        return healthDataRepository.findSpO2DataByPatientId(patientId);</span>
+    }
+
+    public List&lt;HealthData&gt; getSleepHistory(String patientId) {
+<span class="fc" id="L126">        return healthDataRepository.findSleepDataByPatientId(patientId);</span>
+    }
+
+    // ==================== Daily Summary Management ====================
+
+    @Transactional
+    public DailyHealthSummary generateDailySummary(String patientId, LocalDate date) {
+<span class="fc" id="L133">        LocalDateTime startOfDay = date.atStartOfDay();</span>
+<span class="fc" id="L134">        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);</span>
+
+<span class="fc" id="L136">        List&lt;HealthData&gt; dayData = healthDataRepository</span>
+<span class="fc" id="L137">                .findByPatientIdAndTimestampBetweenOrderByTimestampAsc(patientId, startOfDay, endOfDay);</span>
+
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (dayData.isEmpty()) {</span>
+<span class="fc" id="L140">            return null;</span>
+        }
+
+        // Check for existing summary
+<span class="fc" id="L144">        DailyHealthSummary summary = dailySummaryRepository</span>
+<span class="fc" id="L145">                .findByPatientIdAndDate(patientId, date)</span>
+<span class="fc" id="L146">                .orElse(new DailyHealthSummary());</span>
+
+<span class="fc" id="L148">        summary.setPatientId(patientId);</span>
+<span class="fc" id="L149">        summary.setDate(date);</span>
+<span class="fc" id="L150">        summary.setDataPointsCount(dayData.size());</span>
+
+        // Calculate heart rate stats
+<span class="fc" id="L153">        List&lt;Integer&gt; heartRates = dayData.stream()</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">                .filter(d -&gt; d.getHeartRate() != null)</span>
+<span class="fc" id="L155">                .map(HealthData::getHeartRate)</span>
+<span class="fc" id="L156">                .toList();</span>
+
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        if (!heartRates.isEmpty()) {</span>
+<span class="fc" id="L159">            summary.setAvgHeartRate(heartRates.stream().mapToInt(Integer::intValue).average().orElse(0));</span>
+<span class="fc" id="L160">            summary.setMinHeartRate(heartRates.stream().mapToInt(Integer::intValue).min().orElse(0));</span>
+<span class="fc" id="L161">            summary.setMaxHeartRate(heartRates.stream().mapToInt(Integer::intValue).max().orElse(0));</span>
+        }
+
+        // Calculate steps total
+<span class="fc" id="L165">        int totalSteps = dayData.stream()</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">                .filter(d -&gt; d.getSteps() != null)</span>
+<span class="fc" id="L167">                .mapToInt(HealthData::getSteps)</span>
+<span class="fc" id="L168">                .sum();</span>
+<span class="fc" id="L169">        summary.setTotalSteps(totalSteps);</span>
+
+        // Calculate sleep total
+<span class="fc" id="L172">        int totalSleep = dayData.stream()</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">                .filter(d -&gt; d.getSleepMinutes() != null)</span>
+<span class="fc" id="L174">                .mapToInt(HealthData::getSleepMinutes)</span>
+<span class="fc" id="L175">                .sum();</span>
+<span class="fc" id="L176">        summary.setTotalSleepMinutes(totalSleep);</span>
+
+        // Calculate SpO2 average
+<span class="fc" id="L179">        List&lt;Double&gt; spO2Values = dayData.stream()</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">                .filter(d -&gt; d.getSpO2() != null)</span>
+<span class="fc" id="L181">                .map(HealthData::getSpO2)</span>
+<span class="fc" id="L182">                .toList();</span>
+
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (!spO2Values.isEmpty()) {</span>
+<span class="fc" id="L185">            summary.setAvgSpO2(spO2Values.stream().mapToDouble(Double::doubleValue).average().orElse(0));</span>
+<span class="fc" id="L186">            summary.setMinSpO2(spO2Values.stream().mapToDouble(Double::doubleValue).min().orElse(0));</span>
+        }
+
+        // Calculate blood pressure averages
+<span class="fc" id="L190">        List&lt;Integer&gt; systolicValues = dayData.stream()</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">                .filter(d -&gt; d.getBloodPressureSystolic() != null)</span>
+<span class="fc" id="L192">                .map(HealthData::getBloodPressureSystolic)</span>
+<span class="fc" id="L193">                .toList();</span>
+
+<span class="fc bfc" id="L195" title="All 2 branches covered.">        if (!systolicValues.isEmpty()) {</span>
+<span class="fc" id="L196">            summary.setAvgSystolic(systolicValues.stream().mapToInt(Integer::intValue).average().orElse(0));</span>
+        }
+
+<span class="fc" id="L199">        List&lt;Integer&gt; diastolicValues = dayData.stream()</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">                .filter(d -&gt; d.getBloodPressureDiastolic() != null)</span>
+<span class="fc" id="L201">                .map(HealthData::getBloodPressureDiastolic)</span>
+<span class="fc" id="L202">                .toList();</span>
+
+<span class="fc bfc" id="L204" title="All 2 branches covered.">        if (!diastolicValues.isEmpty()) {</span>
+<span class="fc" id="L205">            summary.setAvgDiastolic(diastolicValues.stream().mapToInt(Integer::intValue).average().orElse(0));</span>
+        }
+
+        // Calculate calories and distance
+<span class="fc" id="L209">        int totalCalories = dayData.stream()</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">                .filter(d -&gt; d.getCaloriesBurned() != null)</span>
+<span class="fc" id="L211">                .mapToInt(HealthData::getCaloriesBurned)</span>
+<span class="fc" id="L212">                .sum();</span>
+<span class="fc" id="L213">        summary.setTotalCaloriesBurned(totalCalories);</span>
+
+<span class="fc" id="L215">        double totalDistance = dayData.stream()</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">                .filter(d -&gt; d.getDistanceMeters() != null)</span>
+<span class="fc" id="L217">                .mapToDouble(HealthData::getDistanceMeters)</span>
+<span class="fc" id="L218">                .sum();</span>
+<span class="fc" id="L219">        summary.setTotalDistanceMeters(totalDistance);</span>
+
+        // Calculate temperature average
+<span class="fc" id="L222">        List&lt;Double&gt; tempValues = dayData.stream()</span>
+<span class="fc bfc" id="L223" title="All 2 branches covered.">                .filter(d -&gt; d.getTemperature() != null)</span>
+<span class="fc" id="L224">                .map(HealthData::getTemperature)</span>
+<span class="fc" id="L225">                .toList();</span>
+
+<span class="fc bfc" id="L227" title="All 2 branches covered.">        if (!tempValues.isEmpty()) {</span>
+<span class="fc" id="L228">            summary.setAvgTemperature(tempValues.stream().mapToDouble(Double::doubleValue).average().orElse(0));</span>
+        }
+
+<span class="fc" id="L231">        return dailySummaryRepository.save(summary);</span>
+    }
+
+    public Optional&lt;DailyHealthSummary&gt; getDailySummary(String patientId, LocalDate date) {
+<span class="fc" id="L235">        return dailySummaryRepository.findByPatientIdAndDate(patientId, date);</span>
+    }
+
+    public List&lt;DailyHealthSummary&gt; getRecentDailySummaries(String patientId) {
+<span class="fc" id="L239">        return dailySummaryRepository.findTop30ByPatientIdOrderByDateDesc(patientId);</span>
+    }
+
+    public List&lt;DailyHealthSummary&gt; getDailySummariesBetween(String patientId, LocalDate start, LocalDate end) {
+<span class="fc" id="L243">        return dailySummaryRepository.findByPatientIdAndDateBetweenOrderByDateAsc(patientId, start, end);</span>
+    }
+
+    // ==================== Alert Detection ====================
+
+    private void checkAndCreateAlerts(HealthData data) {
+<span class="fc" id="L249">        checkHeartRate(data);</span>
+<span class="fc" id="L250">        checkSpO2(data);</span>
+<span class="fc" id="L251">        checkBloodPressure(data);</span>
+<span class="fc" id="L252">        checkTemperature(data);</span>
+<span class="fc" id="L253">    }</span>
+
+    private void checkHeartRate(HealthData data) {
+<span class="pc bpc" id="L256" title="1 of 2 branches missed.">        if (data.getHeartRate() != null) {</span>
+<span class="fc" id="L257">            String alertMessage = null;</span>
+<span class="fc" id="L258">            String severity = null;</span>
+
+<span class="fc bfc" id="L260" title="All 2 branches covered.">            if (data.getHeartRate() &gt; 150) {</span>
+<span class="fc" id="L261">                alertMessage = &quot;Critical Heart Rate: &quot; + data.getHeartRate() + &quot; bpm&quot;;</span>
+<span class="fc" id="L262">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;</span>
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">            } else if (data.getHeartRate() &gt; 120) {</span>
+<span class="nc" id="L264">                alertMessage = &quot;High Heart Rate: &quot; + data.getHeartRate() + &quot; bpm&quot;;</span>
+<span class="nc" id="L265">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;</span>
+<span class="pc bpc" id="L266" title="1 of 2 branches missed.">            } else if (data.getHeartRate() &lt; 50) {</span>
+<span class="nc" id="L267">                alertMessage = &quot;Low Heart Rate: &quot; + data.getHeartRate() + &quot; bpm&quot;;</span>
+<span class="nc" id="L268">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_MEDIUM;</span>
+            }
+
+<span class="fc bfc" id="L271" title="All 2 branches covered.">            if (alertMessage != null) {</span>
+<span class="fc" id="L272">                createAlert(data, alertMessage, severity);</span>
+            }
+        }
+<span class="fc" id="L275">    }</span>
+
+    private void checkSpO2(HealthData data) {
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">        if (data.getSpO2() != null) {</span>
+<span class="fc" id="L279">            String alertMessage = null;</span>
+<span class="fc" id="L280">            String severity = null;</span>
+
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">            if (data.getSpO2() &lt; 90) {</span>
+<span class="nc" id="L283">                alertMessage = &quot;Critical SpO2 Level: &quot; + data.getSpO2() + &quot;%&quot;;</span>
+<span class="nc" id="L284">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;</span>
+<span class="pc bpc" id="L285" title="1 of 2 branches missed.">            } else if (data.getSpO2() &lt; 94) {</span>
+<span class="nc" id="L286">                alertMessage = &quot;Low SpO2 Level: &quot; + data.getSpO2() + &quot;%&quot;;</span>
+<span class="nc" id="L287">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;</span>
+            }
+
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">            if (alertMessage != null) {</span>
+<span class="nc" id="L291">                createAlert(data, alertMessage, severity);</span>
+            }
+        }
+<span class="fc" id="L294">    }</span>
+
+    private void checkBloodPressure(HealthData data) {
+<span class="fc bfc" id="L297" title="All 2 branches covered.">        if (data.getBloodPressureSystolic() != null) {</span>
+<span class="fc" id="L298">            String alertMessage = null;</span>
+<span class="fc" id="L299">            String severity = null;</span>
+
+<span class="fc bfc" id="L301" title="All 2 branches covered.">            if (data.getBloodPressureSystolic() &gt; 180) {</span>
+<span class="fc" id="L302">                alertMessage = &quot;Hypertensive Crisis: &quot; + data.getBloodPressureSystolic() + &quot;/&quot; +</span>
+<span class="fc" id="L303">                        data.getBloodPressureDiastolic() + &quot; mmHg&quot;;</span>
+<span class="fc" id="L304">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;</span>
+<span class="pc bpc" id="L305" title="1 of 2 branches missed.">            } else if (data.getBloodPressureSystolic() &gt; 140) {</span>
+<span class="fc" id="L306">                alertMessage = &quot;High Blood Pressure: &quot; + data.getBloodPressureSystolic() + &quot;/&quot; +</span>
+<span class="fc" id="L307">                        data.getBloodPressureDiastolic() + &quot; mmHg&quot;;</span>
+<span class="fc" id="L308">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;</span>
+            }
+
+<span class="pc bpc" id="L311" title="1 of 2 branches missed.">            if (alertMessage != null) {</span>
+<span class="fc" id="L312">                createAlert(data, alertMessage, severity);</span>
+            }
+        }
+<span class="fc" id="L315">    }</span>
+
+    private void checkTemperature(HealthData data) {
+<span class="fc bfc" id="L318" title="All 2 branches covered.">        if (data.getTemperature() != null) {</span>
+<span class="fc" id="L319">            String alertMessage = null;</span>
+<span class="fc" id="L320">            String severity = null;</span>
+
+<span class="fc bfc" id="L322" title="All 2 branches covered.">            if (data.getTemperature() &gt; 40.0) {</span>
+<span class="fc" id="L323">                alertMessage = &quot;Critical Fever: &quot; + data.getTemperature() + &quot;°C&quot;;</span>
+<span class="fc" id="L324">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_CRITICAL;</span>
+<span class="fc bfc" id="L325" title="All 2 branches covered.">            } else if (data.getTemperature() &gt; 39.0) {</span>
+<span class="fc" id="L326">                alertMessage = &quot;High Fever: &quot; + data.getTemperature() + &quot;°C&quot;;</span>
+<span class="fc" id="L327">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;</span>
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">            } else if (data.getTemperature() &lt; 35.0) {</span>
+<span class="fc" id="L329">                alertMessage = &quot;Hypothermia: &quot; + data.getTemperature() + &quot;°C&quot;;</span>
+<span class="fc" id="L330">                severity = com.clinalert.doctortracker.util.AppConstants.ALERT_SEVERITY_HIGH;</span>
+            }
+
+<span class="pc bpc" id="L333" title="1 of 2 branches missed.">            if (alertMessage != null) {</span>
+<span class="fc" id="L334">                createAlert(data, alertMessage, severity);</span>
+            }
+        }
+<span class="fc" id="L337">    }</span>
+
+    private void createAlert(HealthData data, String message, String severity) {
+<span class="fc" id="L340">        Alert alert = new Alert();</span>
+<span class="fc" id="L341">        alert.setPatientId(data.getPatientId());</span>
+<span class="fc" id="L342">        alert.setMessage(message);</span>
+<span class="fc" id="L343">        alert.setSeverity(severity);</span>
+<span class="fc" id="L344">        alertService.createAlert(alert);</span>
+<span class="fc" id="L345">    }</span>
+
+    // ==================== Statistics ====================
+
+    public HealthDataStats getPatientStats(String patientId) {
+<span class="fc" id="L350">        List&lt;HealthData&gt; recentData = healthDataRepository.findTop50ByPatientIdOrderByTimestampDesc(patientId);</span>
+
+<span class="fc" id="L352">        HealthDataStats stats = new HealthDataStats();</span>
+
+<span class="fc bfc" id="L354" title="All 2 branches covered.">        if (recentData.isEmpty()) {</span>
+<span class="fc" id="L355">            return stats;</span>
+        }
+
+        // Get latest values
+<span class="fc" id="L359">        HealthData latest = recentData.get(0);</span>
+<span class="fc" id="L360">        stats.setLatestHeartRate(latest.getHeartRate());</span>
+<span class="fc" id="L361">        stats.setLatestSpO2(latest.getSpO2());</span>
+<span class="fc" id="L362">        stats.setLatestSteps(latest.getSteps());</span>
+<span class="fc" id="L363">        stats.setLatestTimestamp(latest.getTimestamp());</span>
+
+        // Calculate averages
+<span class="fc" id="L366">        stats.setAvgHeartRate(recentData.stream()</span>
+<span class="pc bpc" id="L367" title="1 of 2 branches missed.">                .filter(d -&gt; d.getHeartRate() != null)</span>
+<span class="fc" id="L368">                .mapToInt(HealthData::getHeartRate)</span>
+<span class="fc" id="L369">                .average()</span>
+<span class="fc" id="L370">                .orElse(0));</span>
+
+<span class="fc" id="L372">        stats.setTotalDataPoints(recentData.size());</span>
+
+<span class="fc" id="L374">        return stats;</span>
+    }
+
+    // Inner class for stats
+<span class="fc" id="L378">    public static class HealthDataStats {</span>
+        private Integer latestHeartRate;
+        private Double latestSpO2;
+        private Integer latestSteps;
+        private LocalDateTime latestTimestamp;
+        private Double avgHeartRate;
+        private Integer totalDataPoints;
+
+        // Getters and Setters
+        public Integer getLatestHeartRate() {
+<span class="nc" id="L388">            return latestHeartRate;</span>
+        }
+
+        public void setLatestHeartRate(Integer latestHeartRate) {
+<span class="fc" id="L392">            this.latestHeartRate = latestHeartRate;</span>
+<span class="fc" id="L393">        }</span>
+
+        public Double getLatestSpO2() {
+<span class="nc" id="L396">            return latestSpO2;</span>
+        }
+
+        public void setLatestSpO2(Double latestSpO2) {
+<span class="fc" id="L400">            this.latestSpO2 = latestSpO2;</span>
+<span class="fc" id="L401">        }</span>
+
+        public Integer getLatestSteps() {
+<span class="nc" id="L404">            return latestSteps;</span>
+        }
+
+        public void setLatestSteps(Integer latestSteps) {
+<span class="fc" id="L408">            this.latestSteps = latestSteps;</span>
+<span class="fc" id="L409">        }</span>
+
+        public LocalDateTime getLatestTimestamp() {
+<span class="nc" id="L412">            return latestTimestamp;</span>
+        }
+
+        public void setLatestTimestamp(LocalDateTime latestTimestamp) {
+<span class="fc" id="L416">            this.latestTimestamp = latestTimestamp;</span>
+<span class="fc" id="L417">        }</span>
+
+        public Double getAvgHeartRate() {
+<span class="nc" id="L420">            return avgHeartRate;</span>
+        }
+
+        public void setAvgHeartRate(Double avgHeartRate) {
+<span class="fc" id="L424">            this.avgHeartRate = avgHeartRate;</span>
+<span class="fc" id="L425">        }</span>
+
+        public Integer getTotalDataPoints() {
+<span class="fc" id="L428">            return totalDataPoints;</span>
+        }
+
+        public void setTotalDataPoints(Integer totalDataPoints) {
+<span class="fc" id="L432">            this.totalDataPoints = totalDataPoints;</span>
+<span class="fc" id="L433">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

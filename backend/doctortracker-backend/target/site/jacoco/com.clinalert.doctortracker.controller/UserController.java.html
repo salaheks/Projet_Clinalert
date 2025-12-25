@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.controller;
+
+import com.clinalert.doctortracker.model.User;
+import com.clinalert.doctortracker.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+@RestController
+@RequestMapping(&quot;/api/users&quot;)
+@CrossOrigin(origins = &quot;*&quot;)
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+
+    @GetMapping
+    public List&lt;Map&lt;String, Object&gt;&gt; getAllUsers() {
+<span class="fc" id="L25">        return userService.getAllUsers().stream()</span>
+<span class="fc" id="L26">                .map(this::userToMap)</span>
+<span class="fc" id="L27">                .toList();</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; getUserById(@PathVariable @NonNull String id) {
+<span class="fc" id="L32">        return userService.getUserById(Objects.requireNonNull(id))</span>
+<span class="fc" id="L33">                .map(user -&gt; ResponseEntity.ok(userToMap(user)))</span>
+<span class="fc" id="L34">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;Object&gt; createUser(@RequestBody Map&lt;String, String&gt; request) {
+        try {
+<span class="fc" id="L40">            String email = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL);</span>
+<span class="fc" id="L41">            String password = request.get(&quot;password&quot;);</span>
+<span class="fc" id="L42">            String roleStr = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE);</span>
+
+<span class="pc bpc" id="L44" title="2 of 6 branches missed.">            if (email == null || password == null || roleStr == null) {</span>
+<span class="fc" id="L45">                return ResponseEntity.badRequest().body(&quot;Email, password and role are required&quot;);</span>
+            }
+
+<span class="fc" id="L48">            User.UserRole role = User.UserRole.valueOf(roleStr.toUpperCase());</span>
+<span class="fc" id="L49">            User user = userService.createUser(email, password, role);</span>
+<span class="fc" id="L50">            return ResponseEntity.ok(userToMap(user));</span>
+<span class="nc" id="L51">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L52">            return ResponseEntity.badRequest().body(&quot;Invalid role&quot;);</span>
+<span class="nc" id="L53">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L54">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Object&gt; updateUser(@PathVariable @NonNull String id,
+            @RequestBody Map&lt;String, Object&gt; request) {
+        try {
+<span class="fc" id="L62">            User.UserRole role = null;</span>
+<span class="fc" id="L63">            Boolean enabled = null;</span>
+
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">            if (request.containsKey(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE)) {</span>
+<span class="fc" id="L66">                role = User.UserRole.valueOf(</span>
+<span class="fc" id="L67">                        ((String) request.get(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE)).toUpperCase());</span>
+            }
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">            if (request.containsKey(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED)) {</span>
+<span class="fc" id="L70">                enabled = (Boolean) request.get(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED);</span>
+            }
+
+<span class="fc" id="L73">            User user = userService.updateUser(Objects.requireNonNull(id), role, enabled);</span>
+<span class="fc" id="L74">            return ResponseEntity.ok(userToMap(user));</span>
+<span class="nc" id="L75">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L76">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    @PutMapping(&quot;/{id}/password&quot;)
+    public ResponseEntity&lt;Object&gt; updatePassword(@PathVariable @NonNull String id,
+            @RequestBody Map&lt;String, String&gt; request) {
+        try {
+<span class="fc" id="L84">            String newPassword = request.get(&quot;password&quot;);</span>
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">            if (newPassword == null || newPassword.isEmpty()) {</span>
+<span class="fc" id="L86">                return ResponseEntity.badRequest().body(&quot;Password is required&quot;);</span>
+            }
+
+<span class="fc" id="L89">            User user = userService.updateUserPassword(Objects.requireNonNull(id), newPassword);</span>
+<span class="fc" id="L90">            return ResponseEntity.ok(userToMap(user));</span>
+<span class="nc" id="L91">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L92">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    @PutMapping(&quot;/{id}/email&quot;)
+    public ResponseEntity&lt;Object&gt; updateEmail(@PathVariable @NonNull String id,
+            @RequestBody Map&lt;String, String&gt; request) {
+        try {
+<span class="fc" id="L100">            String newEmail = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL);</span>
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">            if (newEmail == null || newEmail.isEmpty()) {</span>
+<span class="fc" id="L102">                return ResponseEntity.badRequest().body(&quot;Email is required&quot;);</span>
+            }
+
+<span class="fc" id="L105">            User user = userService.updateUserEmail(Objects.requireNonNull(id), newEmail);</span>
+<span class="fc" id="L106">            return ResponseEntity.ok(userToMap(user));</span>
+<span class="nc" id="L107">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L108">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Object&gt; deleteUser(@PathVariable @NonNull String id) {
+        try {
+<span class="fc" id="L115">            userService.deleteUser(Objects.requireNonNull(id));</span>
+<span class="fc" id="L116">            return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L117">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L118">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    @PutMapping(&quot;/{id}/profile&quot;)
+    public ResponseEntity&lt;Object&gt; updateProfile(@PathVariable @NonNull String id,
+            @RequestBody Map&lt;String, String&gt; request) {
+        try {
+<span class="fc" id="L126">            String firstName = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_FIRST_NAME);</span>
+<span class="fc" id="L127">            String lastName = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_LAST_NAME);</span>
+<span class="fc" id="L128">            String phone = request.get(com.clinalert.doctortracker.util.AppConstants.KEY_PHONE);</span>
+
+<span class="fc" id="L130">            User user = userService.updateUserProfile(Objects.requireNonNull(id), firstName, lastName, phone);</span>
+<span class="fc" id="L131">            return ResponseEntity.ok(userToMap(user));</span>
+<span class="nc" id="L132">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L133">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    // Convert User to Map (hide password)
+    private Map&lt;String, Object&gt; userToMap(User user) {
+<span class="fc" id="L139">        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L140">        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_ID, user.getId());</span>
+<span class="fc" id="L141">        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL, user.getEmail());</span>
+<span class="fc" id="L142">        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE, user.getRole().name());</span>
+<span class="fc" id="L143">        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED, user.isEnabled());</span>
+<span class="fc" id="L144">        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_FIRST_NAME, user.getFirstName());</span>
+<span class="fc" id="L145">        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_LAST_NAME, user.getLastName());</span>
+<span class="fc" id="L146">        map.put(com.clinalert.doctortracker.util.AppConstants.KEY_PHONE, user.getPhone());</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        map.put(&quot;createdAt&quot;, user.getCreatedAt() != null ? user.getCreatedAt().toString() : null);</span>
+<span class="fc" id="L148">        return map;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

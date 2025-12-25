@@ -1,0 +1,384 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684697861*java2.BÖ
+H
+Csrc/test/java/com/clinalert/doctortracker/dto/LoginRequestTest.java2
+	
+type3
+	
+TEST4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+C
+>adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.dto9
+6
+0com.clinalert.doctortracker.dto.LoginRequestTest11
+
+class12
+
+access13
+
+	protected14
+
+
+full-range15
+
+(11:1)-(46:2)16
+
+simple-name17
+
+LoginRequestTest18
+'
+!org.junit.jupiter.api.DisplayName20
+
+unknown21
+
+annotated by22
+
+
+uses23
+Z
+Tcom.clinalert.doctortracker.dto.LoginRequestTest#constructorAndGetters_ShouldWork()V25
+
+method26
+
+(14:5)-(23:6)27
+&
+ constructorAndGetters_ShouldWork28
+ 
+org.junit.jupiter.api.Test30
+2
+,com.clinalert.doctortracker.dto.LoginRequest32
+
+is type33
+
+calls34
+
+
+references35
+P
+Jcom.clinalert.doctortracker.dto.LoginRequest#setEmail(Ljava/lang/String;)V37
+S
+Mcom.clinalert.doctortracker.dto.LoginRequest#setPassword(Ljava/lang/String;)V39
+&
+ org.junit.jupiter.api.Assertions41
+Z
+Torg.junit.jupiter.api.Assertions#assertEquals(Ljava/lang/Object;Ljava/lang/Object;)V43
+O
+Icom.clinalert.doctortracker.dto.LoginRequest#getEmail()Ljava/lang/String;45
+R
+Lcom.clinalert.doctortracker.dto.LoginRequest#getPassword()Ljava/lang/String;47
+U
+Ocom.clinalert.doctortracker.dto.LoginRequestTest#emptyValues_ShouldBeAllowed()V49
+
+(25:5)-(34:6)50
+!
+emptyValues_ShouldBeAllowed51
+T
+Ncom.clinalert.doctortracker.dto.LoginRequestTest#nullValues_ShouldBeAllowed()V53
+
+(36:5)-(45:6)54
+ 
+nullValues_ShouldBeAllowed55
+F
+@org.junit.jupiter.api.Assertions#assertNull(Ljava/lang/Object;)V57J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j„
+
+44
+444521
+
+31
+313221
+N
+52H
+525326 *
+1&
+ &($210:7B$
+
+
+13
+14
+
+
+15
+54
+
+
+17
+55
+
+56
+565721
+N
+24H
+242526 *
+1
+ (*210:7B$
+
+
+13
+14
+
+
+15
+27
+
+
+17
+28
+
+19
+192021
+
+29
+293021
+
+36
+363721
+
+46
+464721
+
+42
+424321
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+40
+404121
+
+38
+383921
+N
+48H
+484926 *
+1
+ (%210:7B$
+
+
+13
+14
+
+
+15
+50
+
+
+17
+51r¹
+
+101922*
+1 ('
+
+101923*
+1 (
+
+242922*
+1 (
+
+
+242923*
+1 (
+
+
+241922*
+1 (8
+
+241923*
+1 (
+
+243133*
+1 (
+
+243123*
+1	 (
+
+243134*
+1$ (0
+
+243135*
+1	 (
+
+243634*
+1 (
+
+243135*
+1	 (
+
+243834*
+1 (
+
+244035*
+1	 (
+
+244234*
+1	 (
+
+243135*
+1* (:
+
+244434*
+12 (:
+
+244035*
+1	 (
+
+244234*
+1	 (
+
+243135*
+1% (8
+
+244634*
+1- (8
+
+482922*
+1 (
+
+
+482923*
+1 (
+
+
+481922*
+1 (3
+
+481923*
+1 (
+
+483133*
+1 (
+
+483123*
+1	 (
+
+483134*
+1$ (0
+
+483135*
+1	 (
+
+483634*
+1 (
+
+483135*
+1	 (
+
+483834*
+1 (
+
+484035*
+1 	  (
+
+484234*
+1 	  (
+
+483135*
+1   (*
+
+484434*
+1 "  (*
+
+484035*
+1!	 !(
+
+484234*
+1!	 !(
+
+483135*
+1! !(-
+
+484634*
+1!" !(-
+
+522922*
+1$ $(
+
+
+522923*
+1$ $(
+
+
+521922*
+1% %(2
+
+521923*
+1% %(
+
+523133*
+1' '(
+
+523123*
+1'	 '(
+
+523134*
+1'$ '(0
+
+523135*
+1(	 ((
+
+523634*
+1( ((
+
+523135*
+1)	 )(
+
+523834*
+1) )(
+
+524035*
+1+	 +(
+
+525634*
+1+	 +(
+
+523135*
+1+ +($
+
+524434*
+1+ +($
+
+524035*
+1,	 ,(
+
+525634*
+1,	 ,(
+
+523135*
+1, ,('
+
+524634*
+1, ,('

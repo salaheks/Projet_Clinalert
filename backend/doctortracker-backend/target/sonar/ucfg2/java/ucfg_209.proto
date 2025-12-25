@@ -1,0 +1,18 @@
+
+Tcom.clinalert.doctortracker.model.HealthData#getTimestamp()Ljava/time/LocalDateTime;§
+šC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/HealthData.java   (%"1*Ò
+1
+¡ ¡(‘
+Ž
+
+¡ ¡(
+%0java.time.LocalDateTime"__id*[
+
+__unknown_file (?*=.
+,com.clinalert.doctortracker.model.HealthData"
+	timestamp"-
+
+¡ ¡(
+
+%0java.time.LocalDateTimeB0.
+,com.clinalert.doctortracker.model.HealthDataH

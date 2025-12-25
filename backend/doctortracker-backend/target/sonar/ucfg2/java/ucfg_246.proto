@@ -1,0 +1,15 @@
+
+Scom.clinalert.doctortracker.model.SmartWatchDevice#getPatientId()Ljava/lang/String;«
+ C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/SmartWatchDevice.java2 2("1*Ä
+13 3(Ž
+‹
+3 3(
+%0java.lang.String"__id*a
+
+__unknown_file (E*C4
+2com.clinalert.doctortracker.model.SmartWatchDevice"
+	patientId"$
+3 3(
+
+%0java.lang.StringB64
+2com.clinalert.doctortracker.model.SmartWatchDeviceH

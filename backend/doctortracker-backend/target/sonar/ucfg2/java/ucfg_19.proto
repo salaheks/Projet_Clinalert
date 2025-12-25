@@ -1,0 +1,271 @@
+
+©com.clinalert.doctortracker.controller.SmartWatchController#registerDevice(Lcom/clinalert/doctortracker/model/SmartWatchDevice;)Lorg/springframework/http/ResponseEntity;´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/SmartWatchController.java, (:"startingBlock*ý
+startingBlock: (`”
+‘
+
+__unknown_file (
+%5"__id*i
+
+__unknown_file (M*K
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+	createdAt˜
+•
+
+__unknown_file (
+%6"__id*m
+
+__unknown_file (Q*O
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+deviceAddress•
+’
+
+__unknown_file (
+%7"__id*j
+
+__unknown_file (N*L
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+
+deviceName•
+’
+
+__unknown_file (
+%8"__id*j
+
+__unknown_file (N*L
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+
+deviceType
+Š
+
+__unknown_file (
+%9"__id*b
+
+__unknown_file (F*D
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+id™
+–
+
+__unknown_file (
+%10"__id*m
+
+__unknown_file (Q*O
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+lastConnected•
+’
+
+__unknown_file (
+%11"__id*i
+
+__unknown_file (M*K
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+	patientId™
+–
+; (G
+%12"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%9†
+ƒ
+Y (_D
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+id"__annotation*#
+
+__unknown_file (
+
+%12š
+—
+; (G
+%13"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*#
+
+__unknown_file (
+
+%10‘
+Ž
+Y (_O
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+lastConnected"__annotation*#
+
+__unknown_file (
+
+%13š
+—
+; (G
+%14"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*#
+
+__unknown_file (
+
+%11
+Š
+Y (_K
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+	patientId"__annotation*#
+
+__unknown_file (
+
+%14™
+–
+; (G
+%15"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%5
+Š
+Y (_K
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+	createdAt"__annotation*#
+
+__unknown_file (
+
+%15™
+–
+; (G
+%16"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%7Ž
+‹
+Y (_L
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+
+deviceName"__annotation*#
+
+__unknown_file (
+
+%16™
+–
+; (G
+%17"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%8Ž
+‹
+Y (_L
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+
+deviceType"__annotation*#
+
+__unknown_file (
+
+%17™
+–
+; (G
+%18"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*"
+
+__unknown_file (
+
+%6‘
+Ž
+Y (_O
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice"
+deviceAddress"__annotation*#
+
+__unknown_file (
+
+%18*
+1*«
+1& (=Ð
+Í
+& (=A
+%0;com.clinalert.doctortracker.service.SmartWatchHealthService"__id*x
+
+__unknown_file (\*Z=
+;com.clinalert.doctortracker.controller.SmartWatchController"
+smartWatchHealthServiceþ
+& (T8
+%12com.clinalert.doctortracker.model.SmartWatchDevice"´com.clinalert.doctortracker.service.SmartWatchHealthService#registerDevice(Lcom/clinalert/doctortracker/model/SmartWatchDevice;)Lcom/clinalert/doctortracker/model/SmartWatchDevice;*_
+
+__unknown_file (C
+A
+%0;com.clinalert.doctortracker.service.SmartWatchHealthService*Z
+
+__unknown_file (>
+<
+device2com.clinalert.doctortracker.model.SmartWatchDevice2DregisterDevice(Lcom/clinalert/doctortracker/model/SmartWatchDevice;)­
+ª
+ (U@
+
+registered2com.clinalert.doctortracker.model.SmartWatchDevice"__id*V
+
+__unknown_file (:
+8
+%12com.clinalert.doctortracker.model.SmartWatchDevicea
+_
+% (7)
+%2#org.springframework.http.HttpStatus"__id*"
+
+__unknown_file (
+""ë
+è
+ (89
+%33org.springframework.http.ResponseEntity$BodyBuilder"Žorg.springframework.http.ResponseEntity#status(Lorg/springframework/http/HttpStatusCode;)Lorg/springframework/http/ResponseEntity$BodyBuilder;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity*G
+
+__unknown_file (+
+)
+%2#org.springframework.http.HttpStatus†ƒ
+ (I-
+%4'org.springframework.http.ResponseEntity"uorg.springframework.http.ResponseEntity$BodyBuilder#body(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*W
+
+__unknown_file (;
+9
+%33org.springframework.http.ResponseEntity$BodyBuilder*^
+
+__unknown_file (B
+@
+
+registered2com.clinalert.doctortracker.model.SmartWatchDevice2body(Ljava/lang/Object;)";
+ (J/
+-
+%4'org.springframework.http.ResponseEntity:H
+; (_<
+device2com.clinalert.doctortracker.model.SmartWatchDeviceB?=
+;com.clinalert.doctortracker.controller.SmartWatchControllerH

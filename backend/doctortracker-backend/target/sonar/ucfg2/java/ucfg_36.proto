@@ -1,0 +1,24 @@
+
+L__sonar_lambda_1$com.clinalert.doctortracker.controller.SmartWatchController¶
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/SmartWatchController.java— —(C"1* 
+1
+—  —(.Ï
+Ì
+
+—  —(C-
+%3'org.springframework.http.ResponseEntity"gorg.springframework.http.ResponseEntity#ok(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity*]
+
+__unknown_file (A
+?
+summary4com.clinalert.doctortracker.model.DailyHealthSummary"=
+
+—  —(C/
+-
+%3'org.springframework.http.ResponseEntity:M
+
+— —(?
+summary4com.clinalert.doctortracker.model.DailyHealthSummaryB
+java.util.function.Function

@@ -1,0 +1,336 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684693459*java2.B™
+X
+Ssrc/main/java/com/clinalert/doctortracker/security/JwtAuthenticationEntryPoint.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+H
+Cadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.security9
+F
+@com.clinalert.doctortracker.security.JwtAuthenticationEntryPoint11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(15:1)-(30:2)16
+
+simple-name17
+!
+JwtAuthenticationEntryPoint18
+?
+9org.springframework.security.web.AuthenticationEntryPoint20
+
+unknown21
+
+
+implements22
+.
+(org.springframework.stereotype.Component24
+
+annotated by25
+
+
+uses26
+M
+Gcom.clinalert.doctortracker.security.JwtAuthenticationEntryPoint.logger28
+
+field29
+
+private30
+
+(18:5)-(18:101)31
+
+logger32
+
+org.slf4j.Logger34
+
+is type35
+
+returns36
+
+org.slf4j.LoggerFactory38
+
+
+references39
+L
+Forg.slf4j.LoggerFactory#getLogger(Ljava/lang/Class;)Lorg/slf4j/Logger;41
+
+calls42
+á
+Úcom.clinalert.doctortracker.security.JwtAuthenticationEntryPoint#commence(Ljakarta/servlet/http/HttpServletRequest;Ljakarta/servlet/http/HttpServletResponse;Lorg/springframework/security/core/AuthenticationException;)V44
+
+method45
+
+(20:5)-(29:6)46
+
+commence47
+-
+'jakarta.servlet.http.HttpServletRequest49
+
+	has param50
+.
+(jakarta.servlet.http.HttpServletResponse52
+?
+9org.springframework.security.core.AuthenticationException54
+&
+ jakarta.servlet.ServletException56
+1
++org.slf4j.Logger#error(Ljava/lang/String;)V58
+C
+=org.slf4j.Logger#error(Ljava/lang/String;Ljava/lang/Object;)V60
+O
+Ijakarta.servlet.http.HttpServletRequest#getRequestURI()Ljava/lang/String;62
+N
+Hjakarta.servlet.http.HttpServletResponse#sendError(ILjava/lang/String;)V64
+>
+8jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED66J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j„
+N
+27H
+272829 *
+1! ('210:7B$
+
+
+13
+30
+
+
+15
+31
+
+
+17
+32
+
+33
+333421
+N
+43H
+434445 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+46
+
+
+17
+47
+
+48
+484921
+J
+10D
+101112 *
+1 ():7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+59
+596021
+
+57
+575821
+
+65
+656621
+
+19
+192021
+
+37
+373821
+
+55
+555621
+
+40
+404121
+
+61
+616221
+
+23
+232421
+
+63
+636421
+
+53
+535421
+
+51
+515221r‰	
+
+101922*
+15 (M
+
+102325*
+1 (
+
+102326*
+1 (
+
+101926*
+15 (M
+
+273335*
+1 ( 
+
+273326*
+1 ( 
+
+273326*
+1! ('
+
+273336*
+1* (A
+
+273739*
+1* (A
+
+274042*
+18 (A
+
+273726*
+1* (7
+
+271026*
+1B (]
+
+434850*
+1 (,
+
+435150*
+1 ( 
+
+435350*
+1 ($
+
+434835*
+1- (4
+
+434826*
+1 (,
+
+435135*
+1! ()
+
+435126*
+1 ( 
+
+435335*
+1% (2
+
+435326*
+1 ($
+
+435526*
+1H (X
+
+433339*
+1	 (
+
+435742*
+1 (
+
+432739*
+1	 (
+
+433326*
+1	 (
+
+432739*
+1	 (
+
+433339*
+1	 (
+
+435942*
+1 (
+
+432739*
+1	 (
+
+433326*
+1	 (
+
+432739*
+1	 (
+
+434839*
+1) (>
+
+436142*
+11 (>
+
+433339*
+1	 (
+
+435942*
+1 (
+
+432739*
+1	 (
+
+433326*
+1	 (
+
+432739*
+1	 (
+
+435139*
+1	 (
+
+436342*
+1 (
+
+435126*
+1 (/
+
+436539*
+10 (?

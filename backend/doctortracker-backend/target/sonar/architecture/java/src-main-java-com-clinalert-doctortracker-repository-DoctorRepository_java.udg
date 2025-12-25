@@ -1,0 +1,106 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684695950*java2.B’
+O
+Jsrc/main/java/com/clinalert/doctortracker/repository/DoctorRepository.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+J
+Eadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.repository9
+=
+7com.clinalert.doctortracker.repository.DoctorRepository11
+
+	interface12
+
+access13
+
+public14
+
+
+full-range15
+
+(7:1)-(9:2)16
+
+simple-name17
+
+DoctorRepository18
+;
+5org.springframework.data.jpa.repository.JpaRepository20
+
+unknown21
+
+
+implements22
+/
+)org.springframework.stereotype.Repository24
+
+annotated by25
+
+
+uses26
+.
+(com.clinalert.doctortracker.model.Doctor28J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jˆ
+
+27
+272821
+
+23
+232421
+J
+10D
+101112 *
+1 (":7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+19
+192021r‡
+
+101922*
+1+ (H
+
+102325*
+1 (
+
+102326*
+1 (
+
+101926*
+1+ (8
+
+102726*
+19 (?

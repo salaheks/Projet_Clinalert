@@ -1,0 +1,786 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684695329*java2.B«
+M
+Hsrc/main/java/com/clinalert/doctortracker/security/JwtTokenProvider.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+H
+Cadaoumoum-org_projet-clinalert:com.clinalert.doctortracker.security9
+;
+5com.clinalert.doctortracker.security.JwtTokenProvider11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(15:1)-(81:2)16
+
+simple-name17
+
+JwtTokenProvider18
+.
+(org.springframework.stereotype.Component20
+
+unknown21
+
+annotated by22
+
+
+uses23
+E
+?com.clinalert.doctortracker.security.JwtTokenProvider.jwtSecret25
+
+field26
+
+private27
+
+(18:5)-(19:30)28
+
+	jwtSecret29
+8
+2org.springframework.beans.factory.annotation.Value31
+I
+Ccom.clinalert.doctortracker.security.JwtTokenProvider.jwtExpiration33
+
+(21:5)-(22:32)34
+
+jwtExpiration35
+c
+]com.clinalert.doctortracker.security.JwtTokenProvider#getSigningKey()Ljavax/crypto/SecretKey;37
+
+method38
+
+(24:5)-(26:6)39
+
+getSigningKey40
+#
+io.jsonwebtoken.security.Keys42
+
+
+references43
+M
+Gio.jsonwebtoken.security.Keys#hmacShaKeyFor([B)Ljavax/crypto/SecretKey;45
+
+calls46
+½
+¶com.clinalert.doctortracker.security.JwtTokenProvider#generateToken(Lorg/springframework/security/core/userdetails/UserDetails;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;48
+
+(28:5)-(41:6)49
+
+generateToken50
+?
+9org.springframework.security.core.userdetails.UserDetails52
+
+	has param53
+
+is type54
+_
+Yorg.springframework.security.core.userdetails.UserDetails#getUsername()Ljava/lang/String;56
+ 
+io.jsonwebtoken.JwtBuilder58
+<
+6io.jsonwebtoken.JwtBuilder#compact()Ljava/lang/String;60
+
+returns61
+~
+xio.jsonwebtoken.JwtBuilder#signWith(Ljava/security/Key;Lio/jsonwebtoken/SignatureAlgorithm;)Lio/jsonwebtoken/JwtBuilder;63
+\
+Vio.jsonwebtoken.JwtBuilder#setExpiration(Ljava/util/Date;)Lio/jsonwebtoken/JwtBuilder;65
+Z
+Tio.jsonwebtoken.JwtBuilder#setIssuedAt(Ljava/util/Date;)Lio/jsonwebtoken/JwtBuilder;67
+[
+Uio.jsonwebtoken.JwtBuilder#setSubject(Ljava/lang/String;)Lio/jsonwebtoken/JwtBuilder;69
+W
+Qio.jsonwebtoken.JwtBuilder#setClaims(Ljava/util/Map;)Lio/jsonwebtoken/JwtBuilder;71
+
+io.jsonwebtoken.Jwts73
+@
+:io.jsonwebtoken.Jwts#builder()Lio/jsonwebtoken/JwtBuilder;75
+(
+"io.jsonwebtoken.SignatureAlgorithm77
+.
+(io.jsonwebtoken.SignatureAlgorithm.HS51279
+v
+pcom.clinalert.doctortracker.security.JwtTokenProvider#getUsernameFromToken(Ljava/lang/String;)Ljava/lang/String;81
+
+(43:5)-(50:6)82
+
+getUsernameFromToken83
+
+io.jsonwebtoken.Claims85
+;
+5io.jsonwebtoken.Claims#getSubject()Ljava/lang/String;87
+
+io.jsonwebtoken.Jwt89
+5
+/io.jsonwebtoken.Jwt#getBody()Ljava/lang/Object;91
+
+io.jsonwebtoken.Jws93
+
+io.jsonwebtoken.JwtParser95
+W
+Qio.jsonwebtoken.JwtParser#parseClaimsJws(Ljava/lang/String;)Lio/jsonwebtoken/Jws;97
+&
+ io.jsonwebtoken.JwtParserBuilder99
+J
+Cio.jsonwebtoken.JwtParserBuilder#build()Lio/jsonwebtoken/JwtParser;101
+l
+eio.jsonwebtoken.JwtParserBuilder#setSigningKey(Ljava/security/Key;)Lio/jsonwebtoken/JwtParserBuilder;103
+M
+Fio.jsonwebtoken.Jwts#parserBuilder()Lio/jsonwebtoken/JwtParserBuilder;105
+u
+ncom.clinalert.doctortracker.security.JwtTokenProvider#getUserIdFromToken(Ljava/lang/String;)Ljava/lang/String;107
+
+(52:5)-(59:6)108
+
+getUserIdFromToken109
+X
+Qio.jsonwebtoken.Claims#get(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;111
+s
+lcom.clinalert.doctortracker.security.JwtTokenProvider#getRoleFromToken(Ljava/lang/String;)Ljava/lang/String;113
+
+(61:5)-(68:6)114
+
+getRoleFromToken115
+_
+Xcom.clinalert.doctortracker.security.JwtTokenProvider#validateToken(Ljava/lang/String;)Z117
+
+(70:5)-(80:6)118
+
+validateToken119
+#
+io.jsonwebtoken.JwtException121J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jÂ
+
+
+90
+909121
+
+98
+989921
+
+66
+666721
+N
+24H
+242526 *
+1 (210:7B$
+
+
+13
+27
+
+
+15
+28
+
+
+17
+29
+
+78
+787921
+
+94
+949521
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+30
+303121
+
+84
+848521
+
+88
+888921
+
+110
+11011121
+
+92
+929321
+
+41
+414221
+N
+47H
+474838 *
+1 ( 210:7B$
+
+
+13
+14
+
+
+15
+49
+
+
+17
+50
+
+62
+626321
+
+57
+575821
+N
+80H
+808138 *
+1+ +('210:7B$
+
+
+13
+14
+
+
+15
+82
+
+
+17
+83
+
+51
+515221
+
+76
+767721
+S
+106L
+10610738 *
+14 4(%210:7B&
+
+
+13
+14
+
+15
+108
+
+17
+109
+S
+116L
+11611738 *
+1F F(!210:7B&
+
+
+13
+14
+
+15
+118
+
+17
+119
+N
+32H
+323326 *
+1 (210:7B$
+
+
+13
+27
+
+
+15
+34
+
+
+17
+35
+
+68
+686921
+
+55
+555621
+
+102
+10210321
+
+70
+707121
+
+19
+192021
+
+72
+727321
+
+86
+868721
+N
+36H
+363738 *
+1 ($210:7B$
+
+
+13
+27
+
+
+15
+39
+
+
+17
+40
+
+104
+10410521
+
+64
+646521
+
+100
+10010121
+
+74
+747521
+
+44
+444521
+S
+112L
+11211338 *
+1= =(#210:7B&
+
+
+13
+14
+
+15
+114
+
+17
+115
+
+120
+12012121
+
+96
+969721
+
+59
+596021rú
+
+101922*
+1 (
+
+101923*
+1 (
+
+243022*
+1 (c
+
+243023*
+1 (
+
+323022*
+1 ()
+
+323023*
+1 (
+
+364143*
+1 ("
+
+364446*
+1 ("
+
+364123*
+1 (
+
+362443*
+1# (,
+
+362443*
+1# (,
+
+475153*
+1! (,
+
+475154*
+1- (8
+
+475123*
+1! (,
+
+475143*
+1   (4
+
+475546*
+1 )  (4
+
+475743*
+1" ((
+
+475946*
+1( ((
+
+475761*
+1" '(
+
+475743*
+1" '(
+
+476246*
+1' '(
+
+475761*
+1" &(
+
+475743*
+1" &(
+
+476446*
+1& &(
+
+475761*
+1" %(
+
+475743*
+1" %(
+
+476646*
+1% %(
+
+475761*
+1" $(
+
+475743*
+1" $(
+
+476846*
+1$ $(
+
+475761*
+1" #(
+
+475743*
+1" #(
+
+477046*
+1# #(
+
+475761*
+1" "(
+
+477243*
+1" "(
+
+477446*
+1" "(
+
+477223*
+1" "(
+
+475143*
+1$ $(4
+
+475546*
+1$) $(4
+
+473243*
+1&F &(S
+
+471043*
+1' '((
+
+473646*
+1' '((
+
+477623*
+1', '(>
+
+477623*
+1'? '(D
+
+477843*
+1'? '(D
+
+808443*
+1, 1(
+
+808646*
+11 1(
+
+808461*
+1, 0(
+
+808843*
+1, 0(
+
+809046*
+10 0(
+
+809261*
+1, /( 
+
+809443*
+1, /( 
+
+809646*
+1/ /( 
+
+809461*
+1, .(
+
+809843*
+1, .(
+
+8010046*
+1. .(
+
+809861*
+1, -(
+
+809843*
+1, -(
+
+8010246*
+1- -(
+
+809861*
+1, ,("
+
+807243*
+1, ,("
+
+8010446*
+1, ,("
+
+807223*
+1, ,(
+
+801043*
+1-  -(-
+
+803646*
+1-  -(-
+
+1068454*
+15 5(
+
+1068423*
+15	 5(
+
+1068461*
+15 9(
+
+1068843*
+15 9(
+
+1069046*
+19 9(
+
+1069261*
+15 8( 
+
+1069443*
+15 8( 
+
+1069646*
+18 8( 
+
+1069461*
+15 7(
+
+1069843*
+15 7(
+
+10610046*
+17 7(
+
+1069861*
+15 6(
+
+1069843*
+15 6(
+
+10610246*
+16 6(
+
+1069861*
+15 5(+
+
+1067243*
+15 5(+
+
+10610446*
+15 5(+
+
+1067223*
+15 5(
+
+1061043*
+16  6(-
+
+1063646*
+16  6(-
+
+1068443*
+1: :(
+
+10611046*
+1: :(
+
+1128454*
+1> >(
+
+1128423*
+1>	 >(
+
+1128461*
+1> B(
+
+1128843*
+1> B(
+
+1129046*
+1B B(
+
+1129261*
+1> A( 
+
+1129443*
+1> A( 
+
+1129646*
+1A A( 
+
+1129461*
+1> @(
+
+1129843*
+1> @(
+
+11210046*
+1@ @(
+
+1129861*
+1> ?(
+
+1129843*
+1> ?(
+
+11210246*
+1? ?(
+
+1129861*
+1> >(+
+
+1127243*
+1> >(+
+
+11210446*
+1> >(+
+
+1127223*
+1> >(
+
+1121043*
+1?  ?(-
+
+1123646*
+1?  ?(-
+
+1128443*
+1C C(
+
+11211046*
+1C C(
+
+1169261*
+1H K($
+
+1169443*
+1H K($
+
+1169646*
+1K K($
+
+1169461*
+1H J(
+
+1169843*
+1H J(
+
+11610046*
+1J J(
+
+1169861*
+1H I(#
+
+1169843*
+1H I(#
+
+11610246*
+1I I(#
+
+1169861*
+1H H(
+
+1167243*
+1H H(
+
+11610446*
+1H H(
+
+1167223*
+1H H(
+
+1161043*
+1I$ I(1
+
+1163646*
+1I$ I(1
+
+11612023*
+1M M(

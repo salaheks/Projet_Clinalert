@@ -1,0 +1,175 @@
+
+‡com.clinalert.doctortracker.controller.SmartWatchController#submitHealthData(Ljava/util/List;)Lorg/springframework/http/ResponseEntity;´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/SmartWatchController.javaC/ C(?"startingBlock*‚
+2E E(!ü
+ù
+E E(.9
+%23org.springframework.http.ResponseEntity$BodyBuilder"iorg.springframework.http.ResponseEntity#badRequest()Lorg/springframework/http/ResponseEntity$BodyBuilder;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntityQ
+O
+E; E(Q
+%3java.lang.String"__id*%
+
+__unknown_file (	
+error‡
+„
+E4 E(m
+%4java.util.Map"Ejava.util.Map#of(Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;*-
+
+__unknown_file ("
+java.util.Map*4
+
+__unknown_file (
+
+%3java.lang.String*7
+
+__unknown_file (
+No health data providedÙÖ
+E E(n-
+%5'org.springframework.http.ResponseEntity"uorg.springframework.http.ResponseEntity$BodyBuilder#body(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*W
+
+__unknown_file (;
+9
+%23org.springframework.http.ResponseEntity$BodyBuilder*1
+
+__unknown_file (
+
+%4java.util.Map2body(Ljava/lang/Object;)";
+E E(o/
+-
+%5'org.springframework.http.ResponseEntity*™
+3D& D(4
+D& D(>
+%1boolean"java.util.List#isEmpty()Z*>
+
+__unknown_file ("
+ 
+healthDataListjava.util.List2	isEmpty()*
+2
+1*¹
+startingBlockC? C(mµ
+²
+C@ C(L
+%14"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*>
+
+__unknown_file ("
+ 
+healthDataListjava.util.Lista
+_
+C^ C(l 
+healthDataListjava.util.List"__annotation*#
+
+__unknown_file (
+
+%14*
+4*•
+4D D(~
+|
+D D("
+%0boolean"	__compare*
+D D(
+==*.
+D D("
+ 
+healthDataListjava.util.List*
+D D("
+""*
+2
+3*Ô
+1H! H(8Ð
+Í
+H! H(8A
+%6;com.clinalert.doctortracker.service.SmartWatchHealthService"__id*x
+
+__unknown_file (\*Z=
+;com.clinalert.doctortracker.controller.SmartWatchController"
+smartWatchHealthServiceÔÑ
+H! H(W
+%7java.util.List"lcom.clinalert.doctortracker.service.SmartWatchHealthService#saveHealthData(Ljava/util/List;)Ljava/util/List;*_
+
+__unknown_file (C
+A
+%6;com.clinalert.doctortracker.service.SmartWatchHealthService*>
+
+__unknown_file ("
+ 
+healthDataListjava.util.List2 saveHealthData(Ljava/util/List;)_
+]
+H H(X
+savedjava.util.List"__id*2
+
+__unknown_file (
+
+%7java.util.Lista
+_
+I% I(7)
+%8#org.springframework.http.HttpStatus"__id*"
+
+__unknown_file (
+""ë
+è
+I I(89
+%93org.springframework.http.ResponseEntity$BodyBuilder"Žorg.springframework.http.ResponseEntity#status(Lorg/springframework/http/HttpStatusCode;)Lorg/springframework/http/ResponseEntity$BodyBuilder;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity*G
+
+__unknown_file (+
+)
+%8#org.springframework.http.HttpStatusT
+R
+J J((
+%10java.lang.String"__id*'
+
+__unknown_file (	
+messageom
+K K(%
+
+%11int"java.util.List#size()I*5
+
+__unknown_file (
+
+savedjava.util.List2size()…
+‚
+I> K(&
+%12java.util.Map"ijava.util.Map#of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;*-
+
+__unknown_file ("
+java.util.Map*5
+
+__unknown_file (
+
+%10java.lang.String*>
+
+__unknown_file (" 
+Health data saved successfully*%
+
+__unknown_file (	
+count*(
+
+__unknown_file (
+
+
+%11intÛØ
+I K('.
+%13'org.springframework.http.ResponseEntity"uorg.springframework.http.ResponseEntity$BodyBuilder#body(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*W
+
+__unknown_file (;
+9
+%93org.springframework.http.ResponseEntity$BodyBuilder*2
+
+__unknown_file (
+
+%12java.util.Map2body(Ljava/lang/Object;)"<
+I K((0
+.
+%13'org.springframework.http.ResponseEntity:,
+C@ C(l 
+healthDataListjava.util.ListB?=
+;com.clinalert.doctortracker.controller.SmartWatchControllerH

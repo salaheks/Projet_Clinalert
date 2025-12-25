@@ -1,0 +1,516 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684697472*java2.BÙ
+I
+Dsrc/test/java/com/clinalert/doctortracker/dto/LoginResponseTest.java2
+	
+type3
+	
+TEST4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+C
+>adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.dto9
+7
+1com.clinalert.doctortracker.dto.LoginResponseTest11
+
+class12
+
+access13
+
+	protected14
+
+
+full-range15
+
+(13:1)-(61:2)16
+
+simple-name17
+
+LoginResponseTest18
+'
+!org.junit.jupiter.api.DisplayName20
+
+unknown21
+
+annotated by22
+
+
+uses23
+d
+^com.clinalert.doctortracker.dto.LoginResponseTest#constructor_WithAllFields_ShouldSetValues()V25
+
+method26
+
+(16:5)-(25:6)27
+/
+)constructor_WithAllFields_ShouldSetValues28
+ 
+org.junit.jupiter.api.Test30
+3
+-com.clinalert.doctortracker.dto.LoginResponse32
+
+is type33
+
+calls34
+&
+ org.junit.jupiter.api.Assertions36
+
+
+references37
+Z
+Torg.junit.jupiter.api.Assertions#assertEquals(Ljava/lang/Object;Ljava/lang/Object;)V39
+P
+Jcom.clinalert.doctortracker.dto.LoginResponse#getToken()Ljava/lang/String;41
+Q
+Kcom.clinalert.doctortracker.dto.LoginResponse#getUserId()Ljava/lang/String;43
+P
+Jcom.clinalert.doctortracker.dto.LoginResponse#getEmail()Ljava/lang/String;45
+O
+Icom.clinalert.doctortracker.dto.LoginResponse#getRole()Ljava/lang/String;47
+e
+_com.clinalert.doctortracker.dto.LoginResponseTest#defaultConstructor_ShouldCreateEmptyObject()V49
+
+(27:5)-(33:6)50
+0
+*defaultConstructor_ShouldCreateEmptyObject51
+I
+Corg.junit.jupiter.api.Assertions#assertNotNull(Ljava/lang/Object;)V53
+U
+Ocom.clinalert.doctortracker.dto.LoginResponseTest#setters_ShouldUpdateValues()V55
+
+(35:5)-(49:6)56
+ 
+setters_ShouldUpdateValues57
+Q
+Kcom.clinalert.doctortracker.dto.LoginResponse#setToken(Ljava/lang/String;)V59
+R
+Lcom.clinalert.doctortracker.dto.LoginResponse#setUserId(Ljava/lang/String;)V61
+Q
+Kcom.clinalert.doctortracker.dto.LoginResponse#setEmail(Ljava/lang/String;)V63
+P
+Jcom.clinalert.doctortracker.dto.LoginResponse#setRole(Ljava/lang/String;)V65
+\
+Vcom.clinalert.doctortracker.dto.LoginResponseTest#getters_ShouldReturnCorrectValues()V67
+
+(51:5)-(60:6)68
+'
+!getters_ShouldReturnCorrectValues69J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68j§
+
+42
+424321
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+N
+24H
+242526 *
+1
+ (3210:7B$
+
+
+13
+14
+
+
+15
+27
+
+
+17
+28
+
+52
+525321
+
+40
+404121
+
+64
+646521
+
+44
+444521
+
+62
+626321
+N
+54H
+545526 *
+1%
+ %($210:7B$
+
+
+13
+14
+
+
+15
+56
+
+
+17
+57
+N
+48H
+484926 *
+1
+ (4210:7B$
+
+
+13
+14
+
+
+15
+50
+
+
+17
+51
+
+19
+192021
+
+29
+293021
+N
+66H
+666726 *
+15
+ 5(+210:7B$
+
+
+13
+14
+
+
+15
+68
+
+
+17
+69
+
+38
+383921
+
+31
+313221
+
+35
+353621
+
+60
+606121
+
+46
+464721
+
+58
+585921r»
+
+101922*
+1 (*
+
+101923*
+1 (
+
+242922*
+1 (
+
+
+242923*
+1 (
+
+
+241922*
+1 (L
+
+241923*
+1 (
+
+243133*
+1 (
+
+243123*
+1	 (
+
+243134*
+1& (3
+
+243537*
+1	 (
+
+243834*
+1	 (
+
+243137*
+1" (3
+
+244034*
+1+ (3
+
+243537*
+1	 (
+
+243834*
+1	 (
+
+243137*
+1" (4
+
+244234*
+1+ (4
+
+243537*
+1	 (
+
+243834*
+1	 (
+
+243137*
+1* (;
+
+244434*
+13 (;
+
+243537*
+1	 (
+
+243834*
+1	 (
+
+243137*
+1  (0
+
+244634*
+1) (0
+
+482922*
+1 (
+
+
+482923*
+1 (
+
+
+481922*
+1 (C
+
+481923*
+1 (
+
+483133*
+1 (
+
+483123*
+1	 (
+
+483134*
+1& (3
+
+483537*
+1 	  (
+
+485234*
+1 	  (
+
+542922*
+1# #(
+
+
+542923*
+1# #(
+
+
+541922*
+1$ $(1
+
+541923*
+1$ $(
+
+543133*
+1& &(
+
+543123*
+1&	 &(
+
+543134*
+1&& &(3
+
+543137*
+1(	 ((
+
+545834*
+1( ((
+
+543137*
+1)	 )(
+
+546034*
+1) )(
+
+543137*
+1*	 *(
+
+546234*
+1* *(
+
+543137*
+1+	 +(
+
+546434*
+1+ +(
+
+543537*
+1-	 -(
+
+543834*
+1-	 -(
+
+543137*
+1-" -(3
+
+544034*
+1-+ -(3
+
+543537*
+1.	 .(
+
+543834*
+1.	 .(
+
+543137*
+1.# .(5
+
+544234*
+1., .(5
+
+543537*
+1/	 /(
+
+543834*
+1/	 /(
+
+543137*
+1/) /(:
+
+544434*
+1/2 /(:
+
+543537*
+10	 0(
+
+543834*
+10	 0(
+
+543137*
+10! 0(1
+
+544634*
+10* 0(1
+
+662922*
+13 3(
+
+
+662923*
+13 3(
+
+
+661922*
+14 4(=
+
+661923*
+14 4(
+
+663133*
+16 6(
+
+663123*
+16	 6(
+
+663134*
+16& 6(3
+
+663537*
+18	 8(
+
+665234*
+18	 8(
+
+663137*
+18 8((
+
+664034*
+18  8((
+
+663537*
+19	 9(
+
+665234*
+19	 9(
+
+663137*
+19 9()
+
+664234*
+19  9()
+
+663537*
+1:	 :(
+
+665234*
+1:	 :(
+
+663137*
+1: :((
+
+664434*
+1:  :((
+
+663537*
+1;	 ;(
+
+665234*
+1;	 ;(
+
+663137*
+1; ;('
+
+664634*
+1;  ;('

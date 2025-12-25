@@ -1,0 +1,255 @@
+
+wcom.clinalert.doctortracker.service.AnomalyDetectionService#isAnomaly(Lcom/clinalert/doctortracker/model/Measurement;)Z´
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AnomalyDetectionService.java ("9*è
+2& &(ÝÚ
+& &(5
+%13java.lang.Double"Jcom.clinalert.doctortracker.model.Measurement#getValue()Ljava/lang/Double;*]
+
+__unknown_file (A
+?
+newMeasurement-com.clinalert.doctortracker.model.Measurement2
+getValue()v
+t
+& &(<
+%14double"__calculate*
+&6 &(7
+-*%
+& &(5
+
+%13java.lang.Double*
+&8 &(<
+""‘
+Ž
+& &(=
+%15double"java.lang.Math#abs(D)D*.
+
+__unknown_file ("
+java.lang.Math*+
+
+__unknown_file (
+
+%14doublec
+a
+&A &(K
+%16double"__calculate*
+&F &(G
+**
+&A &(E
+""*
+&H &(K
+""t
+r
+& &(L
+%17boolean"	__compare*
+&> &(?
+>*
+& &(=
+
+%15double*
+&@ &(L
+
+%16double"
+& &(M
+""*Ï
+3! !(ÛØ
+! !(%
+%10double"Jorg.apache.commons.math3.stat.descriptive.DescriptiveStatistics#getMean()D*f
+
+__unknown_file (J
+H
+stats?org.apache.commons.math3.stat.descriptive.DescriptiveStatistics2	getMean()õò
+" "(4
+%11double"Worg.apache.commons.math3.stat.descriptive.DescriptiveStatistics#getStandardDeviation()D*f
+
+__unknown_file (J
+H
+stats?org.apache.commons.math3.stat.descriptive.DescriptiveStatistics2getStandardDeviation()b
+`
+% %(
+%12boolean"	__compare*
+% %(
+<*
+% %(
+""*
+% %(
+""*
+2
+1*®
+4 (j
+h
+ (2
+m-com.clinalert.doctortracker.model.Measurement"__id*"
+
+__unknown_file (
+""ª
+§
+ (2
+m-com.clinalert.doctortracker.model.Measurement"
+__arrayGet*7
+
+__unknown_file (
+
+historyjava.util.List*"
+
+__unknown_file (
+""*
+3
+5*ù
+5 (ÏÌ
+ ('
+%8java.lang.Double"Jcom.clinalert.doctortracker.model.Measurement#getValue()Ljava/lang/Double;*P
+
+__unknown_file (4
+2
+m-com.clinalert.doctortracker.model.Measurement2
+getValue()’
+ ((
+
+%9void"Lorg.apache.commons.math3.stat.descriptive.DescriptiveStatistics#addValue(D)V*f
+
+__unknown_file (J
+H
+stats?org.apache.commons.math3.stat.descriptive.DescriptiveStatistics*4
+
+__unknown_file (
+
+%8java.lang.Double2addValue(D)*
+4*µ
+7& (A•’
+* (?E
+%6?org.apache.commons.math3.stat.descriptive.DescriptiveStatistics"?org.apache.commons.math3.stat.descriptive.DescriptiveStatisticsÃ
+À
+& (A
+%7"Iorg.apache.commons.math3.stat.descriptive.DescriptiveStatistics#<init>()V*c
+
+__unknown_file (G
+E
+%6?org.apache.commons.math3.stat.descriptive.DescriptiveStatisticsÂ
+¿
+ (BH
+stats?org.apache.commons.math3.stat.descriptive.DescriptiveStatistics"__id*c
+
+__unknown_file (G
+E
+%6?org.apache.commons.math3.stat.descriptive.DescriptiveStatistics*
+4*!
+8 ("
+ (
+""*Ö
+9$ (9Ï
+Ì
+$ (9B
+%0<com.clinalert.doctortracker.repository.MeasurementRepository"__id*v
+
+__unknown_file (Z*X=
+;com.clinalert.doctortracker.service.AnomalyDetectionService"
+measurementRepositoryäá
+ (-
+%1java.lang.String"Ncom.clinalert.doctortracker.model.Measurement#getPatientId()Ljava/lang/String;*]
+
+__unknown_file (A
+?
+newMeasurement-com.clinalert.doctortracker.model.Measurement2getPatientId()Ú×
+/ (G
+%2java.lang.String"Icom.clinalert.doctortracker.model.Measurement#getType()Ljava/lang/String;*]
+
+__unknown_file (A
+?
+newMeasurement-com.clinalert.doctortracker.model.Measurement2	getType()íê
+$ (H
+%3java.util.List"¢com.clinalert.doctortracker.repository.MeasurementRepository#findTop20ByPatientIdAndTypeOrderByTimestampDesc(Ljava/lang/String;Ljava/lang/String;)Ljava/util/List;*`
+
+__unknown_file (D
+B
+%0<com.clinalert.doctortracker.repository.MeasurementRepository*4
+
+__unknown_file (
+
+%1java.lang.String*4
+
+__unknown_file (
+
+%2java.lang.String2UfindTop20ByPatientIdAndTypeOrderByTimestampDesc(Ljava/lang/String;Ljava/lang/String;)a
+_
+ (I
+historyjava.util.List"__id*2
+
+__unknown_file (
+
+%3java.util.Listpn
+ (	
+%4int"java.util.List#size()I*7
+
+__unknown_file (
+
+historyjava.util.List2size()d
+b
+ (
+%5boolean"	__compare*
+ (
+<*
+ (
+	
+%4int*
+ (2*
+7
+8*¯
+1) )(ÝÚ
+)" )(;
+%18java.lang.Double"Jcom.clinalert.doctortracker.model.Measurement#getValue()Ljava/lang/Double;*]
+
+__unknown_file (A
+?
+newMeasurement-com.clinalert.doctortracker.model.Measurement2
+getValue()v
+t
+)" )(B
+%19double"__calculate*
+)< )(=
+-*%
+)" )(;
+
+%18java.lang.Double*
+)> )(B
+""l
+j
+)! )(L
+%20double"__calculate*
+)D )(E
+/*
+)! )(C
+
+%19double*
+)F )(L
+""‘
+Ž
+) )(M
+%21double"java.lang.Math#abs(D)D*.
+
+__unknown_file ("
+java.lang.Math*+
+
+__unknown_file (
+
+%20doubleE
+C
+* *()
+%22double"__id*"
+
+__unknown_file (
+""k
+i
+* *()
+%23boolean"	__compare*
+* *(
+>*
+* *(
+""*
+* *()
+
+%22double"
+* *(*
+"":K
+ (7?
+newMeasurement-com.clinalert.doctortracker.model.MeasurementB?=
+;com.clinalert.doctortracker.service.AnomalyDetectionServiceHX

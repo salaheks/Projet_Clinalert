@@ -1,0 +1,201 @@
+
+∂com.clinalert.doctortracker.security.JwtTokenProvider#generateToken(Lorg/springframework/security/core/userdetails/UserDetails;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;Æ
+£C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/security/JwtTokenProvider.java ("1*ä!
+1% (486
+) (2
+%0java.util.HashMap"java.util.HashMapf
+d
+% (4
+%1"java.util.HashMap#<init>()V*5
+
+__unknown_file (
+
+%0java.util.HashMapb
+`
+ (5
+claimsjava.util.Map"__id*5
+
+__unknown_file (
+
+%0java.util.HashMap»
+≈
+ ($
+%2java.lang.Object"__mapSet*5
+
+__unknown_file (
+
+claimsjava.util.Map*&
+
+__unknown_file (
+
+userId*8
+
+__unknown_file (
+
+userIdjava.lang.Stringƒ
+¡
+ ( 
+%3java.lang.Object"__mapSet*5
+
+__unknown_file (
+
+claimsjava.util.Map*$
+
+__unknown_file (
+role*6
+
+__unknown_file (
+
+rolejava.lang.String˜Ù
+   (5
+%4java.lang.String"Yorg.springframework.security.core.userdetails.UserDetails#getUsername()Ljava/lang/String;*f
+
+__unknown_file (J
+H
+userDetails9org.springframework.security.core.userdetails.UserDetails2getUsername()√
+¿
+   (6
+%5java.lang.Object"__mapSet*5
+
+__unknown_file (
+
+claimsjava.util.Map*%
+
+__unknown_file (	
+email*4
+
+__unknown_file (
+
+%4java.lang.String°
+û
+" "( 
+%6io.jsonwebtoken.JwtBuilder":io.jsonwebtoken.Jwts#builder()Lio/jsonwebtoken/JwtBuilder;*4
+
+__unknown_file ("
+io.jsonwebtoken.Jwtsïí
+" #(" 
+%7io.jsonwebtoken.JwtBuilder"Qio.jsonwebtoken.JwtBuilder#setClaims(Ljava/util/Map;)Lio/jsonwebtoken/JwtBuilder;*>
+
+__unknown_file ("
+ 
+%6io.jsonwebtoken.JwtBuilder*5
+
+__unknown_file (
+
+claimsjava.util.Map2setClaims(Ljava/util/Map;)˜Ù
+$ $(5
+%8java.lang.String"Yorg.springframework.security.core.userdetails.UserDetails#getUsername()Ljava/lang/String;*f
+
+__unknown_file (J
+H
+userDetails9org.springframework.security.core.userdetails.UserDetails2getUsername()úô
+" $(6 
+%9io.jsonwebtoken.JwtBuilder"Uio.jsonwebtoken.JwtBuilder#setSubject(Ljava/lang/String;)Lio/jsonwebtoken/JwtBuilder;*>
+
+__unknown_file ("
+ 
+%7io.jsonwebtoken.JwtBuilder*4
+
+__unknown_file (
+
+%8java.lang.String2setSubject(Ljava/lang/String;)31
+%! %(%
+%10java.util.Date"java.util.Dateb
+`
+% %('
+%11"java.util.Date#<init>()V*3
+
+__unknown_file (
+
+%10java.util.Dateöó
+" %((!
+%12io.jsonwebtoken.JwtBuilder"Tio.jsonwebtoken.JwtBuilder#setIssuedAt(Ljava/util/Date;)Lio/jsonwebtoken/JwtBuilder;*>
+
+__unknown_file ("
+ 
+%9io.jsonwebtoken.JwtBuilder*3
+
+__unknown_file (
+
+%10java.util.Date2setIssuedAt(Ljava/util/Date;)r
+p
+&( &(B
+%13long"%java.lang.System#currentTimeMillis()J*0
+
+__unknown_file ("
+java.lang.Systemh
+f
+&( &(R
+%14long"__calculate*
+&C &(D
++*
+&( &(B
+
+%13long*
+&E &(R
+""31
+&# &('
+%15java.util.Date"java.util.Dateè
+å
+& &(S
+%16"java.util.Date#<init>(J)V*3
+
+__unknown_file (
+
+%15java.util.Date*)
+
+__unknown_file (
+
+%14longüú
+" &(T!
+%17io.jsonwebtoken.JwtBuilder"Vio.jsonwebtoken.JwtBuilder#setExpiration(Ljava/util/Date;)Lio/jsonwebtoken/JwtBuilder;*?
+
+__unknown_file (#
+!
+%12io.jsonwebtoken.JwtBuilder*3
+
+__unknown_file (
+
+%15java.util.Date2setExpiration(Ljava/util/Date;)‚
+ﬂ
+' '()
+%18javax.crypto.SecretKey"]com.clinalert.doctortracker.security.JwtTokenProvider#getSigningKey()Ljavax/crypto/SecretKey;*U
+
+__unknown_file (97
+5com.clinalert.doctortracker.security.JwtTokenProvidera
+_
+'+ '(C)
+%19"io.jsonwebtoken.SignatureAlgorithm"__id*"
+
+__unknown_file (
+""¥±
+" '(D!
+%20io.jsonwebtoken.JwtBuilder"xio.jsonwebtoken.JwtBuilder#signWith(Ljava/security/Key;Lio/jsonwebtoken/SignatureAlgorithm;)Lio/jsonwebtoken/JwtBuilder;*?
+
+__unknown_file (#
+!
+%17io.jsonwebtoken.JwtBuilder*;
+
+__unknown_file (
+
+%18javax.crypto.SecretKey*G
+
+__unknown_file (+
+)
+%19"io.jsonwebtoken.SignatureAlgorithm2AsignWith(Ljava/security/Key;Lio/jsonwebtoken/SignatureAlgorithm;)™ß
+" ((
+%21java.lang.String"6io.jsonwebtoken.JwtBuilder#compact()Ljava/lang/String;*?
+
+__unknown_file (#
+!
+%20io.jsonwebtoken.JwtBuilder2	compact()"%
+" ((
+
+%21java.lang.String:T
+  (8H
+userDetails9org.springframework.security.core.userdetails.UserDetails:&
+9 (G
+userIdjava.lang.String:$
+H (S
+rolejava.lang.StringB97
+5com.clinalert.doctortracker.security.JwtTokenProviderH

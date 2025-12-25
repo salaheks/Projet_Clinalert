@@ -1,0 +1,15 @@
+
+Icom.clinalert.doctortracker.model.Measurement#getType()Ljava/lang/String;¶
+õC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/Measurement.java5 5("1*∫
+16 6(Ñ
+Å
+6 6(
+%0java.lang.String"__id*W
+
+__unknown_file (;*9/
+-com.clinalert.doctortracker.model.Measurement"
+type"$
+6 6(
+
+%0java.lang.StringB1/
+-com.clinalert.doctortracker.model.MeasurementH

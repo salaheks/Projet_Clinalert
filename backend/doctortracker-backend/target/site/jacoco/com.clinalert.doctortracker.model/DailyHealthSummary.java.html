@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DailyHealthSummary.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.model</a> &gt; <span class="el_source">DailyHealthSummary.java</span></div><h1>DailyHealthSummary.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = &quot;daily_health_summaries&quot;, uniqueConstraints = {
+        @UniqueConstraint(columnNames = { &quot;patient_id&quot;, &quot;summary_date&quot; })
+})
+<span class="fc" id="L11">public class DailyHealthSummary {</span>
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @Column(name = &quot;patient_id&quot;, nullable = false)
+    private String patientId;
+
+    @Column(name = &quot;summary_date&quot;, nullable = false)
+    private LocalDate date;
+
+    // Heart Rate Stats
+    @Column(name = &quot;avg_heart_rate&quot;)
+    private Double avgHeartRate;
+
+    @Column(name = &quot;min_heart_rate&quot;)
+    private Integer minHeartRate;
+
+    @Column(name = &quot;max_heart_rate&quot;)
+    private Integer maxHeartRate;
+
+    @Column(name = &quot;resting_heart_rate&quot;)
+    private Integer restingHeartRate;
+
+    // Steps &amp; Activity
+    @Column(name = &quot;total_steps&quot;)
+    private Integer totalSteps;
+
+    @Column(name = &quot;total_distance_meters&quot;)
+    private Double totalDistanceMeters;
+
+    @Column(name = &quot;total_calories_burned&quot;)
+    private Integer totalCaloriesBurned;
+
+    @Column(name = &quot;active_minutes&quot;)
+    private Integer activeMinutes;
+
+    // Sleep Stats
+    @Column(name = &quot;total_sleep_minutes&quot;)
+    private Integer totalSleepMinutes;
+
+    @Column(name = &quot;deep_sleep_minutes&quot;)
+    private Integer deepSleepMinutes;
+
+    @Column(name = &quot;light_sleep_minutes&quot;)
+    private Integer lightSleepMinutes;
+
+    @Column(name = &quot;rem_sleep_minutes&quot;)
+    private Integer remSleepMinutes;
+
+    // SpO2 Stats
+    @Column(name = &quot;avg_spo2&quot;)
+    private Double avgSpO2;
+
+    @Column(name = &quot;min_spo2&quot;)
+    private Double minSpO2;
+
+    // Blood Pressure Stats
+    @Column(name = &quot;avg_systolic&quot;)
+    private Double avgSystolic;
+
+    @Column(name = &quot;avg_diastolic&quot;)
+    private Double avgDiastolic;
+
+    // Temperature Stats
+    @Column(name = &quot;avg_temperature&quot;)
+    private Double avgTemperature;
+
+    @Column(name = &quot;data_points_count&quot;)
+    private Integer dataPointsCount;
+
+    @Column(name = &quot;created_at&quot;)
+    private LocalDateTime createdAt;
+
+    @Column(name = &quot;updated_at&quot;)
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+<span class="fc" id="L90">        createdAt = LocalDateTime.now();</span>
+<span class="fc" id="L91">        updatedAt = LocalDateTime.now();</span>
+<span class="fc" id="L92">    }</span>
+
+    @PreUpdate
+    protected void onUpdate() {
+<span class="fc" id="L96">        updatedAt = LocalDateTime.now();</span>
+<span class="fc" id="L97">    }</span>
+
+    // Getters and Setters
+    public String getId() {
+<span class="fc" id="L101">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="fc" id="L105">        this.id = id;</span>
+<span class="fc" id="L106">    }</span>
+
+    public String getPatientId() {
+<span class="fc" id="L109">        return patientId;</span>
+    }
+
+    public void setPatientId(String patientId) {
+<span class="fc" id="L113">        this.patientId = patientId;</span>
+<span class="fc" id="L114">    }</span>
+
+    public LocalDate getDate() {
+<span class="fc" id="L117">        return date;</span>
+    }
+
+    public void setDate(LocalDate date) {
+<span class="fc" id="L121">        this.date = date;</span>
+<span class="fc" id="L122">    }</span>
+
+    public Double getAvgHeartRate() {
+<span class="fc" id="L125">        return avgHeartRate;</span>
+    }
+
+    public void setAvgHeartRate(Double avgHeartRate) {
+<span class="fc" id="L129">        this.avgHeartRate = avgHeartRate;</span>
+<span class="fc" id="L130">    }</span>
+
+    public Integer getMinHeartRate() {
+<span class="fc" id="L133">        return minHeartRate;</span>
+    }
+
+    public void setMinHeartRate(Integer minHeartRate) {
+<span class="fc" id="L137">        this.minHeartRate = minHeartRate;</span>
+<span class="fc" id="L138">    }</span>
+
+    public Integer getMaxHeartRate() {
+<span class="fc" id="L141">        return maxHeartRate;</span>
+    }
+
+    public void setMaxHeartRate(Integer maxHeartRate) {
+<span class="fc" id="L145">        this.maxHeartRate = maxHeartRate;</span>
+<span class="fc" id="L146">    }</span>
+
+    public Integer getRestingHeartRate() {
+<span class="fc" id="L149">        return restingHeartRate;</span>
+    }
+
+    public void setRestingHeartRate(Integer restingHeartRate) {
+<span class="nc" id="L153">        this.restingHeartRate = restingHeartRate;</span>
+<span class="nc" id="L154">    }</span>
+
+    public Integer getTotalSteps() {
+<span class="fc" id="L157">        return totalSteps;</span>
+    }
+
+    public void setTotalSteps(Integer totalSteps) {
+<span class="fc" id="L161">        this.totalSteps = totalSteps;</span>
+<span class="fc" id="L162">    }</span>
+
+    public Double getTotalDistanceMeters() {
+<span class="fc" id="L165">        return totalDistanceMeters;</span>
+    }
+
+    public void setTotalDistanceMeters(Double totalDistanceMeters) {
+<span class="fc" id="L169">        this.totalDistanceMeters = totalDistanceMeters;</span>
+<span class="fc" id="L170">    }</span>
+
+    public Integer getTotalCaloriesBurned() {
+<span class="fc" id="L173">        return totalCaloriesBurned;</span>
+    }
+
+    public void setTotalCaloriesBurned(Integer totalCaloriesBurned) {
+<span class="fc" id="L177">        this.totalCaloriesBurned = totalCaloriesBurned;</span>
+<span class="fc" id="L178">    }</span>
+
+    public Integer getActiveMinutes() {
+<span class="fc" id="L181">        return activeMinutes;</span>
+    }
+
+    public void setActiveMinutes(Integer activeMinutes) {
+<span class="nc" id="L185">        this.activeMinutes = activeMinutes;</span>
+<span class="nc" id="L186">    }</span>
+
+    public Integer getTotalSleepMinutes() {
+<span class="fc" id="L189">        return totalSleepMinutes;</span>
+    }
+
+    public void setTotalSleepMinutes(Integer totalSleepMinutes) {
+<span class="fc" id="L193">        this.totalSleepMinutes = totalSleepMinutes;</span>
+<span class="fc" id="L194">    }</span>
+
+    public Integer getDeepSleepMinutes() {
+<span class="fc" id="L197">        return deepSleepMinutes;</span>
+    }
+
+    public void setDeepSleepMinutes(Integer deepSleepMinutes) {
+<span class="nc" id="L201">        this.deepSleepMinutes = deepSleepMinutes;</span>
+<span class="nc" id="L202">    }</span>
+
+    public Integer getLightSleepMinutes() {
+<span class="fc" id="L205">        return lightSleepMinutes;</span>
+    }
+
+    public void setLightSleepMinutes(Integer lightSleepMinutes) {
+<span class="nc" id="L209">        this.lightSleepMinutes = lightSleepMinutes;</span>
+<span class="nc" id="L210">    }</span>
+
+    public Integer getRemSleepMinutes() {
+<span class="fc" id="L213">        return remSleepMinutes;</span>
+    }
+
+    public void setRemSleepMinutes(Integer remSleepMinutes) {
+<span class="nc" id="L217">        this.remSleepMinutes = remSleepMinutes;</span>
+<span class="nc" id="L218">    }</span>
+
+    public Double getAvgSpO2() {
+<span class="fc" id="L221">        return avgSpO2;</span>
+    }
+
+    public void setAvgSpO2(Double avgSpO2) {
+<span class="fc" id="L225">        this.avgSpO2 = avgSpO2;</span>
+<span class="fc" id="L226">    }</span>
+
+    public Double getMinSpO2() {
+<span class="fc" id="L229">        return minSpO2;</span>
+    }
+
+    public void setMinSpO2(Double minSpO2) {
+<span class="fc" id="L233">        this.minSpO2 = minSpO2;</span>
+<span class="fc" id="L234">    }</span>
+
+    public Double getAvgSystolic() {
+<span class="fc" id="L237">        return avgSystolic;</span>
+    }
+
+    public void setAvgSystolic(Double avgSystolic) {
+<span class="fc" id="L241">        this.avgSystolic = avgSystolic;</span>
+<span class="fc" id="L242">    }</span>
+
+    public Double getAvgDiastolic() {
+<span class="fc" id="L245">        return avgDiastolic;</span>
+    }
+
+    public void setAvgDiastolic(Double avgDiastolic) {
+<span class="fc" id="L249">        this.avgDiastolic = avgDiastolic;</span>
+<span class="fc" id="L250">    }</span>
+
+    public Double getAvgTemperature() {
+<span class="fc" id="L253">        return avgTemperature;</span>
+    }
+
+    public void setAvgTemperature(Double avgTemperature) {
+<span class="fc" id="L257">        this.avgTemperature = avgTemperature;</span>
+<span class="fc" id="L258">    }</span>
+
+    public Integer getDataPointsCount() {
+<span class="fc" id="L261">        return dataPointsCount;</span>
+    }
+
+    public void setDataPointsCount(Integer dataPointsCount) {
+<span class="fc" id="L265">        this.dataPointsCount = dataPointsCount;</span>
+<span class="fc" id="L266">    }</span>
+
+    public LocalDateTime getCreatedAt() {
+<span class="fc" id="L269">        return createdAt;</span>
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+<span class="nc" id="L273">        this.createdAt = createdAt;</span>
+<span class="nc" id="L274">    }</span>
+
+    public LocalDateTime getUpdatedAt() {
+<span class="fc" id="L277">        return updatedAt;</span>
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+<span class="nc" id="L281">        this.updatedAt = updatedAt;</span>
+<span class="nc" id="L282">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

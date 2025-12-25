@@ -1,0 +1,539 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684695971*java2.B«
+@
+;src/main/java/com/clinalert/doctortracker/model/Doctor.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+E
+@adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.model9
+.
+(com.clinalert.doctortracker.model.Doctor11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(5:1)-(56:2)16
+
+simple-name17
+
+Doctor18
+ 
+jakarta.persistence.Entity20
+
+unknown21
+
+annotated by22
+
+
+uses23
+
+jakarta.persistence.Table25
+1
++com.clinalert.doctortracker.model.Doctor.id27
+
+field28
+
+private29
+
+(8:5)-(10:23)30
+
+id31
+
+jakarta.persistence.Id33
+(
+"jakarta.persistence.GeneratedValue35
+(
+"jakarta.persistence.GenerationType37
+-
+'jakarta.persistence.GenerationType.UUID39
+
+
+references40
+3
+-com.clinalert.doctortracker.model.Doctor.name42
+
+(12:5)-(12:25)43
+
+
+name44
+8
+2com.clinalert.doctortracker.model.Doctor.specialty46
+
+(13:5)-(13:30)47
+
+	specialty48
+4
+.com.clinalert.doctortracker.model.Doctor.email50
+
+(14:5)-(14:26)51
+
+email52
+:
+4com.clinalert.doctortracker.model.Doctor.phoneNumber54
+
+(15:5)-(15:32)55
+
+phoneNumber56
+H
+Bcom.clinalert.doctortracker.model.Doctor#getId()Ljava/lang/String;58
+
+method59
+
+(17:5)-(19:6)60
+
+getId61
+I
+Ccom.clinalert.doctortracker.model.Doctor#setId(Ljava/lang/String;)V63
+
+(21:5)-(23:6)64
+
+setId65
+J
+Dcom.clinalert.doctortracker.model.Doctor#getName()Ljava/lang/String;67
+
+(25:5)-(27:6)68
+
+getName69
+K
+Ecom.clinalert.doctortracker.model.Doctor#setName(Ljava/lang/String;)V71
+
+(29:5)-(31:6)72
+
+setName73
+O
+Icom.clinalert.doctortracker.model.Doctor#getSpecialty()Ljava/lang/String;75
+
+(33:5)-(35:6)76
+
+getSpecialty77
+P
+Jcom.clinalert.doctortracker.model.Doctor#setSpecialty(Ljava/lang/String;)V79
+
+(37:5)-(39:6)80
+
+setSpecialty81
+K
+Ecom.clinalert.doctortracker.model.Doctor#getEmail()Ljava/lang/String;83
+
+(41:5)-(43:6)84
+
+getEmail85
+L
+Fcom.clinalert.doctortracker.model.Doctor#setEmail(Ljava/lang/String;)V87
+
+(45:5)-(47:6)88
+
+setEmail89
+Q
+Kcom.clinalert.doctortracker.model.Doctor#getPhoneNumber()Ljava/lang/String;91
+
+(49:5)-(51:6)92
+
+getPhoneNumber93
+R
+Lcom.clinalert.doctortracker.model.Doctor#setPhoneNumber(Ljava/lang/String;)V95
+
+(53:5)-(55:6)96
+
+setPhoneNumber97J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jô
+
+N
+26H
+262728 *
+1
+ 
+(210:7B$
+
+
+13
+29
+
+
+15
+30
+
+
+17
+31
+
+19
+192021
+N
+62H
+626359 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+64
+
+
+17
+65
+N
+70H
+707159 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+72
+
+
+17
+73
+J
+10D
+101112 *
+1 (:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+N
+86H
+868759 *
+1- -(210:7B$
+
+
+13
+14
+
+
+15
+88
+
+
+17
+89
+N
+66H
+666759 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+68
+
+
+17
+69
+
+32
+323321
+
+34
+343521
+N
+57H
+575859 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+60
+
+
+17
+61
+N
+82H
+828359 *
+1) )(210:7B$
+
+
+13
+14
+
+
+15
+84
+
+
+17
+85
+
+36
+363721
+N
+78H
+787959 *
+1% %(210:7B$
+
+
+13
+14
+
+
+15
+80
+
+
+17
+81
+N
+94H
+949559 *
+15 5(210:7B$
+
+
+13
+14
+
+
+15
+96
+
+
+17
+97
+
+24
+242521
+N
+41H
+414228 *
+1 (210:7B$
+
+
+13
+29
+
+
+15
+43
+
+
+17
+44
+N
+53H
+535428 *
+1 (210:7B$
+
+
+13
+29
+
+
+15
+55
+
+
+17
+56
+N
+74H
+747559 *
+1! !(210:7B$
+
+
+13
+14
+
+
+15
+76
+
+
+17
+77
+N
+49H
+495028 *
+1 (210:7B$
+
+
+13
+29
+
+
+15
+51
+
+
+17
+52
+
+38
+383921
+N
+45H
+454628 *
+1 (210:7B$
+
+
+13
+29
+
+
+15
+47
+
+
+17
+48
+N
+90H
+909159 *
+11 1(!210:7B$
+
+
+13
+14
+
+
+15
+92
+
+
+17
+93rÅ
+
+101922*
+1 (
+
+101923*
+1 (
+
+102422*
+1 (
+
+102423*
+1 (
+
+263222*
+1 (
+
+263223*
+1 (
+
+263422*
+1	 	(4
+
+263423*
+1	 	(
+
+263623*
+1	  	(.
+
+263623*
+1	/ 	(3
+
+263840*
+1	/ 	(3
+
+572640*
+1 (
+
+621023*
+1	 (
+
+621040*
+1	 (
+
+622640*
+1 (
+
+664140*
+1 (
+
+701023*
+1	 (
+
+701040*
+1	 (
+
+704140*
+1 (
+
+744540*
+1" "(
+
+781023*
+1&	 &(
+
+781040*
+1&	 &(
+
+784540*
+1& &(
+
+824940*
+1* *(
+
+861023*
+1.	 .(
+
+861040*
+1.	 .(
+
+864940*
+1. .(
+
+905340*
+12 2(
+
+941023*
+16	 6(
+
+941040*
+16	 6(
+
+945340*
+16 6(

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.controller</a> &gt; <span class="el_source">AuthController.java</span></div><h1>AuthController.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.controller;
+
+import com.clinalert.doctortracker.dto.LoginRequest;
+import com.clinalert.doctortracker.dto.LoginResponse;
+import com.clinalert.doctortracker.dto.RegisterRequest;
+import com.clinalert.doctortracker.model.User;
+import com.clinalert.doctortracker.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping(&quot;/api/auth&quot;)
+@CrossOrigin(origins = &quot;*&quot;)
+@RequiredArgsConstructor
+<span class="fc" id="L20">@Slf4j</span>
+public class AuthController {
+
+    private final AuthService authService;
+
+    @PostMapping(value = &quot;/login&quot;, produces = &quot;application/json&quot;, consumes = &quot;application/json&quot;)
+    public ResponseEntity&lt;Object&gt; login(@RequestBody LoginRequest request) {
+<span class="fc" id="L27">        log.info(&quot;=== CONTROLLER: LOGIN ENDPOINT HIT ===&quot;);</span>
+<span class="fc" id="L28">        log.info(&quot;Request email: {}&quot;, request.getEmail());</span>
+        try {
+<span class="fc" id="L30">            LoginResponse response = authService.login(request);</span>
+<span class="fc" id="L31">            log.info(&quot;=== LOGIN SUCCESS ===&quot;);</span>
+<span class="fc" id="L32">            return ResponseEntity.ok(response);</span>
+<span class="fc" id="L33">        } catch (Exception e) {</span>
+<span class="fc" id="L34">            log.error(&quot;=== LOGIN ERROR: {} ===&quot;, e.getMessage());</span>
+<span class="fc" id="L35">            Map&lt;String, String&gt; error = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L36">            error.put(com.clinalert.doctortracker.util.AppConstants.KEY_ERROR, &quot;Invalid email or password&quot;);</span>
+<span class="fc" id="L37">            return ResponseEntity.badRequest().body(error);</span>
+        }
+    }
+
+    @PostMapping(value = &quot;/register&quot;, produces = &quot;application/json&quot;, consumes = &quot;application/json&quot;)
+    public ResponseEntity&lt;Object&gt; register(@RequestBody RegisterRequest request) {
+        try {
+<span class="fc" id="L44">            LoginResponse response = authService.register(request);</span>
+<span class="fc" id="L45">            return ResponseEntity.ok(response);</span>
+<span class="fc" id="L46">        } catch (Exception e) {</span>
+<span class="fc" id="L47">            Map&lt;String, String&gt; error = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L48">            error.put(com.clinalert.doctortracker.util.AppConstants.KEY_ERROR, e.getMessage());</span>
+<span class="fc" id="L49">            return ResponseEntity.badRequest().body(error);</span>
+        }
+    }
+
+    @GetMapping(&quot;/me&quot;)
+    public ResponseEntity&lt;Object&gt; getCurrentUser() {
+        try {
+<span class="fc" id="L56">            User user = authService.getCurrentUser();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            if (user == null) {</span>
+<span class="fc" id="L58">                return ResponseEntity.status(401).body(&quot;Not authenticated&quot;);</span>
+            }
+
+<span class="fc" id="L61">            Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L62">            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_ID, user.getId());</span>
+<span class="fc" id="L63">            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_EMAIL, user.getEmail());</span>
+<span class="fc" id="L64">            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_ROLE, user.getRole().name());</span>
+<span class="fc" id="L65">            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_ENABLED, user.isEnabled());</span>
+<span class="fc" id="L66">            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_FIRST_NAME, user.getFirstName());</span>
+<span class="fc" id="L67">            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_LAST_NAME, user.getLastName());</span>
+<span class="fc" id="L68">            response.put(com.clinalert.doctortracker.util.AppConstants.KEY_PHONE, user.getPhone());</span>
+
+<span class="fc" id="L70">            return ResponseEntity.ok(response);</span>
+<span class="nc" id="L71">        } catch (Exception e) {</span>
+<span class="nc" id="L72">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

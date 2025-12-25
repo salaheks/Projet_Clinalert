@@ -1,0 +1,7 @@
+organization=adaoumoum-org
+projectKey=adaoumoum-org_projet-clinalert
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.77984
+dashboardUrl=https://sonarcloud.io/dashboard?id=adaoumoum-org_projet-clinalert
+ceTaskId=AZtWnUMehwn-xlHf9bha
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZtWnUMehwn-xlHf9bha

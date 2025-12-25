@@ -1,0 +1,15 @@
+
+Gcom.clinalert.doctortracker.model.Patient#getStatus()Ljava/lang/String;¢
+óC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/Patient.javaH H("1*∑
+1I I(Å
+
+I I(
+%0java.lang.String"__id*U
+
+__unknown_file (9*7+
+)com.clinalert.doctortracker.model.Patient"
+status"$
+I I(
+
+%0java.lang.StringB-+
+)com.clinalert.doctortracker.model.PatientH

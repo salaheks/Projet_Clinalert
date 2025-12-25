@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.controller</a> &gt; <span class="el_source">PatientController.java</span></div><h1>PatientController.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.controller;
+
+import com.clinalert.doctortracker.model.Patient;
+import com.clinalert.doctortracker.service.PatientService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping(&quot;/api/patients&quot;)
+@RequiredArgsConstructor
+public class PatientController {
+
+    private final PatientService patientService;
+
+    @GetMapping
+    public List&lt;Patient&gt; getAllPatients() {
+<span class="fc" id="L21">        return patientService.getAllPatients();</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Patient&gt; getPatientById(@PathVariable String id) {
+<span class="fc" id="L26">        return patientService.getPatientById(id)</span>
+<span class="fc" id="L27">                .map(ResponseEntity::ok)</span>
+<span class="fc" id="L28">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    @GetMapping(&quot;/doctor/{doctorId}&quot;)
+    public List&lt;Patient&gt; getPatientsByDoctor(@PathVariable String doctorId) {
+<span class="fc" id="L33">        return patientService.getPatientsByDoctorId(doctorId);</span>
+    }
+
+    @GetMapping(&quot;/clinic/{clinicId}&quot;)
+    public List&lt;Patient&gt; getPatientsByClinic(@PathVariable String clinicId) {
+<span class="nc" id="L38">        return patientService.getPatientsByClinicId(clinicId);</span>
+    }
+
+    @PostMapping
+    public Patient createPatient(@RequestBody Patient patient) {
+<span class="fc" id="L43">        return patientService.createPatient(patient);</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Patient&gt; updatePatient(@PathVariable String id, @RequestBody Patient patient) {
+        try {
+<span class="fc" id="L49">            patient.setId(id);</span>
+<span class="fc" id="L50">            Patient updatedPatient = patientService.createPatient(patient); // save() works for update too</span>
+<span class="fc" id="L51">            return ResponseEntity.ok(updatedPatient);</span>
+<span class="nc" id="L52">        } catch (Exception e) {</span>
+<span class="nc" id="L53">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deletePatient(@PathVariable String id) {
+<span class="fc" id="L59">        patientService.deletePatient(id);</span>
+<span class="fc" id="L60">        return ResponseEntity.ok().build();</span>
+    }
+
+    @PutMapping(&quot;/{id}/status&quot;)
+    public ResponseEntity&lt;Patient&gt; updatePatientStatus(
+            @PathVariable String id,
+            @RequestBody Map&lt;String, String&gt; statusUpdate) {
+<span class="fc" id="L67">        String status = statusUpdate.get(&quot;status&quot;);</span>
+<span class="pc bpc" id="L68" title="2 of 4 branches missed.">        if (status == null || status.isEmpty()) {</span>
+<span class="nc" id="L69">            return ResponseEntity.badRequest().build();</span>
+        }
+        try {
+<span class="fc" id="L72">            Patient updatedPatient = patientService.updatePatientStatus(id, status);</span>
+<span class="fc" id="L73">            return ResponseEntity.ok(updatedPatient);</span>
+<span class="nc" id="L74">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L75">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

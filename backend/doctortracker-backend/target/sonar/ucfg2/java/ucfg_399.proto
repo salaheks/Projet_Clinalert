@@ -1,0 +1,18 @@
+
+\com.clinalert.doctortracker.model.DailyHealthSummary#getUpdatedAt()Ljava/time/LocalDateTime;¯
+¢C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/DailyHealthSummary.java” ”(%"1*Ú
+1
+• •(™
+–
+
+• •(
+%0java.time.LocalDateTime"__id*c
+
+__unknown_file (G*E6
+4com.clinalert.doctortracker.model.DailyHealthSummary"
+	updatedAt"-
+
+• •(
+
+%0java.time.LocalDateTimeB86
+4com.clinalert.doctortracker.model.DailyHealthSummaryH

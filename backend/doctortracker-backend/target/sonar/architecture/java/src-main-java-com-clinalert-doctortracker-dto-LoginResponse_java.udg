@@ -1,0 +1,286 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684693559*java2.B√	
+E
+@src/main/java/com/clinalert/doctortracker/dto/LoginResponse.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+C
+>adaoumoum-org_projet-clinalert:com.clinalert.doctortracker.dto9
+3
+-com.clinalert.doctortracker.dto.LoginResponse11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(7:1)-(23:2)16
+
+simple-name17
+
+LoginResponse18
+
+lombok.Data20
+
+unknown21
+
+annotated by22
+
+
+uses23
+
+lombok.NoArgsConstructor25
+
+lombok.AllArgsConstructor27
+9
+3com.clinalert.doctortracker.dto.LoginResponse.token29
+
+field30
+
+private31
+
+(11:5)-(11:26)32
+
+token33
+8
+2com.clinalert.doctortracker.dto.LoginResponse.type35
+
+(12:5)-(12:36)36
+:
+4com.clinalert.doctortracker.dto.LoginResponse.userId38
+
+(13:5)-(13:27)39
+
+userId40
+9
+3com.clinalert.doctortracker.dto.LoginResponse.email42
+
+(14:5)-(14:26)43
+
+email44
+8
+2com.clinalert.doctortracker.dto.LoginResponse.role46
+
+(15:5)-(15:25)47
+
+
+role48
+Ö
+com.clinalert.doctortracker.dto.LoginResponse#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V50
+
+method51
+
+(17:5)-(22:6)52
+
+calls53
+
+
+references54J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jÁ
+N
+28H
+282930 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+32
+
+
+17
+33
+J
+10D
+101112 *
+1
+ 
+(:7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+N
+49H
+495051 *
+1 (210:7B$
+
+
+13
+14
+
+
+15
+52
+
+
+17
+18
+N
+41H
+414230 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+43
+
+
+17
+44
+
+19
+192021
+N
+45H
+454630 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+47
+
+
+17
+48
+
+26
+262721
+M
+34G
+343530 *
+1 (210:7B#
+
+
+13
+31
+
+
+15
+36
+	
+17
+3
+
+24
+242521
+N
+37H
+373830 *
+1 (210:7B$
+
+
+13
+31
+
+
+15
+39
+
+
+17
+40rÅ
+
+101922*
+1 (
+
+101923*
+1 (
+
+102422*
+1 (
+
+102423*
+1 (
+
+102622*
+1	 	(
+
+102623*
+1	 	(
+
+491053*
+1 (
+
+491023*
+1	 (
+
+491054*
+1	 (
+
+492854*
+1 (
+
+491023*
+1	 (
+
+491054*
+1	 (
+
+493754*
+1 (
+
+491023*
+1	 (
+
+491054*
+1	 (
+
+494154*
+1 (
+
+491023*
+1	 (
+
+491054*
+1	 (
+
+494554*
+1 (

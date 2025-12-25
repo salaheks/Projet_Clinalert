@@ -1,0 +1,202 @@
+
+çcom.clinalert.doctortracker.controller.UserController#updateEmail(Ljava/lang/String;Ljava/util/Map;)Lorg/springframework/http/ResponseEntity;Æ
+£C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/UserController.javaa" a(-"startingBlock*ò
+14e$ e(,}
+e$ e(6
+%3boolean"java.lang.String#isEmpty()Z*:
+
+__unknown_file (
+
+newEmailjava.lang.String2	isEmpty()*
+9
+12*Ú
+startingBlocka- b(5¨
+©
+a. a(;
+%14"
+__annotate*T
+
+__unknown_file (86
+4org.springframework.web.bind.annotation.PathVariable*4
+
+__unknown_file (
+
+idjava.lang.Stringò
+ï
+a< a(D
+%15"
+__annotate*@
+
+__unknown_file ($"
+ org.springframework.lang.NonNull*4
+
+__unknown_file (
+
+idjava.lang.String|
+z
+aL a(N
+idjava.lang.String"__annotation*#
+
+__unknown_file (
+
+%14*#
+
+__unknown_file (
+
+%15≠
+™
+b b(
+%16"
+__annotate*S
+
+__unknown_file (75
+3org.springframework.web.bind.annotation.RequestBody*6
+
+__unknown_file (
+
+requestjava.util.MapY
+W
+b- b(4
+requestjava.util.Map"__annotation*#
+
+__unknown_file (
+
+%16*
+16*¸
+15d d(cf
+d
+d d(c
+newEmailjava.lang.String"__id*4
+
+__unknown_file (
+
+%1java.lang.Stringz
+x
+e e( 
+%2boolean"	__compare*
+e e(
+==**
+e e(
+
+newEmailjava.lang.String*
+e e( 
+""*
+14
+12*á
+16d d(%Q
+O
+d* d(a
+%0java.lang.String"__id*%
+
+__unknown_file (	
+emailù
+ö
+d d(b
+%1java.lang.String"__mapGet*6
+
+__unknown_file (
+
+requestjava.util.Map*4
+
+__unknown_file (
+
+%0java.lang.String*
+15*K
+5j j(6"<
+j j(60
+.
+%10'org.springframework.http.ResponseEntity*∑
+6j j(5¢
+ü
+j j(5.
+%10'org.springframework.http.ResponseEntity"gorg.springframework.http.ResponseEntity#ok(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity*1
+
+__unknown_file (
+
+%9java.util.Map*
+5*Ë
+7i i(Zè
+å
+i i(Z.
+user&com.clinalert.doctortracker.model.User"__id*J
+
+__unknown_file (.
+,
+%8&com.clinalert.doctortracker.model.User¡
+æ
+j% j(4
+%9java.util.Map"xcom.clinalert.doctortracker.controller.UserController#userToMap(Lcom/clinalert/doctortracker/model/User;)Ljava/util/Map;*U
+
+__unknown_file (97
+5com.clinalert.doctortracker.controller.UserController*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User*
+6*ﬁ
+8iP i(X…∆
+i i(Y,
+%8&com.clinalert.doctortracker.model.User"çcom.clinalert.doctortracker.service.UserService#updateUserEmail(Ljava/lang/String;Ljava/lang/String;)Lcom/clinalert/doctortracker/model/User;*S
+
+__unknown_file (7
+5
+%6/com.clinalert.doctortracker.service.UserService*4
+
+__unknown_file (
+
+%7java.lang.String*:
+
+__unknown_file (
+
+newEmailjava.lang.String25updateUserEmail(Ljava/lang/String;Ljava/lang/String;)*
+7*†
+9i i(#≤
+Ø
+i i(#5
+%6/com.clinalert.doctortracker.service.UserService"__id*f
+
+__unknown_file (J*H7
+5com.clinalert.doctortracker.controller.UserController"
+userService÷
+”
+i4 i(N
+%7java.lang.String"Fjava.util.Objects#requireNonNull(Ljava/lang/Object;)Ljava/lang/Object;*1
+
+__unknown_file ("
+java.util.Objects*4
+
+__unknown_file (
+
+idjava.lang.String*
+8*K
+10f f(M";
+f f(M/
+-
+%5'org.springframework.http.ResponseEntity*
+11f8 f(KŸ÷
+f f(L-
+%5'org.springframework.http.ResponseEntity"uorg.springframework.http.ResponseEntity$BodyBuilder#body(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;*W
+
+__unknown_file (;
+9
+%43org.springframework.http.ResponseEntity$BodyBuilder*1
+
+__unknown_file (
+Email is required2body(Ljava/lang/Object;)*
+10*ì
+12f f(%¸
+˘
+f f(29
+%43org.springframework.http.ResponseEntity$BodyBuilder"iorg.springframework.http.ResponseEntity#badRequest()Lorg/springframework/http/ResponseEntity$BodyBuilder;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntity*
+11:"
+a. a(O
+idjava.lang.String:$
+b b(4
+requestjava.util.MapB97
+5com.clinalert.doctortracker.controller.UserControllerH

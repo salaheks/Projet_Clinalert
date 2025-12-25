@@ -1,0 +1,46 @@
+
+3com.clinalert.doctortracker.model.User#isEnabled()Z¡
+”C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/model/User.java­ ­("3*š
+2
+®" ®()ƒ
+€
+
+®" ®()
+%2java.lang.Boolean"__id*S
+
+__unknown_file (7*5(
+&com.clinalert.doctortracker.model.User"	
+enabled*
+1*œ
+3
+® ®(ƒ
+€
+
+® ®(
+%0java.lang.Boolean"__id*S
+
+__unknown_file (7*5(
+&com.clinalert.doctortracker.model.User"	
+enabled}
+{
+
+® ®(
+%1boolean"	__compare*
+
+® ®(
+!=*'
+
+® ®(
+
+%0java.lang.Boolean*
+
+® ®(
+""*
+2
+1*%
+1
+® ®(*"
+
+® ®(*
+""B*(
+&com.clinalert.doctortracker.model.UserHX

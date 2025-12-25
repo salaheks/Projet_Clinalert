@@ -1,0 +1,32 @@
+
+wcom.clinalert.doctortracker.service.SmartWatchHealthService#getRecentDailySummaries(Ljava/lang/String;)Ljava/util/List;∂
+©C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/SmartWatchHealthService.javaÓ$ Ó(;"1*¶
+1
+Ô Ô(%Ÿ
+÷
+
+Ô Ô(%I
+%0Ccom.clinalert.doctortracker.repository.DailyHealthSummaryRepository"__id*w
+
+__unknown_file ([*Y=
+;com.clinalert.doctortracker.service.SmartWatchHealthService"
+dailySummaryRepositoryíè
+
+Ô Ô(T
+%1java.util.List"ãcom.clinalert.doctortracker.repository.DailyHealthSummaryRepository#findTop30ByPatientIdOrderByDateDesc(Ljava/lang/String;)Ljava/util/List;*g
+
+__unknown_file (K
+I
+%0Ccom.clinalert.doctortracker.repository.DailyHealthSummaryRepository*;
+
+__unknown_file (
+
+	patientIdjava.lang.String27findTop30ByPatientIdOrderByDateDesc(Ljava/lang/String;)"$
+
+Ô Ô(U
+
+%1java.util.List:+
+
+Ó< Ó(L
+	patientIdjava.lang.StringB?=
+;com.clinalert.doctortracker.service.SmartWatchHealthServiceH

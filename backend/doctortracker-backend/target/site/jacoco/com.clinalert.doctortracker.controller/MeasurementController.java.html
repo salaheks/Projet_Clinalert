@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MeasurementController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.controller</a> &gt; <span class="el_source">MeasurementController.java</span></div><h1>MeasurementController.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.controller;
+
+import com.clinalert.doctortracker.model.Measurement;
+import com.clinalert.doctortracker.service.MeasurementService;
+import com.clinalert.doctortracker.util.HmacUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/measurements&quot;)
+@RequiredArgsConstructor
+public class MeasurementController {
+
+    private final MeasurementService measurementService;
+
+    private final HmacUtil hmacUtil;
+
+    @PostMapping
+    public ResponseEntity&lt;String&gt; receiveMeasurements(
+            @RequestHeader(value = &quot;X-Signature&quot;, required = false) String signature,
+            @RequestHeader(value = com.clinalert.doctortracker.util.AppConstants.AUTHORIZATION_HEADER, required = false) String authHeader,
+            @RequestBody String rawBody) {
+        // 1. Check HMAC if present
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (signature != null) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            if (!hmacUtil.verifySignature(rawBody, signature)) {</span>
+<span class="fc" id="L30">                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(&quot;Invalid HMAC Signature&quot;);</span>
+            }
+        }
+        // 2. Check JWT if HMAC is missing
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        else if (authHeader != null</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                &amp;&amp; authHeader.startsWith(com.clinalert.doctortracker.util.AppConstants.BEARER_PREFIX)) {</span>
+            // In a real app, Spring Security filter chain handles this.
+        } else {
+<span class="fc" id="L38">            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(&quot;Missing Authentication&quot;);</span>
+        }
+
+        try {
+<span class="fc" id="L42">            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();</span>
+<span class="fc" id="L43">            mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());</span>
+<span class="fc" id="L44">            List&lt;Measurement&gt; measurements = mapper.readValue(rawBody,</span>
+<span class="fc" id="L45">                    new com.fasterxml.jackson.core.type.TypeReference&lt;List&lt;Measurement&gt;&gt;() {</span>
+                    });
+
+            // Save measurements using service
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">            if (measurements != null) {</span>
+<span class="fc" id="L50">                measurementService.saveMeasurements(measurements);</span>
+<span class="fc" id="L51">                return ResponseEntity.ok().body(&quot;Measurements received: &quot; + measurements.size());</span>
+            } else {
+<span class="nc" id="L53">                return ResponseEntity.badRequest().body(&quot;No measurements provided&quot;);</span>
+            }
+<span class="nc" id="L55">        } catch (Exception e) {</span>
+<span class="nc" id="L56">            return ResponseEntity.badRequest().body(&quot;Invalid JSON: &quot; + e.getMessage());</span>
+        }
+    }
+
+    @GetMapping(&quot;/{patientId}&quot;)
+    public List&lt;Measurement&gt; getHistory(@PathVariable String patientId) {
+<span class="fc" id="L62">        return measurementService.getHistory(patientId);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

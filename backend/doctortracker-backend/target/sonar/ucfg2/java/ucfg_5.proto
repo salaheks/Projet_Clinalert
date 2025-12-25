@@ -1,0 +1,60 @@
+
+Åcom.clinalert.doctortracker.controller.ClinicController#deleteClinic(Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;∞
+•C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/controller/ClinicController.java4  4(,"startingBlock*§
+startingBlock4, 4(E´
+®
+4- 4(:
+%4"
+__annotate*T
+
+__unknown_file (86
+4org.springframework.web.bind.annotation.PathVariable*4
+
+__unknown_file (
+
+idjava.lang.StringV
+T
+4B 4(D
+idjava.lang.String"__annotation*"
+
+__unknown_file (
+
+%4*
+1*∂
+15 5(∏
+µ
+5 5(7
+%01com.clinalert.doctortracker.service.ClinicService"__id*j
+
+__unknown_file (N*L9
+7com.clinalert.doctortracker.controller.ClinicController"
+clinicServiceùö
+5 5(&
+
+%1void"Scom.clinalert.doctortracker.service.ClinicService#deleteClinic(Ljava/lang/String;)V*U
+
+__unknown_file (9
+7
+%01com.clinalert.doctortracker.service.ClinicService*4
+
+__unknown_file (
+
+idjava.lang.String2 deleteClinic(Ljava/lang/String;)Å
+˛
+6 6()<
+%26org.springframework.http.ResponseEntity$HeadersBuilder"korg.springframework.http.ResponseEntity#noContent()Lorg/springframework/http/ResponseEntity$HeadersBuilder;*G
+
+__unknown_file (+")
+'org.springframework.http.ResponseEntityäá
+6 6(1-
+%3'org.springframework.http.ResponseEntity"gorg.springframework.http.ResponseEntity$HeadersBuilder#build()Lorg/springframework/http/ResponseEntity;*Z
+
+__unknown_file (>
+<
+%26org.springframework.http.ResponseEntity$HeadersBuilder2build()";
+6 6(2/
+-
+%3'org.springframework.http.ResponseEntity:"
+4- 4(D
+idjava.lang.StringB;9
+7com.clinalert.doctortracker.controller.ClinicControllerH

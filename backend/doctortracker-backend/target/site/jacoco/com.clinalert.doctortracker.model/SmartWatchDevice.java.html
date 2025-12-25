@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartWatchDevice.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">doctortracker-backend</a> &gt; <a href="index.source.html" class="el_package">com.clinalert.doctortracker.model</a> &gt; <span class="el_source">SmartWatchDevice.java</span></div><h1>SmartWatchDevice.java</h1><pre class="source lang-java linenums">package com.clinalert.doctortracker.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = &quot;smartwatch_devices&quot;)
+<span class="fc" id="L8">public class SmartWatchDevice {</span>
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @Column(name = &quot;patient_id&quot;, nullable = false)
+    private String patientId;
+
+    @Column(name = &quot;device_name&quot;)
+    private String deviceName;
+
+    @Column(name = &quot;device_address&quot;, nullable = false)
+    private String deviceAddress;
+
+    @Column(name = &quot;device_type&quot;)
+    private String deviceType;
+
+    @Column(name = &quot;last_connected&quot;)
+    private LocalDateTime lastConnected;
+
+<span class="fc" id="L28">    @Column(name = &quot;is_active&quot;)</span>
+<span class="fc" id="L29">    private Boolean isActive = true;</span>
+
+    @Column(name = &quot;created_at&quot;)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+<span class="nc" id="L36">        createdAt = LocalDateTime.now();</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (isActive == null) {</span>
+<span class="nc" id="L38">            isActive = true;</span>
+        }
+<span class="nc" id="L40">    }</span>
+
+    public String getId() {
+<span class="fc" id="L43">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="fc" id="L47">        this.id = id;</span>
+<span class="fc" id="L48">    }</span>
+
+    public String getPatientId() {
+<span class="fc" id="L51">        return patientId;</span>
+    }
+
+    public void setPatientId(String patientId) {
+<span class="fc" id="L55">        this.patientId = patientId;</span>
+<span class="fc" id="L56">    }</span>
+
+    public String getDeviceName() {
+<span class="fc" id="L59">        return deviceName;</span>
+    }
+
+    public void setDeviceName(String deviceName) {
+<span class="fc" id="L63">        this.deviceName = deviceName;</span>
+<span class="fc" id="L64">    }</span>
+
+    public String getDeviceAddress() {
+<span class="fc" id="L67">        return deviceAddress;</span>
+    }
+
+    public void setDeviceAddress(String deviceAddress) {
+<span class="fc" id="L71">        this.deviceAddress = deviceAddress;</span>
+<span class="fc" id="L72">    }</span>
+
+    public String getDeviceType() {
+<span class="fc" id="L75">        return deviceType;</span>
+    }
+
+    public void setDeviceType(String deviceType) {
+<span class="fc" id="L79">        this.deviceType = deviceType;</span>
+<span class="fc" id="L80">    }</span>
+
+    public LocalDateTime getLastConnected() {
+<span class="fc" id="L83">        return lastConnected;</span>
+    }
+
+    public void setLastConnected(LocalDateTime lastConnected) {
+<span class="fc" id="L87">        this.lastConnected = lastConnected;</span>
+<span class="fc" id="L88">    }</span>
+
+    public Boolean getIsActive() {
+<span class="fc" id="L91">        return isActive;</span>
+    }
+
+    public void setIsActive(Boolean isActive) {
+<span class="fc" id="L95">        this.isActive = isActive;</span>
+<span class="fc" id="L96">    }</span>
+
+    public LocalDateTime getCreatedAt() {
+<span class="fc" id="L99">        return createdAt;</span>
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+<span class="fc" id="L103">        this.createdAt = createdAt;</span>
+<span class="fc" id="L104">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

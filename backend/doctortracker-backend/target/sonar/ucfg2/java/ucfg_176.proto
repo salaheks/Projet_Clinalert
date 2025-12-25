@@ -1,0 +1,26 @@
+
+E__sonar_lambda_11$com.clinalert.doctortracker.security.SecurityConfig¬
+¡C:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/security/SecurityConfig.java%# &(O"1*Å
+1%. %(5}
+{
+&/ &(NE
+%12>org.springframework.security.config.http.SessionCreationPolicy"__id*"
+
+__unknown_file (
+""ÅÂ
+%. &(Oa
+%13Zorg.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer"Žorg.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer#sessionCreationPolicy(Lorg/springframework/security/config/http/SessionCreationPolicy;)Lorg/springframework/security/config/annotation/web/configurers/SessionManagementConfigurer;*ƒ
+
+__unknown_file (g
+e
+sessionZorg.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer*c
+
+__unknown_file (G
+E
+%12>org.springframework.security.config.http.SessionCreationPolicy2WsessionCreationPolicy(Lorg/springframework/security/config/http/SessionCreationPolicy;)"o
+%. &(Oc
+a
+%13Zorg.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer:q
+%# %(*e
+sessionZorg.springframework.security.config.annotation.web.configurers.SessionManagementConfigurerB20
+.org.springframework.security.config.Customizer

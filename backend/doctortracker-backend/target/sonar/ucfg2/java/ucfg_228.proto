@@ -1,0 +1,314 @@
+
+îcom.clinalert.doctortracker.service.AuthService#login(Lcom/clinalert/doctortracker/dto/LoginRequest;)Lcom/clinalert/doctortracker/dto/LoginResponse;®
+ùC:/Users/Imad ADAOUMOUM/Documents/salahproj/Projet_Clinalert/backend/doctortracker-backend/src/main/java/com/clinalert/doctortracker/service/AuthService.java* *("27*ò
+13DK D(OÅ˛
+DK D(Y6
+%20/com.clinalert.doctortracker.model.User$UserRole"acom.clinalert.doctortracker.model.User#getRole()Lcom/clinalert/doctortracker/model/User$UserRole;*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User2	getRole()*
+12*Ï
+255 5(∆√
+5+ 5(?
+%4java.lang.String"@com.clinalert.doctortracker.model.User#getId()Ljava/lang/String;*T
+
+__unknown_file (8
+6
+existingUser&com.clinalert.doctortracker.model.User2getId()Ω
+∫
+6 6(-B
+%5<org.springframework.security.crypto.password.PasswordEncoder"__id*d
+
+__unknown_file (H*F1
+/com.clinalert.doctortracker.service.AuthService"
+passwordEncoder“œ
+6M 6(g
+%6java.lang.String"Fcom.clinalert.doctortracker.model.User#getPassword()Ljava/lang/String;*T
+
+__unknown_file (8
+6
+existingUser&com.clinalert.doctortracker.model.User2getPassword()˜Ù
+6 6(h
+%7"qorg.springframework.security.crypto.password.PasswordEncoder#matches(Ljava/lang/CharSequence;Ljava/lang/String;)Z*`
+
+__unknown_file (D
+B
+%5<org.springframework.security.crypto.password.PasswordEncoder*"
+
+__unknown_file (
+""*4
+
+__unknown_file (
+
+%6java.lang.String23matches(Ljava/lang/CharSequence;Ljava/lang/String;)*
+23*ˆ
+14@ B(\f
+d
+@ B(\.
+user&com.clinalert.doctortracker.model.User"__id*"
+
+__unknown_file (
+""µ
+≤
+D D((<
+%185com.clinalert.doctortracker.security.JwtTokenProvider"__id*b
+
+__unknown_file (F*D1
+/com.clinalert.doctortracker.service.AuthService"
+tokenProviderøº
+D= D(I
+%19java.lang.String"@com.clinalert.doctortracker.model.User#getId()Ljava/lang/String;*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User2getId()*
+13*°
+15A! B(Zä
+á
+A! B(Z
+%16"__declareFunction*a
+
+__unknown_file (EC
+A__sonar_lambda_13$com.clinalert.doctortracker.service.AuthService*
+14*¡
+27+ +()Ó
+Î
++ +(=
+%0"dcom.clinalert.doctortracker.service.AuthService#sanitizeForLog(Ljava/lang/String;)Ljava/lang/String;*O
+
+__unknown_file (31
+/com.clinalert.doctortracker.service.AuthService*"
+
+__unknown_file (
+""U
+S
++ +(>
+	safeEmailjava.lang.String"__id*"
+
+__unknown_file (
+
+%0µ
+≤
+1 1(*;
+%15com.clinalert.doctortracker.repository.UserRepository"__id*c
+
+__unknown_file (G*E1
+/com.clinalert.doctortracker.service.AuthService"
+userRepositoryûõ
+1 1(J
+%2"icom.clinalert.doctortracker.repository.UserRepository#findByEmail(Ljava/lang/String;)Ljava/util/Optional;*Y
+
+__unknown_file (=
+;
+%15com.clinalert.doctortracker.repository.UserRepository*"
+
+__unknown_file (
+""2findByEmail(Ljava/lang/String;)n
+l
+1 1(X6
+existingUser&com.clinalert.doctortracker.model.User"__id*"
+
+__unknown_file (
+""ï
+í
+2 2( 
+%3boolean"	__compare*
+2 2(
+==*D
+2 2(8
+6
+existingUser&com.clinalert.doctortracker.model.User*
+2 2( 
+""*
+25
+23*∑
+16@ @(F†ù
+@ @(F
+%15"icom.clinalert.doctortracker.repository.UserRepository#findByEmail(Ljava/lang/String;)Ljava/util/Optional;*Z
+
+__unknown_file (>
+<
+%145com.clinalert.doctortracker.repository.UserRepository*"
+
+__unknown_file (
+""2findByEmail(Ljava/lang/String;)*
+15*Õ
+17@ @(&∂
+≥
+@ @(&<
+%145com.clinalert.doctortracker.repository.UserRepository"__id*c
+
+__unknown_file (G*E1
+/com.clinalert.doctortracker.service.AuthService"
+userRepository*
+16*Ω
+18>A >(O¶£
+> >(P
+%13void"Äorg.springframework.security.core.context.SecurityContext#setAuthentication(Lorg/springframework/security/core/Authentication;)V*^
+
+__unknown_file (B
+@
+%129org.springframework.security.core.context.SecurityContext*`
+
+__unknown_file (D
+B
+authentication0org.springframework.security.core.Authentication2EsetAuthentication(Lorg/springframework/security/core/Authentication;)*
+17*Ç
+19; <(hÆ
+´
+; <(hB
+authentication0org.springframework.security.core.Authentication"__id*U
+
+__unknown_file (9
+7
+%110org.springframework.security.core.Authentication∫
+∑
+> >(.@
+%129org.springframework.security.core.context.SecurityContext"áorg.springframework.security.core.context.SecurityContextHolder#getContext()Lorg/springframework/security/core/context/SecurityContext;*_
+
+__unknown_file (C"A
+?org.springframework.security.core.context.SecurityContextHolder*
+18*Q
+4G G(b"B
+G G(b6
+4
+%27-com.clinalert.doctortracker.dto.LoginResponse*œ
+5G G(aqo
+G G($4
+%27-com.clinalert.doctortracker.dto.LoginResponse"-com.clinalert.doctortracker.dto.LoginResponse«
+ƒ
+G G(a
+%28"com.clinalert.doctortracker.dto.LoginResponse#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V*R
+
+__unknown_file (6
+4
+%27-com.clinalert.doctortracker.dto.LoginResponse*7
+
+__unknown_file (
+
+tokenjava.lang.String*5
+
+__unknown_file (
+
+%23java.lang.String*5
+
+__unknown_file (
+
+%24java.lang.String*5
+
+__unknown_file (
+
+%26java.lang.String*
+4*¬
+6GK G(`≠™
+GK G(`
+%26java.lang.String"'java.lang.Enum#name()Ljava/lang/String;*T
+
+__unknown_file (8
+6
+%25/com.clinalert.doctortracker.model.User$UserRole2name()*
+5*ñ
+7GK G(OÅ˛
+GK G(Y6
+%25/com.clinalert.doctortracker.model.User$UserRole"acom.clinalert.doctortracker.model.User#getRole()Lcom/clinalert/doctortracker/model/User$UserRole;*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User2	getRole()*
+6*⁄
+8G: G(>≈¬
+G: G(I
+%24java.lang.String"Ccom.clinalert.doctortracker.model.User#getEmail()Ljava/lang/String;*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User2
+getEmail()*
+7*‘
+9G% G(*øº
+G, G(8
+%23java.lang.String"@com.clinalert.doctortracker.model.User#getId()Ljava/lang/String;*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User2getId()*
+8*≤
+20;, <(gõò
+;, <(g7
+%110org.springframework.security.core.Authentication"¥org.springframework.security.authentication.AuthenticationManager#authenticate(Lorg/springframework/security/core/Authentication;)Lorg/springframework/security/core/Authentication;*e
+
+__unknown_file (I
+G
+%8Aorg.springframework.security.authentication.AuthenticationManager*s
+
+__unknown_file (W
+U
+%9Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken2@authenticate(Lorg/springframework/security/core/Authentication;)*
+19*ü
+21< <(fµ≤
+< <(;U
+%9Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken"Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken–
+Õ
+< <(f
+%10"}org.springframework.security.authentication.UsernamePasswordAuthenticationToken#<init>(Ljava/lang/Object;Ljava/lang/Object;)V*s
+
+__unknown_file (W
+U
+%9Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*
+20*y
+10D D(bd
+b
+D D(b
+tokenjava.lang.String"__id*5
+
+__unknown_file (
+
+%22java.lang.String*
+9*˛
+11D D(aÁ‰
+D D(a
+%22java.lang.String"∂com.clinalert.doctortracker.security.JwtTokenProvider#generateToken(Lorg/springframework/security/core/userdetails/UserDetails;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;*Z
+
+__unknown_file (>
+<
+%185com.clinalert.doctortracker.security.JwtTokenProvider*L
+
+__unknown_file (0
+.
+user&com.clinalert.doctortracker.model.User*5
+
+__unknown_file (
+
+%19java.lang.String*5
+
+__unknown_file (
+
+%21java.lang.String2ngenerateToken(Lorg/springframework/security/core/userdetails/UserDetails;Ljava/lang/String;Ljava/lang/String;)*
+10*ﬂ
+23;, ;(A»
+≈
+;, ;(AG
+%8Aorg.springframework.security.authentication.AuthenticationManager"__id*j
+
+__unknown_file (N*L1
+/com.clinalert.doctortracker.service.AuthService"
+authenticationManager*
+21*ƒ
+12DK D(`≠™
+DK D(`
+%21java.lang.String"'java.lang.Enum#name()Ljava/lang/String;*T
+
+__unknown_file (8
+6
+%20/com.clinalert.doctortracker.model.User$UserRole2name()*
+11:C
+* *(37
+request,com.clinalert.doctortracker.dto.LoginRequestB31
+/com.clinalert.doctortracker.service.AuthServiceHh

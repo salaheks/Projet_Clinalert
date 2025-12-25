@@ -1,0 +1,612 @@
+
+1.0adaoumoum-org_projet-clinalertJavaFrontend"1766684695867*java2.BÌ
+N
+Isrc/main/java/com/clinalert/doctortracker/service/MeasurementService.java2
+	
+type3
+	
+MAIN4
+
+
+module-key5
+#
+adaoumoum-org_projet-clinalert6
+
+package8
+G
+Badaoumoum-org_projet-clinalert:com.clinalert.doctortracker.service9
+<
+6com.clinalert.doctortracker.service.MeasurementService11
+
+class12
+
+access13
+
+public14
+
+
+full-range15
+
+(11:1)-(62:2)16
+
+simple-name17
+
+MeasurementService18
+,
+&org.springframework.stereotype.Service20
+
+unknown21
+
+annotated by22
+
+
+uses23
+$
+lombok.RequiredArgsConstructor25
+R
+Lcom.clinalert.doctortracker.service.MeasurementService.measurementRepository27
+
+field28
+
+private29
+
+(15:5)-(15:63)30
+
+measurementRepository31
+B
+<com.clinalert.doctortracker.repository.MeasurementRepository33
+
+is type34
+I
+Ccom.clinalert.doctortracker.service.MeasurementService.alertService36
+
+(17:5)-(17:45)37
+
+alertService38
+6
+0com.clinalert.doctortracker.service.AlertService40
+T
+Ncom.clinalert.doctortracker.service.MeasurementService.anomalyDetectionService42
+
+(19:5)-(19:67)43
+
+anomalyDetectionService44
+A
+;com.clinalert.doctortracker.service.AnomalyDetectionService46
+o
+icom.clinalert.doctortracker.service.MeasurementService#saveMeasurements(Ljava/util/List;)Ljava/util/List;48
+
+method49
+
+(21:5)-(31:6)50
+
+saveMeasurements51
+3
+-com.clinalert.doctortracker.model.Measurement53
+<
+6org.springframework.data.repository.ListCrudRepository55
+
+
+references56
+j
+dorg.springframework.data.repository.ListCrudRepository#saveAll(Ljava/lang/Iterable;)Ljava/util/List;58
+
+calls59
+‚
+|com.clinalert.doctortracker.service.MeasurementService#checkAndCreateAlert(Lcom/clinalert/doctortracker/model/Measurement;)V61
+k
+ecom.clinalert.doctortracker.service.MeasurementService#getHistory(Ljava/lang/String;)Ljava/util/List;63
+
+(33:5)-(35:6)64
+
+
+getHistory65
+v
+pcom.clinalert.doctortracker.repository.MeasurementRepository#findByPatientId(Ljava/lang/String;)Ljava/util/List;67
+
+(37:5)-(52:6)68
+
+checkAndCreateAlert69
+
+	has param70
+}
+wcom.clinalert.doctortracker.service.AnomalyDetectionService#isAnomaly(Lcom/clinalert/doctortracker/model/Measurement;)Z72
+Ÿ
+˜com.clinalert.doctortracker.service.MeasurementService#createAlert(Lcom/clinalert/doctortracker/model/Measurement;Ljava/lang/String;Ljava/lang/String;)V74
+O
+Icom.clinalert.doctortracker.model.Measurement#getType()Ljava/lang/String;76
+P
+Jcom.clinalert.doctortracker.model.Measurement#getValue()Ljava/lang/Double;78
+
+(54:5)-(61:6)79
+
+createAlert80
+-
+'com.clinalert.doctortracker.model.Alert82
+O
+Icom.clinalert.doctortracker.model.Alert#setPatientId(Ljava/lang/String;)V84
+T
+Ncom.clinalert.doctortracker.model.Measurement#getPatientId()Ljava/lang/String;86
+S
+Mcom.clinalert.doctortracker.model.Alert#setMeasurementId(Ljava/lang/String;)V88
+M
+Gcom.clinalert.doctortracker.model.Measurement#getId()Ljava/lang/String;90
+M
+Gcom.clinalert.doctortracker.model.Alert#setMessage(Ljava/lang/String;)V92
+N
+Hcom.clinalert.doctortracker.model.Alert#setSeverity(Ljava/lang/String;)V94
+
+returns95
+—
+com.clinalert.doctortracker.service.AlertService#createAlert(Lcom/clinalert/doctortracker/model/Alert;)Lcom/clinalert/doctortracker/model/Alert;97J%
+#
+1
+12
+
+3
+4
+
+5
+6 Z
+
+7
+7982
+
+
+5
+68jŒ
+N
+41H
+414228 *
+1+ (B210:7B$
+
+
+13
+29
+
+
+15
+43
+
+
+17
+44
+
+89
+899021
+
+81
+818221
+
+93
+939421
+
+24
+242521
+
+32
+323321
+
+39
+394021
+
+75
+757621
+N
+35H
+353628 *
+1  (,210:7B$
+
+
+13
+29
+
+
+15
+37
+
+
+17
+38
+N
+60H
+606149 *
+1% %(%210:7B$
+
+
+13
+29
+
+
+15
+68
+
+
+17
+69
+
+96
+969721
+
+19
+192021
+
+83
+838421
+
+77
+777821
+
+91
+919221
+
+87
+878821
+N
+26H
+262728 *
+1) (>210:7B$
+
+
+13
+29
+
+
+15
+30
+
+
+17
+31
+N
+62H
+626349 *
+1! !((210:7B$
+
+
+13
+14
+
+
+15
+64
+
+
+17
+65
+
+45
+454621
+
+54
+545521
+
+71
+717221
+
+85
+858621
+
+57
+575821
+J
+10D
+101112 *
+1 ( :7B$
+
+
+13
+14
+
+
+15
+16
+
+
+17
+18
+
+66
+666721
+N
+73H
+737449 *
+16 6(210:7B$
+
+
+13
+29
+
+
+15
+79
+
+
+17
+80
+N
+47H
+474849 *
+1 (.210:7B$
+
+
+13
+14
+
+
+15
+50
+
+
+17
+51
+
+52
+525321rã
+
+101922*
+1 (	
+
+101923*
+1 (	
+
+102422*
+1 (
+
+102423*
+1 (
+
+263234*
+1 ((
+
+263223*
+1 ((
+
+263223*
+1) (>
+
+353934*
+1 (
+
+353923*
+1 (
+
+353923*
+1  (,
+
+414534*
+1 (*
+
+414523*
+1 (*
+
+414523*
+1+ (B
+
+475223*
+1 (
+
+475223*
+14 (?
+
+475223*
+1 (
+
+475456*
+1# (@
+
+475759*
+19 (@
+
+472656*
+1# (8
+
+473223*
+1# (8
+
+472656*
+1# (8
+
+475234*
+1 (
+
+475223*
+1 (
+
+471056*
+1 ( 
+
+476059*
+1 ( 
+
+625223*
+1! !(
+
+623256*
+1" "(5
+
+626659*
+1"& "(5
+
+622656*
+1" "(%
+
+623223*
+1" "(%
+
+622656*
+1" "(%
+
+605270*
+1%& %(1
+
+605234*
+1%2 %(3
+
+605223*
+1%& %(1
+
+604556*
+1' '(.
+
+607159*
+1'% '(.
+
+604156*
+1' '($
+
+604523*
+1' '($
+
+604156*
+1' '($
+
+601056*
+1( ((
+
+607359*
+1( ((
+
+605256*
+1(= ((F
+
+607559*
+1(? ((F
+
+605256*
+1++ +(4
+
+607559*
+1+- +(4
+
+605256*
+1, ,(
+
+607759*
+1, ,(
+
+601056*
+1- -(
+
+607359*
+1- -(
+
+605256*
+1-? -(I
+
+607759*
+1-A -(I
+
+605256*
+1. .("
+
+607759*
+1. .("
+
+601056*
+1/ /(
+
+607359*
+1/ /(
+
+605256*
+1/> /(H
+
+607759*
+1/@ /(H
+
+605256*
+11, 1(5
+
+607559*
+11. 1(5
+
+605256*
+11< 1(F
+
+607759*
+11> 1(F
+
+601056*
+12 2(
+
+607359*
+12 2(
+
+605256*
+124 2(>
+
+607759*
+126 2(>
+
+735270*
+16 6()
+
+735234*
+16* 6(+
+
+735223*
+16 6()
+
+738134*
+17 7(
+
+738123*
+17	 7(
+
+738159*
+17 7( 
+
+738156*
+18	 8(
+
+738359*
+18 8(
+
+735256*
+18 8(*
+
+738559*
+18 8(*
+
+738156*
+19	 9(
+
+738759*
+19 9(
+
+735256*
+19  9('
+
+738959*
+19" 9('
+
+738156*
+1:	 :(
+
+739159*
+1: :(
+
+738156*
+1;	 ;(
+
+739359*
+1; ;(
+
+738195*
+1<	 <(!
+
+733956*
+1<	 <(!
+
+739659*
+1< <(!
+
+733556*
+1<	 <(
+
+733923*
+1<	 <(
+
+733556*
+1<	 <(
